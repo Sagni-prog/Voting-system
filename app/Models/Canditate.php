@@ -32,4 +32,8 @@ class Canditate extends Model
       public function files(){
          return $this->morphMany(File::class,'fileable');
       }
+      
+      public function votes(){
+         return $this->hasMany(Votes::class);
+      }
 }

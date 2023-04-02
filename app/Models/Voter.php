@@ -23,5 +23,9 @@ class Voter extends Model
   
   public function files(){
     return $this->morphMany(File::class,'fileable');
- }
+  }
+  
+  public function vote(){
+     return $this->hasOne(Votes::class);
+  }
 }
