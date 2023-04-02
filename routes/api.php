@@ -28,12 +28,20 @@ Route::get('/',function() {
 //                   ]);
     
     
-  $admin = Admin::find(28)->with('role')->get();
+//   $admin = Admin::find(28)->with('role')->get();
+  $admin = Admin::with('role')->first();
     
     //  $role = $admin->role()->create([
     //     'user_id' => 1
     // ]);
+   return $admin;
     
-    return $admin;
-    
+});
+
+
+Route::get('/user',function(){
+   $user = User::with('role.roleable')->first();
+   
+   return $user->role->roleable->role;
+   
 });

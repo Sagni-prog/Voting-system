@@ -12,6 +12,11 @@ class Role extends Model
     
     public function roleable(){
     
-       return $this->morphToMany();
+       return $this->morphTo();
     }
+    
+    // public function admins(){
+    
+    //     return $this->morphMany(Admin::class);
+    // }
 }

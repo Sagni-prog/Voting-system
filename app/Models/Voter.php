@@ -26,6 +26,8 @@ class Voter extends Model
   }
   
   public function vote(){
-     return $this->hasOne(Votes::class);
+    
+     return $this->morphOne(Role::class,'roleable');
+    
   }
 }

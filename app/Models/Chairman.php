@@ -18,6 +18,8 @@ class Chairman extends Model
 ];
 
 public function role(){
-    return $this->morphTo(Role::class,'roleable');
+   
+  return $this->morphOne(Role::class,'roleable');
+  
   }
 }
