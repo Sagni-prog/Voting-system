@@ -18,5 +18,17 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Admin::factory(4)->create();
         // \App\Models\Voter::factory(40)->create();
         // \App\Models\Candidate::factory(20)->create();
+        
+        
+        // for($i = 1; $i < 6; $i++){
+            
+        //     \App\Models\Role::factory()->create(
+        //         [
+        //             'roleable_type' => 'App\Models\Admin',
+        //             'roleable_id' => $i
+        //          ]
+        //     );
+            
+        //  }
     }
 }

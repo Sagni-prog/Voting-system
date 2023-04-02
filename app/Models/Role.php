@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id'];
+    protected $fillable = ['roleable_id','roleable_type','user_id'];
     
-    public function rolable(){
-       return $this->morphMany();
+    public function roleable(){
+    
+       return $this->morphToMany();
     }
 }
