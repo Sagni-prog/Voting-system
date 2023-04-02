@@ -2,12 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Models\Admin;
-use App\Models\Role;
-use App\Models\Voter;
+use App\Http\Controllers\Admin\AuthController;
 
 
+Route::post('/signup',[AuthController::class,'register']);
+Route::post('/login',[AuthController::class,'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
