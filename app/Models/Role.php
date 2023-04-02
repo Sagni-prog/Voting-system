@@ -14,9 +14,4 @@ class Role extends Model
     
        return $this->morphTo();
     }
-    
-    // public function admins(){
-    
-    //     return $this->morphMany(Admin::class);
-    // }
 }
