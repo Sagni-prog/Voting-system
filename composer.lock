@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65e85f9f959c0b087110331754d451cf",
+    "content-hash": "389badc9a05318949715116bbe98e5c9",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5541,6 +5541,62 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "yoonik/face-api",
+            "version": "v1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dev-yoonik/YK-Face-SDK-PHP.git",
+                "reference": "4dc621c46686a61817f1f6dd894ebc99ce88d098"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dev-yoonik/YK-Face-SDK-PHP/zipball/4dc621c46686a61817f1f6dd894ebc99ce88d098",
+                "reference": "4dc621c46686a61817f1f6dd894ebc99ce88d098",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "guzzlehttp/guzzle": ">=6.2",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.12",
+                "squizlabs/php_codesniffer": "~2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yoonik\\Face\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "dev-yoonik",
+                    "homepage": "https://github.com/dev-yoonik"
+                }
+            ],
+            "description": "Functionalities for biometric processing (detection, verification and identification) for YooniK.Face.",
+            "homepage": "https://yoonik.me/",
+            "keywords": [
+                "Face Authentication",
+                "Yoonik",
+                "api",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/dev-yoonik/YK-Face-SDK-PHP/issues",
+                "source": "https://github.com/dev-yoonik/YK-Face-SDK-PHP/tree/v1.0.5"
+            },
+            "time": "2022-10-24T15:34:07+00:00"
         }
     ],
     "packages-dev": [
