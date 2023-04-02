@@ -12,6 +12,12 @@ class Administrator extends Model
     protected $fillable = ['phone_number','role'];
     
     public function role(){
+    
         return $this->morphTo(Role::class,'roleable');
+    }
+    
+    public function announcements(){
+    
+        $this->hasMany(Announcement::class);
     }
 }
