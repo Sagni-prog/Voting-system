@@ -16,8 +16,10 @@ class AdminFactory extends Factory
      */
     public function definition()
     {
+
         return [
-            //
+            'phone_number' => '096973297',
+            'role' => 'admin'
         ];
     }
 }
