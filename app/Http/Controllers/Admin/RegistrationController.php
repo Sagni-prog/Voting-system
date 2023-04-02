@@ -9,12 +9,11 @@ use Hash;
 use App\Models\User;
 use App\Models\Voter;
 
-
-class AuthController extends Controller
-{
-
-//   Registering user 
-    public function register(Request $request){
+class RegistrationController extends Controller{
+ 
+ 
+          //  Registering Voters
+    public function registerVoter(Request $request){
         try{
         
         /*
@@ -63,6 +62,23 @@ class AuthController extends Controller
                       'message' => 'Oops! something went wrong, try again'
                    ],400);
                 }
+        $voter = Voter::create([
+                        'sex' => 'male',
+                        'role' => 'voter',
+                        'status' => true,
+        ]);
+        
+        if(!$voter){
+            
+        }
+        
+        $role = $voter->role()->create([
+            'user_id' => $user->id
+        ]);
+        
+        if(!$role){
+        
+        }
                
   
         /*|----------------------------------------------------------------------------------------|
@@ -73,9 +89,18 @@ class AuthController extends Controller
           |----------------------------------------------------------------------------------------|
         
         */ 
+        
+        $voter = User::with('photos','role.roleable')
+                      ->where([
+                          'id' => $user->id,
+                          'isActive' => true
+                      ])->first();
+                      
+                      
             return response()->json([
                 'status'=> 'sucess',
                 'message'=>'user created succesfully',
+                'voter' => $voter,
                 'token'=>$user->createtoken('user_token')->plainTextToken
             ] ,201);
         }
@@ -86,53 +111,4 @@ class AuthController extends Controller
             ],500);
         }
     }
-    
-    
-    public function login(Request $request){
-        try{
-    
-        $loginvaliditor=$request->validate([
-        
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required','string','min:8'],
-      ]);
-    
-      if(!$loginvaliditor){
-          return response()->json([
-              "status"=> "fail",
-              "message"=>"valitor error"
-          ],404);
-    }
-      $user = User::where([
-                            'email'=> $request->email,
-                            'isActive' => 1
-                        ])->with('photos','role.roleable')->first();
-    if(!$user){
-          return response()->json([
-              "status" => "fail",
-              "message" => "Wrong Credentials, try again"
-          ],404);
-    }
-      if(!Hash::check($request->password, $user->password)){
-          return response()->json([
-              "status" => "fail",
-              "message" => "Wrong credentials"
-          ]);
-       }
-    
-       $token = $user->createToken('user_token')->plainTextToken;
-       return response()->json([
-                   "status" => "success",
-                   "token" => $token,
-                   "user" => $user,
-                   'role' => $user->role,
-                   'rolable' => $user->role->roleable
-       ],200);
-      }catch(\Exception $exception){
-            return response()->json([
-                "status"=>"fail",
-                "message"=>$exception->getMessage()
-            ],500);
-         }
-     }
 }
