@@ -38,4 +38,8 @@ class User extends Authenticatable
     public function role(){
       return $this->hasOne(Role::class);
     }
+    
+    public function photos(){
+       return $this->hasMany(Photo::class);
+    }
 }
