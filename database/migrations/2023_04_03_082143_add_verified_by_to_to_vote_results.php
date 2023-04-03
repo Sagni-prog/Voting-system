@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('voting_results', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('vote_results', function (Blueprint $table) {
+            $table->integer('verifiedBy')->unsigned()->nullable();
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('voting_results');
+        Schema::table('vote_results', function (Blueprint $table) {
+            //
+        });
     }
 };
