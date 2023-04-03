@@ -73,7 +73,7 @@ class RegistrationController extends Controller{
                    ],400);
                 }
         $voter = Voter::create([
-                        'sex' => 'male',
+                        'sex' => $request->sex,
                         'role' => 'voter',
                         'status' => true,
         ]);
@@ -137,6 +137,11 @@ class RegistrationController extends Controller{
                 'last_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required','string','min:8'],
+                'admission_year' => ['required','timestamp'],
+                'educational_year' => ['required','timestamp'],
+                'department' => ['required','string'],
+                'gpa' => ['required','float'],
+                'exam_score' => ['required','integer'],
             ]);
 
             if($uservalidator->fails()){
@@ -166,23 +171,24 @@ class RegistrationController extends Controller{
                                 'sex' => 'male',
                                 'role' => 'candidate',
                                 'status' => true,
-                                'admission_year' => Carbon::now(),
-                                'educational_year' => Carbon::now(),
-                                'department' => 'SE',
-                                'gpa' => 3.6,
-                                'exam_score' => 48,
+                                'admission_year' => $request->admission_date,
+                                'educational_year' => $request->educatoinal_date,
+                                'department' => $request->department,
+                                'gpa' => $request->gpa,
+                                'exam_score' => $request->exam_result,
                 ]);
         
         if(!$candidate){
-            
-        }
+        
+           $user->delete();  
+        } 
         
         $role = $candidate->role()->create([
             'user_id' => $user->id
         ]);
         
         if(!$role){
-        
+            $candidate->delete();
         }
                
   
@@ -224,6 +230,7 @@ class RegistrationController extends Controller{
                 'last_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required','string','min:8'],
+                'sex' => ['required','string']
             ]);
 
             if($uservalidator->fails()){
@@ -250,13 +257,14 @@ class RegistrationController extends Controller{
                    ],400);
                 }
         $chairman = Chairman::create([
-                                'sex' => 'male',
+                                'sex' => $request->sex,
                                 'role' => 'candidate',
                                 'status' => true,
                 ]);
         
         if(!$chairman){
             
+            $user->delete();
         }
         
         $role = $chairman->role()->create([
@@ -264,7 +272,8 @@ class RegistrationController extends Controller{
         ]);
         
         if(!$role){
-        
+            
+            $chairman->delete();
         }
                
   
