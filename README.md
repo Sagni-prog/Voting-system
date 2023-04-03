@@ -33,7 +33,9 @@ Admins
 <li>view result</li>
 
 
-Chairperson of Election Committee
+#Chairperson of Election Committee
+
+
 
 
 <li>Login</li>  
@@ -47,7 +49,10 @@ Chairperson of Election Committee
 <li>post feedback</li>
 <li>view result</li>
 
-CANDIDATES
+#CANDIDATES
+
+
+
 
 <li>Login</li>  
 <li>Registration</li>  
