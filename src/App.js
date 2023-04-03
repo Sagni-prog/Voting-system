@@ -1,40 +1,64 @@
 import logo from './logo.svg';
 import './App.css';
+import image from './../src/images/10354069_578454862259335_1343665270853874982_n.jpg'
 
 function App() {
   return (
    <div>
+    {/* <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg> */}
 
-<nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-  <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="#" className="flex items-center">
-        <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
-        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-    </a>
-    <button data-collapse-toggle="navbar-hamburger" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-hamburger" aria-expanded="false">
-      <span className="sr-only">Open main menu</span>
-      <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-    </button>
-    <div className="hidden w-full" id="navbar-hamburger">
-      <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded dark:bg-blue-600" aria-current="page">Home</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">About Us</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white">Contact</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-              </svg></a>
-        </li>
-      </ul>
+    <nav className="bg-white h-full border-gray-200 dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ...">
+    <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+        <a href="#" className="flex items-center">
+            {/* <img src={image} className="h-8 mr-3 rounded-full" alt="Flowbite Logo" /> */}
+            <span className="self-center  text-2xl font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"> Wolkite </span><span className='text-[1rem] ml-[-10px]'>university online voting system</span></span>
+        </a>
+        <div className="flex items-center mr-[-2.5rem]">
+        <div className="flex items-center p-2 mt-[0.88rem]">
+            <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm">
+                <li>
+                    <a href="#" className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
+                </li>
+                <li>
+                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Company</a>
+                </li>
+                <li>
+                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Team</a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+                </li>
+                <li>
+                <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
+                
+                </li>
+            </ul>
+        </div>
+            <a href="tel:5541251234" className="mr-6 text-sm  text-gray-500 dark:text-white hover:underline"></a>
+            
+        </div>
     </div>
-  </div>
 </nav>
+
+<div>
+    <div>
+        <div>
+        <div>
+           <h1>Vote for your next student president</h1>
+           <p>your have register yet?</p>
+        </div>
+        <div>
+            <button>vote now</button>
+        </div>
+    
+
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+
 
       
 
