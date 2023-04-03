@@ -32,7 +32,9 @@ Admins
 <li>post feedback</li>
 <li>view result</li>
 
+
 Chairperson of Election Committee
+
 
 <li>Login</li>  
 <li>Registration</li>  
