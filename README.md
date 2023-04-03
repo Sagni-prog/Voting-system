@@ -17,7 +17,7 @@ Home
 
 # Dashboards
 
--Admins
+Admins
 
 <li>Login</li>  
 <li>Registration</li>  
@@ -32,7 +32,7 @@ Home
 <li>post feedback</li>
 <li>view result</li>
 
--Chairperson of Election Committee
+Chairperson of Election Committee
 
 <li>Login</li>  
 <li>Registration</li>  
@@ -45,7 +45,7 @@ Home
 <li>post feedback</li>
 <li>view result</li>
 
--CANDIDATES
+CANDIDATES
 
 <li>Login</li>  
 <li>Registration</li>  
