@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+// use App\Http\Controllers\Admin\UpdatePassword;
+use App\Http\Controllers\Auth\UpdatePasswordController;
 use App\Http\Controllers\Auth\UpdatePassword;
 use App\Http\Controllers\Admin\RegistrationController;
 
@@ -19,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
-    Route::post('admin/update-password',[UpdatePassword::class,'edit']);
+    Route::post('admin/update-password',[UpdatePasswordController::class,'edit']);
 });

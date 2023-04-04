@@ -8,6 +8,7 @@ use Validator;
 use Hash;
 use App\Models\User;
 use App\Models\Voter;
+use App\Models\Admin;
 
 
 class AuthController extends Controller
@@ -23,6 +24,7 @@ class AuthController extends Controller
                 'last_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required','string','min:8'],
+                // 'phone_number' => ['required','integer','max:10']
             ]);
 
             if($uservalidator->fails()){
@@ -38,7 +40,8 @@ class AuthController extends Controller
                     'last_name'=>$request->last_name,
                     'email'=>$request->email,
                     'password'=>Hash::make($request->password),
-                    'faceId' => 'kjioa9aeodw3098imzknj'
+                    'faceId' => 'kjioa9aeodw3098imzknj',
+                   
                    ]
                 );
     
@@ -48,11 +51,42 @@ class AuthController extends Controller
                       'message' => 'Oops! something went wrong, try again'
                    ],400);
                 }
-               
+                
   
+    $admin = Admin::create([
+        'phone_number' => '095828283',
+        'role' => 'admin'
+    ]);
+    
+        if(!$admin){
+           $user->delete();
+        }
+        
+        $role = $admin->role()->create([
+            'user_id' => $user->id
+        ]);
+        
+        if(!$role){
+            
+            $admin->delete();
+        }
+        
+        $admin = User::with('role.roleable')
+                     ->where('id',$user->id)
+                     ->first();
+                     
+         if(!$admin){
+            return response()->json([
+               'status' => 'fail',
+               'message' => 'Oops! something went wrong',
+               
+            ],404);
+         }            
+                     
             return response()->json([
                 'status'=> 'sucess',
                 'message'=>'user created succesfully',
+                'user' => $admin,
                 'token'=>$user->createtoken('user_token')->plainTextToken
             ] ,201);
         }
