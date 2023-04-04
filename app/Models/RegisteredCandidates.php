@@ -9,5 +9,5 @@ class RegisteredCandidates extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['vote_id','candidate_id','session_status'];
+    protected $fillable = ['vote_id','candidate_id'];
 }

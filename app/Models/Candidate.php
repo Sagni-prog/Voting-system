@@ -35,11 +35,14 @@ class Candidate extends Model
          return $this->morphMany(File::class,'fileable');
       }
       
-      public function votes(){
-         return $this->hasMany(Votes::class);
+   
+      public function vote(){
+      
+         return $this->belongsTo(Vote::class);
       }
       
-      public function vote(){
-         return $this->belongsTo(Vote::class);
+      public function voteBallots(){
+      
+         return $this->belongsToMany(VoteBallot::class);
       }
 }
