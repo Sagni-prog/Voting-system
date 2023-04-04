@@ -38,4 +38,8 @@ class Candidate extends Model
       public function votes(){
          return $this->hasMany(Votes::class);
       }
+      
+      public function vote(){
+         return $this->belongsTo(Vote::class);
+      }
 }
