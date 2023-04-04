@@ -9,7 +9,14 @@ module.exports = {
       'serif': ['ui-serif', 'Georgia'],
       'mono': ['ui-monospace', 'SFMono-Regular'],
     },
-    extend: {},
+    extend: {
+      flex: {
+        '2': '2 2 0%'
+      },
+      zIndex: {
+        '100': '100',
+      }
+    }
   },
   plugins: [],
 }

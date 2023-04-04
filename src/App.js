@@ -5,10 +5,11 @@ import img from './../src/images/download (9).png'
 
 function App() {
   return (
-   <div>
+    <div>
+          <div className='w-[100%] '>
     {/* <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg> */}
 
-    <nav className="bg-white h-full border-gray-200 dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ...">
+    <nav className=" h-[80px] border-gray-200 dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ...">
     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a href="#" className="flex items-center">
             {/* <img src={image} className="h-8 mr-3 rounded-full" alt="Flowbite Logo" /> */}
@@ -40,23 +41,25 @@ function App() {
     </div>
 </nav>
 
-<div className="w-full ">
-    <div className="p-[8rem] pt-[6rem] dark:bg-gradient-to-r from-indigo-200 from-10% via-sky-300 via-30% to-emerald-200 to-90% ... h-[80vh] flex"> 
-        <div className="flex-1 w-50">
-        <div>
-           <h1>Vote for your next student president</h1>
-           <p>your have register yet?</p>
+<div className="w-full home">
+    <div className="p-[8rem] pt-[6rem] dark:bg-gradient-to-r from-emerald-500 from-10% via-indigo-300 via-30% to-emerald-200 to-90% ... h-[85vh] flex"> 
+        <div className="flex-1 w-50 ml-[-2rem] mr-[5rem]">
+        <div className='mt-[9rem] '>
+           <h1 className='text-[2.2rem] w-full font-extrabold font-mono text-gray-200 mb-1'>Vote for your <span className='text-black'>next <span className='text-gray-200'>student</span> president</span></h1>
+           <p className='text-g mb-3'>your have register yet?</p>
         </div>
         <div>
-            <button className="btn btn ">vote now</button>
+        <button class="w-70 dark:bg-gradient-to-r  from-sky-500 from-10% via-sky-500 via-30% to-indigo-500 to-90%  hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+            Vote now
+            </button>
         </div>
     
 
         </div>
         <div className="flex-1 w-50">
           <div className="absolute ml-[3rem] mt-[-3rem]">
-          <img class="w-[70vh] h-[70vh]  rounded-[150%]" src={image} alt="user photo"/>
-          <img class="w-70 rounded-[150%]" src={img} alt="user photo"/>
+          <img class="image w-70 absolute rounded-[100%]" src={img} alt="user photo"/>
+          <img class="image1  w-[70vh] h-[70vh]  rounded-[150%]" src={image} alt="user photo"/>
           </div>
         </div>
     </div>
@@ -66,6 +69,8 @@ function App() {
       
 
    </div>
+    </div>
+ 
   );
 }
 
