@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import image from './../src/images/10354069_578454862259335_1343665270853874982_n.jpg'
+import image from './../src/images/10354069_578454862259335_1343665270853874982_n.png'
+import img from './../src/images/download (9).png'
 
 function App() {
   return (
@@ -34,27 +35,29 @@ function App() {
                 </li>
             </ul>
         </div>
-            <a href="tel:5541251234" className="mr-6 text-sm  text-gray-500 dark:text-white hover:underline"></a>
             
         </div>
     </div>
 </nav>
 
-<div>
-    <div>
-        <div>
+<div className="w-full ">
+    <div className="p-[8rem] pt-[6rem] dark:bg-gradient-to-r from-indigo-200 from-10% via-sky-300 via-30% to-emerald-200 to-90% ... h-[80vh] flex"> 
+        <div className="flex-1 w-50">
         <div>
            <h1>Vote for your next student president</h1>
            <p>your have register yet?</p>
         </div>
         <div>
-            <button>vote now</button>
+            <button className="btn btn ">vote now</button>
         </div>
     
 
         </div>
-        <div>
-
+        <div className="flex-1 w-50">
+          <div className="absolute ml-[3rem] mt-[-3rem]">
+          <img class="w-[70vh] h-[70vh]  rounded-[150%]" src={image} alt="user photo"/>
+          <img class="w-70 rounded-[150%]" src={img} alt="user photo"/>
+          </div>
         </div>
     </div>
 </div>
