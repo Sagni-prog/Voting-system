@@ -17,17 +17,7 @@ class AuthController extends Controller
     public function register(Request $request){
         try{
         
-        /*
-        |------------------------------------------------------------------------------------|
-        |                  Validating the inputs on the backend                              |
-        |------------------------------------------------------------------------------------|
-        |  name => is requires cant be empty, string, max length less than 255 characters    |
-        |  email => is requires cant be empty, string, max length less than 255 characters,  |
-        |          no duplicate value allowed                                                |
-        |  password => is requires cant be empty, string, min length is 8 characters         |
-        |                                                                                    | 
-        |------------------------------------------------------------------------------------|
-        */ 
+       
             $uservalidator=Validator::make($request->all(),[
                 'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
@@ -51,12 +41,7 @@ class AuthController extends Controller
                     'faceId' => 'kjioa9aeodw3098imzknj'
                    ]
                 );
-        /*|---------------------------------------------------------------------------|
-          |  if the registration fails return error message else return newly creared |
-          |  user with token                                                          |
-          |---------------------------------------------------------------------------|
-        
-        */ 
+    
                 if(!$user){
                    return response()->json([
                       'status' => 'fail',
@@ -65,14 +50,6 @@ class AuthController extends Controller
                 }
                
   
-        /*|----------------------------------------------------------------------------------------|
-          |  if the user is sucrssfully registered a unique token is created and send to the       |
-          |  user before being encrypted and then encrypted and stored in the database,            | 
-          |  and the token is attached on the http header and sent for every request made by the   |
-          |  client                                                                                | 
-          |----------------------------------------------------------------------------------------|
-        
-        */ 
             return response()->json([
                 'status'=> 'sucess',
                 'message'=>'user created succesfully',
