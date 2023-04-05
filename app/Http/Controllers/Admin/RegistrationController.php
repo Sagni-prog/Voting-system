@@ -88,17 +88,7 @@ class RegistrationController extends Controller{
         if(!$role){
         
         }
-               
-  
-        /*|----------------------------------------------------------------------------------------|
-          |  if the user is sucrssfully registered a unique token is created and send to the       |
-          |  user before being encrypted and then encrypted and stored in the database,            | 
-          |  and the token is attached on the http header and sent for every request made by the   |
-          |  client                                                                                | 
-          |----------------------------------------------------------------------------------------|
-        
-        */ 
-        
+ 
         $voter = User::with('photos','role.roleable')
                       ->where([
                           'id' => $user->id,

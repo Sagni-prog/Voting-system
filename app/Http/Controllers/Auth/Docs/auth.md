@@ -7,12 +7,15 @@
                   no duplicate value allowed                                                
           password => is requires cant be empty, string, min length is 8 characters  
   
-  ## About Registration
+  ## About Login
   
-  if the user is sucrssfully registered a unique token is created and send to the       
-  user before being encrypted and then encrypted and stored in the database,          
-  and the token is attached on the http header and sent for every request made by the client 
+  If user provide their email and password, look up the user with the provided
+  email, if found then check the provided password against the password stored in the database,
+  If the password is correct a unique token is created with the expiration date set
+  and sent to the user before being encrypted and then encrypted and stored in the database, 
+  the client stores the token on the browser (localstorage,cookie in this system the token is stored on the localstorage) and the token is attached on the http header and sent for every request made by the client ,
   
-  if the registration fails return error message else return newly creared 
-  user with token  
+  if the user with the provided email is not authorized message is sent with the 401 status code
+  After 3 login attempts the user is banned for 1 hour
+  
   
