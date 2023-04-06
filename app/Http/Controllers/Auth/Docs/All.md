@@ -1,3 +1,19 @@
+  ## AuthController
+   Is the controller class where authentication logics dwells
+   inside this class there is one method wich is login 
+   login method is for user login
+   
+   first the input from the client side is validated 
+   - 1. if the validation fails returns the validation error message with 400 status code
+   - 2. else lookup the user of the provided email  
+   - 3. if user with the provided email is not found the anuthorized error message with 401 
+         status code is returned
+   - 3. else if the user is found the provided password is checked against the users stored password,
+   - 4. if the password does not matches the authorized error message is returned with 401 error message.
+   - 5. if the password matches the token is generated with the users id attached to it expiratin date set and the plain text token is returned. on the client side this token is stored somewhere on the browser storage and attatched on the Authorization http header as a bearer for every http reaquest made, this helps the backend authorizes the incoming user then the token is encrypted and stored on the database, now the user is logged as long as they can provide the valid token
+     
+   
+  
   ## About Validation
   
     Validating the inputs on the backend                              |

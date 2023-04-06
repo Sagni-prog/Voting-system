@@ -112,7 +112,7 @@ class AuthController extends Controller
           return response()->json([
               "status"=> "fail",
               "message"=>"valitor error"
-          ],404);
+          ],400);
     }
       $user = User::where([
                             'email'=> $request->email,
@@ -122,7 +122,7 @@ class AuthController extends Controller
           return response()->json([
               "status" => "fail",
               "message" => "Wrong Credentials, try again"
-          ],404);
+          ],401);
     }
       if(!Hash::check($request->password, $user->password)){
           return response()->json([
