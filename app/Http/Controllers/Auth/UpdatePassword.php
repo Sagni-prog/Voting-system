@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -9,7 +10,6 @@ use Hash;
 
 class UpdatePassword extends Controller
 {
-    
     public function edit(Request $request){
     
         $uservalidator=Validator::make($request->all(),[
@@ -38,7 +38,7 @@ class UpdatePassword extends Controller
        
        $user = Auth::user();
        
-       return respnse()->json([
+       return response()->json([
            'status' => 'sucess',
            'messsage' => 'You have sucessfully changed your password',
            'user' => $user

@@ -41,7 +41,6 @@ class AuthController extends Controller
                     'email'=>$request->email,
                     'password'=>Hash::make($request->password),
                     'faceId' => 'kjioa9aeodw3098imzknj',
-                   
                    ]
                 );
     

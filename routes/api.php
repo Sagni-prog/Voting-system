@@ -3,8 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-// use App\Http\Controllers\Admin\UpdatePassword;
-// use App\Http\Controllers\Auth\UpdatePasswordController;
 use App\Http\Controllers\Auth\UpdatePassword;
 use App\Http\Controllers\Admin\RegistrationController;
 use App\Http\Controllers\Admin\UpdateProfile;
@@ -12,6 +10,11 @@ use App\Http\Controllers\Admin\UserVerification;
 use App\Http\Controllers\Admin\AdminController;
 
 
+Route::get('/',function(){
+
+  return App\Models\User::all();
+    // return App\Http\Controllers\Admin\AdminController::
+});
 Route::post('/signup',[AuthController::class,'register']);
 Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
 Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
@@ -24,21 +27,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
-  Route::prefix('/admin')->group(function(){
-      Route::post('/update-password',[UpdatePassword::class,'edit']);
-      Route::post('/update-profile',[UpdateProfile::class,'edit']);
-      Route::patch('/verify-users/{id}',[UserVerification::class,'edit']);
+   Route::prefix('/admin')->group(function(){
+       Route::patch('/update-password',[UpdatePassword::class,'edit']);
+       Route::patch('/update-profile',[UpdateProfile::class,'edit']);
+       Route::patch('/verify-users/{id}',[UserVerification::class,'edit']);
+   });
       
       Route::patch('/user/{id}/ban',[UserVerification::class,'banUser']);
       Route::patch('/user/{id}/unban',[UserVerification::class,'unBanUser']);
       
       Route::get('voters',[AdminController::class,'getAllVoters']);
       Route::get('voters/active',[AdminController::class,'getActiveVoters']);
-      Route::delete('voter/{id}',[AdminController::class,'destroy']);
+      Route::delete('user/{id}',[AdminController::class,'destroy']);
       
       Route::get('candidates',[AdminController::class,'getAllCandidates']);
       Route::get('chairmans',[AdminController::class,'getAllChairmans']);
   });
-
-    
-});
