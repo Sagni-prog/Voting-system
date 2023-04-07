@@ -43,7 +43,7 @@ function App() {
 </nav>
 
 <div className="w-full home">
-    <div className="p-[8rem] pt-[6rem] dark:bg-gradient-to-r from-emerald-500 from-10% via-indigo-300 via-30% to-emerald-200 to-90% ... h-[85vh] flex"> 
+    <div className="p-[8rem] pt-[6rem] dark:bg-gradient-to-r from-emerald-400 from-10% via-emerald-300 via-30% to-emerald-200 to-90% ... h-[85vh] flex"> 
         <div className="flex-1 w-50 ml-[-2rem] mr-[5rem]">
         <div className='mt-[9rem] '>
            <h1 className='text-[2.2rem] w-full font-extrabold font-mono text-white mb-1'>Vote for your <span className='text-black'>next <span className='text-white'>student</span> president</span></h1>
@@ -70,7 +70,7 @@ function App() {
       
 
    </div>
-   <div class="container dark:bg-gradient-to-r from-emerald-500 from-10% via-indigo-300 via-30% to-emerald-200 to-90% mx-auto px-12 py-24">
+   <div class="container dark:bg-gradient-to-r from-emerald-400 from-10% via-emerald-300 via-30% to-emerald-200 to-90% mx-auto px-12 py-24">
   <h1 class="text-[2.2rem] w-full font-extrabold font-mono text-white mb-[2rem]">CANDIDATES</h1>
   <div class="grid grid-cols-3 gap-4">
   <div class="dark:bg-white text-black   rounded-lg shadow-md">
@@ -224,7 +224,7 @@ function App() {
 </figure>
 
 
-<footer class="dark:text-white  rounded-lg shadow m-4  border-gray-200 dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ...">
+<footer class="dark:text-white  rounded-lg shadow m-4  border-gray-200 dark:bg-gradient-to-r from-emerald-500 from-10% via-emerald-600 via-30% to-emerald-500 to-90% ...">
     <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
       <span class="text-sm dark:text-white  sm:text-cente text-white">© 2023 <a href="https://flowbite.com/" class="hover:underline">Name of your Team™</a>. All Rights Reserved.
     </span>
