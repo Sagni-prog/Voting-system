@@ -56,7 +56,7 @@ class RegistrationController extends Controller{
                     'last_name'=>$request->last_name,
                     'email'=>$request->email,
                     'password'=>Hash::make($request->password),
-                    'faceId' => 'kjioa9aeodw3098imzknj'
+                    'faceId' => $request->faceId
                    ]
                 );
         /*|---------------------------------------------------------------------------|
@@ -75,7 +75,7 @@ class RegistrationController extends Controller{
                         'sex' => $request->sex,
                         'role' => 'voter',
                         'status' => true,
-        ]);
+            ]);
         
         if(!$voter){
             
@@ -86,7 +86,7 @@ class RegistrationController extends Controller{
         ]);
         
         if(!$role){
-        
+           
         }
  
         $voter = User::with('photos','role.roleable')
@@ -165,7 +165,7 @@ class RegistrationController extends Controller{
                                 'department' => $request->department,
                                 'gpa' => $request->gpa,
                                 'exam_score' => $request->exam_result,
-                ]);
+                  ]);
         
         if(!$candidate){
         

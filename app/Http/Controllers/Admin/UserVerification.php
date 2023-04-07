@@ -12,16 +12,39 @@ class UserVerification extends Controller
         try {
          
             if(!Auth::check()){
-            
-             //    TODO
-             
+                return response()->json([
+                  'status' => 'fail',
+                  'message' => 'unAuthorized access'
+                ],401);
             }
             
             $user = User::findOrFail($id);
-            $user->update(['isActive' => true]);
+            $verified = $user->update(['isActive' => true]);
+            
+            if(!$verified){
+               return respose()->json([
+                  'status' => 'fail',
+                  'message' => 'Oops! something went wrong try again'
+               ],400);
+             }
+             
+             return response()->json([
+                'status' => 'sucess',
+                'message' => 'successfully verified the user'
+             ],200);
                
-         } catch (\Throwable $th) {
-         //throw $th;
+         } catch (\Exception $exception) {
+             return response()->json([
+                'status' => 'fail',
+                'message' => 'Oops! something went wrong try again please',
+                'error' => $exception->getMessage()
+             ],500);
          }
-     }   
+     }  
+     
+  public function banUser(Request $request,$id){
+     
+     $user = User::where('id',$id);
+     
+  }
 }
