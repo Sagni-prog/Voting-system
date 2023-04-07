@@ -173,4 +173,6 @@ class AdminController extends Controller
             'candidates' => $chairman
           ],200);
     }
+    
+    // public function 
 }

@@ -45,6 +45,7 @@ class UserVerification extends Controller
   public function banUser(Request $request,$id){
      
      $user = User::where('id',$id);
-     
+     $user->isBanned = true;
+     $user->save();
   }
 }
