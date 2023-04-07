@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\UpdatePassword;
 use App\Http\Controllers\Admin\RegistrationController;
 use App\Http\Controllers\Admin\UpdateProfile;
 use App\Http\Controllers\Admin\UserVerification;
+use App\Http\Controllers\Admin\AdminController;
 
 
 Route::post('/signup',[AuthController::class,'register']);
@@ -23,9 +24,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
+  Route::prefix('/admin')->group(function(){
+      Route::post('/update-password',[UpdatePassword::class,'edit']);
+      Route::post('/update-profile',[UpdateProfile::class,'edit']);
+      Route::patch('/verify-users/{id}',[UserVerification::class,'edit']);
+      
+      Route::patch('/user/{id}/ban',[UserVerification::class,'banUser']);
+      Route::patch('/user/{id}/unban',[UserVerification::class,'unBanUser']);
+      
+      Route::get('voters',[AdminController::class,'getAllVoters']);
+      Route::get('voters/active',[AdminController::class,'getActiveVoters']);
+      Route::delete('voter/{id}',[AdminController::class,'destroy']);
+      
+      Route::get('candidates',[AdminController::class,'getAllCandidates']);
+      Route::get('chairmans',[AdminController::class,'getAllChairmans']);
+  });
 
-    Route::post('admin/update-password',[UpdatePassword::class,'edit']);
-    Route::post('/admin/update-profile',[UpdateProfile::class,'edit']);
-    Route::post('/admin/verify-users/{id}',[UserVerification::class,'edit']);
     
 });
