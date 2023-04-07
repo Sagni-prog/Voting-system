@@ -136,6 +136,117 @@ function App() {
  
   </div>
 </div>
+<div class="bg-white p-4 rounded-lg shadow-md">
+  <h2 class="text-[2.2rem] w-full font-extrabold font-mono text-black px-8 py-6">Election Progress</h2>
+  <div class="grid grid-cols-1 gap-4 p-20 mt-[-4rem]">
+  <div class="flex flex-row items-center gap-2 ">
+      <div class="w-20 h-20 mb-4 ">
+        <img class="rounded-[25px] object-cover h-full w-full" src={img2}/>
+      </div>
+      <div class="w-full">
+        <div class="relative pt-1">
+          <div class="overflow-hidden h-[3rem] mb-4 text-xs flex rounded bg-blue-200">
+            <div  class="shadow-none w-[90%] flex flex-col text-center whitespace-nowrap text-white justify-center dark:bg-emerald-500 "></div>
+          </div>
+        </div>
+      </div>
+      <span>90%</span>
+    </div>
+    <div class="flex flex-row items-center gap-2 ">
+      <div class="w-20 h-20 mb-4 ">
+        <img class="rounded-[25px] object-cover h-full w-full" src={img2}/>
+      </div>
+      <div class="w-full">
+        <div class="relative pt-1">
+          <div class="overflow-hidden h-[3rem] mb-4 text-xs flex rounded bg-blue-200">
+            <div  class="shadow-none w-[90%] flex flex-col text-center whitespace-nowrap text-white justify-center dark:bg-emerald-500 "></div>
+          </div>
+        </div>
+      </div>
+      <span>90%</span>
+    </div>
+    <div class="flex flex-row items-center gap-2 ">
+      <div class="w-20 h-20 mb-4 ">
+        <img class="rounded-[25px] object-cover h-full w-full" src={img2}/>
+      </div>
+      <div class="w-full">
+        <div class="relative pt-1">
+          <div class="overflow-hidden h-[3rem] mb-4 text-xs flex rounded bg-blue-200">
+            <div  class="shadow-none w-[90%] flex flex-col text-center whitespace-nowrap text-white justify-center dark:bg-emerald-500 "></div>
+          </div>
+        </div>
+      </div>
+      <span>90%</span>
+    </div>
+    <div class="flex flex-row items-center gap-2 ">
+      <div class="w-20 h-20 mb-4 ">
+        <img class="rounded-[25px] object-cover h-full w-full" src={img2}/>
+      </div>
+      <div class="w-full">
+        <div class="relative pt-1">
+          <div class="overflow-hidden h-[3rem] mb-4 text-xs flex rounded bg-blue-200">
+            <div  class="shadow-none w-[70%] flex flex-col text-center whitespace-nowrap text-white justify-center dark:bg-emerald-500 "></div>
+          </div>
+        </div>
+      </div>
+      <span>70%</span>
+    </div>
+    <div class="flex flex-row items-center gap-2 ">
+      <div class="w-20 h-20 mb-4 ">
+        <img class="rounded-[25px] object-cover h-full w-full" src={img2}/>
+      </div>
+      <div class="w-full">
+        <div class="relative pt-1">
+          <div class="overflow-hidden h-[3rem] mb-4 text-xs flex rounded bg-blue-200">
+            <div  class="shadow-none w-[50%] flex flex-col text-center whitespace-nowrap text-white justify-center dark:bg-emerald-500 "></div>
+          </div>
+        </div>
+      </div>
+      <span>50%</span>
+    </div>
+
+
+  </div>
+</div>
+
+<figure class="max-w-screen-md mx-auto text-center p-10">
+    <svg aria-hidden="true" class="w-12 h-12 mx-auto mb-3 text-sky-500  dark:text-sky-500 " viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/></svg>
+    <blockquote>
+        <p class="text-2xl italic font-medium text-gray-900 dark:text-black">"Don't blow it, vote students for senior class president" poster with whoopi cushions!."</p>
+    </blockquote>
+    <figcaption class="flex items-center justify-center mt-6 space-x-3">
+        <img class="w-6 h-6 rounded-full" src={img2} alt="profile picture"/>
+        <div class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
+            <cite class="pr-3 font-medium text-gray-900 dark:text-black">Micheal Gough</cite>
+            <cite class="pl-3 text-sm text-gray-900 dark:text-black">Software Enigneering</cite>
+        </div>
+    </figcaption>
+</figure>
+
+
+<footer class="dark:text-white  rounded-lg shadow m-4  border-gray-200 dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ...">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <span class="text-sm dark:text-white  sm:text-cente text-white">© 2023 <a href="https://flowbite.com/" class="hover:underline">Name of your Team™</a>. All Rights Reserved.
+    </span>
+    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-white dark:text-white sm:mt-0">
+        <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+        </li>
+        <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+        </li>
+        <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+        </li>
+        <li>
+            <a href="#" class="hover:underline">Contact</a>
+        </li>
+    </ul>
+    </div>
+</footer>
+
+
+
     </div>
  
   );
