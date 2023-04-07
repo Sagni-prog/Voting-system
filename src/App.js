@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import image from './../src/images/10354069_578454862259335_1343665270853874982_n.png'
 import img from './../src/images/download (9).png'
+import img2 from './../src/images/ivana-square.jpg'
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
     <div className="p-[8rem] pt-[6rem] dark:bg-gradient-to-r from-emerald-500 from-10% via-indigo-300 via-30% to-emerald-200 to-90% ... h-[85vh] flex"> 
         <div className="flex-1 w-50 ml-[-2rem] mr-[5rem]">
         <div className='mt-[9rem] '>
-           <h1 className='text-[2.2rem] w-full font-extrabold font-mono text-gray-200 mb-1'>Vote for your <span className='text-black'>next <span className='text-gray-200'>student</span> president</span></h1>
+           <h1 className='text-[2.2rem] w-full font-extrabold font-mono text-white mb-1'>Vote for your <span className='text-black'>next <span className='text-white'>student</span> president</span></h1>
            <p className='text-g mb-3'>your have register yet?</p>
         </div>
         <div>
@@ -69,6 +70,72 @@ function App() {
       
 
    </div>
+   <div class="container dark:bg-gradient-to-r from-emerald-500 from-10% via-indigo-300 via-30% to-emerald-200 to-90% mx-auto px-12 py-24">
+  <h1 class="text-[2.2rem] w-full font-extrabold font-mono text-white mb-[2rem]">CANDIDATES</h1>
+  <div class="grid grid-cols-3 gap-4">
+  <div class="dark:bg-white text-black   rounded-lg shadow-md">
+      <img src={img2} alt="Candidate 1" class="w-full h-64 object-cover rounded-t-lg"/>
+      <div class="p-4">
+        <p class="text-black leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec sagittis odio.</p>
+        <div class="flex justify-between">
+          <a href="#" class="inline-flex items-center dark:bg-gradient-to-r  from-sky-500 from-10% via-sky-500 via-30% to-indigo-500 to-90% hover:bg-blue-600 text-white py-2 px-4 rounded-lg">Read  More<svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></a>
+          <a href="#" class="bg-emerald-800 hover:bg-gray-400 text-white py-2 px-4 rounded-lg">Vote Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="dark:bg-white text-black   rounded-lg shadow-md">
+      <img src={img2} alt="Candidate 1" class="w-full h-64 object-cover rounded-t-lg"/>
+      <div class="p-4">
+        <p class="text-black leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec sagittis odio.</p>
+        <div class="flex justify-between">
+          <a href="#" class="inline-flex items-center dark:bg-gradient-to-r  from-sky-500 from-10% via-sky-500 via-30% to-indigo-500 to-90% hover:bg-blue-600 text-white py-2 px-4 rounded-lg">Read  More<svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></a>
+          <a href="#" class="bg-emerald-800  hover:bg-gray-400  text-white  py-2 px-4 rounded-lg">Vote Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="dark:bg-white text-black   rounded-lg shadow-md">
+      <img src={img2} alt="Candidate 1" class="w-full h-64 object-cover rounded-t-lg"/>
+      <div class="p-4">
+        <p class="text-black leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec sagittis odio.</p>
+        <div class="flex justify-between">
+          <a href="#" class="inline-flex items-center dark:bg-gradient-to-r  from-sky-500 from-10% via-sky-500 via-30% to-indigo-500 to-90% hover:bg-blue-600 text-white py-2 px-4 rounded-lg">Read  More<svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></a>
+          <a href="#" class="bg-emerald-800  hover:bg-gray-400  text-white  py-2 px-4 rounded-lg">Vote Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="dark:bg-white text-black   rounded-lg shadow-md">
+      <img src={img2} alt="Candidate 1" class="w-full h-64 object-cover rounded-t-lg"/>
+      <div class="p-4">
+        <p class="text-black leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec sagittis odio.</p>
+        <div class="flex justify-between">
+          <a href="#" class="inline-flex items-center dark:bg-gradient-to-r  from-sky-500 from-10% via-sky-500 via-30% to-indigo-500 to-90% hover:bg-blue-600 text-white py-2 px-4 rounded-lg">Read  More<svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></a>
+          <a href="#" class="bg-emerald-800  hover:bg-gray-400  text-white py-2 px-4 rounded-lg">Vote Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="dark:bg-white text-black   rounded-lg shadow-md">
+      <img src={img2} alt="Candidate 1" class="w-full h-64 object-cover rounded-t-lg"/>
+      <div class="p-4">
+        <p class="text-black leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec sagittis odio.</p>
+        <div class="flex justify-between">
+          <a href="#" class="inline-flex items-center dark:bg-gradient-to-r  from-sky-500 from-10% via-sky-500 via-30% to-indigo-500 to-90% hover:bg-blue-600 text-white py-2 px-4 rounded-lg">Read  More<svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></a>
+          <a href="#" class="bg-emerald-800  hover:bg-gray-400  text-white  py-2 px-4 rounded-lg">Vote Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="dark:bg-white text-black   rounded-lg shadow-md">
+      <img src={img2} alt="Candidate 1" class="w-full h-64 object-cover rounded-t-lg"/>
+      <div class="p-4">
+        <p class="text-black leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec sagittis odio.</p>
+        <div class="flex justify-between">
+          <a href="#" class="inline-flex items-center dark:bg-gradient-to-r  from-sky-500 from-10% via-sky-500 via-30% to-indigo-500 to-90% hover:bg-blue-600 text-white py-2 px-4 rounded-lg">Read  More<svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></a>
+          <a href="#" class="bg-emerald-800 hover:bg-gray-400 text-white py-2 px-4 rounded-lg">Vote Now</a>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</div>
     </div>
  
   );
