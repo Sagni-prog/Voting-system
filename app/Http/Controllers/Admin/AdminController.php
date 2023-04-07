@@ -174,5 +174,32 @@ class AdminController extends Controller
           ],200);
     }
     
-    // public function 
+    public function destroy($id){
+       
+       $user = User::find($id);
+       if(!$user){
+         return respoose()->json([
+            'status' => 'success',
+            'message' => 'no user found'
+         ],200);
+       }
+       
+      $deleted = $user->update([
+          'isDeleted' => true,
+          'deleted_at' => Carbon::now()
+       ],200);
+       
+      if(!$deleted){
+         
+         return response()->json([
+            'status' => 'fail',
+            'message' => 'Oops! something went wrong'
+          ],400);
+        }
+        
+        return response()->json([
+           'status' => 'success',
+           'message' => 'you have successfully deleted the user'
+        ],200);
+    }
 }
