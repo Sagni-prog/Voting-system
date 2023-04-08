@@ -210,8 +210,57 @@ class VoteController extends Controller
         
     }
     
-    public function cancelVote(Requsest $request, $id){
-    
+    public function cancelVote(Request $request, $id){
+      try {
+        
+        if(!Auth::check()){
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'unAuthorized access'
+            ],401);
+        }
+        
+        $user = Auth::user();
+        
+        if($user->role->roleable->role != 'admin'){
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'unAuthorized access'
+            ],401);
+        }
+        
+        $vote = Vote::where('id',$id)->first();
+        
+       
+        if(!$vote){
+            return response()->json([
+                 'status' => 'fail',
+                 'message' => 'No Vote found'
+            ],404);
+        }
+        
+        $edited = $vote->update([
+               'voteCanceled' => true,
+               'vote_canceled_at' => Carbon::now(), 
+               'vote_cancelation_cause' => $request->vote_cancelation_cause,
+        ]);
+        
+        if(!$edited){
+           return response()->json([
+              'status' => 'fail',
+              'message' => 'Oops! something went wrong'
+           ],400);
+        }
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully cancelled the vote'
+        ],200);
+        
+      } catch (\Throwable $th) {
+        //throw $th;
+      }
+       
     }
     
     public function destroy($id){
