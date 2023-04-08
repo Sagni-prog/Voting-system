@@ -57,4 +57,107 @@ class VoteController extends Controller
             return $exception;
         }
     } 
+    
+    public function extendStartDate(Request $request, $id){
+        
+        try {
+            
+            if(!Auth::check()){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'unAuthorized access'
+                 ],401);
+           }
+           
+           $user = Auth::user();
+           
+           if($user->role->roleable->role != 'admin'){
+            return response()->json([
+               'status' => 'fail',
+               'message' => 'unAuthorized access'
+            ],401);
+         }
+         
+         $vote = Vote::where('id',$id)->first();
+         
+        //  return $vote;
+         
+         if($vote->vote_status === 'ongo'){
+             return response()->json([
+                'status' => 'fail',
+                'message' => 'The voting has already begun'
+             ],400);
+        }
+        
+        
+        $edited = $vote->update([
+            'vote_start_date' => $request->vote_start_date
+        ]);
+        
+        if(!$edited){
+           return response()->json([
+              'status' => 'fail',
+              'message' => 'Oops! something went wrong'
+           ],400);
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'you have successfully extended the starting date of the vote'
+        ],200);
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    
+    public function extendEndDate(Request $request, $id){
+        
+        try {
+            
+            if(!Auth::check()){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'unAuthorized access'
+                ],401);
+            }
+            
+            $user = Auth::user();
+            
+            if($user->role->roleable->role != 'admin'){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'unAuthorized access'
+                ],401);
+            }
+            
+            $vote = Vote::where('id',$id)->first();
+            
+
+            if($vote->vote_status === 'closed'){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'The voting has already ended'
+                ],400);
+            }
+           
+            
+        $edited = $vote->update([
+            'vote_end_date' => $request->vote_end_date,
+        ]);
+        
+        if(!$edited){
+           return response()->json([
+              'status' => 'fail',
+              'message' => 'Oops! something went wrong'
+           ],400);
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'you have successfully extended the starting date of the vote'
+        ],200);
+            
+        } catch (\Throwable $th) {
+          
+        }
+    }
 }

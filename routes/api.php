@@ -34,20 +34,20 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
        Route::patch('/verify-users/{id}',[UserVerification::class,'edit']);
        
        Route::post('/vote',[VoteController::class,'store']);
-   });
-      
-      Route::patch('/user/{id}/ban',[UserVerification::class,'banUser']);
-      Route::patch('/user/{id}/unban',[UserVerification::class,'unBanUser']);
-      
-      Route::get('voters',[AdminController::class,'getAllVoters']);
-      Route::get('voters/active',[AdminController::class,'getActiveVoters']);
+       Route::post('vote/extend-start-date/{id}',[VoteController::class,'extendStartDate']);
+       Route::post('vote/extend-end-date/{id}',[VoteController::class,'extendEndDate']);
+    });
+    
+    Route::patch('/user/{id}/ban',[UserVerification::class,'banUser']);
+    Route::patch('/user/{id}/unban',[UserVerification::class,'unBanUser']);
+    
+    Route::get('voters',[AdminController::class,'getAllVoters']);
+    Route::get('voters/active',[AdminController::class,'getActiveVoters']);
       Route::delete('user/{id}',[AdminController::class,'destroy']);
       
       Route::get('candidates',[AdminController::class,'getAllCandidates']);
       Route::get('chairmans',[AdminController::class,'getAllChairmans']);
       
-    //   Route::patch('vote/extend-start-date',[VoteController::class,'extend']);
-    //   Route::patch('vote/extend-result',[VoteController::class,'extendResult']);
     //   Route::patch('vote/cancel',[VoteController::class,'cancelVote']);
     //   Route::patch('vote/confirm',[VoteController::class,'confirmVote']);
     //   Route::delete('vote/cancel',[VoteController::class,'destroy']);

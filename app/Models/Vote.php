@@ -23,6 +23,11 @@ class Vote extends Model
                            'isDeleted',
                            'deleted_at'
                      ];
+                     
+     protected $casts = [
+        'vote_start_date' => 'datetime',
+        'vote_end_date' => 'datetime'
+    ];
     
     public function voter(){
     
