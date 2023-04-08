@@ -27,8 +27,10 @@
  gpa => required field, float 
  exam_score => is required, float datatype, it is the exam the candidate takes before 
                registaring for the election and maximum score is 50
- candidates_description => ,
-                            'strategic_plan'
+ candidates_description => required field, text, is the short description about the
+                           candidate
+ strategic_plan => required, text, is a paragraph that explains the strategy the candidate 
+                   applies if they win the election
    
    
    #### About FaceId
