@@ -34,7 +34,7 @@ code {
 }
 .home{
   /* z-index: 1; */
-  background: linear-gradient(rgba(5, 32, 35, 0.2),rgba(30,30,30,0.8)),url("./images/339492458_179742571115721_1024488669478325209_n.jpeg");
+  background: linear-gradient(rgba(0, 0, 0, 0.435),rgba(1, 25, 36, 0.5)),url("./images/339492458_179742571115721_1024488669478325209_n.jpeg");
   background-position:center;
   background-attachment:scroll;
   background-repeat: no-repeat;
@@ -59,13 +59,13 @@ code {
 
   to {
     margin-left: 0%;
-    width: 100%;
+    width: 80%;
   }
 }
 
 @keyframes slid {
   from {
-    margin-right: 30%;
+    margin-right: 100%;
    
   }
 

@@ -3,31 +3,39 @@ import './App.css';
 import image from './../src/images/10354069_578454862259335_1343665270853874982_n.png'
 import img from './../src/images/download (9).png'
 import img2 from './../src/images/ivana-square.jpg'
+import DatePicker from 'react-datepicker';
+
+import { useState } from 'react';
 
 function App() {
+  const [startDate, setStartDate] = useState(new Date());
+ 
   return (
     <div>
           <div className='w-[100%] bg-blue-100'>
     {/* <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg> */}
   
-    <nav className=" h-[80px]    border-blue-200 dark:bg-gradient-to-r from-sky-500 from-10% via-sky-600 via-30% to-sky-500 to-90% ">
+    <nav className=" h-[80px]    border-blue-200 dark:bg-gradient-to-r from-sky-600 from-10% via-sky-500 via-30% to-sky-600 to-90% ">
     {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a href="#" className="flex items-center">
-            {/* <img src={image} className="h-8 mr-3 rounded-full" alt="Flowbite Logo" /> */}
-            <span className="self-center  text-2xl font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"> Wolkite </span><span className='text-[1rem] ml-[-10px]'>university online voting system</span></span>
+    
+            <span className="self-center  font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"> Wolkite</span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span>
         </a>
         <div className="flex items-center mr-[-2.5rem]">
         <div className="flex items-center p-2 mt-[0.88rem]">
-            <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm">
+            <ul className="flex flex-row font-medium mt-1 mr-6 space-x-8 text-sm">
                 <li>
                     <a href="#" className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Company</a>
+                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Candidates</a>
                 </li>
                 <li>
-                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Team</a>
+                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Election Progress</a>
+                </li>
+                <li>
+                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Feedback</a>
                 </li>
                 <li>
                   <a href="#" className="text-sm  text-white hover:underline">Login</a>
@@ -269,11 +277,12 @@ function App() {
     <div>
       <h2 class="text-xl font-bold">John Doe</h2>
       <p class="text-gray-700">john.doe@example.com</p>
-      <p class="text-gray-700">1234 Main St, Anytown, USA</p>
+      <p class="text-gray-700">jit St gebrel,oromia, Ethiopia</p>
       <p class="text-gray-700">Biomedical Engineering</p>
     </div>
   </div>
-  <h2 class="text-xl font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis.</h2>
+  <h2 class="text-xl font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis</h2>
 
   <p class="text-gray-700 leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
@@ -303,33 +312,38 @@ function App() {
       <div class="flex items-center mb-6 gap-4">
       <div className='p-2'>
       <div className='gap-10 flex'>
-      <span className='text-gray-700'>Department</span>
-      <p class="text-gray-700">software Engineering</p>
+      <span className='text-black'>Department</span>
+      <p class="text-gray-500">software Engineering</p>
       </div>
       <div className='gap-10 flex'>
-      <span className='text-gray-700 mr-3'>Exam core</span>
-      <p class="text-gray-700 ">202</p>
+      <span className='text-black mr-3'>Exam core</span>
+      <p class="text-gray-500 ">202</p>
       </div>
       <div className='gap-10 flex'>
-      <span className='text-gray-700 mr-14'>GPA</span>
-      <p class="text-gray-700 ">3.88</p>
+      <span className='text-black mr-14'>GPA</span>
+      <p class="text-gray-500 ">3.88</p>
+      </div>
+      <div className='gap-10 flex'>
+      <span className='text-black mr-[3.6rem]'>SEX</span>
+      <p class="text-gray-500 ">M</p>
       </div>
      
       </div>
   
       <div className='p-2'>
-      <div className='gap-10 flex'>
-      <span className='text-gray-700'>Admission Year</span>
-      <p class="text-gray-700">02-04-2021</p>
+      <div className='gap-10 flex mt-[-1.03rem]'>
+      <span className='text-black'>Admission Year</span>
+      <p class="text-gray-500">02-04-2021</p>
       </div>
       <div className='gap-[2.22rem] flex'>
-      <span className='text-gray-700'>Graduation Year</span>
-      <p class="text-gray-700 ">02-04-2021</p>
+      <span className='text-black'>Graduation Year</span>
+      <p class="text-gray-500 ">02-04-2021</p>
       </div>
-      <div className='gap-10 flex'>
-      <span className='text-gray-700 mr-[5.1rem]'>SEX</span>
-      <p class="text-gray-700 ">M</p>
+      <div className='gap-[2rem] flex'>
+      <span className='text-black'>Educational Year</span>
+      <p class="text-gray-500 ">02-04-2021</p>
       </div>
+    
      
 
     
@@ -338,7 +352,296 @@ function App() {
       </div>
 </div>
 
+<div class="flex flex-col md:flex-row h-[90vh]">
+  <div class="bg-gray-800 text-white py-2 px-4 h-full w-[18rem]">
+    <h2 class="text-lg font-bold mb-0 p-4">Dashboard</h2>
+    <ul class="space-y-2">
+      <li className='h-[2rem] mb-2 p-5'>
+        <a href="#" class="block text-gray-400 hover:text-white">Voters</a>
+      </li>
+      <li className='h-[2rem] mb-2 p-5'>
+        <a href="#" class="block text-gray-400 hover:text-white">Candidates</a>
+      </li>
+      <li className='h-[2rem] mb-2 p-5'>
+        <a href="#" class="block text-gray-400 hover:text-white">Add candidate</a>
+      </li>
+      <li className='h-[2rem] mb-2 p-5'>
+        <a href="#" class="block text-gray-400 hover:text-white"></a>
+      </li>
+    </ul>
+  </div>
 
+  <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
+ 
+    <div class="flex gap-4 mb-4">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+  <h1 class="text-3xl font-bold mb-8">Election Data</h1>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
+      <h2 class="text-lg font-bold mb-2">voters</h2>
+      <p class="text-5xl font-bold text-green-500">15,000</p>
+      
+    </div>
+    <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
+      <h2 class="text-lg font-bold mb-2">Vote</h2>
+      <p class="text-5xl font-bold text-blue-500">10,000</p>
+    </div>
+    <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
+      <h2 class="text-lg font-bold mb-2">Candidates</h2>
+      <p class="text-5xl font-bold text-purple-500">15</p>
+   
+    </div>
+    <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
+      <h2 class="text-lg font-bold mb-2">chairmans</h2>
+      <p class="text-5xl font-bold text-red-500">20</p>
+    
+    </div>
+  </div>
+</div>
+  
+     
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-4 h-[17rem] overflow-y-auto">
+        <table class="table-auto  w-full">
+          <thead>
+            <tr>
+            <th class="px-1 py-2 font-bold text-left">photo</th>
+              <th class="px-4 py-2 font-bold text-left">First name'</th>
+              <th class="px-4 py-2 font-bold text-left">Last name</th>
+              <th class="px-4 py-2 font-bold text-left">Email</th>
+              <th class="px-4 py-2 font-bold text-left">Status</th>
+              <th class="px-4 py-2 font-bold text-left"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+             <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
+              <td class="border px-4 py-2">Natty </td>
+              <td class="border px-4 py-2">yom</td>
+              <td class="border px-4 py-2">j.Naty@example.com</td>
+              <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
+              <td className='border px-4 py-2 '>
+              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
+              <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+            </tr>
+            <tr>
+             <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
+              <td class="border px-4 py-2">Natty </td>
+              <td class="border px-4 py-2">yom</td>
+              <td class="border px-4 py-2">j.Naty@example.com</td>
+              <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
+              <td className='border px-4 py-2 '>
+              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
+              <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+            </tr>
+            <tr>
+             <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
+              <td class="border px-4 py-2">Natty </td>
+              <td class="border px-4 py-2">yom</td>
+              <td class="border px-4 py-2">j.Naty@example.com</td>
+              <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
+              <td className='border px-4 py-2 '>
+              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
+              <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+            </tr>
+            <tr>
+             <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
+              <td class="border px-4 py-2">Natty </td>
+              <td class="border px-4 py-2">yom</td>
+              <td class="border px-4 py-2">j.Naty@example.com</td>
+              <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
+              <td className='border px-4 py-2 '>
+              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
+              <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+            </tr>
+            <tr>
+             <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
+              <td class="border px-4 py-2">Natty </td>
+              <td class="border px-4 py-2">yom</td>
+              <td class="border px-4 py-2">j.Naty@example.com</td>
+              <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
+              <td className='border px-4 py-2 '>
+              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
+              <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+            </tr>
+            <tr>
+             <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
+              <td class="border px-4 py-2">Natty </td>
+              <td class="border px-4 py-2">yom</td>
+              <td class="border px-4 py-2">j.Naty@example.com</td>
+              <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
+              <td className='border px-4 py-2 '>
+              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
+              <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+            </tr>
+          
+          </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+      
+
+
+
+<div class="flex flex-col md:flex-row h-[90vh]">
+  <div class="bg-gray-800 text-white py-2 px-4 h-full w-[18rem]">
+    <h2 class="text-lg font-bold mb-0 p-4">Dashboard</h2>
+    <ul class="space-y-2">
+      <li className='h-[2rem] mb-2 p-5'>
+        <a href="#" class="block text-gray-400 hover:text-white">Voters</a>
+      </li>
+      <li className='h-[2rem] mb-2 p-5'>
+        <a href="#" class="block text-gray-400 hover:text-white">Candidates</a>
+      </li>
+      <li className='h-[2rem] mb-2 p-5'>
+        <a href="#" class="block text-gray-400 hover:text-white">Add candidate</a>
+      </li>
+      <li className='h-[2rem] mb-2 p-5'>
+        <a href="#" class="block text-gray-400 hover:text-white"></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
+ 
+  <div class="w-90  bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4">Candidate Registration</h2>
+  <form>
+  <div className='flex gap-4'>
+  <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="first-name">
+        First Name
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="first-name"
+        type="text"
+        placeholder="Enter your first name"
+      />
+    </div>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="last-name">
+        Last Name
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="last-name"
+        type="text"
+        placeholder="Enter your last name"
+      />
+    </div>
+  </div>
+  <div className='flex gap-4'>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="email">
+        Email
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="email"
+        type="email"
+        placeholder="Enter your email address"
+      />
+    </div>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="password">
+        Password
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="password"
+        type="password"
+        placeholder="Enter your password"
+      />
+    </div>
+    </div>
+    <div className='flex gap-4'>
+  <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="first-name">
+        Exam score
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="exam_score"
+        type="text"
+        placeholder="Enter your first name"
+      />
+    </div>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="last-name">
+        GPA
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="gpa"
+        type="text"
+        placeholder="Enter your last name"
+      />
+    </div>
+  </div>
+    <div className='flex gap-4'>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="cv">
+      Admission Year
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="graduation_Year"
+        onChange={e=>setStartDate(e.target.value)}
+        type="date"
+      />
+    </div>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="Admission Year">
+      Graduation Year
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="admission_year"
+        onChange={e=>setStartDate(e.target.value)}
+        type="date"
+      />
+    </div>
+    </div>
+    <div className='flex gap-4'>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="cv">
+        CV
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="cv"
+        type="file"
+      />
+    </div>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="cv">
+        Photo
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="photo"
+        type="file"
+      />
+    </div>
+    </div>
+    
+   
+    <div class="flex items-center justify-between">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="submit"
+      >
+        Register
+      </button>
+    </div>
+  </form>
+</div>
+        </div>
+        </div>
+
+        
 
 
     </div>
