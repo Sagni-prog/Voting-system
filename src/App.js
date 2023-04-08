@@ -7,10 +7,11 @@ import img2 from './../src/images/ivana-square.jpg'
 function App() {
   return (
     <div>
-          <div className='w-[100%] '>
+          <div className='w-[100%] bg-blue-100'>
     {/* <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg> */}
   
-    <nav className=" h-[80px] border-gray-200 dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ...">
+    <nav className=" h-[80px]    border-blue-200 dark:bg-gradient-to-r from-sky-500 from-10% via-sky-600 via-30% to-sky-500 to-90% ">
+    {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a href="#" className="flex items-center">
             {/* <img src={image} className="h-8 mr-3 rounded-full" alt="Flowbite Logo" /> */}
@@ -29,7 +30,7 @@ function App() {
                     <a href="#" className="text-gray-900 dark:text-white hover:underline">Team</a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+                  <a href="#" className="text-sm  text-white hover:underline">Login</a>
                 </li>
                 <li>
                 <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
@@ -43,11 +44,11 @@ function App() {
 </nav>
 
 <div className="w-full home">
-    <div className="p-[8rem] pt-[6rem] dark:bg-gradient-to-r from-emerald-400 from-10% via-emerald-300 via-30% to-emerald-200 to-90% ... h-[85vh] flex"> 
+    <div className="p-[8rem] pt-[6rem]  to-90% h-[85vh] flex"> 
         <div className="flex-1 w-50 ml-[-2rem] mr-[5rem]">
         <div className='mt-[9rem] '>
-           <h1 className='text-[2.2rem] w-full font-extrabold font-mono text-white mb-1'>Vote for your <span className='text-black'>next <span className='text-white'>student</span> president</span></h1>
-           <p className='text-g mb-3'>your have register yet?</p>
+           <h1 className='text-[2.2rem] w-full font-extrabold font-mono text-white mb-1'>Vote for your <span className='text-white'>next <span className='text-white'>student</span> president</span></h1>
+           <p className='text-gray-200 mb-3'>your have register yet?</p>
         </div>
         <div>
         <button class="w-70 dark:bg-gradient-to-r  from-sky-500 from-10% via-sky-500 via-30% to-indigo-500 to-90%  hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
@@ -70,8 +71,8 @@ function App() {
       
 
    </div>
-   <div class="container dark:bg-gradient-to-r from-emerald-400 from-10% via-emerald-300 via-30% to-emerald-200 to-90% mx-auto px-12 py-24">
-  <h1 class="text-[2.2rem] w-full font-extrabold font-mono text-white mb-[2rem]">CANDIDATES</h1>
+   <div class="container bg-blue-100 mx-auto px-12 py-24">
+  <h1 class="text-[2.2rem] w-full font-extrabold font-mono text-black mb-[2rem]">CANDIDATES</h1>
   <div class="grid grid-cols-3 gap-4">
   <div class="dark:bg-white text-black   rounded-lg shadow-md">
       <img src={img2} alt="Candidate 1" class="w-full h-64 object-cover rounded-t-lg"/>
@@ -209,8 +210,9 @@ function App() {
   </div>
 </div>
 
-<figure class="max-w-screen-md mx-auto text-center p-10">
-    <svg aria-hidden="true" class="w-12 h-12 mx-auto mb-3 text-sky-500  dark:text-sky-500 " viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/></svg>
+<figure class="p-10  bg-blue-100">
+<div className="max-w-screen-md mx-auto text-center">
+<svg aria-hidden="true" class="w-12 h-12 mx-auto mb-3 text-sky-500  dark:text-sky-500 " viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/></svg>
     <blockquote>
         <p class="text-2xl italic font-medium text-gray-900 dark:text-black">"Don't blow it, vote students for senior class president" poster with whoopi cushions!."</p>
     </blockquote>
@@ -221,10 +223,26 @@ function App() {
             <cite class="pl-3 text-sm text-gray-900 dark:text-black">Software Enigneering</cite>
         </div>
     </figcaption>
+</div>
+  
 </figure>
 
 
-<footer class="dark:text-white  rounded-lg shadow m-4  border-gray-200 dark:bg-gradient-to-r from-emerald-500 from-10% via-emerald-600 via-30% to-emerald-500 to-90% ...">
+<footer class="dark:text-white  rounded-lg shadow m-4  border-blue-200 dark:bg-gradient-to-r from-sky-500 from-10% via-sky-600 via-30% to-sky-500 to-90% ">
+<section class="">
+  <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-white dark:text-white">For your Feedback</h2>
+      {/* <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p> */}
+      <form action="#" class="space-y-8">
+
+          <div class="sm:col-span-2">
+              <label for="message" class="block mb-2 text-sm font-medium text-white dark:text-white">Your message</label>
+              <textarea id="message" rows="6" class="block p-2.5 w-full text-sm text-blue-900 bg-gray-50 rounded-lg shadow-sm border border-blue-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-blue-200 dark:border-blue-100 dark:placeholder-black dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Leave a comment..."></textarea>
+          </div>
+          <button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg sm:w-fit dark:bg-emerald-500  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-sky-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Send message</button>
+      </form>
+  </div>
+</section>
     <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
       <span class="text-sm dark:text-white  sm:text-cente text-white">© 2023 <a href="https://flowbite.com/" class="hover:underline">Name of your Team™</a>. All Rights Reserved.
     </span>
@@ -244,6 +262,82 @@ function App() {
     </ul>
     </div>
 </footer>
+<div class="bg-white m-10 p-[2rem] rounded-lg shadow-md">
+  <div class="flex items-center mb-6">
+
+    <img class="w-[6rem] h-[6rem] rounded-full mr-4" src={img2} alt="User Profile Image"/>
+    <div>
+      <h2 class="text-xl font-bold">John Doe</h2>
+      <p class="text-gray-700">john.doe@example.com</p>
+      <p class="text-gray-700">1234 Main St, Anytown, USA</p>
+      <p class="text-gray-700">Biomedical Engineering</p>
+    </div>
+  </div>
+  <h2 class="text-xl font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis.</h2>
+
+  <p class="text-gray-700 leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.</p>
+  <div class="flex items-center">
+    <p class="text-gray-700 mr-2">Rating:</p>
+    <div class="flex items-center">
+      <svg class="w-4 h-4 fill-current text-yellow-400 mr-1" viewBox="0 0 20 20">
+        <path d="M10 1l2.928 6.165L19.856 7.67l-4.118 4.014.973 6.07L10 16.25l-5.711 3.505.973-6.07-4.118-4.014L7.072 7.165 10 1z"/>
+      </svg>
+      <svg class="w-4 h-4 fill-current text-yellow-400 mr-1" viewBox="0 0 20 20">
+        <path d="M10 1l2.928 6.165L19.856 7.67l-4.118 4.014.973 6.07L10 16.25l-5.711 3.505.973-6.07-4.118-4.014L7.072 7.165 10 1z"/>
+      </svg>
+      <svg class="w-4 h-4 fill-current text-yellow-400 mr-1" viewBox="0 0 20 20">
+        <path d="M10 1l2.928 6.165L19.856 7.67l-4.118 4.014.973 6.07L10 16.25l-5.711 3.505.973-6.07-4.118-4.014L7.072 7.165 10 1z"/>
+      </svg>
+      <svg class="w-4 h-4 fill-current text-yellow-400 mr-1" viewBox="0 0 20 20">
+        <path d="M10 1l2.928 6.165L19.856 7.67l-4.118 4.014.973 6.07L10 16.25l-5.711 3.505.973-6.07-4.118-4.014L7.072 7.165 10 1z"/>
+      </svg>
+     
+      
+</div>
+
+</div>
+ <div className='p-6 '>
+      <div class="flex items-center mb-6 gap-4">
+      <div className='p-2'>
+      <div className='gap-10 flex'>
+      <span className='text-gray-700'>Department</span>
+      <p class="text-gray-700">software Engineering</p>
+      </div>
+      <div className='gap-10 flex'>
+      <span className='text-gray-700 mr-3'>Exam core</span>
+      <p class="text-gray-700 ">202</p>
+      </div>
+      <div className='gap-10 flex'>
+      <span className='text-gray-700 mr-14'>GPA</span>
+      <p class="text-gray-700 ">3.88</p>
+      </div>
+     
+      </div>
+  
+      <div className='p-2'>
+      <div className='gap-10 flex'>
+      <span className='text-gray-700'>Admission Year</span>
+      <p class="text-gray-700">02-04-2021</p>
+      </div>
+      <div className='gap-[2.22rem] flex'>
+      <span className='text-gray-700'>Graduation Year</span>
+      <p class="text-gray-700 ">02-04-2021</p>
+      </div>
+      <div className='gap-10 flex'>
+      <span className='text-gray-700 mr-[5.1rem]'>SEX</span>
+      <p class="text-gray-700 ">M</p>
+      </div>
+     
+
+    
+    </div>
+  </div>
+      </div>
+</div>
+
 
 
 
