@@ -10,6 +10,7 @@ class Vote extends Model
     use HasFactory;
     
     protected $fillable = [
+                           'vote_name',
                            'vote_start_date',
                            'vote_end_date',
                            'voteCanceled',

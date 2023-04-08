@@ -29,9 +29,11 @@ class VoteController extends Controller
                'message' => 'unAuthorized access'
             ],401);
          }
+         
+         $vote_name = !$request->vote_name ? Carbon::now()->format('Y')." Student Union President Election" : $request->vote_name;
         
          $vote = Vote::create(
-                 [      'vote_name' => 'vote-'.Carbon::now(),
+                 [      'vote_name' => $vote_name,
                         'vote_start_date' => Carbon::now(),
                         'vote_end_date' => Carbon::now(),
                         'vote_status' => 'pending'

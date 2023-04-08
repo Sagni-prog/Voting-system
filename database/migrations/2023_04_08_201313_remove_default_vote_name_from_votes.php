@@ -14,9 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('votes', function (Blueprint $table) {
-        
             $table->string('vote_name')->change();
-
         });
     }
 
