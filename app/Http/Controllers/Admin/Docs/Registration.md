@@ -6,12 +6,12 @@
   ### Validations
     name => is requires cant be empty, string, max length less than 255 characters    
     email => is requires cant be empty, string, max length less than 255 characters,  
-                  no duplicate value allowed                                                
+                  no duplicate value allowed,                                                
    password => is required cant be empty, string, min length is 8 characters 
    faceId => is required cant be empty, it is string
    sex => is required field and it is string
    
-## About Voter Candidate Registration 
+## About Candidate Registration 
   ### Validations
     name => is requires cant be empty, string, max length less than 255 characters    
     email => is requires cant be empty, string, max length less than 255 characters,  
