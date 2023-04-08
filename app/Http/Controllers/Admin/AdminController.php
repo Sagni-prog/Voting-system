@@ -217,7 +217,7 @@ class AdminController extends Controller
         
        $user = User::where('id',$id);
        
-      //  return $user;
+   
        if(!$user){
          return respoose()->json([
             'status' => 'success',
@@ -225,7 +225,6 @@ class AdminController extends Controller
          ],200);
        }
        
-      //  return Carbon::now();
        
       $deleted = $user->update([
          
@@ -246,7 +245,9 @@ class AdminController extends Controller
            'message' => 'you have successfully deleted the user'
         ],200);
       } catch (\Exception $exception) {
+      
          return $exception->getMessage();
+         
        }
     }
 }

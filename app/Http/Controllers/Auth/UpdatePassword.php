@@ -17,7 +17,6 @@ class UpdatePassword extends Controller
             'password' => ['required','string','min:8'],
                    ]);
         
-        
        if(!Auth::user()){
           return response()->json([
              'status' => 'fail',

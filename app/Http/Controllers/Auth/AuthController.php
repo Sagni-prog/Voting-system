@@ -105,6 +105,7 @@ class AuthController extends Controller
         
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required','string','min:8'],
+            // 'faceId' => ['required','string']
       ]);
     
       if(!$loginvaliditor){
@@ -123,6 +124,22 @@ class AuthController extends Controller
               "message" => "Wrong Credentials, try again"
           ],401);
     }
+    
+    // if(!$request->faceId){
+    //   return response()->json([
+    //      'status' => 'fail',
+    //      'message' => 'no face id'
+    //   ],400);
+   // }
+    
+    // if($user->faceId != $request->faceId){
+    //    return responce()->json([
+    //       'status' => 'fail',
+    //       'message' => 'face doesnt match',
+    //       'reqId' => $request->faceId,
+    //       'realface' => $user->faceId
+    //    ],401);
+   // }
       if(!Hash::check($request->password, $user->password)){
           return response()->json([
               "status" => "fail",
@@ -141,7 +158,7 @@ class AuthController extends Controller
       }catch(\Exception $exception){
             return response()->json([
                 "status"=>"fail",
-                "message"=>$exception->getMessage()
+                "message"=>'Something went wrong'
             ],500);
          }
      }
