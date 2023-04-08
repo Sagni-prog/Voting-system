@@ -32,6 +32,8 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
        Route::patch('/update-password',[UpdatePassword::class,'edit']);
        Route::patch('/update-profile',[UpdateProfile::class,'edit']);
        Route::patch('/verify-users/{id}',[UserVerification::class,'edit']);
+       
+       Route::post('/vote',[VoteController::class,'store']);
    });
       
       Route::patch('/user/{id}/ban',[UserVerification::class,'banUser']);
@@ -44,7 +46,6 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
       Route::get('candidates',[AdminController::class,'getAllCandidates']);
       Route::get('chairmans',[AdminController::class,'getAllChairmans']);
       
-      Route::post('vote',[VoteController::class,'store']);
     //   Route::patch('vote/extend-start-date',[VoteController::class,'extend']);
     //   Route::patch('vote/extend-result',[VoteController::class,'extendResult']);
     //   Route::patch('vote/cancel',[VoteController::class,'cancelVote']);
