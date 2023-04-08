@@ -607,6 +607,30 @@ function App() {
     <div className='flex gap-4'>
     <div class="mb-4 w-full">
       <label class="block text-gray-700 font-bold mb-2" for="cv">
+      Educational Year
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="educational_year"
+        onChange={e=>setStartDate(e.target.value)}
+        type="date"
+      />
+    </div>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="last-name">
+        SEX
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="sex"
+        type="text"
+        placeholder="Enter your last name"
+      />
+    </div>
+    </div>
+    <div className='flex gap-4'>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="cv">
         CV
       </label>
       <input
