@@ -26,7 +26,8 @@ class Vote extends Model
                      
      protected $casts = [
         'vote_start_date' => 'datetime',
-        'vote_end_date' => 'datetime'
+        'vote_end_date' => 'datetime',
+        'confirmed_at' => 'datetime'
     ];
     
     public function voter(){
