@@ -10,8 +10,6 @@ class Votes extends Model
     use HasFactory;
     
     protected $fillable = [
-                           'voter_id',
-                           'candidate_id',
                            'vote_start_date',
                            'vote_end_date',
                            'voteCanceled',
@@ -20,7 +18,9 @@ class Votes extends Model
                            'confirmed',
                            'confirmed_at',
                            'confirmed_by',
-                           'vote_status'
+                           'vote_status',
+                           'isDeleted',
+                           'deleted_at'
                      ];
     
     public function voter(){

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RegistrationController;
 use App\Http\Controllers\Admin\UpdateProfile;
 use App\Http\Controllers\Admin\UserVerification;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\VoteController;
 
 
 Route::get('/',function(){
@@ -42,4 +43,11 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
       
       Route::get('candidates',[AdminController::class,'getAllCandidates']);
       Route::get('chairmans',[AdminController::class,'getAllChairmans']);
+      
+      Route::post('vote',[VoteController::class,'store']);
+    //   Route::patch('vote/extend-start-date',[VoteController::class,'extend']);
+    //   Route::patch('vote/extend-result',[VoteController::class,'extendResult']);
+    //   Route::patch('vote/cancel',[VoteController::class,'cancelVote']);
+    //   Route::patch('vote/confirm',[VoteController::class,'confirmVote']);
+    //   Route::delete('vote/cancel',[VoteController::class,'destroy']);
   });
