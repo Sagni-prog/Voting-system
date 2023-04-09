@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserVerification;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VoteController;
 use App\Http\Controllers\Voter\UpdateProfile as VoterUpdateProfile;
+use App\Http\Controller\Chairman\ManageVoterController;
 
 
 Route::get('/',function(){
@@ -56,5 +57,9 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
        Route::post('/update-profile',[VoterUpdateProfile::class,'update']);
     });
     
+   Route::prefix('/chairman')->group(function(){
+   
+       Route::get('/',[ManageVoterController::class,'index']);
+   });
       
   });

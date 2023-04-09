@@ -51,7 +51,8 @@ class ManageVoterController extends Controller
     }
     
     public function approveVoter(){
-    
+      try {
+       
         if(!Auth::check()){
             return response()->json([
                 'status' => 'fail',
@@ -70,7 +71,7 @@ class ManageVoterController extends Controller
         $voter = User::with('role.roleable','photos')
                      ->where(
                               [
-                                'isActtive' => true,
+                                'isActive' => true,
                                 'isBanned' => false,
                                 'isDeleted' => false
                                 
@@ -110,5 +111,13 @@ class ManageVoterController extends Controller
             'status' => 'success',
             'message' => 'You have successfully approved the voter'
          ],200);
+             } catch (\Exception $exception) {
+                return response()->json([
+                   'status' => 'fail',
+                   'message' => 'Oops! something went wrong',
+                   'error' => $exception->getMessage()
+               ], 200);
+          } 
       }
+      
 }
