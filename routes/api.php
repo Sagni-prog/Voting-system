@@ -60,6 +60,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
    Route::prefix('/chairman')->group(function(){
    
        Route::get('/',[ManageVoterController::class,'index']);
+       Route::patch('/approve',[ManageVoterController::class,'approveVoter']);
    });
       
   });
