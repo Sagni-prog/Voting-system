@@ -48,4 +48,10 @@ class Candidate extends Model
       
          return $this->belongsToMany(VoteBallot::class);
       }
+      
+     public function chairman(){
+       
+       return $this->belongsTo(User::class,'approvedBy');
+       
+     }
 }

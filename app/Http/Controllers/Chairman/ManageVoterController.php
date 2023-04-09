@@ -52,7 +52,7 @@ class ManageVoterController extends Controller
     }
     
     
-    public function getVoter($id){
+    public function show($id){
     
         if(!Auth::check()){
             return response()->json([
@@ -93,7 +93,7 @@ class ManageVoterController extends Controller
       ]);
     }
     
-    public function approveVoter($id){
+    public function update($id){
       try {
        
         if(!Auth::check()){

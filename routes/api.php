@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VoteController;
 use App\Http\Controllers\Voter\UpdateProfile as VoterUpdateProfile;
 use App\Http\Controllers\Chairman\ManageVoterController;
+use App\Http\Controllers\Chairman\ManageCandidateController;
 
 
 Route::get('/',function(){
@@ -58,9 +59,18 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
     });
     
    Route::prefix('/chairman')->group(function(){
-       Route::get('/',[ManageVoterController::class,'index']);
-       Route::get('/{id}',[ManageVoterController::class,'getVoter']);
-       Route::patch('/approve/{id}',[ManageVoterController::class,'approveVoter']);
+       Route::get('/voters',[ManageVoterController::class,'index']);
+       Route::get('/voter/{id}',[ManageVoterController::class,'show']);
+       Route::patch('/voter/{id}/approve',[ManageVoterController::class,'update']);
+       
+       
+       Route::get('/candidates',[ManageCandidateController::class,'index']);
+       Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);
+       Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update']);
     });
+    
+  Route::prefix('/candidate')->group(function(){
+  
+  });
       
   });
