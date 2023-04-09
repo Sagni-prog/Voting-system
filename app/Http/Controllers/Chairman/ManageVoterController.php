@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Chairman;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Auth;
 use App\Models\Voter;
-// use App\Models\
+use App\Models\User;
 
 class ManageVoterController extends Controller
 {
@@ -21,14 +22,14 @@ class ManageVoterController extends Controller
         
         $user = Auth::user();
         if($user->role->roleable->role != 'chairman'){
-            return reponse()->json([
+            return response()->json([
                 'status' => 'fail',
                 'message' => 'unAuthized access'
             ],401);
         }
         
         $voter = User::with('role.roleable','photos')->where([
-                            'isActtive' => true,
+                            'isActive' => true,
                             'isBanned' => false,
                             'isDeleted' => false
                 ])->whereHas('role.roleable',function($query){
@@ -50,7 +51,49 @@ class ManageVoterController extends Controller
       ]);
     }
     
-    public function approveVoter(){
+    
+    public function getVoter($id){
+    
+        if(!Auth::check()){
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'unAuthorized access'
+            ],401);
+        }
+        
+        $user = Auth::user();
+        if($user->role->roleable->role != 'chairman'){
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'unAuthized access'
+            ],401);
+        }
+        
+        $voter = User::with('role.roleable.chairman','photos')->where([
+                            'id' => $id,
+                            'isActive' => true,
+                            'isBanned' => false,
+                            'isDeleted' => false
+                ])->whereHas('role.roleable',function($query){
+                   $query->where('role','voter');
+                })->first();
+                
+      if(!$voter){
+          
+          return response()->json([
+              'status' => 'fail',
+              'message' => 'Oops! something went wrong'
+          ],400);
+      } 
+      
+      return response()->json([
+          'status' => 'success',
+          'size' => $voter->count(),
+          'voters' => $voter
+      ]);
+    }
+    
+    public function approveVoter($id){
       try {
        
         if(!Auth::check()){
@@ -62,7 +105,7 @@ class ManageVoterController extends Controller
         
         $user = Auth::user();
         if($user->role->roleable->role != 'chairman'){
-            return reponse()->json([
+            return response()->json([
                 'status' => 'fail',
                 'message' => 'unAuthized access'
             ],401);
@@ -71,33 +114,35 @@ class ManageVoterController extends Controller
         $voter = User::with('role.roleable','photos')
                      ->where(
                               [
+                                'id' => $id,
                                 'isActive' => true,
                                 'isBanned' => false,
                                 'isDeleted' => false
                                 
-                               ])
+                              ])
                  ->whereHas('role.roleable',function($query){
-                               $query->where([
-                                      'role' => 'voter',
-                               ]);
-                        });
-                        
+                               $query->where('role','voter');
+          })->first();
+          
+                     
                         
             if($voter->role->roleable->isApproved){
                    return response()->json([
                             'status' => 'fail',
                             'message' => 'The Voter is already approved'
-                    ],400);
-              } 
+                    ],200);
+            } 
               
             if(!$voter){
                    return response()->json([
                             'status' => 'fail',
-                            'message' => 'Oops! something went wrong'
-                    ],400);
+                            'message' => 'Voter not found'
+                    ],404);
               } 
-            $isEdited = $user->role->roleable->update([
-                   'isApproved' => true
+            $isEdited = $voter->role->roleable->update([
+                   'isApproved' => true,
+                   'approvedBy' => $user->id,
+                   'approved_at' => Carbon::now()
             ]);
             
         if(!$isEdited){
@@ -116,7 +161,7 @@ class ManageVoterController extends Controller
                    'status' => 'fail',
                    'message' => 'Oops! something went wrong',
                    'error' => $exception->getMessage()
-               ], 200);
+               ], 400);
           } 
       }
       

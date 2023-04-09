@@ -37,7 +37,7 @@ class Voter extends Model
  
  public function chairman(){
  
-     return $this->belongsTo(Chairman::class,'approvedBy');
+     return $this->belongsTo(User::class,'approvedBy');
  }
   
   
