@@ -22,7 +22,10 @@ class Candidate extends Model
                             'gpa',
                             'exam_score',
                             'candidates_description',
-                            'strategic_plan'
+                            'strategic_plan',
+                            'isApproved',
+                            'approvedBy',
+                            'approved_at'
                   ];
                   
        public function role(){

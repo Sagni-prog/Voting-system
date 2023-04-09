@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('role')->default('user');
             $table->boolean('status')->default(false);
             $table->integer('admin_id')->unsigned()->nullable();
-            $table->timestamp('approved_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
