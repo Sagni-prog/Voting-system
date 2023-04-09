@@ -1,4 +1,4 @@
-<?php
+'<?php
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UpdateProfile;
 use App\Http\Controllers\Admin\UserVerification;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VoteController;
+// use App\Http\Controllers\Voter\UpdateProfile;
 
 
 Route::get('/',function(){
@@ -38,17 +39,22 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
        Route::post('vote/extend-end-date/{id}',[VoteController::class,'extendEndDate']);
        Route::patch('vote/confirm/{id}',[VoteController::class,'confirmVote']);
        Route::post('vote/cancel/{id}',[VoteController::class,'cancelVote']);
+       //   Route::delete('vote/delete',[VoteController::class,'destroy']);
+       
+       Route::patch('/user/{id}/ban',[UserVerification::class,'banUser']);
+       Route::patch('/user/{id}/unban',[UserVerification::class,'unBanUser']);
+       
+       Route::get('voters',[AdminController::class,'getAllVoters']);
+       Route::get('voters/active',[AdminController::class,'getActiveVoters']);
+       Route::delete('user/{id}',[AdminController::class,'destroy']);
+         
+       Route::get('candidates',[AdminController::class,'getAllCandidates']);
+       Route::get('chairmans',[AdminController::class,'getAllChairmans']);
     });
     
-    Route::patch('/user/{id}/ban',[UserVerification::class,'banUser']);
-    Route::patch('/user/{id}/unban',[UserVerification::class,'unBanUser']);
+    Route::prefix('/voter')->group(function(){
+       Route::post('/update-profile',[App\Http\Controllers\Voter\UpdateProfile::class,'update']);
+    });
     
-    Route::get('voters',[AdminController::class,'getAllVoters']);
-    Route::get('voters/active',[AdminController::class,'getActiveVoters']);
-      Route::delete('user/{id}',[AdminController::class,'destroy']);
       
-      Route::get('candidates',[AdminController::class,'getAllCandidates']);
-      Route::get('chairmans',[AdminController::class,'getAllChairmans']);
-      
-    //   Route::delete('vote/delete',[VoteController::class,'destroy']);
   });

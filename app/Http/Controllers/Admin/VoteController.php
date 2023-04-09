@@ -258,12 +258,12 @@ class VoteController extends Controller
         ],200);
         
       } catch (\Throwable $th) {
-        //throw $th;
+       
       }
        
     }
     
     public function destroy($id){
-    
+        
     }
 }
