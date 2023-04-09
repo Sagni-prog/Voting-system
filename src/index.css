@@ -34,16 +34,18 @@ code {
 }
 .home{
   /* z-index: 1; */
-  background: linear-gradient(rgba(0, 0, 0, 0.435),rgba(1, 25, 36, 0.5)),url("./images/339492458_179742571115721_1024488669478325209_n.jpeg");
+  background: linear-gradient(rgba(39, 79, 45, 0.299),rgba(1, 25, 36, 0.5)),url("./images/339492458_179742571115721_1024488669478325209_n.jpeg");
   background-position:center;
   background-attachment:scroll;
   background-repeat: no-repeat;
   background-size: 1300px;
+  color:#073c17 ;
   
   overflow: hidden  
 }
-.image1{
-  animation-duration: 3s;
+
+.imag{
+  animation-duration: 6s;
   animation-name: slid;
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -65,12 +67,53 @@ code {
 
 @keyframes slid {
   from {
-    margin-right: 100%;
+    margin-left: 10%;
    
   }
 
   to {
-    margin-right: 0%;
+    margin-left: 0%;
 
   }
+}
+.bar {
+  width: 300px;
+  border: 1px solid;
+  border-radius: 5px;
+  position: relative;
+}
+
+.progress {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+}
+
+.percent {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translate(0, -50%);
+}
+
+.text {
+  padding: 3px;
+  width: 80%;
+}
+
+.one {
+  background-color: rgba(255, 0, 0, 0.5);
+  width: 25%;
+}
+
+.two {
+  background-color: rgba(0, 255, 0, 0.5);
+  width: 55%;
+}
+
+.three {
+  background-color: rgba(0, 0, 255, 0.5);
+  width: 20%;
 }

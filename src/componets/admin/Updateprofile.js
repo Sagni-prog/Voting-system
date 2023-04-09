@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function committeescard() {
+export default function Updateprofile() {
   return (
     <div>
       
