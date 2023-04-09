@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('voters', function (Blueprint $table) {
-            $table->id();
-            $table->string('sex');
-            $table->string('role')->default('user');
-            $table->boolean('status')->default(false);
-            $table->timestamp('deleted_at')->nullable();
-            $table->timestamps();
+        Schema::table('voters', function (Blueprint $table) {
+            $table->integer('approvedBy')->unsigned()->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('voters');
+        Schema::table('voters', function (Blueprint $table) {
+            //
+        });
     }
 };

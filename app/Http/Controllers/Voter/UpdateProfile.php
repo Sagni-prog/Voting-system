@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Voter;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Validator;
+use Auth;
 
 class UpdateProfile extends Controller
 {
@@ -34,8 +36,6 @@ class UpdateProfile extends Controller
             }
             
             $user =  Auth::user();
-            
-            // return $user->role;
             
             $userUpdated = $user->update([
                             'first_name'=>$request->first_name,

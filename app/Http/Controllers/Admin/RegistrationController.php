@@ -72,13 +72,19 @@ class RegistrationController extends Controller{
                    ],400);
                 }
         $voter = Voter::create([
+                        'admin_id' => Auth::user()->id,
                         'sex' => $request->sex,
                         'role' => 'voter',
                         'status' => true,
+                        'vote_id' => $request->vote_id
             ]);
         
         if(!$voter){
             
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Oops! something went wrong'
+            ],400);
         }
         
         $role = $voter->role()->create([
@@ -86,7 +92,11 @@ class RegistrationController extends Controller{
         ]);
         
         if(!$role){
-           
+          $voter->delete();
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Oops! something went wrong'
+            ],400);
         }
  
         $voter = User::with('photos','role.roleable')

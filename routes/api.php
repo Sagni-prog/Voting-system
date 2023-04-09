@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\UpdateProfile;
 use App\Http\Controllers\Admin\UserVerification;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VoteController;
-// use App\Http\Controllers\Voter\UpdateProfile;
+use App\Http\Controllers\Voter\UpdateProfile as VoterUpdateProfile;
 
 
 Route::get('/',function(){
@@ -53,7 +53,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
     });
     
     Route::prefix('/voter')->group(function(){
-       Route::post('/update-profile',[App\Http\Controllers\Voter\UpdateProfile::class,'update']);
+       Route::post('/update-profile',[VoterUpdateProfile::class,'update']);
     });
     
       

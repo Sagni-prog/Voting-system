@@ -10,9 +10,12 @@ class Voter extends Model
     use HasFactory;
     
     protected $fillable = [ 
+                            'vote_id',
                             'sex',
                             'role',
                             'status',
+                            'isApproved',
+                            'approvedBy',
                             'approved_at',
                             'deleted_at'
                  ];
