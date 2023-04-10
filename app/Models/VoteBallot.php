@@ -13,7 +13,7 @@ class VoteBallot extends Model
     
     public function voters(){
     
-        return $this->hasMany(User::class,'voter_id');
+        return $this->belongsTo(User::class,'voter_id');
     }
     
     public function candidates(){

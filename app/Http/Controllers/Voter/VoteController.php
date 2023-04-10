@@ -24,22 +24,34 @@ class VoteController extends Controller
             ],403);
         }
     $user = Auth::user();
+    
     if($user->role->roleable->role != 'voter'){
        return response()->json([
                'status' => 'fail',
                'message' => 'Unauthorized access'
          ],403);
+     }
+               
+             $voted = VoteBallot::whereHas('voters',function($query){
+                $query->where('id',Auth::user()->id);
+           
+             })->first();
+          
+             
+             if($voted){
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'You have already voted',
+               ],404);
              }
              
-             $voted = VoteBallot::whereHas('voters',function($query){
-              try {
-                  $query->where('id',$user->id);
-              } catch (\VoteBallotNotFoundException $exception) {
-                    report($exception);
-                 }
-             });
+              $voted = VoteBallot::create([
+                    'voter_id' => $user->id,
+                    'vote_id' => $request->vote,
+                    'candidate_id' => $request->candidate
+                 ]);
              
-         } catch (\Exception $exception) {
+         } catch (\ModelNotFoundException $exception) {
                return response()->json([
                     'status' => 'fail',
                     'message' => 'Oops! something went wrong',

@@ -14,7 +14,7 @@ class VoteBallotNotFoundException extends Exception
     public function render(){
         return response()->json([
             'status' => 'fail',
-            'message' => 'Oops! something went wrong',
+            'message' => 'Oops! something went wrong from outside',
             'error' => $exception->getMessage()
        ],404);
     }
