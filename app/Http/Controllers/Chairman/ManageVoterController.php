@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Auth;
 use App\Models\Voter;
 use App\Models\User;
+use App\Models\RegisteredVoter;
 
 class ManageVoterController extends Controller
 {
@@ -151,6 +152,11 @@ class ManageVoterController extends Controller
                 'message' => 'Oops! something went wrong'
             ],400);
         }
+        
+        $registered = RegisteredVoter::create([
+                      'voter_id' => $voter->id,
+                      'vote_id' => $voter->role->roleable->vote_id
+        ]);
         
         return response()->json([
             'status' => 'success',

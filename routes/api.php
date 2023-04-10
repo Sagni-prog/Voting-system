@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\VoteController;
 use App\Http\Controllers\Voter\UpdateProfile as VoterUpdateProfile;
 use App\Http\Controllers\Chairman\ManageVoterController;
 use App\Http\Controllers\Chairman\ManageCandidateController;
+use App\Http\Controllers\Voter\VoteController as CastVote;
 
 
 Route::get('/',function(){
@@ -56,6 +57,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
     
     Route::prefix('/voter')->group(function(){
        Route::post('/update-profile',[VoterUpdateProfile::class,'update']);
+       Route::post('/vote',[CastVote::class,'store']);
     });
     
    Route::prefix('/chairman')->group(function(){

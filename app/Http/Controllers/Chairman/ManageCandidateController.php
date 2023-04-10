@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Auth;
 use App\Models\User;
 use App\Models\Candidate;
+use App\Models\RegisteredCandidates;
+
 
 class ManageCandidateController extends Controller
 {
@@ -86,6 +88,11 @@ class ManageCandidateController extends Controller
               'message' => 'Oops! something went wrong'
           ],400);
       } 
+      
+      $registered = RegisteredCandidates::create([
+        'candidate_id' => $candidate->id,
+        'vote_id' => $candidate->role->roleable->vote_id
+]);
       
       return response()->json([
           'status' => 'success',

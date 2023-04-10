@@ -9,11 +9,8 @@ class RegisteredVoter extends Model
 {
     use HasFactory;
     
-    protected $fillable = [     'vote_id',
+    protected $fillable = [  
+                                'vote_id',
                                 'voter_id',
-                                'isBanned',
-                                'banned_at',
-                                'ban_cause',
-                                'bannedBy'
-     ];
+       ];
 }

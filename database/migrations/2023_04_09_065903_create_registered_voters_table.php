@@ -17,10 +17,6 @@ return new class extends Migration
             $table->id();
             $table->integer('vote_id')->unsigned();
             $table->integer('voter_id')->unsigned();
-            $table->boolean('isBanned')->nullable();
-            $table->timestamp('banned_at')->nullable();
-            $table->text('ban_cause')->nullable();
-            $table->integer('bannedBy')->unsigned()->nullable();
             $table->timestamps();
         });
     }

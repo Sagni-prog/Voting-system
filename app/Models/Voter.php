@@ -35,10 +35,14 @@ class Voter extends Model
     return $this->belongsTo(Vote::class);
  }
  
- public function chairman(){
- 
-     return $this->belongsTo(User::class,'approvedBy');
- }
-  
+   public function chairman(){
+   
+       return $this->belongsTo(User::class,'approvedBy');
+   }
+   
+   public function registered(){
+      
+       return $this->belongsToMany(RegisteredVoter::class);
+   }
   
 }
