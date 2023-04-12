@@ -39,8 +39,17 @@ function App() {
         </Element> 
         </div>
         <Element name="section2">
+        <Report />
+        </Element>
+        <Element name="section3">
         <Candidates />
         </Element>
+        <Element name="section4">
+        <ElectionProgress />
+        </Element>
+        <Element name="section5">
+        <Footer />
+        </Element> 
 
         {/* <Element name="section3">
         <ElectionProgress />
@@ -50,9 +59,7 @@ function App() {
         <Report />
         </Element>
       
-        <Element name="section6">
-        <Footer />
-        </Element> */}
+        */}
        
         {/* <AddCandidates /> */}
  

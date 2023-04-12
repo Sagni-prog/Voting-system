@@ -31,13 +31,16 @@ export default function Navbar() {
                 <ScrollLink to="section1" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</ScrollLink>
                 </li>
                 <li>
-                <ScrollLink to="section2" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</ScrollLink>
+                <ScrollLink to="section2" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">News</ScrollLink>
                 </li>
                 <li>
-                <ScrollLink to="section3" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</ScrollLink>
+                <ScrollLink to="section3" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</ScrollLink>
                 </li>
                 <li>
-                <ScrollLink to="section2" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</ScrollLink>
+                <ScrollLink to="section4" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</ScrollLink>
+                </li>
+                <li>
+                <ScrollLink to="section5" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</ScrollLink>
 
                     
                 </li>
