@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Vote;
 use Carbon\Carbon;
 use App\Models\VoteBallot;
+use App\Models\RegisteredCandidates;
 
 use Auth;
 
@@ -31,10 +32,24 @@ class VoteController extends Controller
              ],403);
          }
                    
+                   
         //   $votes = VoteBallot::with('candidates')->whereHas('candidates',function($query){
         //        $query->where('candidate_id',5);
         //   })->get();
-        $votes = VoteBallot::where('candidate_id',5)->get();
+        
+        $data = array();
+        
+        $candidates = RegisteredCandidates::where('vote_id',2)->get();
+        
+        foreach($candidates as $candidate){
+           
+            $votes = VoteBallot::where('candidate_id',$candidate->candidate_id)->get();
+            $dataObj = array("votes" => $votes,"count" => $votes->count());
+            $data[$i] = $dataObj;
+        }
+        
+        return $data;
+        
         
           return response()->json([
            
