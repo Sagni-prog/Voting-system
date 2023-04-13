@@ -137,14 +137,14 @@ class ManageCandidateController extends Controller
               if($candidate->role->roleable->isApproved){
                      return response()->json([
                               'status' => 'fail',
-                              'message' => 'The Voter is already approved'
+                              'message' => 'The Candidate is already approved'
                       ],200);
               } 
                 
               if(!$candidate){
                      return response()->json([
                               'status' => 'fail',
-                              'message' => 'Voter not found'
+                              'message' => 'Candidate not found'
                       ],404);
                 } 
               $isEdited = $candidate->role->roleable->update([
@@ -171,8 +171,5 @@ class ManageCandidateController extends Controller
                      'error' => $exception->getMessage()
                  ], 400);
             } 
-        }
-        
-    
-   
-}
+        }  
+ }

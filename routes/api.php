@@ -74,5 +74,9 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
   Route::prefix('/candidate')->group(function(){
   
   });
+  
+  Route::prefix('/votes/{id}')->group(function(){
+     Route::get('/',[VoteController::class,'index']);
+    });
       
   });

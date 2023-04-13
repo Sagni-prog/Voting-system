@@ -13,7 +13,6 @@ use App\Exceptions\VoteBallotNotFoundException;
 class VoteController extends Controller
 {
        
-       
     public function store(Request $request){
      try {
         if(!Auth::check()){

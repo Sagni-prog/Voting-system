@@ -6,10 +6,44 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vote;
 use Carbon\Carbon;
+use App\Models\VoteBallot;
+
 use Auth;
 
 class VoteController extends Controller
 {
+    public function index($id){
+          
+        try {
+            if(!Auth::check()){
+                
+               return response()->json([
+                    'status' => 'fail',
+                    'message' => 'Unauthorized access'
+                ],403);
+            }
+        $user = Auth::user();
+        
+        if($user->role->roleable->role != 'voter'){
+           return response()->json([
+                   'status' => 'fail',
+                   'message' => 'Unauthorized access'
+             ],403);
+         }
+                   
+          $votes = VoteBallot::all();
+          
+        //   return $votes->count();
+                 
+             } catch (\ModelNotFoundException $exception) {
+                   return response()->json([
+                        'status' => 'fail',
+                        'message' => 'Oops! something went wrong',
+                        'error' => $exception->getMessage()
+                   ],500);
+              }  
+       }
+       
     public function store(Request $request){
         
         try {
