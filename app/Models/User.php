@@ -18,12 +18,17 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'password',
-        'faceId'
-    ];
+                        'first_name',
+                        'last_name',
+                        'email',
+                        'password',
+                        'faceId',
+                        'isActive',
+                        'isDeleted',
+                        'deleted_at',
+                        'isBanned',
+                        'banned_at'
+       ];
 
     
     protected $hidden = [
@@ -43,5 +48,11 @@ class User extends Authenticatable
     public function photos(){
     
        return $this->hasMany(Photo::class);
+    }
+    
+    public function voteBallots(){
+    
+        return $this->belongsToMany(VoteBallot::class,'candidate_vote_ballot');
+        
     }
 }
