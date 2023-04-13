@@ -62,7 +62,7 @@ export default function ElectionProgress() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -75,7 +75,7 @@ export default function ElectionProgress() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -89,7 +89,7 @@ export default function ElectionProgress() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -103,7 +103,7 @@ export default function ElectionProgress() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -117,7 +117,7 @@ export default function ElectionProgress() {
       fullName: 'Natnael Getachew',
       firstName:'ggg',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -131,7 +131,7 @@ export default function ElectionProgress() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -171,10 +171,10 @@ export default function ElectionProgress() {
         <div className="bg-white shadow-md rounded-lg overflow-hidden flex items-center justify-between">
           <img className="w-40 h-40 object-cover object-center"   src={candidate.photoUrl}
                    alt={candidate.firstName}/>
-          <div className="p-4">
+          {/* <div className="p-4">
             <h3 className="text-gray-900 font-bold mb-2">{candidate.firstName}</h3>
             <p className="text-gray-700 text-base mb-2">{candidate.department}</p>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* Progress Bar */}
@@ -203,11 +203,11 @@ export default function ElectionProgress() {
             <span className='text-[0.5rem] bg-white ml-1'>60%</span>
           </div>
           <div className="container mx-auto py-1">
-      <div className="bg-white rounded-lg shadow-md p-2 mb-1">
+      <div className="bg-emerald-50 rounded-lg shadow-md p-2 mb-1">
         <h2 className="text-sm font-bold mb-1 text-gray-800">
           Almost Voted Days Report
         </h2>
-        <div className="bg-white rounded-lg  p-1">
+        <div className="bg-emerald-50 rounded-lg  p-1">
    
           <Line type='bar' data={data} />
         </div>

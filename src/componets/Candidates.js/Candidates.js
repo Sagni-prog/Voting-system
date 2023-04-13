@@ -57,7 +57,7 @@ export default function Candidates() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -70,7 +70,7 @@ export default function Candidates() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -84,7 +84,7 @@ export default function Candidates() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -98,7 +98,7 @@ export default function Candidates() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -112,7 +112,7 @@ export default function Candidates() {
       fullName: 'Natnael Getachew',
       firstName:'ggg',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -126,7 +126,7 @@ export default function Candidates() {
       fullName: 'Natnael Getachew',
       firstName:'natty',
       lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
+      photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
       graduationYear: 2023,
@@ -226,9 +226,9 @@ export default function Candidates() {
     
         <div className="w-full ">
           <div className="bg-white rounded-lg">
-          <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-8 ">
+          <div class="p-4  border border-gray-200 rounded-lg shadow-md sm:p-8 ">
                   <div class="flex items-center justify-between mb-4">
-                    <h5 class="text-xl font-bold leading-none text-gray-900">
+                    <h5 class="text-xl font-bold leading-none text-gray-800">
                       candidates
                     </h5>
                   
@@ -236,9 +236,9 @@ export default function Candidates() {
                   <div class="flow-root w-[50rem] h-[50vh] overflow-y-auto">
                     <ul
                       role="list"
-                      class="divide-y  divide-gray-700 dark:divide-gray-700">
+                      class="divide-y  divide-gray-700 dark:divide-gray-500">
                        {candidates.map((candidate ) => (
-                        <li key={candidate.id} className="border-b h-[4rem] hover:bg-emerald-100 text-gray-800 cursor-pointer p-2" onClick={() => setSelectedCandidate(candidate)}>
+                        <li key={candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" onClick={() => setSelectedCandidate(candidate)}>
           <div class="flex items-center space-x-4">
             <div class="flex-shrink-0">
               <img
@@ -248,10 +248,10 @@ export default function Candidates() {
               />
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-gray-900 truncate ">
+              <p class="text-sm font-medium text-gray-800 truncate ">
               {candidate.firstName}  {candidate.lastName}
               </p>
-              <p class="text-sm text-gray-600 item-center truncate dark:text-gray-400">
+              <p class="text-sm text-gray-500 item-center truncate dark:text-gray-400">
                 {candidate.department}
               </p>
               <p class="text-sm text-gray-500 truncate dark:text-gray-400">
