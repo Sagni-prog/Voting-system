@@ -10,7 +10,7 @@ export default function Landingpage() {
     <div className="p-[8rem] pt-[6rem] shadow-md  to-90% h-[50vh] flex"> 
       
         <div className="flex-1 w-50 ">
-          <div className="absolute ml-[3rem] mt-[3.3rem] ">
+          <div className="absolute ml-[3rem] mt-[2.9rem] ">
           {/* <img class="image w-70 absolute rounded-[100%]" src={img} alt="user photo"/> */}
           {/* <img class="w-[50vh] h-[50vh] text-emerald-400  rounded-[150%]" src={img} alt="user photo"/> */}
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 170 210" width="200" height="247" enable-background="new 0 0 170 210" xmlSpace="preserve">
