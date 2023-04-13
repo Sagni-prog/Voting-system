@@ -35,7 +35,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
    Route::prefix('/admin')->group(function(){
        Route::patch('/update-password',[UpdatePassword::class,'edit']);
        Route::patch('/update-profile',[UpdateProfile::class,'edit']);
-       Route::patch('/verify-users/{id}',[UserVerification::class,'edit']);
+       Route::patch('/verify-user/{id}',[UserVerification::class,'edit']);
        
        Route::post('/vote',[VoteController::class,'store']);
        Route::post('vote/extend-start-date/{id}',[VoteController::class,'extendStartDate']);

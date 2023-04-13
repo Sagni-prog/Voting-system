@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
+use Auth;
 
 class UserVerification extends Controller
 {
     public function edit(Request $req,$id){
-   
         try {
          
             if(!Auth::check()){
@@ -19,7 +20,8 @@ class UserVerification extends Controller
                 ],401);
             }
             
-            $user = User::findOrFail($id);
+            $user = User::find($id);
+            
             $verified = $user->update(['isActive' => true]);
             
             if(!$verified){

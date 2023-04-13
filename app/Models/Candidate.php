@@ -14,7 +14,6 @@ class Candidate extends Model
                             'sex',
                             'role',
                             'status',
-                            'approved_at',
                             'deleted_at',
                             'admission_year',
                             'educational_year',

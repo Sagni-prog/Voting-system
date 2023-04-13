@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Voter;
 use App\Models\Candidate;
 use App\Models\Chairman;
+use Auth;
 
 
 class RegistrationController extends Controller{
@@ -56,7 +57,7 @@ class RegistrationController extends Controller{
                     'last_name'=>$request->last_name,
                     'email'=>$request->email,
                     'password'=>Hash::make($request->password),
-                    'faceId' => $request->faceId
+                    'faceId' => "ijioj09q3wbnuiw4jemkwoe"
                    ]
                 );
         /*|---------------------------------------------------------------------------|
@@ -72,11 +73,9 @@ class RegistrationController extends Controller{
                    ],400);
                 }
         $voter = Voter::create([
-                        'admin_id' => Auth::user()->id,
                         'sex' => $request->sex,
                         'role' => 'voter',
                         'status' => true,
-                        'vote_id' => $request->vote_id
             ]);
         
         if(!$voter){
@@ -136,10 +135,10 @@ class RegistrationController extends Controller{
                 'last_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required','string','min:8'],
-                'admission_year' => ['required','timestamp'],
-                'educational_year' => ['required','timestamp'],
+                'admission_year' => ['required'],
+                'educational_year' => ['required'],
                 'department' => ['required','string'],
-                'gpa' => ['required','float'],
+                'gpa' => ['required'],
                 'exam_score' => ['required','integer'],
             ]);
 
@@ -174,7 +173,7 @@ class RegistrationController extends Controller{
                                 'educational_year' => $request->educatoinal_date,
                                 'department' => $request->department,
                                 'gpa' => $request->gpa,
-                                'exam_score' => $request->exam_result,
+                                'exam_score' => $request->exam_score,
                   ]);
         
         if(!$candidate){
@@ -257,7 +256,7 @@ class RegistrationController extends Controller{
                 }
         $chairman = Chairman::create([
                                 'sex' => $request->sex,
-                                'role' => 'candidate',
+                                'role' => 'chairman',
                                 'status' => true,
                 ]);
         
