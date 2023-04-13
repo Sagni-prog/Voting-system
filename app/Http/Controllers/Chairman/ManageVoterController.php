@@ -155,7 +155,8 @@ class ManageVoterController extends Controller
         
         $registered = RegisteredVoter::create([
                       'voter_id' => $voter->id,
-                      'vote_id' => $voter->role->roleable->vote_id
+                    //   'vote_id' => $voter->role->roleable->vote_id
+                      'vote_id' => 1
         ]);
         
         return response()->json([

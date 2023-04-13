@@ -160,9 +160,15 @@ class ManageCandidateController extends Controller
               ],400);
           }
           
+          $registered = RegisteredCandidates::create([
+            'candidate_id' => $candidate->id,
+          //   'vote_id' => $voter->role->roleable->vote_id
+            'vote_id' => 1
+         ]);
+          
           return response()->json([
               'status' => 'success',
-              'message' => 'You have successfully approved the voter'
+              'message' => 'You have successfully approved the candidate'
            ],200);
                } catch (\Exception $exception) {
                   return response()->json([
