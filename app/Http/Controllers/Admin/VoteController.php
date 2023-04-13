@@ -31,15 +31,16 @@ class VoteController extends Controller
              ],403);
          }
                    
-          $votes = VoteBallot::with('candidates')->whereHas('candidates',function($query){
-               $query->where('candidate_id',5);
-          })->get();
-          
+        //   $votes = VoteBallot::with('candidates')->whereHas('candidates',function($query){
+        //        $query->where('candidate_id',5);
+        //   })->get();
+        $votes = VoteBallot::where('candidate_id',5)->get();
+        
           return response()->json([
            
             'status' => 'success',
             'vote' => $votes,
-            // 'vote_count' => $votes->candidates->count()
+            'vote_count' => $votes->count()
           ], 200);
                  
              } catch (\ModelNotFoundException $exception) {
