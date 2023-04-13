@@ -18,6 +18,10 @@ class VoteBallot extends Model
     
     public function candidates(){
     
-        return $this->hasMany(User::class,'candidate_id');
+        return $this->belongsToMany(User::class,'candidate_vote_ballot');
     }
+    // public function candidates(){
+    
+    //     return $this->belongsTo(User::class,'candidate_id');
+    // }
 }

@@ -172,4 +172,4 @@ class ManageCandidateController extends Controller
                  ], 400);
             } 
         }  
- }
+  }
