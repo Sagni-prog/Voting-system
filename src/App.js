@@ -10,10 +10,12 @@ import Candidates from './componets/Candidates.js/Candidates';
 import ElectionProgress from './componets/ElectionProgress/ElectionProgress';
 import Report from './componets/Blog/Report';
 import Footer from './componets/Footer/Footer';
+import Resultes from './componets/Result/Results'
 import Candidateprofile from './componets/page/Candidateprofile'
 import AddCandidates from './componets/admin/AddCandidate'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
+import TheApp from './componets/TheApp';
 
 
 function App() {
@@ -22,7 +24,7 @@ function App() {
   return (
     <Router>
     <div>
-    <Navbar />
+   
       <Routes>
         <Route path="/landingpage" element={<Landingpage />} />
         <Route path="/candidates" element={<Candidates />} />
@@ -30,39 +32,14 @@ function App() {
         <Route path="/report" element={<Report />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/Candidateprofile" element={<Candidateprofile />} />
+        <Route path="/result" element={<Resultes />} />
+        <Route path='/' element={<TheApp/>}/>
       </Routes>
       <div>
-        <div className='w-[100%] border-blue-200'>
-      {/* nav and home */}
-      <Element name="section1">
-      <Landingpage />
-        </Element> 
-        </div>
-        <Element name="section2">
-        <Report />
-        </Element>
-        <Element name="section3">
-        <Candidates />
-        </Element>
-        <Element name="section4">
-        <ElectionProgress />
-        </Element>
-        <Element name="section5">
-        <Footer />
-        </Element> 
 
-        {/* <Element name="section3">
-        <ElectionProgress />
-        </Element>
-        
-        <Element name="section4">
-        <Report />
-        </Element>
-      
-        */}
        
-        {/* <AddCandidates /> */}
- 
+
+    
     </div>
     </div>
   </Router>

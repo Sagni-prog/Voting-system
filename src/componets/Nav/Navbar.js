@@ -2,6 +2,7 @@ import React from 'react'
 import image from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { Link as ScrollLink } from 'react-scroll'
+import { Link as Link} from 'react-router-dom'
 export default function Navbar() {
   return (
     <div>
@@ -40,14 +41,17 @@ export default function Navbar() {
                 <ScrollLink to="section4" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</ScrollLink>
                 </li>
                 <li>
-                <ScrollLink to="section5" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</ScrollLink>
-
+                <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
                     
                 </li>
+                {/* <li> */}
+                {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
+                {/* </li> */}
                 <li>
                 <ScrollLink to="section2" smooth={true} duration={500} className="text-gray-900 dark:text-white text-sm hover:underline" aria-current="page">Login</ScrollLink>
 
                 </li>
+      
                 <li>
                 <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
                 
@@ -59,6 +63,6 @@ export default function Navbar() {
     </div>
 </nav>
       
-    </div>
+</div>
   )
 }

@@ -123,9 +123,9 @@ export default function Candidates() {
     ,
     {
       id: 7,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
+      fullName: '',
+      firstName:'loza',
+      lastName:'ashenafi',
       photoUrl: `${img2}`,
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       admissionYear: 2019,
@@ -208,9 +208,9 @@ export default function Candidates() {
                   </div>
                 </div>
                 <div className="flex flex-row">
-                  <button className="bg-blue-500 shadow-md text-white font-bold py-2 px-4 rounded mr-2">
+                  <Link to='/c' className="bg-blue-500 shadow-md text-white font-bold py-2 px-4 rounded mr-2">
                     Read more
-                  </button>
+                  </Link>
                   <button className="bg-emerald-600 shadow-md text-white font-bold py-2 px-4 rounded">
                     <FaVoteYea className="inline-block mr-2" />
                     Vote
