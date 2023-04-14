@@ -33,11 +33,6 @@ class VoteController extends Controller
              ],403);
          }
                    
-                   
-        //   $votes = VoteBallot::with('candidates')->whereHas('candidates',function($query){
-        //        $query->where('candidate_id',5);
-        //   })->get();
-        
         
         $candidates = RegisteredCandidates::where('vote_id',1)->get();
         
@@ -45,10 +40,15 @@ class VoteController extends Controller
         $i = 0;
         foreach($candidates as $candidate){
             $votes = VoteBallot::where('candidate_id',$candidate->candidate_id)->get();
+            $candidate = User::with('photos','role.roleable')->find($candidate->candidate_id);
+            $total_vote_count = VoteBallot::all()->count();
+            $vote_count = $votes->count();
+            $voted_in_percent = ( $votes->count() / $total_vote_count ) * 100;
             $dataObj = array(
-                           "candidate" => User::with('photos','role.roleable')->find($candidate->candidate_id),
+                           "candidate" => $candidate,
                            "candidate_id" => $candidate->candidate_id,
-                           "vote_count" => $votes->count()
+                           "vote_count" =>  $vote_count,
+                           "voted_in_percent" => $voted_in_percent . "%"
                        );
             $data[$i] = $dataObj;
             $i++;
