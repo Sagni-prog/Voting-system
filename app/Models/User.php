@@ -22,18 +22,20 @@ class User extends Authenticatable
                         'last_name',
                         'email',
                         'password',
-                        'faceId',
-                        'isActive',
-                        'isDeleted',
-                        'deleted_at',
-                        'isBanned',
-                        'banned_at'
+                        
        ];
 
     
     protected $hidden = [
-        'password',
-        'remember_token',
+                    'password',
+                    'remember_token',
+                    'faceId',
+                    'isActive',
+                    'isDeleted',
+                    'deleted_at',
+                    'isBanned',
+                    'banned_at',
+                    'email_verified_at'
     ];
 
     

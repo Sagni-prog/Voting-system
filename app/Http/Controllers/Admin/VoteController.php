@@ -8,6 +8,7 @@ use App\Models\Vote;
 use Carbon\Carbon;
 use App\Models\VoteBallot;
 use App\Models\RegisteredCandidates;
+use App\Models\User;
 
 use Auth;
 
@@ -38,25 +39,26 @@ class VoteController extends Controller
         //   })->get();
         
         
-        $candidates = RegisteredCandidates::all();
+        $candidates = RegisteredCandidates::where('vote_id',1)->get();
         
         $data = array();
         $i = 0;
         foreach($candidates as $candidate){
             $votes = VoteBallot::where('candidate_id',$candidate->candidate_id)->get();
-            $dataObj = array("votes" => $votes,"count" => $votes->count());
+            $dataObj = array(
+                           "candidate" => User::with('photos','role.roleable')->find($candidate->candidate_id),
+                           "candidate_id" => $candidate->candidate_id,
+                           "vote_count" => $votes->count()
+                       );
             $data[$i] = $dataObj;
             $i++;
         }
-        return $data;
        
-        
-        //   return response()->json([
+          return response()->json([
            
-        //     'status' => 'success',
-        //     'vote' => $votes,
-        //     'vote_count' => $votes->count()
-        //   ], 200);
+            'status' => 'success',
+            'data' => $data,
+          ], 200);
                  
              } catch (\ModelNotFoundException $exception) {
                    return response()->json([
