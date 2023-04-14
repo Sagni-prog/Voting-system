@@ -13,7 +13,7 @@ use App\Exceptions\VoteBallotNotFoundException;
 class VoteController extends Controller
 {
        
-    public function store(Request $request){
+    public function store(Request $request, $id){
      try {
         if(!Auth::check()){
             
@@ -47,7 +47,7 @@ class VoteController extends Controller
               $voted = VoteBallot::create([
                     'voter_id' => $user->id,
                     'vote_id' => $request->vote,
-                    'candidate_id' => $request->candidate
+                    'candidate_id' => $id
                  ]);
              
          } catch (\ModelNotFoundException $exception) {

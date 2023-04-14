@@ -37,26 +37,26 @@ class VoteController extends Controller
         //        $query->where('candidate_id',5);
         //   })->get();
         
+        
+        $candidates = RegisteredCandidates::all();
+        
         $data = array();
-        
-        $candidates = RegisteredCandidates::where('vote_id',2)->get();
-        
+        $i = 0;
         foreach($candidates as $candidate){
-           
             $votes = VoteBallot::where('candidate_id',$candidate->candidate_id)->get();
             $dataObj = array("votes" => $votes,"count" => $votes->count());
             $data[$i] = $dataObj;
+            $i++;
         }
-        
         return $data;
+       
         
-        
-          return response()->json([
+        //   return response()->json([
            
-            'status' => 'success',
-            'vote' => $votes,
-            'vote_count' => $votes->count()
-          ], 200);
+        //     'status' => 'success',
+        //     'vote' => $votes,
+        //     'vote_count' => $votes->count()
+        //   ], 200);
                  
              } catch (\ModelNotFoundException $exception) {
                    return response()->json([
