@@ -6,6 +6,7 @@ import { Link as Link} from 'react-router-dom'
 import { useState } from 'react';
 export default function Navbar() {
     const [isChecked, setIsChecked] = useState(false);
+    const [visisble,setVisible]=useState(false)
     function clicked(){
         setIsChecked(isChecked)
     }
@@ -62,15 +63,34 @@ export default function Navbar() {
                 </li>
       
                 <li>
-                <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
+                <img onClick={() => setVisible(!visisble)}  class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo" aria-current="page"/>
                 
                 </li>
+    
             </ul>
         </div>
             
         </div>
     </div>
 </nav>
+{visisble &&
+(     <div className="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-emerald-700 rounded-md shadow-lg drop dropdown ring-1 ring-black ring-opacity-5 focus:outline-none mr-2">
+                      <Link
+                        className="block px-4 py-2 text-sm text-white hover:bg-emerald-400 hover:text-gray-700"
+                        to="/">
+                        <a href="#">Profile</a>
+                      </Link>
+
+                      <Link
+                        className="block px-4 py-2 text-sm text-white hover:bg-emerald-400 hover:text-gray-700"
+                        to="/">
+                        <a
+                          href="#"
+                          >
+                          Sign out
+                        </a>
+                      </Link>
+                    </div>)}
     {isChecked && (
       <div className="fixed inset-0 z-10 overflow-y-auto">
   <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">

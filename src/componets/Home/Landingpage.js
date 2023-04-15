@@ -2,13 +2,32 @@ import React from 'react'
 import img from './../../images/vote-svgrepo-com-8.svg'
 import image from './../../images/download (9).png'
 import { MdHowToVote } from 'react-icons/md';
-
+import bg1 from './../../images/339492458_179742571115721_1024488669478325209_n.jpeg';
+import bg2 from './../../images/339492458_179742571115721_1024488669478325209_n.jpeg';
+import bg3 from './../../images/339492458_179742571115721_1024488669478325209_n.jpeg';
+import bg4 from './../../images/339492458_179742571115721_1024488669478325209_n.jpeg';
+import { useState, useEffect } from 'react';
 export default function Landingpage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    { backgroundImage: `url(${bg1})` },
+    { backgroundImage: `url(${bg2})` },
+    { backgroundImage: `url(${bg3})` },
+    { backgroundImage: `url(${bg4})` },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div>
       <div className="w-full home">
-    <div className="p-[8rem] pt-[6rem] shadow-md  to-90% h-[50vh] flex"> 
-      
+
+    <div className="p-[8rem] pt-[6rem] shadow-md   h-[50vh] flex"> 
+
         <div className="flex-1 w-50 ">
           <div className="absolute ml-[3rem] mt-[2.9rem] ">
           {/* <img class="image w-70 absolute rounded-[100%]" src={img} alt="user photo"/> */}
