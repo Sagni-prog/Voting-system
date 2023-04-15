@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import {BsPersonFillAdd} from "react-icons/bs" 
+import { MdDescription }  from "react-icons/md";
+import {IoIosPeople}  from "react-icons/io"
 export default function Sidebar() {
   return (
     <div>
@@ -7,20 +10,26 @@ export default function Sidebar() {
    
     <ul class="space-y-2">
     <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/voters" replace={true} smooth={true} duration={500} className="block text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">Voters</Link>
+                 <Link to="/voters" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Voters</Link>
     </li>
    
     <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/reportnews" replace={true} smooth={true} duration={500} className="block text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">Add News</Link>
+                 <Link to="/reportnews" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 Add News</Link>
     </li>
       <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/addcandidate" replace={true} smooth={true} duration={500} className="block text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600e" aria-current="page">Add Candidate</Link>
+                 <Link to="/addcandidate" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Add Candidate</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/addchairman" replace={true} smooth={true} duration={500} className="block text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">Add Chairman</Link>
+                 <Link to="/addchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Add Chairman</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/addcandidate" replace={true} smooth={true} duration={500} className="block text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">Candidate Description</Link>
+                 <Link to="/candidatedescription" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <MdDescription class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" /> Candidate Description</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/notifications" replace={true} smooth={true} duration={500} className="block gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
