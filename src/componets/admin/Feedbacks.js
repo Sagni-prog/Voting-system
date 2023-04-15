@@ -1,15 +1,17 @@
 import React from 'react'
-
+import { useState } from 'react';
 import Sidebar from './Sidebar'
+import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-export default function Voters() {
+
+export default function Feedbacks() {
   return (
     <div>
-    <div>
+<div>
     <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
     <a href="#" className="flex items-center gap-1">
     <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
@@ -80,119 +82,40 @@ export default function Voters() {
                 </div>
             </div>
         </div>
-    <div class="flex flex-col md:flex-row h-[90vh]">
-  <Sidebar />
-  
-    <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
-   
-      <div class="flex gap-4 mb-4">
-      <div class="bg-white p-6 rounded-lg shadow-md">
-    <h1 class="text-3xl font-bold mb-8">Election Data</h1>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">voters</h2>
-        <p class="text-5xl font-bold text-green-500">15,000</p>
-        
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">Vote</h2>
-        <p class="text-5xl font-bold text-blue-500">10,000</p>
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">Candidates</h2>
-        <p class="text-5xl font-bold text-purple-500">15</p>
-     
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">chairmans</h2>
-        <p class="text-5xl font-bold text-red-500">20</p>
-      
-      </div>
-    </div>
-  </div>
-    
        
-          </div>
-          <div class="bg-white rounded-lg shadow-md p-4 h-[17rem] overflow-y-auto">
-          <table class="table-auto  w-full">
-            <thead>
-              <tr>
-              <th class="px-1 py-2 font-bold text-left">photo</th>
-                <th class="px-4 py-2 font-bold text-left">First name</th>
-                <th class="px-4 py-2 font-bold text-left">Last name</th>
-                <th class="px-4 py-2 font-bold text-left">Email</th>
-                <th class="px-4 py-2 font-bold text-left">Status</th>
-                <th class="px-4 py-2 font-bold text-left"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">Natty </td>
-                <td class="border px-4 py-2">yom</td>
-                <td class="border px-4 py-2">j.Naty@example.com</td>
-                <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
-                <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
-              </tr>
-              <tr>
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">Natty </td>
-                <td class="border px-4 py-2">yom</td>
-                <td class="border px-4 py-2">j.Naty@example.com</td>
-                <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
-                <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
-              </tr>
-              <tr>
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">Natty </td>
-                <td class="border px-4 py-2">yom</td>
-                <td class="border px-4 py-2">j.Naty@example.com</td>
-                <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
-                <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
-              </tr>
-              <tr>
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">Natty </td>
-                <td class="border px-4 py-2">yom</td>
-                <td class="border px-4 py-2">j.Naty@example.com</td>
-                <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
-                <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
-              </tr>
-              <tr>
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">Natty </td>
-                <td class="border px-4 py-2">yom</td>
-                <td class="border px-4 py-2">j.Naty@example.com</td>
-                <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
-                <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
-              </tr>
-              <tr>
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">Natty </td>
-                <td class="border px-4 py-2">yom</td>
-                <td class="border px-4 py-2">j.Naty@example.com</td>
-                <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
-                <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
-              </tr>
-            
-            </tbody>
-          </table>
-          </div>
-          </div>
-          </div>
-          <div>
+    <div class="flex flex-col md:flex-row h-[90vh]">
+<Sidebar />
+  <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
+  <h2 class="text-2xl font-bold mb-10">
+  Notifications
+  </h2>
+  <div className='grid grid-cols-3 gap-2'>
+  <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+<p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
+
+</div>
+<div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+<p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
+
+</div>
+<div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+<p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
+
+</div>
+  </div>
+
+
+
+
+
+        </div>
+        </div>
+
+
+        <div>
  
  <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
      <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
@@ -234,7 +157,6 @@ export default function Voters() {
  
        
      </div>
-      
     </div>
   )
 }

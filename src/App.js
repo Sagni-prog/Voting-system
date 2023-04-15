@@ -13,9 +13,13 @@ import Footer from './componets/Footer/Footer';
 import Resultes from './componets/Result/Results'
 import Candidateprofile from './componets/page/Candidateprofile'
 import AddCandidates from './componets/admin/AddCandidate'
+import Voters from './componets/admin/Voters';
+import AddChairman from './componets/admin/AddChairman';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
 import TheApp from './componets/TheApp';
+import AddNews from './componets/admin/AddNews';
+import Feedbacks from './componets/admin/Feedbacks';
 
 
 function App() {
@@ -34,9 +38,15 @@ function App() {
         <Route path="/Candidateprofile" element={<Candidateprofile />} />
         <Route path="/result" element={<Resultes />} />
         <Route path='/' element={<TheApp/>}/>
+        <Route path='/home' element={<TheApp />}/>
+        <Route path='/addcandidate' element={<AddCandidates />} />
+        <Route path='/voters' element={<Voters />} />
+        <Route path='/addchairman' element={<AddChairman />} />
+        <Route path='/reportnews' element={<AddNews />} />
+        <Route path='/notifications' element={<Feedbacks />} />
       </Routes>
       <div>
-
+      {/* <AddCandidates /> */}
        
 
     
