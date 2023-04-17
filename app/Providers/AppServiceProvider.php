@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\VoteInterface;
-use App\Repositories\VoteRepository;
 
 class AppServiceProvider extends ServiceProvider
 {

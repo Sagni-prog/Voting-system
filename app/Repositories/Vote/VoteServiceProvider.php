@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Providers;
+namespace App\Repositories\Vote;
 
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\VoteInterface;
-use App\Repositories\VoteRepository;
+use App\Repositories\Vote\VoteInterface;
+use App\Repositories\Vote\VoteRepository;
 
 class VoteServiceProvider extends ServiceProvider
 {

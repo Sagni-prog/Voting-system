@@ -1,7 +1,7 @@
 <?php
-namespace App\Repositories;
+namespace App\Repositories\Vote;
 
-use App\Interfaces\VoteInterface;
+use App\Repositories\Vote\VoteInterface;
 use App\Models\Vote;
 use Carbon\Carbon;
 

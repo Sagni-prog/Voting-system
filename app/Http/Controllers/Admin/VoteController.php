@@ -10,7 +10,7 @@ use App\Models\VoteBallot;
 use App\Models\RegisteredCandidates;
 use App\Models\User;
 use App\Services\VoteResultService;
-use  App\Interfaces\VoteInterface;
+use  App\Repositories\Vote\VoteInterface;
 use App\Http\Requests\VoteRequest;
 use App\Http\Requests\ExtendVoteRequest;
 use App\Http\Requests\ExtendEndDateVoteRequest;
