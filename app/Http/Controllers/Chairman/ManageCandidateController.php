@@ -93,7 +93,6 @@ class ManageCandidateController extends Controller
         'candidate_id' => $candidate->id,
         'vote_id' => $candidate->role->roleable->vote_id
 ]);
-      
       return response()->json([
           'status' => 'success',
           'size' => $candidate->count(),

@@ -88,7 +88,7 @@ class Updateprofile extends Controller
                 }
                 
             $adminUpdated = $user->role->roleable()->update([
-                            'phone_number' => '+2511117323',
+                            'phone_number' => $request->phone_number,
                             'role' => 'admin'
             ]);
             if(!$adminUpdated){

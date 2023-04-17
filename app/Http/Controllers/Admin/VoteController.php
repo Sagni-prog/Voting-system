@@ -9,12 +9,13 @@ use Carbon\Carbon;
 use App\Models\VoteBallot;
 use App\Models\RegisteredCandidates;
 use App\Models\User;
+use App\Services\VoteResultService;
 
 use Auth;
 
 class VoteController extends Controller
 {
-    public function index($id){
+    public function index(VoteResultService $service, $id){
           
         try {
             if(!Auth::check()){
@@ -40,12 +41,17 @@ class VoteController extends Controller
         $i = 0;
         foreach($candidates as $candidate){
             $votes = VoteBallot::where('candidate_id',$candidate->candidate_id)->get();
-            $candidate = User::with('photos','role.roleable')->find($candidate->candidate_id);
+            $voted_candidate = User::with('photos','role.roleable')->find($candidate->candidate_id);
             $total_vote_count = VoteBallot::all()->count();
             $vote_count = $votes->count();
-            $voted_in_percent = ( $votes->count() / $total_vote_count ) * 100;
+            
+            // $voted_in_percent = $votes->count() / $total_vote_count * 100;
+            
+            $voted_in_percent = $service->setVoteCount($votes->count())
+                                        ->setTotalVoteCount($total_vote_count)
+                                        ->calculateVotePercent();
             $dataObj = array(
-                           "candidate" => $candidate,
+                           "candidate" => $voted_candidate,
                            "candidate_id" => $candidate->candidate_id,
                            "vote_count" =>  $vote_count,
                            "voted_in_percent" => $voted_in_percent . "%"
@@ -98,7 +104,7 @@ class VoteController extends Controller
                         'vote_status' => 'pending'
                  ]);
                  
-                 return $vote;
+                //  return $vote;
         if(!$vote){
             return response()->json([
                 'status' => 'fail',
