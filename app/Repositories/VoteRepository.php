@@ -58,9 +58,13 @@ private $vote;
             'confirmed_by' => $user_id
      ]);
   }
-  public function cancelVote($id){
+  public function cancelVote($vote,$data){
   
-     return;
+     return $vote->update([
+        'voteCanceled' => true,
+        'vote_canceled_at' => Carbon::now(), 
+        'vote_cancelation_cause' => $data['vote_cancelation_cause'],
+     ]);
   }
   public function destroyVote($id){
      

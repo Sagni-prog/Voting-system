@@ -14,6 +14,7 @@ use  App\Interfaces\VoteInterface;
 use App\Http\Requests\VoteRequest;
 use App\Http\Requests\ExtendVoteRequest;
 use App\Http\Requests\ExtendEndDateVoteRequest;
+use App\Http\Requests\ConfirmVoteRequest;
 
 use Auth;
 
@@ -231,7 +232,7 @@ class VoteController extends Controller
         }
     }
     
-    public function confirmVote(Request $request, $id){
+    public function confirmVote(ConfirmVoteRequest $request, $id){
         
         if(!Auth::check()){
             return response()->json([
@@ -293,9 +294,8 @@ class VoteController extends Controller
                 'message' => 'unAuthorized access'
             ],401);
         }
-        
-        $vote = Vote::where('id',$id)->first();
-        
+        $data = $request->validated();
+        $vote = $this->voteInterface->findVote($id);
        
         if(!$vote){
             return response()->json([
@@ -304,11 +304,12 @@ class VoteController extends Controller
             ],404);
         }
         
-        $edited = $vote->update([
-               'voteCanceled' => true,
-               'vote_canceled_at' => Carbon::now(), 
-               'vote_cancelation_cause' => $request->vote_cancelation_cause,
-        ]);
+        $edited = $this->voteInterface->cancelVote($vote,$data);
+        // $edited = $vote->update([
+        //        'voteCanceled' => true,
+        //        'vote_canceled_at' => Carbon::now(), 
+        //        'vote_cancelation_cause' => $request->vote_cancelation_cause,
+        // ]);
         
         if(!$edited){
            return response()->json([

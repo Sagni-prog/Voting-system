@@ -11,7 +11,7 @@ Interface VoteInterface{
   public function extendStartDate($vote,$data);
   public function extendEndDate($vote,$data);
   public function confirmVote($vote,$vote_id);
-  public function cancelVote($id);
-  public function destroyVote($id);
+  public function cancelVote($vote,$data);
+  public function destroyVote($vote);
 
 }
