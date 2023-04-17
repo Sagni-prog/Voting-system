@@ -2,18 +2,20 @@
 
 namespace App\Repositories\User;
 use App\Models\User;
-use Hash;
-use Auth;
+use App\Services\HashService;
+use Illuminate\Support\Facades\Auth;
 
 use App\Repositories\User\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface{
   
     private $user;
+    private $hashService;
 
-    public function __construct(User $user){
+    public function __construct(User $user, HashService $hashService){
        
        $this->user = $user;
+       $this->hashService = $hashService;
     }
     
 
@@ -66,7 +68,7 @@ class UserRepository implements UserRepositoryInterface{
                 'first_name'=> $data['first_name'],
                 'last_name'=> $data['last_name'],
                 'email'=> $data['email'],
-                'password'=>Hash::make($data['password']),
+                'password'=>  $this->hashService->makeHash($data['password']),
                 'faceId' => 'kjioa9aeodw3098imzknj'
        ]);
     }
@@ -80,7 +82,7 @@ class UserRepository implements UserRepositoryInterface{
    public function updateUserPassword($user, $data){
     
        return $user->update([
-            'password' => Hash::make($data['password'])
+            'password' => $this->hashService->makeHash($data['password'])
         ]);
     }
 }
