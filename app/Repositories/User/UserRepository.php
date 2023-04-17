@@ -3,6 +3,7 @@
 namespace App\Repositories\User;
 use App\Models\User;
 use Hash;
+use Auth;
 
 use App\Repositories\User\UserRepositoryInterface;
 
@@ -68,5 +69,18 @@ class UserRepository implements UserRepositoryInterface{
                 'password'=>Hash::make($data['password']),
                 'faceId' => 'kjioa9aeodw3098imzknj'
        ]);
+    }
+    
+    public function getCurrentlyAuthenticatedUser(){
+       
+       return Auth::user();
+       
+    }
+    
+   public function updateUserPassword($user, $data){
+    
+       return $user->update([
+            'password' => Hash::make($data['password'])
+        ]);
     }
 }

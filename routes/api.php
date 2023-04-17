@@ -34,10 +34,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
    // Authentication middleware  
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
 
+   Route::patch('/update-password',[UpdatePassword::class,'update']);
     //  Addmin Routes
  Route::middleware(['admin'])->group(function () {
    Route::prefix('/admin')->group(function(){
-      Route::patch('/update-password',[UpdatePassword::class,'edit']);
       Route::patch('/update-profile',[UpdateProfile::class,'edit']);
       Route::patch('/verify-user/{id}',[UserVerification::class,'edit']);
       

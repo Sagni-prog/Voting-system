@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Validator;
 use Hash;
 use App\Models\User;
 use App\Models\Voter;
@@ -51,13 +50,14 @@ class AuthController extends Controller
     $admin = $this->adminRepository->storeAdmin($data);
     $role = $this->roleRepository->storeRole($admin,$user->id);
     DB::commit();
-        $admin = $this->userRepository->findUserById($user->id);         
+        $admin = $this->userRepository->findUserById($user->id);   
+        $token = $this->tokenService->createToken($user)->plainTextToken;
                      
             return response()->json([
                 'status'=> 'sucess',
                 'message'=>'user created succesfully',
                 'user' => $admin,
-                'token'=>$user->createtoken('user_token')->plainTextToken
+                'token'=> $token
             ] ,201);
         }
         catch(\Exception $exception){
@@ -82,13 +82,6 @@ class AuthController extends Controller
               "message" => "Wrong Credentials, try again"
           ],401);
     }
-    
-    // if(!$request->faceId){
-    //   return response()->json([
-    //      'status' => 'fail',
-    //      'message' => 'no face id'
-    //   ],400);
-   // }
     
     // if($user->faceId != $request->faceId){
     //    return responce()->json([

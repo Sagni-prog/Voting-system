@@ -4,29 +4,23 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator;
-use Auth;
-use Hash;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Http\Requests\UpdatePasswordRequest;
 
 class UpdatePassword extends Controller
 {
-    public function edit(Request $request){
+    private $userRepository;
     
-        $uservalidator=Validator::make($request->all(),[
-        
-            'password' => ['required','string','min:8'],
-                   ]);
-        
-       if(!Auth::user()){
-          return response()->json([
-             'status' => 'fail',
-             'message' => 'User not found'
-          ],404);
-       }
+    public function __construct(UserRepositoryInterface $userRepository){
        
-       $status = Auth::user()->update([
-           'password' => Hash::make($request->password)
-       ]);
+       $this->userRepository = $userRepository;
+       
+    }
+    public function update(UpdatePasswordRequest $request){
+       
+       $data = $request->validated();
+       $user = $this->userRepository->getCurrentlyAuthenticatedUser();
+       $status = $this->userRepository->updateUserPassword($user,$data);
        
        if(!$status){
           return response()->json([
@@ -34,9 +28,7 @@ class UpdatePassword extends Controller
               'message' => 'Oops! something went wrong, please try again'
           ],400);
        }
-       
-       $user = Auth::user();
-       
+    
        return response()->json([
            'status' => 'sucess',
            'messsage' => 'You have sucessfully changed your password',

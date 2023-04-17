@@ -11,5 +11,7 @@ Interface UserRepositoryInterface{
     public function getAllUsers();
     public function getAllInactiveUsers();
     public function storeUser($data);
+    public function getCurrentlyAuthenticatedUser();
+    public function updateUserPassword($user, $data);
     
 }
