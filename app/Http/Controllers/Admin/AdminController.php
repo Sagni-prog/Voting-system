@@ -11,26 +11,30 @@ use App\Models\Chairman;
 use App\Models\User;
 use Auth;
 use Carbon\Carbon;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Voter\VoterRepositoryInterface;
+
 class AdminController extends Controller
 {
+   private $userRepository;
+   private $voterRepository;
+    
+   public function __construct(
+                  UserRepositoryInterface $userRepository, 
+                  VoterRepositoryInterface $voterRepository
+                  ){
+      
+      $this->userRepository = $userRepository;
+      $this->voterRepository = $voterRepository;
+   }
    
    public function getActiveVoters(){
    
       try {
-         $user = Auth::user();
-          if($user->role->roleable->role != 'admin'){
-           return response()->json([
-              'status' => 'fail',
-              'message' => 'unAuthorized access'
-           ],401);
-        }
-  
-        $voter = Voter::with('role.user.photos')
-                      ->whereHas('role.user',function($query){
-                     $query->where('isActive',true);  
-          })->get();
-     
-        if(!$voter){
+         // $user = $this->userRepository->getCurrentlyAuthenticatedUser();
+         $voters =  $this->voterRepository->getAllActiveVoters();
+   
+        if(!$voters){
            return response()->json([
               'status' => 'success',
               'message' => 'No voter found'
@@ -39,9 +43,10 @@ class AdminController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'size' => $voter->count(),
-            'voters' => $voter
+            'size' => $voters->count(),
+            'voters' => $voters
         ],200);
+        
       } catch (\Exception $exception) {
          return $exception->getMessage();
       }
@@ -49,20 +54,11 @@ class AdminController extends Controller
      
      
    
-   public function getVoters(){
+   public function getInActiveVoters(){
    
       try {
-         $user = Auth::user();
-          if($user->role->roleable->role != 'admin'){
-           return response()->json([
-              'status' => 'fail',
-              'message' => 'unAuthorized access'
-           ],401);
-        }
         
-     $voter = Voter::with('role.user.photos')->whereHas('role.user',function($query){
-           $query->where('isActive',false);
-     })->get();
+     $voters = $this->voterRepository->getAllInActiveVoters();
      
         if(!$voter){
            return response()->json([
@@ -85,18 +81,10 @@ class AdminController extends Controller
    public function getAllVoters(){
    
       try {
-      $user = Auth::user();
-       if($user->role->roleable->role != 'admin'){
-        return response()->json([
-           'status' => 'fail',
-           'message' => 'unAuthorized access'
-        ],401);
-     }
-         $voter = Voter::with('role.user.photos')->whereHas('role.user',function($query){
-             $query->where('isActive',false);
-         })->get();
+     
+         $voters = $this->voterRepository->getAllVoters();
          
-        if(!$voter){
+        if(!$voters){
            return response()->json([
               'status' => 'success',
               'message' => 'No voter found'
@@ -104,8 +92,8 @@ class AdminController extends Controller
         }
         return response()->json([
             'status' => 'success',
-            'size' => $voter->count(),
-            'voters' => $voter
+            'size' => $voters->count(),
+            'voters' => $voters
         ],200); 
         } catch (\Exception $exception) {
             return $exception->getMessage();
@@ -114,15 +102,7 @@ class AdminController extends Controller
      
      public function getActiveCandidates(){
       try {
-         $user = Auth::user();
-          if($user->role->roleable->role != 'admin'){
-           return response()->json([
-              'status' => 'fail',
-              'message' => 'unAuthorized access'
-           ],401);
-        }
-         
-     
+        
            $candidate = Candidate::where('isActive',true)
                                  ->with('role.roleable','photo')
                                  ->get();

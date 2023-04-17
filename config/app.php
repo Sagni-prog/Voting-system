@@ -180,6 +180,7 @@ return [
         App\Repositories\User\UserRepositoryServiceProvider::class,
         App\Repositories\Admin\AdminRepositoryServiceProvider::class,
         App\Repositories\Role\RoleRepositoryServiceProvider::class,
+        App\Repositories\Voter\VoterRepositoryServiceProvider::class,
         
 
     ],
