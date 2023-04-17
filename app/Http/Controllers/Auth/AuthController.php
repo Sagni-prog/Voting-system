@@ -9,10 +9,23 @@ use Hash;
 use App\Models\User;
 use App\Models\Voter;
 use App\Models\Admin;
+use App\Services\TokenManagerService;
+use App\Http\Requests\LoginRequest;
+use App\Repositories\User\UserRepositoryInterface;
 
 
 class AuthController extends Controller
 {
+
+  private $userRepository;
+  private $tokenService;
+  
+  public function __construct(TokenManagerService $tokenService,UserRepositoryInterface $userRepository){
+  
+     $this->tokenService = $tokenService;
+     $this->userRepository = $userRepository;
+     
+  }
 
 //   Registering user 
     public function register(Request $request){
@@ -98,26 +111,30 @@ class AuthController extends Controller
     }
     
     
-    public function login(Request $request){
+    public function login(LoginRequest $request){
         try{
     
-        $loginvaliditor=$request->validate([
+    //     $loginvaliditor=$request->validate([
         
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required','string','min:8'],
-            // 'faceId' => ['required','string']
-      ]);
+    //         'email' => ['required', 'string', 'email', 'max:255'],
+    //         'password' => ['required','string','min:8'],
+    //         // 'faceId' => ['required','string']
+    //   ]);
     
-      if(!$loginvaliditor){
-          return response()->json([
-              "status"=> "fail",
-              "message"=>"valitor error"
-          ],400);
-    }
-      $user = User::where([
-                            'email'=> $request->email,
-                            'isActive' => 1
-                        ])->with('photos','role.roleable')->first();
+    //   if(!$loginvaliditor){
+    //       return response()->json([
+    //           "status"=> "fail",
+    //           "message"=>"valitor error"
+    //       ],400);
+    // }
+    
+    //   $user = User::where([
+    //                         'email'=> $request->email,
+    //                         'isActive' => 1
+    //                     ])->with('photos','role.roleable')->first();
+    $data = $request->validated();
+    $user = $this->userRepository->findUserWhere($data);
+    return $user;
     if(!$user){
           return response()->json([
               "status" => "fail",
@@ -140,15 +157,17 @@ class AuthController extends Controller
     //       'realface' => $user->faceId
     //    ],401);
    // }
+   
       if(!Hash::check($request->password, $user->password)){
+      
           return response()->json([
               "status" => "fail",
               "message" => "Wrong credentials"
-          ]);
+          ],401);
        }
     
-       $token = $user->createToken('user_token')->plainTextToken;
-       return response()->json([
+       $token = $this->tokenService->createToken($user)->plainTextToken;
+         return response()->json([
                    "status" => "success",
                    "token" => $token,
                    "user" => $user,

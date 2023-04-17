@@ -25,6 +25,7 @@ class VoteController extends Controller
     public function __construct(VoteInterface $voteInterface){
         $this->voteInterface = $voteInterface;
      }
+     
     public function allVotes(){
         
         $votes = $this->voteInterface->getAllVotes();
@@ -93,23 +94,9 @@ class VoteController extends Controller
     public function store(VoteRequest $request){
         
         try {
-           
-           if(!Auth::check()){
-                return response()->json([
-                    'status' => 'fail',
-                    'message' => 'unAuthorized access'
-                 ],401);
-           }
-           
+        
            $user = Auth::user();
            
-           if($user->role->roleable->role != 'admin'){
-            return response()->json([
-               'status' => 'fail',
-               'message' => 'unAuthorized access'
-            ],401);
-         }
-         
          $vote_name = !$request->vote_name ? Carbon::now()->format('Y')." Student Union President Election" : $request->vote_name;
         
          $data = $request->validated();
@@ -138,23 +125,9 @@ class VoteController extends Controller
     public function extendStartDate(ExtendVoteRequest $request, $id){
         
         try {
-            
-            if(!Auth::check()){
-                return response()->json([
-                    'status' => 'fail',
-                    'message' => 'unAuthorized access'
-                 ],401);
-           }
            
-           $user = Auth::user();
-           
-           if($user->role->roleable->role != 'admin'){
-            return response()->json([
-               'status' => 'fail',
-               'message' => 'unAuthorized access'
-            ],401);
-         }
-         
+        $user = Auth::user();
+    
          $data = $request->validated();
          $vote = $this->voteInterface->findVote($id);
         
@@ -187,24 +160,8 @@ class VoteController extends Controller
         
         try {
             
-            if(!Auth::check()){
-                return response()->json([
-                    'status' => 'fail',
-                    'message' => 'unAuthorized access'
-                ],401);
-            }
-            
             $user = Auth::user();
-            
-            if($user->role->roleable->role != 'admin'){
-                return response()->json([
-                    'status' => 'fail',
-                    'message' => 'unAuthorized access'
-                ],401);
-            }
-            
             $data = $request->validated();
-            
             $vote = $this->voteInterface->findVote($id);
     
             if($vote->vote_status === 'closed'){
@@ -234,22 +191,7 @@ class VoteController extends Controller
     
     public function confirmVote(ConfirmVoteRequest $request, $id){
         
-        if(!Auth::check()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
-        
         $user = Auth::user();
-        
-        if($user->role->roleable->role != 'admin'){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
-        
         $vote = $this->voteInterface->findVote($id);
        
         if(!$vote){
@@ -279,21 +221,7 @@ class VoteController extends Controller
     public function cancelVote(Request $request, $id){
       try {
         
-        if(!Auth::check()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
-        
         $user = Auth::user();
-        
-        if($user->role->roleable->role != 'admin'){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
         $data = $request->validated();
         $vote = $this->voteInterface->findVote($id);
        
@@ -305,12 +233,6 @@ class VoteController extends Controller
         }
         
         $edited = $this->voteInterface->cancelVote($vote,$data);
-        // $edited = $vote->update([
-        //        'voteCanceled' => true,
-        //        'vote_canceled_at' => Carbon::now(), 
-        //        'vote_cancelation_cause' => $request->vote_cancelation_cause,
-        // ]);
-        
         if(!$edited){
            return response()->json([
               'status' => 'fail',
