@@ -25,7 +25,7 @@ class VoteRepository implements VoteInterface{
   }
   public function storeVote($data){
      
-     return;
+     return Vote::create($data);
      
   }
   public function extendStartDate($id,$data){

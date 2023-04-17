@@ -11,14 +11,20 @@ use App\Models\RegisteredCandidates;
 use App\Models\User;
 use App\Services\VoteResultService;
 use  App\Interfaces\VoteInterface;
+use App\Http\Requests\VoteRequest;
 
 use Auth;
 
 class VoteController extends Controller
 {
-    public function allVotes(VoteInterface $voteInterface){
+    private $voteInterface;
+    
+    public function __construct(VoteInterface $voteInterface){
+        $this->voteInterface = $voteInterface;
+     }
+    public function allVotes(){
         
-        $votes = $voteInterface->getAllVotes();
+        $votes = $this->voteInterface->getAllVotes();
         
         return $votes;
     }
@@ -81,7 +87,7 @@ class VoteController extends Controller
               }  
        }
        
-    public function store(Request $request){
+    public function store(VoteRequest $request){
         
         try {
            
@@ -103,24 +109,22 @@ class VoteController extends Controller
          
          $vote_name = !$request->vote_name ? Carbon::now()->format('Y')." Student Union President Election" : $request->vote_name;
         
-         $vote = Vote::create(
-                 [      'vote_name' => $vote_name,
-                        'vote_start_date' => Carbon::now(),
-                        'vote_end_date' => Carbon::now(),
-                        'vote_status' => 'pending'
-                 ]);
-                 
+         $data = $request->validated();
+         $data['vote_status'] = 'pending';
+         
+         $vote = $this->voteInterface->storeVote($data);
+        
         if(!$vote){
             return response()->json([
                 'status' => 'fail',
                  'message' => 'Oops! something went wrong'
             ],400);
-            
+        }
+        
         return response()->json([
                   'status' => 'success',
                   'message' => 'Successfully created vote'
             ],201);
-        }
                  
           
         } catch (\Exception $exception) {
