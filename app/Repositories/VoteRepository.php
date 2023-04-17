@@ -3,18 +3,26 @@ namespace App\Repositories;
 
 use App\Interfaces\VoteInterface;
 use App\Models\Vote;
+use Carbon\Carbon;
 
 class VoteRepository implements VoteInterface{
 
-  public function getVote($id){
+private $vote;
+
+  public function __construct(Vote $vote){
+     
+     $this->vote = $vote;
+  }
+
+  public function findVote($id){
   
-    return Vote::where('id',$id)->first();
+    return $this->vote->where('id',$id)->first();
     
   }
   
   public function getAllVotes(){
      
-     return Vote::all();
+     return $this->vote->all();
      
   }
   
@@ -25,21 +33,30 @@ class VoteRepository implements VoteInterface{
   }
   public function storeVote($data){
      
-     return Vote::create($data);
+     return $this->vote->create($data);
      
   }
-  public function extendStartDate($id,$data){
+  public function extendStartDate($vote,$data){
      
-     return;
+     
+     return $vote->update([
+        'vote_start_date' => $data['vote_start_date']
+    ]);
      
   }
-  public function extendEndDate($id,$data){
+  public function extendEndDate($vote,$data){
   
-     return;
+     return $vote->update([
+        'vote_end_date' => $data['vote_end_date'],
+    ]);
   }
-  public function confirmVote($id){
-  
-     return;
+  public function confirmVote($vote,$user_id){
+    
+     return $vote->update([
+            'confirmed' => true,
+            'confirmed_at' => Carbon::now(),
+            'confirmed_by' => $user_id
+     ]);
   }
   public function cancelVote($id){
   

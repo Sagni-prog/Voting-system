@@ -12,6 +12,8 @@ use App\Models\User;
 use App\Services\VoteResultService;
 use  App\Interfaces\VoteInterface;
 use App\Http\Requests\VoteRequest;
+use App\Http\Requests\ExtendVoteRequest;
+use App\Http\Requests\ExtendEndDateVoteRequest;
 
 use Auth;
 
@@ -132,7 +134,7 @@ class VoteController extends Controller
         }
     } 
     
-    public function extendStartDate(Request $request, $id){
+    public function extendStartDate(ExtendVoteRequest $request, $id){
         
         try {
             
@@ -152,20 +154,17 @@ class VoteController extends Controller
             ],401);
          }
          
-         $vote = Vote::where('id',$id)->first();
-         
-         
-         if($vote->vote_status === 'ongo'){
-             return response()->json([
+         $data = $request->validated();
+         $vote = $this->voteInterface->findVote($id);
+        
+        if($vote->vote_status === 'ongo'){
+            return response()->json([
                 'status' => 'fail',
                 'message' => 'The voting has already begun'
-             ],400);
+            ],400);
         }
         
-        
-        $edited = $vote->update([
-            'vote_start_date' => $request->vote_start_date
-        ]);
+        $edited = $this->voteInterface->extendStartDate($vote,$data);
         
         if(!$edited){
            return response()->json([
@@ -179,11 +178,11 @@ class VoteController extends Controller
         ],200);
             
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }
     }
     
-    public function extendEndDate(Request $request, $id){
+    public function extendEndDate(ExtendEndDateVoteRequest $request, $id){
         
         try {
             
@@ -203,20 +202,18 @@ class VoteController extends Controller
                 ],401);
             }
             
-            $vote = Vote::where('id',$id)->first();
+            $data = $request->validated();
             
-
+            $vote = $this->voteInterface->findVote($id);
+    
             if($vote->vote_status === 'closed'){
                 return response()->json([
                     'status' => 'fail',
                     'message' => 'The voting has already ended'
                 ],400);
             }
-           
             
-        $edited = $vote->update([
-            'vote_end_date' => $request->vote_end_date,
-        ]);
+        $edited = $this->voteInterface->extendEndDate($vote,$data);
         
         if(!$edited){
            return response()->json([
@@ -252,7 +249,7 @@ class VoteController extends Controller
             ],401);
         }
         
-        $vote = Vote::where('id',$id)->first();
+        $vote = $this->voteInterface->findVote($id);
        
         if(!$vote){
             return response()->json([
@@ -260,14 +257,9 @@ class VoteController extends Controller
                  'message' => 'No Vote found'
             ],404);
         }
-        
-        $edited = $vote->update([
-                'confirmed' => true,
-                'confirmed_at' => Carbon::now(),
-                'confirmed_by' => $user->id
-        ]);
-        
-        
+        $vote_id = $user->id;
+        $edited = $this->voteInterface->confirmVote($vote,$vote_id);
+
         if(!$edited){
             return response()->json([
                 'status' => 'fail',
