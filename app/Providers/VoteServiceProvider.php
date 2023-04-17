@@ -6,20 +6,20 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\VoteInterface;
 use App\Repositories\VoteRepository;
 
-class AppServiceProvider extends ServiceProvider
+class VoteServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
     public function register()
     {
-        // $this->app->bind(VoteInterface::class,VoteRepository::class);
+        $this->app->bind(VoteInterface::class,VoteRepository::class);
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
