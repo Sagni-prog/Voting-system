@@ -13,19 +13,23 @@ use Auth;
 use Carbon\Carbon;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Voter\VoterRepositoryInterface;
+use App\Repositories\Candidate\CandidataRepositoryInterface;
 
 class AdminController extends Controller
 {
    private $userRepository;
    private $voterRepository;
+   private $candidateRepository;
     
    public function __construct(
                   UserRepositoryInterface $userRepository, 
-                  VoterRepositoryInterface $voterRepository
+                  VoterRepositoryInterface $voterRepository,
+                  CandidataRepositoryInterface $candidateRepository,
                   ){
       
       $this->userRepository = $userRepository;
       $this->voterRepository = $voterRepository;
+      $this->candidateRepository = $candidateRepository;
    }
    
    public function getActiveVoters(){
@@ -52,8 +56,6 @@ class AdminController extends Controller
       }
    }
      
-     
-   
    public function getInActiveVoters(){
    
       try {
@@ -76,8 +78,7 @@ class AdminController extends Controller
           return $exception->getMessage();
         }
    }
-     
-     
+      
    public function getAllVoters(){
    
       try {
@@ -121,22 +122,16 @@ class AdminController extends Controller
       } catch (\Exception $exception) {
          return $exception->getMessage();
     }
-  }
-      
+  } 
       
       public function getAllCandidates(){
       
          try {
-            $user = Auth::user();
-             if($user->role->roleable->role != 'admin'){
-              return response()->json([
-                 'status' => 'fail',
-                 'message' => 'unAuthorized access'
-              ],401);
-           }
             
-           $candidate = Candidate::with('role.user.photos')->get();
-          if(!$candidate){
+         //   $candidate = Candidate::with('role.user.photos')->get();
+              $candidates = $this->candidateRepository->getAllCandidates();
+         
+          if(!$candidates){
              return response()->json([
                 'status' => 'success',
                 'message' => 'No candidate found'
@@ -145,8 +140,8 @@ class AdminController extends Controller
             
          return response()->json([
            'status' => 'success',
-           'size' => $candidate->count(),
-           'candidates' => $candidate
+           'size' => $candidates->count(),
+           'candidates' => $candidates
          ],200);
          
       } catch (\Exception $exception) {

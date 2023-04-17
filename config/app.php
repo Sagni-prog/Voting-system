@@ -181,6 +181,7 @@ return [
         App\Repositories\Admin\AdminRepositoryServiceProvider::class,
         App\Repositories\Role\RoleRepositoryServiceProvider::class,
         App\Repositories\Voter\VoterRepositoryServiceProvider::class,
+        App\Repositories\Candidate\CandidateRepositoryServiceProvider::class,
         
 
     ],
