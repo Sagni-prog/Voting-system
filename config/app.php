@@ -179,6 +179,7 @@ return [
         App\Repositories\Vote\VoteServiceProvider::class,
         App\Repositories\User\UserRepositoryServiceProvider::class,
         App\Repositories\Admin\AdminRepositoryServiceProvider::class,
+        App\Repositories\Role\RoleRepositoryServiceProvider::class,
         
 
     ],

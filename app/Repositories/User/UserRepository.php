@@ -24,6 +24,13 @@ class UserRepository implements UserRepositoryInterface{
         ])->with('photos','role.roleable')->first();
       
     }
+    
+    public function findUserById($id){
+        
+        return $this->user->where([
+                    'id'=> $id
+          ])->with('photos','role.roleable')->first();
+    }
     public function findUser($id,$status){
        
         return $this->user->where([

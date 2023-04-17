@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Hash;
 use App\Models\User;
@@ -14,6 +15,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\AdminRegistrationRequest;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Admin\AdminRepositoryInterface;
+use App\Repositories\Role\RoleRepositoryInterface;
 
 
 class AuthController extends Controller
@@ -22,16 +24,19 @@ class AuthController extends Controller
   private $userRepository;
   private $tokenService;
   private $adminRepository;
+  private $roelRepository;
   
   public function __construct(
-        TokenManagerService $tokenService,
-        UserRepositoryInterface $userRepository,
-        AdminRepositoryInterface $adminRepository
+         TokenManagerService $tokenService,
+         UserRepositoryInterface $userRepository,
+         AdminRepositoryInterface $adminRepository,
+         RoleRepositoryInterface $roelRepository,
         ){
   
      $this->tokenService = $tokenService;
      $this->userRepository = $userRepository;
      $this->adminRepository = $adminRepository;
+     $this->roleRepository = $roelRepository;
      
   }
 
@@ -39,43 +44,14 @@ class AuthController extends Controller
     public function register(AdminRegistrationRequest $request){
         try{
         
-            $data = $request->validated();
-            $user = $this->userRepository->storeUser($data);
-            
-            if(!$user){
-                   return response()->json([
-                      'status' => 'fail',
-                      'message' => 'Oops! something went wrong, try again'
-                   ],400);
-                }
-    
+           DB::beginTransaction();
+        
+    $data = $request->validated();
+    $user = $this->userRepository->storeUser($data); 
     $admin = $this->adminRepository->storeAdmin($data);
-       return $admin;
-    
-        if(!$admin){
-           $user->delete();
-        }
-        
-        $role = $admin->role()->create([
-            'user_id' => $user->id
-        ]);
-        
-        if(!$role){
-            
-            $admin->delete();
-        }
-        
-        $admin = User::with('role.roleable')
-                     ->where('id',$user->id)
-                     ->first();
-                     
-         if(!$admin){
-            return response()->json([
-               'status' => 'fail',
-               'message' => 'Oops! something went wrong',
-               
-            ],404);
-         }            
+    $role = $this->roleRepository->storeRole($admin,$user->id);
+    DB::commit();
+        $admin = $this->userRepository->findUserById($user->id);         
                      
             return response()->json([
                 'status'=> 'sucess',
@@ -85,6 +61,7 @@ class AuthController extends Controller
             ] ,201);
         }
         catch(\Exception $exception){
+           DB::rollback();
             return response()->json([
                 "status"=>true,
                 "message"=>$exception->getMessage()
