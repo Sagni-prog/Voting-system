@@ -9,13 +9,15 @@ public $totalVoteCount;
 
     public function setVoteCount($voteCount): VoteResultService {
     
-      return $this->voteCount = $voteCount;
+         $this->voteCount = $voteCount;
+         return $this;
       
     }
     
     public function setTotalVoteCount($totalVoteCount): VoteResultService {
     
-       return $this->totalVoteCount = $totalVoteCount;
+        $this->totalVoteCount = $totalVoteCount;
+        return $this;
        
     }
     
@@ -23,7 +25,5 @@ public $totalVoteCount;
        
        return $this->voteCount / $this->totalVoteCount * 100;
     }
-
-
 
 }

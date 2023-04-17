@@ -10,11 +10,18 @@ use App\Models\VoteBallot;
 use App\Models\RegisteredCandidates;
 use App\Models\User;
 use App\Services\VoteResultService;
+use  App\Interfaces\VoteInterface;
 
 use Auth;
 
 class VoteController extends Controller
 {
+    public function allVotes(VoteInterface $voteInterface){
+        
+        $votes = $voteInterface->getAllVotes();
+        
+        return $votes;
+    }
     public function index(VoteResultService $service, $id){
           
         try {
@@ -45,7 +52,6 @@ class VoteController extends Controller
             $total_vote_count = VoteBallot::all()->count();
             $vote_count = $votes->count();
             
-            // $voted_in_percent = $votes->count() / $total_vote_count * 100;
             
             $voted_in_percent = $service->setVoteCount($votes->count())
                                         ->setTotalVoteCount($total_vote_count)
@@ -104,7 +110,6 @@ class VoteController extends Controller
                         'vote_status' => 'pending'
                  ]);
                  
-                //  return $vote;
         if(!$vote){
             return response()->json([
                 'status' => 'fail',
@@ -145,7 +150,6 @@ class VoteController extends Controller
          
          $vote = Vote::where('id',$id)->first();
          
-        //  return $vote;
          
          if($vote->vote_status === 'ongo'){
              return response()->json([

@@ -53,6 +53,8 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
          
        Route::get('candidates',[AdminController::class,'getAllCandidates']);
        Route::get('chairmans',[AdminController::class,'getAllChairmans']);
+       
+       Route::get('votes',[VoteController::class,'allVotes']);
     });
     
     Route::prefix('/voter')->group(function(){
