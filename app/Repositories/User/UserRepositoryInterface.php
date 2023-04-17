@@ -9,5 +9,6 @@ Interface UserRepositoryInterface{
     public function getAllActiveUsers();
     public function getAllUsers();
     public function getAllInactiveUsers();
+    public function storeUser($data);
     
 }

@@ -11,7 +11,9 @@ use App\Models\Voter;
 use App\Models\Admin;
 use App\Services\TokenManagerService;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\AdminRegistrationRequest;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Admin\AdminRepositoryInterface;
 
 
 class AuthController extends Controller
@@ -19,56 +21,36 @@ class AuthController extends Controller
 
   private $userRepository;
   private $tokenService;
+  private $adminRepository;
   
-  public function __construct(TokenManagerService $tokenService,UserRepositoryInterface $userRepository){
+  public function __construct(
+        TokenManagerService $tokenService,
+        UserRepositoryInterface $userRepository,
+        AdminRepositoryInterface $adminRepository
+        ){
   
      $this->tokenService = $tokenService;
      $this->userRepository = $userRepository;
+     $this->adminRepository = $adminRepository;
      
   }
 
-//   Registering user 
-    public function register(Request $request){
+      //   Registering user 
+    public function register(AdminRegistrationRequest $request){
         try{
         
-       
-            $uservalidator=Validator::make($request->all(),[
-                'first_name' => ['required', 'string', 'max:255'],
-                'last_name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required','string','min:8'],
-                // 'phone_number' => ['required','integer','max:10']
-            ]);
-
-            if($uservalidator->fails()){
-                return response()->json([
-                    "status"=>false,
-                    "message"=>"valitor error",
-                    "error"=>$uservalidator->errors()
-                ],404);
-            }
-            $user=User::create(
-                [
-                    'first_name'=>$request->first_name,
-                    'last_name'=>$request->last_name,
-                    'email'=>$request->email,
-                    'password'=>Hash::make($request->password),
-                    'faceId' => 'kjioa9aeodw3098imzknj',
-                   ]
-                );
-    
-                if(!$user){
+            $data = $request->validated();
+            $user = $this->userRepository->storeUser($data);
+            
+            if(!$user){
                    return response()->json([
                       'status' => 'fail',
                       'message' => 'Oops! something went wrong, try again'
                    ],400);
                 }
-                
-  
-    $admin = Admin::create([
-        'phone_number' => '095828283',
-        'role' => 'admin'
-    ]);
+    
+    $admin = $this->adminRepository->storeAdmin($data);
+       return $admin;
     
         if(!$admin){
            $user->delete();
@@ -112,29 +94,11 @@ class AuthController extends Controller
     
     
     public function login(LoginRequest $request){
-        try{
-    
-    //     $loginvaliditor=$request->validate([
+     try{
         
-    //         'email' => ['required', 'string', 'email', 'max:255'],
-    //         'password' => ['required','string','min:8'],
-    //         // 'faceId' => ['required','string']
-    //   ]);
+        $data = $request->validated();
+        $user = $this->userRepository->findUserWhere($data);
     
-    //   if(!$loginvaliditor){
-    //       return response()->json([
-    //           "status"=> "fail",
-    //           "message"=>"valitor error"
-    //       ],400);
-    // }
-    
-    //   $user = User::where([
-    //                         'email'=> $request->email,
-    //                         'isActive' => 1
-    //                     ])->with('photos','role.roleable')->first();
-    $data = $request->validated();
-    $user = $this->userRepository->findUserWhere($data);
-    return $user;
     if(!$user){
           return response()->json([
               "status" => "fail",

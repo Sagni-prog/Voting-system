@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Repositories\Vote\VoteServiceProvider::class,
         App\Repositories\User\UserRepositoryServiceProvider::class,
+        App\Repositories\Admin\AdminRepositoryServiceProvider::class,
         
 
     ],
