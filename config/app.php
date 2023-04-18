@@ -183,6 +183,7 @@ return [
         App\Repositories\Voter\VoterRepositoryServiceProvider::class,
         App\Repositories\Candidate\CandidateRepositoryServiceProvider::class,
         App\Repositories\Chairman\ChairmanRepositoryServiceProvider::class,
+        App\Repositories\Photo\PhotoRepositoryServiceProvider::class,
         
 
     ],

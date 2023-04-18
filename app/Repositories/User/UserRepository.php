@@ -134,6 +134,15 @@ class UserRepository implements UserRepositoryInterface{
                         })->first();
     }
     
+    public function updateUser($user, $data){
+       
+       return $user->update([      
+                        'first_name'=> $data['first_name'],
+                        'last_name' => $data['last_name'],
+                        'email'=> $data['email']
+                ]);
+    }
+    
     public function destroyUser($user){
         
         return $user->update([

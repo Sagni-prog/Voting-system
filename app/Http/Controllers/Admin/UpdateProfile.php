@@ -4,45 +4,35 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator;
-use Auth;
 use Storage;
-use App\Http\Requests\UpdateAdminProfile;
+use App\Http\Requests\UpdateAdminProfileRequest;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Admin\AdminRepositoryInterface;
 
 
 class UpdateProfile extends Controller
 {
-    public function edit(Request $request){
+
+  private $userRepository;
+  private $adminRepository;
+  
+  public function __construct(
+              UserRepositoryInterface $userRepository, 
+              AdminRepositoryInterface $adminRepository
+            ){
+       
+       $this->userRepository = $userRepository;
+       $this->adminRepository = $adminRepository;
+  }
+    public function edit(UpdateAdminProfileRequest $request){
     
     try {
-       
-        $uservalidator=Validator::make($request->all(),[
-            'first_name' => ['string', 'max:255'],
-            'last_name' => ['string', 'max:255'],
-            'email' => ['string', 'email', 'max:255'],
-            'password' => ['string','min:8'],
-            // 'phone_number' => ['required','integer','max:10']
-        ]);
-
-        if($uservalidator->fails()){
-            return response()->json([
-                "status"=>'fail',
-                "message"=>"valitor error",
-                "error"=>$uservalidator->errors()
-            ],404);
-        }
-        
-        $user =  Auth::user();
-        
-        $userUpdated = $user->update([
-                   
-                        'first_name'=>$request->first_name,
-                        'last_name'=>$request->last_name,
-                        'email'=>$request->email,
-               ]);
+  
+        $user = $this->userRepositorygetCurrentlyAuthenticatedUser();
+        $data = $request->validated();
+        $userUpdated = $this->userRepository->updateUser($user, $data);
             
             if(!$userUpdated){
-               
                return response()->json([
                   'status' => 'fail',
                   'message' => 'Oops! something went wrong'

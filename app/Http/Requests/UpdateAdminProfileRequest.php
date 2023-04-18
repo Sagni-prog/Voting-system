@@ -36,7 +36,8 @@ class UpdateAdminProfileRequest extends FormRequest
             'last_name' => ['string', 'max:255'],
             'email' => ['string', 'email', 'max:255'],
             'password' => ['string','min:8'],
-            // 'phone_number' => ['required','integer','max:10']
+            'photo' => ['image','mimes:jpeg,png,jpg'],
+            'phone_number' => ['integer','digit:9']
         ];
     }
 }

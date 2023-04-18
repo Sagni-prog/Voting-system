@@ -17,6 +17,7 @@ Interface UserRepositoryInterface{
     public function getActiveNotBannedWhereRoleWith($role);
     public function findActiveNotBannedWhereRole($id, $role);
     public function findActiveNotBannedWhereRoleWith($id, $role);
+    public function updateUser($user, $data);
     public function destroyUser($user);
     
 }
