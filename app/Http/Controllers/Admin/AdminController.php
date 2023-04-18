@@ -3,33 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Voter;
-use App\Models\Candidate;
-use App\Models\Admin;
-use App\Models\Chairman;
-use App\Models\User;
-use Auth;
-use Carbon\Carbon;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Voter\VoterRepositoryInterface;
 use App\Repositories\Candidate\CandidateRepositoryInterface;
+use App\Repositories\Chairman\ChairmanRepositoryInterface;
 
 class AdminController extends Controller
 {
    private $userRepository;
    private $voterRepository;
    private $candidateRepository;
+   private $chairmanRepository;
     
    public function __construct(
                   UserRepositoryInterface $userRepository, 
                   VoterRepositoryInterface $voterRepository,
                   CandidateRepositoryInterface $candidateRepository,
-                  ){
+                  ChairmanRepositoryInterface $chairmanRepository,
+                ){
       
       $this->userRepository = $userRepository;
       $this->voterRepository = $voterRepository;
       $this->candidateRepository = $candidateRepository;
+      $this->chairmanRepository = $chairmanRepository;
    }
    
    public function getActiveVoters(){
@@ -123,7 +119,7 @@ class AdminController extends Controller
     }
   } 
       
-      public function getAllCandidates(){
+    public function getAllCandidates(){
       
          try {
             
@@ -150,16 +146,10 @@ class AdminController extends Controller
     public function getAllChairmans(){
        
       try {
-         $user = Auth::user();
-          if($user->role->roleable->role != 'admin'){
-           return response()->json([
-              'status' => 'fail',
-              'message' => 'unAuthorized access'
-           ],401);
-        }
         
-    $chairman = Chairman::with('role.user.photos')->get();
-        if(!$chairman){
+       $chairmans = $this->chairmanRepository->getAllChairmans();
+       
+        if(!$chairmans){
             return response()->json([
                 'status' => 'success',
                 'message' => 'No Chairman found'
@@ -168,8 +158,8 @@ class AdminController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'size' => $chairman->count(),
-            'candidates' => $chairman
+            'size' => $chairmans->count(),
+            'candidates' => $chairmans
           ],200);
           } catch (\Exception $exception) {
             return $exception->getMessage();
@@ -179,18 +169,8 @@ class AdminController extends Controller
     public function destroy($id){
        
       try {
-      
-         $authuser = Auth::user();
-          if($authuser->role->roleable->role != 'admin'){
-           return response()->json([
-              'status' => 'fail',
-              'message' => 'unAuthorized access'
-           ],401);
-        }
         
-       $user = User::where('id',$id);
-       
-   
+       $user = $this->userRepository->findUserById($id);
        if(!$user){
          return respoose()->json([
             'status' => 'success',
@@ -198,13 +178,7 @@ class AdminController extends Controller
          ],200);
        }
        
-       
-      $deleted = $user->update([
-         
-         'isDeleted' => true,
-         'deleted_at'  => Carbon::now()
-         
-       ],200);
+      $deleted = $this->userRepository->destroyUser($user);
        
       if(!$deleted){
          return response()->json([

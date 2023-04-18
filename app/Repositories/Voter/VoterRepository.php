@@ -43,7 +43,7 @@ class VoterRepository implements VoterRepositoryInterface{
                            ->get();
    }
    
-   public function approveVoterWhereId(Voter $voter, $id){
+   public function approveVoterWhereId($voter, $id){
        
        return $voter->update([
                   'isApproved' => true,

@@ -50,7 +50,7 @@ class CandidateRepository implements CandidateRepositoryInterface{
                                ->first();
     }
     
-    public function approveCandidateWhereId(Candidate $candidate, $id){
+    public function approveCandidateWhereId($candidate, $id){
     
         return $candidate->update([
                     'isApproved' => true,

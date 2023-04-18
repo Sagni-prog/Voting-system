@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 use App\Models\User;
 use App\Services\HashService;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Candidate\CandidateRepositoryInterface;
@@ -100,6 +101,11 @@ class UserRepository implements UserRepositoryInterface{
                          })->get();
             }
             
+    public function getActiveNotBannedWhereRoleWith($role){
+         
+         return;
+    }        
+            
     public function findActiveNotBannedWhereRole($id, $role){
         
         return $this->user->with('role.roleable','photos')
@@ -126,5 +132,13 @@ class UserRepository implements UserRepositoryInterface{
                           ->whereHas('role.roleable',function($query){
                                   $query->where('role',$role);
                         })->first();
+    }
+    
+    public function destroyUser($user){
+        
+        return $user->update([
+                    'isDeleted' => true,
+                    'deleted_at'  => Carbon::now() 
+                ]);
     }
 }
