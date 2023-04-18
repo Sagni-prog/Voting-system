@@ -9,4 +9,5 @@ Interface VoterRepositoryInterface{
     public function getAllInActiveVoters();
     public function getAllVoters();
     public function approveVoterWhereId($voter, $id);
+    public function storeVoter($data);
 }

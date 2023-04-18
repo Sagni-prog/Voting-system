@@ -51,5 +51,14 @@ class VoterRepository implements VoterRepositoryInterface{
                   'approved_at' => Carbon::now()
            ]);
    }
+   
+   public function storeVoter($data){
+   
+      return $this->voter->create([
+                    'sex' => $data['sex'],
+                    'role' => 'voter',
+                    'status' => true,
+        ]);
+    }
   
 }
