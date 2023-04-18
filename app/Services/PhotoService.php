@@ -2,9 +2,17 @@
 
 namespace App\Services;
 
+use App\Repositories\Photo\PhotoRepositoryInterface;
 use Storage;
 
 class PhotoService{
+
+  private $photoRepository;
+  
+  public function __construct(PhotoRepositoryInterface $photoRepository){
+      
+      $this->photoRepository = $photoRepository;
+  }
    
    
    public function updateOrStorePhoto($request, $userPhoto){
@@ -21,9 +29,9 @@ class PhotoService{
            $data = $this->generateArray($photo_name, $path,  $image_url, $width,  $height);
           
           if(!$userPhoto){
-               
-               
+                 $this->photoRepository->storePhoto($userPhoto, $data);
           }
+                 $this->photoRepository->updatePhoto($userPhoto, $data);
        }
    }
    
