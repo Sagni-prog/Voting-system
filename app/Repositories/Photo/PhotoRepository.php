@@ -8,12 +8,12 @@ use App\Models\Photo;
 class PhotoRepository implements PhotoRepositoryInterface{
    
    
-    public function storePhoto(){
+    public function storePhoto($photo, $data){
     
         return;
      }
      
-     public function updatePhoto($photo){
+     public function updatePhoto($photo, $data){
         
         return;
      }

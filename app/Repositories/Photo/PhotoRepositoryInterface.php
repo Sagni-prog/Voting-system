@@ -4,6 +4,6 @@ namespace App\Repositories\Photo;
 
 Interface PhotoRepositoryInterface{
     
-    public function storePhoto();
-    public function updatePhoto($photo);
+    public function storePhoto($photo, $data);
+    public function updatePhoto($photo, $data);
 }
