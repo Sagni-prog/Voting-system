@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Candidate;
 
-Interface CandidataRepositoryInterface{
+Interface CandidateRepositoryInterface{
     
     public function findCandidateWhereActive($id);
     public function getAllCandidates();

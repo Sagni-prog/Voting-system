@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Candidate;
 
-use App\Repositories\Candidate\CandidateRepositoryInterface;
+use App\Repositories\Candidate\CandidataRepositoryInterface;
 use App\Models\Candidate;
 
 class CandidateRepository implements CandidateRepositoryInterface{
@@ -26,7 +26,7 @@ class CandidateRepository implements CandidateRepositoryInterface{
     }
     public function getAllCandidates(){
         
-        return $this->candidates->with('role.user.photos')
+        return $this->candidate->with('role.user.photos')
                                 ->get();
                                 
     }

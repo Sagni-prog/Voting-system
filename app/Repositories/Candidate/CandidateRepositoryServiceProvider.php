@@ -4,7 +4,7 @@ namespace App\Repositories\Candidate;
 
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Candidate\CandidateRepository;
-use App\Repositories\Candidate\CandidataRepositoryInterface;
+use App\Repositories\Candidate\CandidateRepositoryInterface;
 
 
 
@@ -12,6 +12,6 @@ use App\Repositories\Candidate\CandidataRepositoryInterface;
 class CandidateRepositoryServiceProvider extends ServiceProvider{
 
    public function register(){
-       $this->app->bind(CandidataRepositoryInterface::class,CandidateRepository::class);
+       $this->app->bind(CandidateRepositoryInterface::class,CandidateRepository::class);
    }
 }

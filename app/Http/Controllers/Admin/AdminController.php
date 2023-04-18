@@ -13,7 +13,7 @@ use Auth;
 use Carbon\Carbon;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Voter\VoterRepositoryInterface;
-use App\Repositories\Candidate\CandidataRepositoryInterface;
+use App\Repositories\Candidate\CandidateRepositoryInterface;
 
 class AdminController extends Controller
 {
@@ -24,7 +24,7 @@ class AdminController extends Controller
    public function __construct(
                   UserRepositoryInterface $userRepository, 
                   VoterRepositoryInterface $voterRepository,
-                  CandidataRepositoryInterface $candidateRepository,
+                  CandidateRepositoryInterface $candidateRepository,
                   ){
       
       $this->userRepository = $userRepository;
