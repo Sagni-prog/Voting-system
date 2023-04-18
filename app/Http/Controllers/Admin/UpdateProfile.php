@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Auth;
 use Storage;
+use App\Http\Requests\UpdateAdminProfile;
 
 
 class UpdateProfile extends Controller
@@ -14,13 +15,7 @@ class UpdateProfile extends Controller
     public function edit(Request $request){
     
     try {
-        if(!Auth::user()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'Authentication is required'
-            ],401);
-        }
-        
+       
         $uservalidator=Validator::make($request->all(),[
             'first_name' => ['string', 'max:255'],
             'last_name' => ['string', 'max:255'],
@@ -38,8 +33,6 @@ class UpdateProfile extends Controller
         }
         
         $user =  Auth::user();
-        
-        // return $user->role;
         
         $userUpdated = $user->update([
                    

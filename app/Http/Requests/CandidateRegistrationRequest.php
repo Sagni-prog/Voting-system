@@ -3,10 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
+use App\Helpers\UserHelper;
 
 class CandidateRegistrationRequest extends FormRequest
 {
+
+    private $userHelper;
+ 
+   public function __construct(UserHelper $userHelper){
+       
+       $this->$userHelper = $userHelper;
+   }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -14,7 +21,9 @@ class CandidateRegistrationRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->role->roleable->role === 'admin';
+    
+          return $this->$userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
+       
     }
 
     /**
