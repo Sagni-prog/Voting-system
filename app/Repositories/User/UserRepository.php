@@ -6,6 +6,7 @@ use App\Services\HashService;
 use Illuminate\Support\Facades\Auth;
 
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Candidate\CandidateRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface{
   
@@ -84,5 +85,46 @@ class UserRepository implements UserRepositoryInterface{
        return $user->update([
             'password' => $this->hashService->makeHash($data['password'])
         ]);
+    }
+    
+    public function getActiveNotBannedWhereRole($role){
+        
+        return $this->user->with('role.roleable','photos')
+                          ->where([
+                                   'isActive' => true,
+                                   'isBanned' => false,
+                                   'isDeleted' => false
+                                   ])
+                          ->whereHas('role.roleable',function($query){
+                                 $query->where('role',$role);
+                         })->get();
+            }
+            
+    public function findActiveNotBannedWhereRole($id, $role){
+        
+        return $this->user->with('role.roleable','photos')
+                          ->where([
+                                   'id' => $id,
+                                   'isActive' => true,
+                                   'isBanned' => false,
+                                   'isDeleted' => false
+                                   ])
+                          ->whereHas('role.roleable',function($query){
+                                 $query->where('role',$role);
+                         })->first();
+            }
+            
+    public function findActiveNotBannedWhereRoleWith($id, $role){
+        
+        return $this->user->with('role.roleable.chairman','photos')
+                          ->where([
+                                    'id' => $id,
+                                    'isActive' => true,
+                                    'isBanned' => false,
+                                    'isDeleted' => false
+                               ])
+                          ->whereHas('role.roleable',function($query){
+                                  $query->where('role',$role);
+                        })->first();
     }
 }

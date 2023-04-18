@@ -9,37 +9,28 @@ use Auth;
 use App\Models\User;
 use App\Models\Candidate;
 use App\Models\RegisteredCandidates;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Candidate\CandidateRepositoryInterface;
 
 
 class ManageCandidateController extends Controller
 {
+    private $userRepository;
+    private $candidateRepository;
+    
+    public function __construct(
+                UserRepositoryInterface $userRepository,
+                CandidateRepositoryInterface $candidateRepository,
+        ){
+            
+            $this->userRepository = $userRepository;
+            $this->candidateRepository = $candidateRepository;
+    }
     
     public function index(){
     
-        if(!Auth::check()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
-        
-        $user = Auth::user();
-        if($user->role->roleable->role != 'chairman'){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthized access'
-            ],401);
-        }
-        
-        $candidate = User::with('role.roleable','photos')->where([
-                            'isActive' => true,
-                            'isBanned' => false,
-                            'isDeleted' => false
-                ])->whereHas('role.roleable',function($query){
-                   $query->where('role','candidate');
-                })->get();
-                
-      if(!$candidate){
+        $candidates = $this->userRepository->getActiveNotBannedWhereRole('candidate');      
+        if(!$candidates){
           
           return response()->json([
               'status' => 'fail',
@@ -49,37 +40,15 @@ class ManageCandidateController extends Controller
       
       return response()->json([
           'status' => 'success',
-          'size' => $candidate->count(),
-          'candidates' => $candidate
+          'size' => $candidates->count(),
+          'candidates' => $candidates
       ]);
     }
     
     
     public function show($id){
     
-        if(!Auth::check()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
-        
-        $user = Auth::user();
-        if($user->role->roleable->role != 'chairman'){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthized access'
-            ],401);
-        }
-        
-        $candidate = User::with('role.roleable.chairman','photos')->where([
-                            'id' => $id,
-                            'isActive' => true,
-                            'isBanned' => false,
-                            'isDeleted' => false
-                ])->whereHas('role.roleable',function($query){
-                   $query->where('role','candidate');
-                })->first();
+        $candidate = $this->userRepository->findActiveNotBannedWhereRole($id, 'candidate');
                 
       if(!$candidate){
           
@@ -89,68 +58,39 @@ class ManageCandidateController extends Controller
           ],400);
       } 
       
-      $registered = RegisteredCandidates::create([
-        'candidate_id' => $candidate->id,
-        'vote_id' => $candidate->role->roleable->vote_id
-]);
-      return response()->json([
-          'status' => 'success',
-          'size' => $candidate->count(),
-          'voters' => $candidate
-      ]);
+          return response()->json([
+              'status' => 'success',
+              'size' => $candidate->count(),
+              'candidate' => $candidate
+          ]);
+          
+    //   $registered = RegisteredCandidates::create([
+    //     'candidate_id' => $candidate->id,
+    //     'vote_id' => $candidate->role->roleable->vote_id
+    // ]);
     }
     
     public function update($id){
         try {
-         
-          if(!Auth::check()){
-              return response()->json([
-                  'status' => 'fail',
-                  'message' => 'unAuthorized access'
-              ],401);
-          }
-          
-          $user = Auth::user();
-          if($user->role->roleable->role != 'chairman'){
-              return response()->json([
-                  'status' => 'fail',
-                  'message' => 'unAuthized access'
-              ],401);
-          }
-          
-          $candidate = User::with('role.roleable','photos')
-                       ->where(
-                                [
-                                  'id' => $id,
-                                  'isActive' => true,
-                                  'isBanned' => false,
-                                  'isDeleted' => false
-                                  
-                                ])
-                   ->whereHas('role.roleable',function($query){
-                                 $query->where('role','candidate');
-            })->first();
-            
-                       
-                          
+    
+         $candidate = $this->userRepository->findActiveNotBannedWhereRole($id,'candidate');  
+             
+             if(!$candidate){
+                return response()->json([
+                         'status' => 'fail',
+                         'message' => 'Candidate not found'
+                 ],404);
+             }
+             
               if($candidate->role->roleable->isApproved){
                      return response()->json([
                               'status' => 'fail',
                               'message' => 'The Candidate is already approved'
                       ],200);
               } 
-                
-              if(!$candidate){
-                     return response()->json([
-                              'status' => 'fail',
-                              'message' => 'Candidate not found'
-                      ],404);
-                } 
-              $isEdited = $candidate->role->roleable->update([
-                     'isApproved' => true,
-                     'approvedBy' => $user->id,
-                     'approved_at' => Carbon::now()
-              ]);
+            
+            $id = $this->userRepository->getCurrentlyAuthenticatedUser()->id;
+            $isEdited = $this->candidateRepository->approveCandidateWhereId($candidate->role->roleable, $id);
               
           if(!$isEdited){
               return response()->json([
@@ -159,16 +99,16 @@ class ManageCandidateController extends Controller
               ],400);
           }
           
-          $registered = RegisteredCandidates::create([
-            'candidate_id' => $candidate->id,
-          //   'vote_id' => $voter->role->roleable->vote_id
-            'vote_id' => 1
-         ]);
-          
           return response()->json([
               'status' => 'success',
               'message' => 'You have successfully approved the candidate'
            ],200);
+          
+        //   $registered = RegisteredCandidates::create([
+        //     'candidate_id' => $candidate->id,
+        //     'vote_id' => 1
+        //  ]);
+          
                } catch (\Exception $exception) {
                   return response()->json([
                      'status' => 'fail',

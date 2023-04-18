@@ -35,7 +35,6 @@ class AdminController extends Controller
    public function getActiveVoters(){
    
       try {
-         // $user = $this->userRepository->getCurrentlyAuthenticatedUser();
          $voters =  $this->voterRepository->getAllActiveVoters();
    
         if(!$voters){
@@ -128,7 +127,6 @@ class AdminController extends Controller
       
          try {
             
-         //   $candidate = Candidate::with('role.user.photos')->get();
               $candidates = $this->candidateRepository->getAllCandidates();
          
           if(!$candidates){

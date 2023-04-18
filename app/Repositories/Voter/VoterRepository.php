@@ -42,5 +42,14 @@ class VoterRepository implements VoterRepositoryInterface{
         return $this->voter->with('role.user.photos')
                            ->get();
    }
+   
+   public function approveVoterWhereId(Voter $voter, $id){
+       
+       return $voter->update([
+                  'isApproved' => true,
+                  'approvedBy' => $id,
+                  'approved_at' => Carbon::now()
+           ]);
+   }
   
 }

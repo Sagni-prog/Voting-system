@@ -4,6 +4,7 @@ namespace App\Repositories\Candidate;
 
 use App\Repositories\Candidate\CandidataRepositoryInterface;
 use App\Models\Candidate;
+use Carbon\Carbon;
 
 class CandidateRepository implements CandidateRepositoryInterface{
 
@@ -47,5 +48,14 @@ class CandidateRepository implements CandidateRepositoryInterface{
                                        $query->where('isActive',false);
                                    })
                                ->first();
+    }
+    
+    public function approveCandidateWhereId(Candidate $candidate, $id){
+    
+        return $candidate->update([
+                    'isApproved' => true,
+                    'approvedBy' => $user->id,
+                    'approved_at' => Carbon::now()
+         ]);
     }
 }

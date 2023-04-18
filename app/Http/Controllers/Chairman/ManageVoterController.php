@@ -9,33 +9,30 @@ use Auth;
 use App\Models\Voter;
 use App\Models\User;
 use App\Models\RegisteredVoter;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Candidate\CandidateRepositoryInterface;
+use App\Repositories\Voter\VoterRepositoryInterface;
 
 class ManageVoterController extends Controller
 {
+    private $userRepository;
+    private $candidateRepository;
+    private $voterRepository;
+    
+    public function __construct(
+                UserRepositoryInterface $userRepository,
+                CandidateRepositoryInterface $candidateRepository,
+                VoterRepositoryInterface $voterRepository,
+        ){
+            
+            $this->userRepository = $userRepository;
+            $this->candidateRepository = $candidateRepository;
+            $this->voterRepository = $voterRepository;
+    }
+    
     public function index(){
     
-        if(!Auth::check()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
-        
-        $user = Auth::user();
-        if($user->role->roleable->role != 'chairman'){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthized access'
-            ],401);
-        }
-        
-        $voter = User::with('role.roleable','photos')->where([
-                            'isActive' => true,
-                            'isBanned' => false,
-                            'isDeleted' => false
-                ])->whereHas('role.roleable',function($query){
-                   $query->where('role','voter');
-                })->get();
+        $voter = $this->userRepository->getActiveNotBannedWhereRoleWith('voter');
                 
       if(!$voter){
           
@@ -55,29 +52,7 @@ class ManageVoterController extends Controller
     
     public function show($id){
     
-        if(!Auth::check()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
-        
-        $user = Auth::user();
-        if($user->role->roleable->role != 'chairman'){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthized access'
-            ],401);
-        }
-        
-        $voter = User::with('role.roleable.chairman','photos')->where([
-                            'id' => $id,
-                            'isActive' => true,
-                            'isBanned' => false,
-                            'isDeleted' => false
-                ])->whereHas('role.roleable',function($query){
-                   $query->where('role','voter');
-                })->first();
+       $voter = $this->userRepository->findActiveNotBannedWhereRoleWith($id, 'voter');
                 
       if(!$voter){
           
@@ -104,29 +79,15 @@ class ManageVoterController extends Controller
             ],401);
         }
         
-        $user = Auth::user();
-        if($user->role->roleable->role != 'chairman'){
+          $voter = $this->userRepository->findActiveNotBannedWhereRole($id, 'voter');
+      
+          if(!$voter){
             return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthized access'
-            ],401);
-        }
+                     'status' => 'fail',
+                     'message' => 'Voter not found'
+               ],404);
+          } 
         
-        $voter = User::with('role.roleable','photos')
-                     ->where(
-                              [
-                                'id' => $id,
-                                'isActive' => true,
-                                'isBanned' => false,
-                                'isDeleted' => false
-                                
-                              ])
-                 ->whereHas('role.roleable',function($query){
-                               $query->where('role','voter');
-          })->first();
-          
-                     
-                        
             if($voter->role->roleable->isApproved){
                    return response()->json([
                             'status' => 'fail',
@@ -134,17 +95,14 @@ class ManageVoterController extends Controller
                     ],200);
             } 
               
-            if(!$voter){
-                   return response()->json([
-                            'status' => 'fail',
-                            'message' => 'Voter not found'
-                    ],404);
-              } 
-            $isEdited = $voter->role->roleable->update([
-                   'isApproved' => true,
-                   'approvedBy' => $user->id,
-                   'approved_at' => Carbon::now()
-            ]);
+            $id = $this->userRepository->getCurrentlyAuthenticatedUser()->id;
+            $isEdited = $this->voterRepository->approveVoterWhereId($voter->role->roleable, $id);
+
+            // $isEdited = $voter->role->roleable->update([
+            //        'isApproved' => true,
+            //        'approvedBy' => $user->id,
+            //        'approved_at' => Carbon::now()
+            // ]);
             
         if(!$isEdited){
             return response()->json([
@@ -153,11 +111,10 @@ class ManageVoterController extends Controller
             ],400);
         }
         
-        $registered = RegisteredVoter::create([
-                      'voter_id' => $voter->id,
-                    //   'vote_id' => $voter->role->roleable->vote_id
-                      'vote_id' => 1
-        ]);
+        // $registered = RegisteredVoter::create([
+        //               'voter_id' => $voter->id,
+        //               'vote_id' => 1
+        // ]);
         
         return response()->json([
             'status' => 'success',

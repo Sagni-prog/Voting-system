@@ -13,5 +13,9 @@ Interface UserRepositoryInterface{
     public function storeUser($data);
     public function getCurrentlyAuthenticatedUser();
     public function updateUserPassword($user, $data);
+    public function getActiveNotBannedWhereRole($role);
+    public function getActiveNotBannedWhereRoleWith($role);
+    public function findActiveNotBannedWhereRole($id, $role);
+    public function findActiveNotBannedWhereRoleWith($id, $role);
     
 }
