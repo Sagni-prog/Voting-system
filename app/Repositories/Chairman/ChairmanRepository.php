@@ -20,4 +20,13 @@ class ChairmanRepository implements ChairmanRepositoryInterface{
         
         return $this->chairman->with('role.user.photos')->get();
     }
+    
+    public function storeChairman($data){
+        
+        return create([
+                  'sex' => $data['sex'],
+                  'role' => 'chairman',
+                  'status' => true,
+          ]);
+    }
 }

@@ -9,4 +9,5 @@ Interface CandidateRepositoryInterface{
     public function getAllActiveCandidates();
     public function getAllInActiveCandidates();
     public function approveCandidateWhereId($candidate, $id);
+    public function storeCandidate($data);
 }

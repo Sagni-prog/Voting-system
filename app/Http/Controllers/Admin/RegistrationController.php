@@ -3,21 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-Use \Carbon\Carbon;
-use Hash;
-use App\Models\User;
-use App\Models\Voter;
-use App\Models\Candidate;
-use App\Models\Chairman;
-use Auth;
 use App\Http\Requests\VoterRegistrationRequest;
+use App\Http\Requests\CandidateRegistrationRequest;
+use App\Http\Requests\ChairmanRegistrationRequest;
+
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Voter\VoterRepositoryInteface;
 use App\Repositories\Candidate\CandidateRepositoryInteface;
 use App\Repositories\Chairman\ChairmanRepositoryInteface;
 use App\Repositories\Role\RoleRepositoryInteface;
 use App\Services\TokenManagerService;
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -81,91 +77,33 @@ class RegistrationController extends Controller{
         }
     }
     
-    
     /*
     |-------------------------------------------------------------------------------------|
     |                        Registering Candidate                                        |
     |-------------------------------------------------------------------------------------|
     */
     
-    public function registerCandidate(Request $request){
+    public function registerCandidate(CandidateRegistrationRequest $request){
         try{
-        
-            $uservalidator=Validator::make($request->all(),[
-                'first_name' => ['required', 'string', 'max:255'],
-                'last_name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required','string','min:8'],
-                'admission_year' => ['required'],
-                'educational_year' => ['required'],
-                'department' => ['required','string'],
-                'gpa' => ['required'],
-                'exam_score' => ['required','integer'],
-            ]);
-
-            if($uservalidator->fails()){
-                return response()->json([
-                    "status"=>false,
-                    "message"=>"valitor error",
-                    "error"=>$uservalidator->errors()
-                ],404);
-            }
-            $user=User::create(
-                [
-                    'first_name'=>$request->first_name,
-                    'last_name'=>$request->last_name,
-                    'email'=>$request->email,
-                    'password'=>Hash::make($request->password),
-                    'faceId' => 'kjioa9aeodw3098imzknj'
-                   ]
-                );
-      
-                if(!$user){
-                   return response()->json([
-                      'status' => 'fail',
-                      'message' => 'Oops! something went wrong, try again'
-                   ],400);
-                }
-        $candidate = Candidate::create([
-                                'sex' => 'male',
-                                'role' => 'candidate',
-                                'status' => true,
-                                'admission_year' => $request->admission_date,
-                                'educational_year' => $request->educatoinal_date,
-                                'department' => $request->department,
-                                'gpa' => $request->gpa,
-                                'exam_score' => $request->exam_score,
-                  ]);
-        
-        if(!$candidate){
-        
-           $user->delete();  
-        } 
-        
-        $role = $candidate->role()->create([
-            'user_id' => $user->id
-        ]);
-        
-        if(!$role){
-            $candidate->delete();
-        }
-               
-  
-        $candidate = User::with('photos','role.roleable')
-                      ->where([
-                          'id' => $user->id,
-                          'isActive' => true
-                      ])->first();
-                      
-                      
+            
+            DB::beginTransaction();
+                $data = $request->validated();
+                $user = $this->userRepository->storeUse($data);
+                $candidate = $this->candidateRepository->storeCandidate($data);
+                $role = $this->roleRepository->storeRole($candidate, $user->id);
+            DB::commit();
+               $candidate = $this->userRepository->findUserById($user->id);
+               $token = $this->tokenService->createToken($user);
+                        
             return response()->json([
                 'status'=> 'sucess',
                 'message'=>'user created succesfully',
                 'candidate' => $candidate,
-                'token'=>$user->createtoken('user_token')->plainTextToken
+                'token'=> $token->plainTextToken
             ] ,201);
         }
         catch(\Exception $exception){
+           DB::rollback();
             return response()->json([
                 "status"=>true,
                 "message"=>$exception->getMessage()
@@ -174,83 +112,33 @@ class RegistrationController extends Controller{
     }
     
     
-    
     /*
     |-------------------------------------------------------------------------------------|
     |                        Registering Chairman                                         |
     |-------------------------------------------------------------------------------------|
     */
     
-    public function registerChairman(Request $request){
+    public function registerChairman(ChairmanRegistrationRequest $request){
         try{
-        
-            $uservalidator=Validator::make($request->all(),[
-                'first_name' => ['required', 'string', 'max:255'],
-                'last_name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required','string','min:8'],
-                'sex' => ['required','string']
-            ]);
-
-            if($uservalidator->fails()){
-                return response()->json([
-                    "status"=>false,
-                    "message"=>"valitor error",
-                    "error"=>$uservalidator->errors()
-                ],404);
-            }
-            $user=User::create(
-                [
-                    'first_name'=>$request->first_name,
-                    'last_name'=>$request->last_name,
-                    'email'=>$request->email,
-                    'password'=>Hash::make($request->password),
-                    'faceId' => 'kjioa9aeodw3098imzknj'
-                   ]
-                );
-      
-                if(!$user){
-                   return response()->json([
-                      'status' => 'fail',
-                      'message' => 'Oops! something went wrong, try again'
-                   ],400);
-                }
-        $chairman = Chairman::create([
-                                'sex' => $request->sex,
-                                'role' => 'chairman',
-                                'status' => true,
-                ]);
-        
-        if(!$chairman){
-            
-            $user->delete();
-        }
-        
-        $role = $chairman->role()->create([
-            'user_id' => $user->id
-        ]);
-        
-        if(!$role){
-            
-            $chairman->delete();
-        }
-               
-  
-        $chairman = User::with('photos','role.roleable')
-                      ->where([
-                          'id' => $user->id,
-                          'isActive' => true
-                      ])->first();
-                      
-                      
+          
+        DB::beginTransaction();
+            $data = $request->validated();
+            $user = $this->userRepository->storeUse($data);
+            $chairman = $this->$chairmanRepository->storeChairman($data);
+            $role = $this->roleRepository->storeRole($candidate, $user->id);
+        DB::commit();
+           $chairman = $this->userRepository->findUserById($user->id);
+           $token = $this->tokenService->createToken($user);
+    
             return response()->json([
                 'status'=> 'sucess',
                 'message'=>'user created succesfully',
                 'chairman' => $chairman,
-                'token'=>$user->createtoken('user_token')->plainTextToken
+                'token'=>$token->plainTextToken
             ] ,201);
         }
         catch(\Exception $exception){
+          DB::rollback();
             return response()->json([
                 "status"=>true,
                 "message"=>$exception->getMessage()
