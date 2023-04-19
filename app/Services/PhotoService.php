@@ -15,23 +15,23 @@ class PhotoService{
   }
    
    
-   public function updateOrStorePhoto($request, $userPhoto){
+   public function updateOrStorePhoto($request, $userPhoto, $user){
        
        $photo = $request->file('photo');
        if($request->hasFile('photo')){
        
-           $path = $this->storePhoto($photo, $this->photoExtension($photo));
+           $photo_name = $this->generatePhotoName($this->photoExtension($photo));
+           $path = $this->storePhoto($photo, $photo_name);
            $width = $this->photoDimensions($path)['width'];
            $height = $this->photoDimensions($path)['height'];
            $image_url = $this->generatePhotoUrl($path);
-           $photo_name = $this->generatePhotoName($this->photoExtension($photo));
            
            $data = $this->generateArray($photo_name, $path,  $image_url, $width,  $height);
           
-          if(!$userPhoto){
-                 $this->photoRepository->storePhoto($userPhoto, $data);
+          if(!$user->photos->count()){
+                 $this->photoRepository->storePhoto($user, $data);
           }
-                 $this->photoRepository->updatePhoto($userPhoto, $data);
+                 $this->photoRepository->updatePhoto($user, $data);
        }
    }
    
@@ -44,11 +44,11 @@ class PhotoService{
             ){
                  
                  $data = array(
-                        "photo_name" => $filename,
-                        "photo_path" => $path,
-                        "photo_url" => $image_url,
-                        "photo_width" => $width,
-                        "photo_height" => $height
+                        "photo_name" => $photo_name,
+                        "photo_path" => $photo_path,
+                        "photo_url" =>  $photo_url,
+                        "photo_width" => $photo_width,
+                        "photo_height" => $photo_height
                  );
                  
                  return $data;
@@ -66,9 +66,9 @@ class PhotoService{
        return $filename;
    }
    
-   public static function storePhoto($photo, $photoName){
+   public static function storePhoto($photo, $photo_name){
       
-      $path = $photo->storeAs('profile-photo', $photoName);
+      $path = $photo->storeAs('profile-photo', $photo_name);
       
       return $path;
    }

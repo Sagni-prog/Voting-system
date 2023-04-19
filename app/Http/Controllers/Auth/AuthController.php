@@ -11,6 +11,7 @@ use App\Http\Requests\AdminRegistrationRequest;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Admin\AdminRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
+use Hash;
 
 
 class AuthController extends Controller

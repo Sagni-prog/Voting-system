@@ -8,9 +8,9 @@ use App\Models\Photo;
 class PhotoRepository implements PhotoRepositoryInterface{
    
    
-    public function storePhoto($photo, $data){
+    public function storePhoto($user, $data){
     
-        return $photo->create([
+        return $user->photos()->create([
                     "photo_name" => $data['photo_name'],
                     "photo_path" => $data['photo_path'],
                     "photo_url" => $data['photo_url'],
@@ -19,9 +19,9 @@ class PhotoRepository implements PhotoRepositoryInterface{
                         ]);
      }
      
-     public function updatePhoto($photo, $data){
+     public function updatePhoto($user, $data){
         
-        return $photo->update([
+        return $user->photos()->update([
             "photo_name" => $data['photo_name'],
             "photo_path" => $data['photo_path'],
             "photo_url" => $data['photo_url'],

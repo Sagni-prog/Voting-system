@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Storage;
-use App\Http\Requests\UpdateAdminProfileRequest;
+// use App\Http\Requests\UpdateAdminProfileRequest;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Admin\AdminRepositoryInterface;
+use App\Services\PhotoService;
+use App\Http\Requests\UpdateAdminProfileRequest;
 
 
 class UpdateProfile extends Controller
@@ -15,21 +17,25 @@ class UpdateProfile extends Controller
 
   private $userRepository;
   private $adminRepository;
+  private $photoService;
   
   public function __construct(
               UserRepositoryInterface $userRepository, 
-              AdminRepositoryInterface $adminRepository
+              AdminRepositoryInterface $adminRepository,
+              PhotoService $photoService
             ){
        
        $this->userRepository = $userRepository;
        $this->adminRepository = $adminRepository;
+       $this->photoService = $photoService;
   }
     public function edit(UpdateAdminProfileRequest $request){
     
     try {
   
-        $user = $this->userRepositorygetCurrentlyAuthenticatedUser();
+    
         $data = $request->validated();
+        $user = $this->userRepository->getCurrentlyAuthenticatedUser();
         $userUpdated = $this->userRepository->updateUser($user, $data);
             
             if(!$userUpdated){
@@ -40,40 +46,44 @@ class UpdateProfile extends Controller
             
             }
             
-            if($request->hasFile('photo')){
+            $this->photoService->updateOrStorePhoto($request, $user->photos, $user);
+            
+            // if($request->hasFile('photo')){
 
-                $ext = $request->file('photo')->extension();
-                $image_name = 'image';
-                $filename = 'image-' . time() . '.' . $ext;
-                $path = $request->file('photo')->storeAs('profile-photo', $filename);
-                $image_url = Storage::url($path);
+            //     $ext = $request->file('photo')->extension();
+            //     $image_name = 'image';
+            //     $filename = 'image-' . time() . '.' . $ext;
+            //     $path = $request->file('photo')->storeAs('profile-photo', $filename);
+            //     $image_url = Storage::url($path);
 
-                $data = $this->getDimension($path);
-                $width = $data['width'];
-                $height = $data['height'];
+            //     $data = $this->getDimension($path);
+            //     $width = $data['width'];
+            //     $height = $data['height'];
 
          
-            if(!$user->photos->count()){
+            // if(!$user->photos->count()){
 
-                $user->photos()->create([
-                    "photo_name" => $filename,
-                    "photo_path" => $path,
-                    "photo_url" => $image_url,
-                    "photo_width" => $width,
-                    "photo_height" => $height
-                        ]);
-            }
-            else{
+            //     $user->photos()->create([
+            //         "photo_name" => $filename,
+            //         "photo_path" => $path,
+            //         "photo_url" => $image_url,
+            //         "photo_width" => $width,
+            //         "photo_height" => $height
+            //             ]);
+            // }
+            // else{
 
-                $user->photos()->update([
-                        "photo_name" => $filename,
-                        "photo_path" => $path,
-                        "photo_url" => $image_url,
-                        "photo_width" => $width,
-                        "photo_height" => $height
-                            ]);
-                    }
-            }
+            //     $user->photos()->update([
+            //             "photo_name" => $filename,
+            //             "photo_path" => $path,
+            //             "photo_url" => $image_url,
+            //             "photo_width" => $width,
+            //             "photo_height" => $height
+            //                 ]);
+            //         }
+            // }
+            
+            
             
         $adminUpdated = $user->role->roleable()->update([
                         'phone_number' => '+2511117323',

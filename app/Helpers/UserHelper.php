@@ -10,12 +10,12 @@ class UserHelper{
    
    public function __construct(UserRepositoryInterface $userRepository){
       
-      $this->$userRepository = $userRepository;
+      $this->userRepository = $userRepository;
    }
    
    
-   public function getCurrentlyAuthenticatedUsersRole(): string {
+   public function getCurrentlyAuthenticatedUsersRole(){
       
-      return $this->$userRepository->getCurrentlyAuthenticatedUser()->role->roleable->role;
+      return $this->userRepository->getCurrentlyAuthenticatedUser()->role->roleable->role;
    }
 }

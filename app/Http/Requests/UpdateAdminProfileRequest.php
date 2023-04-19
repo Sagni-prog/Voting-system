@@ -12,7 +12,8 @@ class UpdateAdminProfileRequest extends FormRequest
  
    public function __construct(UserHelper $userHelper){
        
-       $this->$userHelper = $userHelper;
+    
+       return $this->userHelper = $userHelper;
    }
     /**
      * Determine if the user is authorized to make this request.
@@ -21,7 +22,7 @@ class UpdateAdminProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->$userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
+        return $this->userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
     }
 
     /**
@@ -35,9 +36,8 @@ class UpdateAdminProfileRequest extends FormRequest
             'first_name' => ['string', 'max:255'],
             'last_name' => ['string', 'max:255'],
             'email' => ['string', 'email', 'max:255'],
-            'password' => ['string','min:8'],
             'photo' => ['image','mimes:jpeg,png,jpg'],
-            'phone_number' => ['integer','digit:9']
+            'phone_number' => ['string']
         ];
     }
 }
