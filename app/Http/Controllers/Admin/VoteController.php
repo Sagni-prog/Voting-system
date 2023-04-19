@@ -19,7 +19,7 @@ use  App\Repositories\Vote\VoteInterface;
 use  App\Repositories\User\UserRepositoryInterface;
 use  App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryInterface;
 
-use App\Services\VoteResultService;
+use App\Builder\VoteResultBuilder;
 use Auth;
 
 class VoteController extends Controller
@@ -27,15 +27,18 @@ class VoteController extends Controller
     private $voteInterface;
     private $userInterface;
     private $registeredCandidateRepository;
+    private $voteBuilder;
     
     public function __construct(
                     VoteInterface $voteInterface,
                     UserRepositoryInterface $userInterface,
                     RegisteredCandidateRepositoryInterface $registeredCandidateRepository,
+                    VoteResultBuilder $voteBuilder,
                 ){
         $this->voteInterface = $voteInterface;
         $this->userRepository = $userInterface;
         $this->registeredCandidateRepository = $registeredCandidateRepository;
+        $this->voteBuilder = $voteBuilder;
      }
      
     public function allVotes(){
@@ -44,7 +47,7 @@ class VoteController extends Controller
         
         return $votes;
     }
-    public function index(VoteResultService $service, $id){
+    public function index($id){
           
         try {
           
@@ -60,7 +63,7 @@ class VoteController extends Controller
             $vote_count = $votes->count();
             
             
-            $voted_in_percent = $service->setVoteCount($votes->count())
+            $voted_in_percent = $this->voteBuilder->setVoteCount($votes->count())
                                         ->setTotalVoteCount($total_vote_count)
                                         ->calculateVotePercent();
             $dataObj = array(

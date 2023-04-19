@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Builder;
 
-class VoteResultService{
+class VoteResultBuilder{
 
 public $voteCount;
 public $totalVoteCount;
