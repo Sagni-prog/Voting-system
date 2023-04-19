@@ -17,8 +17,9 @@ class PhotoService{
    
    public function updateOrStorePhoto($request, $userPhoto, $user){
        
-       $photo = $request->file('photo');
        if($request->hasFile('photo')){
+       
+           $photo = $request->file('photo');
        
            $photo_name = $this->generatePhotoName($this->photoExtension($photo));
            $path = $this->storePhoto($photo, $photo_name);

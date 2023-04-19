@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Requests\VoterRegistrationRequest;
 use App\Http\Requests\CandidateRegistrationRequest;
 use App\Http\Requests\ChairmanRegistrationRequest;
@@ -12,9 +14,9 @@ use App\Repositories\Voter\VoterRepositoryInteface;
 use App\Repositories\Candidate\CandidateRepositoryInteface;
 use App\Repositories\Chairman\ChairmanRepositoryInteface;
 use App\Repositories\Role\RoleRepositoryInteface;
+
 use App\Services\TokenManagerService;
 
-use Illuminate\Support\Facades\DB;
 
 
 

@@ -9,21 +9,33 @@ use Carbon\Carbon;
 use App\Models\VoteBallot;
 use App\Models\RegisteredCandidates;
 use App\Models\User;
-use App\Services\VoteResultService;
-use  App\Repositories\Vote\VoteInterface;
+
 use App\Http\Requests\VoteRequest;
 use App\Http\Requests\ExtendVoteRequest;
 use App\Http\Requests\ExtendEndDateVoteRequest;
 use App\Http\Requests\ConfirmVoteRequest;
 
+use  App\Repositories\Vote\VoteInterface;
+use  App\Repositories\User\UserRepositoryInterface;
+use  App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryInterface;
+
+use App\Services\VoteResultService;
 use Auth;
 
 class VoteController extends Controller
 {
     private $voteInterface;
+    private $userInterface;
+    private $registeredCandidateRepository;
     
-    public function __construct(VoteInterface $voteInterface){
+    public function __construct(
+                    VoteInterface $voteInterface,
+                    UserRepositoryInterface $userInterface,
+                    RegisteredCandidateRepositoryInterface $registeredCandidateRepository,
+                ){
         $this->voteInterface = $voteInterface;
+        $this->userRepository = $userInterface;
+        $this->registeredCandidateRepository = $registeredCandidateRepository;
      }
      
     public function allVotes(){
@@ -35,24 +47,9 @@ class VoteController extends Controller
     public function index(VoteResultService $service, $id){
           
         try {
-            if(!Auth::check()){
-                
-               return response()->json([
-                    'status' => 'fail',
-                    'message' => 'Unauthorized access'
-                ],403);
-            }
-        $user = Auth::user();
-        
-        if($user->role->roleable->role != 'voter'){
-           return response()->json([
-                   'status' => 'fail',
-                   'message' => 'Unauthorized access'
-             ],403);
-         }
-                   
-        
-        $candidates = RegisteredCandidates::where('vote_id',1)->get();
+          
+        $user = $this->userRepository->getCurrentlyAuthenticatedUser();
+        $candidates = $this->registeredCandidateRepository->getRegisteredCandidatesWhereVoteId(1);
         
         $data = array();
         $i = 0;

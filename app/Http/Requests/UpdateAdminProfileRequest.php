@@ -2,19 +2,19 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Helpers\UserHelper;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAdminProfileRequest extends FormRequest
 {
 
  private $userHelper;
+ public function __construct(UserHelper $userHelper){
+     
+  
+     return $this->userHelper = $userHelper;
+ }
  
-   public function __construct(UserHelper $userHelper){
-       
-    
-       return $this->userHelper = $userHelper;
-   }
     /**
      * Determine if the user is authorized to make this request.
      *

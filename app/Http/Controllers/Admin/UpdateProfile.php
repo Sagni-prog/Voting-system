@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateAdminProfileRequest;
+
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Admin\AdminRepositoryInterface;
-use App\Services\PhotoService;
 
-use Illuminate\Support\Facades\DB;
+use App\Services\PhotoService;
 
 
 
@@ -29,7 +30,8 @@ class UpdateProfile extends Controller
        $this->adminRepository = $adminRepository;
        $this->photoService = $photoService;
   }
-    public function edit(UpdateAdminProfileRequest $request){
+  
+public function edit(UpdateAdminProfileRequest $request){
     
     try {
   

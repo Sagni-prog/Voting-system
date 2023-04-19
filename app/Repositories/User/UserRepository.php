@@ -143,11 +143,32 @@ class UserRepository implements UserRepositoryInterface{
                 ]);
     }
     
+    public function verifyUser($user){
+        
+        return $user->update(['isActive' => true]);
+    }
+    
     public function destroyUser($user){
         
         return $user->update([
                     'isDeleted' => true,
                     'deleted_at'  => Carbon::now() 
                 ]);
+    }
+    
+    public function banUser($user){
+        
+        return $user->update([
+                'isBanned' => true,
+                'banned_at' => Carbon::now()
+             ]);
+    }
+    
+    public function unBanUser($user){
+        
+        return $user->update([
+                'isBanned' => false,
+                'banned_at' => null
+             ]);
     }
 }

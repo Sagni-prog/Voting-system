@@ -4,20 +4,21 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Auth;
+use App\Helpers\UserHelper;
 
 class admin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
+    private $userHelper;
+    
+     public function __construct(UserHelper $userHelper){
+         
+      
+         return $this->userHelper = $userHelper;
+     }
+     
     public function handle(Request $request, Closure $next)
     {
-       if(Auth::user()->role->roleable->role != 'admin'){
+       if($this->userHelper->getCurrentlyAuthenticatedUsersRole() != 'admin'){
            return response()->json([
                 'status' => 'fail',
                 'message' => 'unAuthorized access'
