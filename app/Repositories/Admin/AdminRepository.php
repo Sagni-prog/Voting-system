@@ -21,4 +21,12 @@ class AdminRepository implements AdminRepositoryInterface{
         ]);
         
     }
+    
+    public function updateAdmin($admin, $data){
+        
+         return $admin->update([
+                    'phone_number' => $data['phone_number'],
+                    'role' => 'admin'
+        ]);
+    }
 }
