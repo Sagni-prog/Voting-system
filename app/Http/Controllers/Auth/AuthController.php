@@ -11,6 +11,8 @@ use App\Http\Requests\AdminRegistrationRequest;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Admin\AdminRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
+
+use App\Factory\UserFactory\AdminFactory;
 use Hash;
 
 
@@ -21,18 +23,21 @@ class AuthController extends Controller
   private $tokenService;
   private $adminRepository;
   private $roelRepository;
+  private $adminFactoy;
   
   public function __construct(
          TokenManagerService $tokenService,
          UserRepositoryInterface $userRepository,
          AdminRepositoryInterface $adminRepository,
          RoleRepositoryInterface $roelRepository,
+         AdminFactory $adminFactoy
         ){
   
      $this->tokenService = $tokenService;
      $this->userRepository = $userRepository;
      $this->adminRepository = $adminRepository;
      $this->roleRepository = $roelRepository;
+     $this->adminFactoy = $adminFactoy;
      
   }
 
@@ -43,6 +48,7 @@ class AuthController extends Controller
            DB::beginTransaction();
         
     $data = $request->validated();
+    //   $this->adminFactory->create($data);
     $user = $this->userRepository->storeUser($data); 
     $admin = $this->adminRepository->storeAdmin($data);
     $role = $this->roleRepository->storeRole($admin,$user->id);
