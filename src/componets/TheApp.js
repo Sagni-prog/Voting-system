@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import './../App.css'
-import { useState } from 'react'
 import Navbar from './Nav/Navbar'
 import Landingpage from './Home/Landingpage'
 import Candidates from './Candidates.js/Candidates'
@@ -9,7 +9,12 @@ import Report from './Blog/Report'
 import Footer from './Footer/Footer'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
+import store from "./../app/store";
+import { useSelector } from "react-redux";
+const baseUrl = "localhost:8000";
 export default function TheApp() {
+  const dispatch = store.dispatch;
+
   return (
     <div>
      <div className='w-[100%] border-blue-200'>

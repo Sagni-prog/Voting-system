@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/first */
 import React from 'react'
 import img2 from './../../images/ivana-square.jpg'
 import { Line } from "react-chartjs-2";
@@ -26,11 +28,12 @@ ChartJS.register(
 
 
 
-)
-
-
+);
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+// import{ CandidateSlice }from './../../app/features/candidate/Candidate'
 export default function ElectionProgress() {
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const candidates = useSelector((state) => state.candidate.candidates);
   const data = {
     labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
     datasets: [
@@ -43,119 +46,7 @@ export default function ElectionProgress() {
       }
     ]
   };
-  const candidates = [
-    {
-      id: 1,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2020,
-      graduationYear: 2024,
-      department: 'Computer Science',
-      status: 'Pending',
-      email: 'johndoe@example.com',
-    },
-    {
-      id: 2,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    },
-    {
-      id: 3,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-,
-    {
-      id:4,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    ,
-    {
-      id: 5,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    ,
-    {
-      id: 6,
-      fullName: 'Natnael Getachew',
-      firstName:'ggg',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    ,
-    {
-      id: 7,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    ,
-    {
-      id: 8,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    
-    
-  ];
+
   return (
     <div>
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

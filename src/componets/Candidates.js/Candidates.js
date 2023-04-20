@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/041a746a664d31ba7c4c6c1bc98b9010.jpg'
@@ -10,11 +11,16 @@ import { Link as Link} from 'react-router-dom'
 import { useState } from 'react';
 import App from './../../App'
 import Landingpage from './../Home/Landingpage'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import{ CandidateSlice }from './../../app/features/candidate/Candidate'
 
 export default function Candidates() {
-
+  const candidates = useSelector((state) => state.candidate.candidates);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
+  
 
 
   function handleVote() {
@@ -38,119 +44,7 @@ export default function Candidates() {
     setIsChecked(event.target.checked);
   }
 
-  const candidates = [
-    {
-      id: 1,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2020,
-      graduationYear: 2024,
-      department: 'Computer Science',
-      status: 'Pending',
-      email: 'johndoe@example.com',
-    },
-    {
-      id: 2,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    },
-    {
-      id: 3,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-,
-    {
-      id:4,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    ,
-    {
-      id: 5,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    ,
-    {
-      id: 6,
-      fullName: 'Natnael Getachew',
-      firstName:'ggg',
-      lastName:'getachew',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    ,
-    {
-      id: 7,
-      fullName: '',
-      firstName:'',
-      lastName:'',
-      photoUrl: `${img2}`,
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    ,
-    {
-      id: 8,
-      fullName: 'Natnael Getachew',
-      firstName:'natty',
-      lastName:'getachew',
-      photoUrl: 'https://via.placeholder.com/150',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      admissionYear: 2019,
-      graduationYear: 2023,
-      department: 'Electrical Engineering',
-      status: 'Approved',
-      email: 'janedoe@example.com',
-    }
-    
-    
-  ];
+  
 
 
 
@@ -166,7 +60,12 @@ export default function Candidates() {
           <div className="p-4 text-center bg-white rounded-lg">
             <h2 className="text-[2rem] text-red-500 font-medium mb-2 text-center">2016 EC election candidates</h2>
             {/* Content for first box goes here */}
-            <div className='bg-emerald-500 shadow-md h-10 w-full rounded-[5px] flex item-center p-2'><p className='flex imag text-start item-center'>vote your president election start <p className='ml-1 mr-1 text-white'>10-02-2016.</p>vote end  <p className='ml-1 mr-1 text-red-500'>`25-03-2016`</p> </p></div>
+        
+            <div className='bg-emerald-500 shadow-md h-10 w-full rounded-[5px] flex item-center p-2'>
+            <marquee width="100%" direction="right" height="100px">
+            <p className='flex text-start item-center'>vote your president election start <p className='ml-1 mr-1 text-white'>10-02-2016.</p>vote end  <p className='ml-1 mr-1 text-red-500'>`25-03-2016`</p> </p>
+</marquee>
+            </div>
           </div>
         </div>
      

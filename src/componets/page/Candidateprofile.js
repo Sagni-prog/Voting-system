@@ -7,6 +7,8 @@ import {useEffect} from 'react'
 import { AiOutlineRight} from "react-icons/ai";
 import { useState } from 'react';
 import { Link as Link} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+// import { selectCandidate } from './../../candidateDetailSlice';
 export default function Candidateprofile() {
   return (
     <div>
