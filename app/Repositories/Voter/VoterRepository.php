@@ -60,5 +60,10 @@ class VoterRepository implements VoterRepositoryInterface{
                     'status' => true,
         ]);
     }
+    
+    public function updateVoter($voter, $data){
+        
+        return $voter->update($data);
+    }
   
 }

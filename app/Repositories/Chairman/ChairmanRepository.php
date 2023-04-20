@@ -29,4 +29,8 @@ class ChairmanRepository implements ChairmanRepositoryInterface{
                   'status' => true,
           ]);
     }
+    public function updateChairman($chairman, $data){
+        
+        return $chairman->update($data);
+    }
 }

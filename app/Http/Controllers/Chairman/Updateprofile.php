@@ -34,8 +34,7 @@ class Updateprofile extends Controller
                 $user = $this->userRepository->getCurrentlyAuthenticatedUser();
                 $userUpdated = $this->userRepository->updateUser($user, $data);
                 $this->photoService->updateOrStorePhoto($request, $user->photos, $user);  
-                $chairmanUpdated =   $chairmanUpdated = $this->userchairmanRepository
-                                                             ->updateChairman($user->role->roleable(), $data);
+                $chairmanUpdated = $this->userchairmanRepository->updateChairman($user->role->roleable(), $data);
             DB::commit();
             
             return response()->json([
