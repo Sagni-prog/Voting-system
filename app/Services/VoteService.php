@@ -74,12 +74,10 @@ class VoteService{
   public static function getVoteCount(VoteBallot $voteBallot): integer{
       
       return $voteBallot->count();
-
   }
   
   public static function getCandidatesVoteCount(VoteBallot $candidate_votes): integer{
-      
+  
       return $candidate_votes->count();
-
-  }
+   }
 }

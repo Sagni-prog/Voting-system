@@ -23,6 +23,8 @@ use  App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryInterface
 use App\Builder\VoteResultBuilder;
 
 use App\Services\VoteService;
+
+use App\Helper\GetCurrentDate;
 use Auth;
 
 class VoteController extends Controller
@@ -33,6 +35,7 @@ class VoteController extends Controller
     private $registeredCandidateRepository;
     private $voteBuilder;
     private $voteService;
+    private $dateHelper;
     
     public function __construct(
                     VoteInterface $voteInterface,
@@ -41,6 +44,7 @@ class VoteController extends Controller
                     RegisteredCandidateRepositoryInterface $registeredCandidateRepository,
                     VoteResultBuilder $voteBuilder,
                     VoteService $voteService,
+                    GetCurrentDate $dateHelper,
                 ){
         $this->voteInterface = $voteInterface;
         $this->userRepository = $userInterface;
@@ -48,6 +52,7 @@ class VoteController extends Controller
         $this->registeredCandidateRepository = $registeredCandidateRepository;
         $this->voteBuilder = $voteBuilder;
         $this->voteService = $voteService;
+        $this->dateHelper = $dateHelper;
      }
      
      
@@ -100,19 +105,18 @@ class VoteController extends Controller
                         'error' => $exception->getMessage()
                    ],500);
               }  
-       }
+    }
        
     public function store(VoteRequest $request){
         
         try {
         
-           $user = Auth::user();
-           
-         $vote_name = !$request->vote_name ? Carbon::now()->format('Y')." Student Union President Election" : $request->vote_name;
+         $user = $this->userRepository->getCurrentlyAuthenticatedUser();
+         $vote_name = !$request->vote_name ? $this->dateHelper->getDate()->format('Y')." Student Union President Election" : $request->vote_name;
         
          $data = $request->validated();
          $data['vote_status'] = 'pending';
-         
+         $data['vote_name'] = $vote_name;
          $vote = $this->voteInterface->storeVote($data);
         
         if(!$vote){
@@ -137,8 +141,7 @@ class VoteController extends Controller
         
         try {
            
-        $user = Auth::user();
-    
+         $user = $this->userRepository->getCurrentlyAuthenticatedUser();
          $data = $request->validated();
          $vote = $this->voteInterface->findVote($id);
         
@@ -171,7 +174,7 @@ class VoteController extends Controller
         
         try {
             
-            $user = Auth::user();
+            $user = $this->userRepository->getCurrentlyAuthenticatedUser();
             $data = $request->validated();
             $vote = $this->voteInterface->findVote($id);
     
@@ -202,7 +205,7 @@ class VoteController extends Controller
     
     public function confirmVote(ConfirmVoteRequest $request, $id){
         
-        $user = Auth::user();
+        $user = $this->userRepository->getCurrentlyAuthenticatedUser();
         $vote = $this->voteInterface->findVote($id);
        
         if(!$vote){
@@ -232,7 +235,7 @@ class VoteController extends Controller
     public function cancelVote(Request $request, $id){
       try {
         
-        $user = Auth::user();
+        $user = $this->userRepository->getCurrentlyAuthenticatedUser();
         $data = $request->validated();
         $vote = $this->voteInterface->findVote($id);
        
