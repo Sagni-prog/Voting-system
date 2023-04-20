@@ -12,19 +12,24 @@ use App\Models\RegisteredCandidates;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Candidate\CandidateRepositoryInterface;
 
+use App\Helpers\GetCurrentDate;
+
 
 class ManageCandidateController extends Controller
 {
     private $userRepository;
     private $candidateRepository;
+    private $dateHelper;
     
     public function __construct(
                 UserRepositoryInterface $userRepository,
                 CandidateRepositoryInterface $candidateRepository,
+                GetCurrentDate $dateHelper,
         ){
             
             $this->userRepository = $userRepository;
             $this->candidateRepository = $candidateRepository;
+            $this->dataHelper = $dateHelper;
     }
     
     public function index(){
