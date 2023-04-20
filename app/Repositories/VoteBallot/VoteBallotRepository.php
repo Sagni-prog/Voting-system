@@ -25,4 +25,19 @@ class VoteBallotRepository implements VoteBallotRepositoryInterface{
        
        return $this->voteBallot->where('candidate_id',$id)->get();
     }
+ public function getVotersVote($id){
+   
+   return $this->voteBallot->whereHas('voters',function($query){
+                                $query->where('id',$id);
+                         })->first();
+    }  
+ 
+ public function storeVoteBallot($id, $data){
+      
+      return $this->voteBallot->create([
+                            'voter_id' => $id,
+                            'vote_id' => $data['vote'],
+                            'candidate_id' => $data['id']
+                        ]);
+     }
 }

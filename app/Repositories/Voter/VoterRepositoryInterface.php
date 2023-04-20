@@ -11,4 +11,5 @@ Interface VoterRepositoryInterface{
     public function approveVoterWhereId($voter, $id);
     public function storeVoter($data);
     public function updateVoter($voter, $data);
+    
 }

@@ -9,34 +9,31 @@ use App\Models\VoteBallot;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Exceptions\VoteBallotNotFoundException;
 
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\VoteBallot\VoteBallotRepositoryInterface;
+
 
 class VoteController extends Controller
 {
+
+ private $userRepository;
+ private $voteBallotRepository;
+ 
+ public function __construct(
+                                UserRepositoryInterface $userRepository,
+                                VoteBallotRepositoryInterface $voteBallotRepository
+                        ){
+   
+    $this->userRepository = $userRepository;
+    $this->voteBallotRepository = $voteBallotRepository;
+ }
        
     public function store(Request $request, $id){
      try {
-        if(!Auth::check()){
-            
-           return response()->json([
-                'status' => 'fail',
-                'message' => 'Unauthorized access'
-            ],403);
-        }
-    $user = Auth::user();
-    
-    if($user->role->roleable->role != 'voter'){
-       return response()->json([
-               'status' => 'fail',
-               'message' => 'Unauthorized access'
-         ],403);
-     }
+         $user = $this->userRepository->getCurrentlyAuthenticatedUser();
                
-             $voted = VoteBallot::whereHas('voters',function($query){
-                $query->where('id',Auth::user()->id);
-           
-             })->first();
-          
-             
+             $voted = $this->voteBallotRepository->getVotersVote($user->$id);
+        
              if($voted){
                 return response()->json([
                     'status' => 'fail',
@@ -44,11 +41,13 @@ class VoteController extends Controller
                ],404);
              }
              
-              $voted = VoteBallot::create([
-                    'voter_id' => $user->id,
-                    'vote_id' => $request->vote,
-                    'candidate_id' => $id
-                 ]);
+              $voted = $this->voteBallotRepository->storeVoteBallot($user->id, $data);
+              
+              return response()->json([
+                'status' => 'fail',
+                'message' => 'You have successfully voted',
+           ],201);
+         
              
          } catch (\ModelNotFoundException $exception) {
                return response()->json([
