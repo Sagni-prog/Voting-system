@@ -185,8 +185,8 @@ return [
         App\Repositories\Chairman\ChairmanRepositoryServiceProvider::class,
         App\Repositories\Photo\PhotoRepositoryServiceProvider::class,
         App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryServiceProvider::class,
+        App\Repositories\VoteBallot\VoteBallotRepositoryServiceProvider::class,
         
-
     ],
 
     /*

@@ -17,29 +17,39 @@ use App\Http\Requests\ConfirmVoteRequest;
 
 use  App\Repositories\Vote\VoteInterface;
 use  App\Repositories\User\UserRepositoryInterface;
+use  App\Repositories\VoteBallot\VoteBallotRepositoryInterface;
 use  App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryInterface;
 
 use App\Builder\VoteResultBuilder;
+
+use App\Services\VoteService;
 use Auth;
 
 class VoteController extends Controller
 {
     private $voteInterface;
     private $userInterface;
+    private $voteBallotRepository;
     private $registeredCandidateRepository;
     private $voteBuilder;
+    private $voteService;
     
     public function __construct(
                     VoteInterface $voteInterface,
                     UserRepositoryInterface $userInterface,
+                    VoteBallotRepositoryInterface $voteBallotRepository,
                     RegisteredCandidateRepositoryInterface $registeredCandidateRepository,
                     VoteResultBuilder $voteBuilder,
+                    VoteService $voteService,
                 ){
         $this->voteInterface = $voteInterface;
         $this->userRepository = $userInterface;
+        $this->voteBallotRepository = $voteBallotRepository;
         $this->registeredCandidateRepository = $registeredCandidateRepository;
         $this->voteBuilder = $voteBuilder;
+        $this->voteService = $voteService;
      }
+     
      
     public function allVotes(){
         
@@ -54,27 +64,28 @@ class VoteController extends Controller
         $user = $this->userRepository->getCurrentlyAuthenticatedUser();
         $candidates = $this->registeredCandidateRepository->getRegisteredCandidatesWhereVoteId(1);
         
-        $data = array();
-        $i = 0;
-        foreach($candidates as $candidate){
-            $votes = VoteBallot::where('candidate_id',$candidate->candidate_id)->get();
-            $voted_candidate = User::with('photos','role.roleable')->find($candidate->candidate_id);
-            $total_vote_count = VoteBallot::all()->count();
-            $vote_count = $votes->count();
+        $data = $this->voteService->calculateVoteResult($candidates);
+        // $data = array();
+        // $i = 0;
+        // foreach($candidates as $candidate){
+        //     $votes = $this->voteBallotRepository->getVoteBallotWhereCandidateId($candidate->candidate_id);
+        //     $voted_candidate = User::with('photos','role.roleable')->find($candidate->candidate_id);
+        //     $total_vote_count = VoteBallot::all()->count();
+        //     $vote_count = $votes->count();
             
             
-            $voted_in_percent = $this->voteBuilder->setVoteCount($votes->count())
-                                        ->setTotalVoteCount($total_vote_count)
-                                        ->calculateVotePercent();
-            $dataObj = array(
-                           "candidate" => $voted_candidate,
-                           "candidate_id" => $candidate->candidate_id,
-                           "vote_count" =>  $vote_count,
-                           "voted_in_percent" => $voted_in_percent . "%"
-                       );
-            $data[$i] = $dataObj;
-            $i++;
-        }
+        //     $voted_in_percent = $this->voteBuilder->setVoteCount($votes->count())
+        //                                 ->setTotalVoteCount($total_vote_count)
+        //                                 ->calculateVotePercent();
+        //     $dataObj = array(
+        //                    "candidate" => $voted_candidate,
+        //                    "candidate_id" => $candidate->candidate_id,
+        //                    "vote_count" =>  $vote_count,
+        //                    "voted_in_percent" => $voted_in_percent . "%"
+        //                );
+        //     $data[$i] = $dataObj;
+        //     $i++;
+        // }
        
           return response()->json([
            
