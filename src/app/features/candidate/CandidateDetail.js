@@ -4,19 +4,22 @@ import img2 from '../../../images/ivana-square.jpg';
 const candidateDetailSlice=createSlice({
     name:"candidateDetail",
     initialState:{
-        
-            id: 1,
-            fullName: 'Natnael Getachew',
-            firstName:'natty',
-            lastName:'getachew',
-            photoUrl: `${img2}`,
-            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            admissionYear: 2020,
-            graduationYear: 2024,
-            department: 'Computer Science',
-            status: 'Pending',
-            email: 'johndoe@example.com',
-          
+        status: "idle",
+        error: null,
+        candidate:{
+             
+          id: 1,
+          fullName: 'Natnael Getachew',
+          firstName:'natty',
+          lastName:'getachew',
+          photoUrl: `${img2}`,
+          bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          admissionYear: 2020,
+          graduationYear: 2024,
+          department: 'Computer Science',
+          status: 'Pending',
+          email: 'johndoe@example.com'
+        }, 
     },
     reducers: {
       selectCandidate: (state, action) => {
@@ -24,6 +27,6 @@ const candidateDetailSlice=createSlice({
       },
     },
 });
-export const selectCandidateDetailed = (state) => state.candiateSelected;
+export const selectCandidateDetailed = (state) => state.candidate.candidate;
 export default candidateDetailSlice.reducer;
-export const { selectProduct } = candidateDetailSlice.actions;
+export const { selectCandidate } = candidateDetailSlice.actions;

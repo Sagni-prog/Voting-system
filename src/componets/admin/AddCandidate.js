@@ -1,5 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable no-undef */
 import React from 'react'
-import { useState } from 'react';
+import { useState,useCallback } from 'react';
 import Sidebar from './Sidebar'
 import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
@@ -7,8 +10,51 @@ import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
+import { useDispatch } from 'react-redux';
+import { setCandidate } from './../../app/features/candidate/Candidate'
+// import{ CandidateSlice }from './../../app/features/candidate/Candidate'
+
 export default function AddCandidate() {
   const [startDate, setStartDate] = useState(new Date());
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [examScore, setExamScore] = useState('');
+  const [gpa, setGpa] = useState('');
+  const [admissionYear, setAdmissionYear] = useState(new Date());
+  const [graduationYear, setGraduationYear] = useState(new Date());
+  const [educationalYear, setEducationalYear] = useState(new Date());
+  const [sex, setSex] = useState('');
+  const [cv, setCv] = useState('');
+  const dispatch = useDispatch()
+  const formDataToJson = (formData) => {
+    const jsonObject = {};
+    formData.forEach((value, key) => {
+      jsonObject[key] = value;
+    });
+    return JSON.stringify(jsonObject);
+  };
+
+  const handleSubmit = (event) => {
+  
+    event.preventDefault();
+    // Handle form submission here
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("firstName",firstName);
+    formData.append("lastName",firstName);
+    formData.append("email", email);
+    formData.append("password",password);
+    formData.append("examScore,",examScore,);
+    formData.append("gpa", gpa);
+    formData.append(" admissionYear", admissionYear);
+    formData.append("graduationYear", graduationYear);
+    formData.append("sex",sex);
+    formData.append("cv", cv);
+    dispatch(setCandidate(formDataToJson(formData)));
+
+  };
   return (
     <div>
 <div>
@@ -88,7 +134,7 @@ export default function AddCandidate() {
   <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
   <div class="w-90  bg-white p-6 rounded-lg shadow-md">
   <h2 class="text-2xl font-bold mb-4">Candidate Registration</h2>
-  <form>
+  <form onSubmit={handleSubmit}>
   <div className='flex gap-4'>
   <div class="mb-4 w-full">
       <label class="block text-gray-700 font-bold mb-2" for="first-name">
@@ -99,6 +145,8 @@ export default function AddCandidate() {
         id="first-name"
         type="text"
         placeholder="Enter your first name"
+        value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
       />
     </div>
     <div class="mb-4 w-full">
@@ -110,6 +158,8 @@ export default function AddCandidate() {
         id="last-name"
         type="text"
         placeholder="Enter your last name"
+        value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
       />
     </div>
   </div>
@@ -123,6 +173,8 @@ export default function AddCandidate() {
         id="email"
         type="email"
         placeholder="Enter your email address"
+        value={email}
+            onChange={(e) => setEmail(e.target.value)}
       />
     </div>
     <div class="mb-4 w-full">
@@ -134,6 +186,8 @@ export default function AddCandidate() {
         id="password"
         type="password"
         placeholder="Enter your password"
+        value={password}
+            onChange={(e) => setPassword(e.target.value)}
       />
     </div>
     </div>
@@ -147,6 +201,8 @@ export default function AddCandidate() {
         id="exam_score"
         type="text"
         placeholder="Enter your first name"
+        value={examScore}
+        onChange={(e) => setExamScore(e.target.value)}
       />
     </div>
     <div class="mb-4 w-full">
@@ -158,6 +214,8 @@ export default function AddCandidate() {
         id="gpa"
         type="text"
         placeholder="Enter your last name"
+        value={gpa}
+        onChange={(e) => setGpa(e.target.value)}
       />
     </div>
   </div>
@@ -169,7 +227,8 @@ export default function AddCandidate() {
       <input
         class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         id="graduation_Year"
-        onChange={e=>setStartDate(e.target.value)}
+        value={admissionYear}
+        onChange={e=>setAdmissionYear(e.target.value)}
         type="date"
       />
     </div>
@@ -180,7 +239,9 @@ export default function AddCandidate() {
       <input
         class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         id="admission_year"
-        onChange={e=>setStartDate(e.target.value)}
+       
+        value={graduationYear}
+        onChange={e=>setGraduationYear(e.target.value)}
         type="date"
       />
     </div>
@@ -193,21 +254,29 @@ export default function AddCandidate() {
       <input
         class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         id="educational_year"
-        onChange={e=>setStartDate(e.target.value)}
+        value={educationalYear}
+        onChange={e=>setEducationalYear(e.target.value)}
         type="date"
+       
       />
     </div>
     <div class="mb-4 w-full">
-      <label class="block text-gray-700 font-bold mb-2" for="last-name">
-        SEX
-      </label>
-      <input
-        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id="sex"
-        type="text"
-        placeholder="Enter your last name"
-      />
-    </div>
+  <label class="block text-gray-700 font-bold mb-2" for="sex">
+    Sex
+  </label>
+  <div class="flex flex-row items-center gap-4">
+    <input type="radio" name="sex" id="boy" value="boy" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-blue-600 checked:border-transparent focus:outline-none"
+        onChange={(e) => setSex(e.target.value)}
+      checked={sex === 'boy'} 
+    />
+    <label for="boy" class="text-gray-700">Boy</label>
+    <input type="radio" name="sex" id="girl" value="girl" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-pink-600 checked:border-transparent focus:outline-none"  
+     onChange={(e) =>setSex (e.target.value)}
+     checked={sex === 'girl'}
+     />
+    <label for="girl" class="text-gray-700">Girl</label>
+  </div>
+</div>
     </div>
     <div className='flex gap-4'>
     <div class="mb-4 w-full">
@@ -218,6 +287,8 @@ export default function AddCandidate() {
         class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         id="cv"
         type="file"
+        value={cv}
+        onChange={(e) => setCv(e.target.value)}
       />
     </div>
     <div class="mb-4 w-full">

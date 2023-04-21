@@ -1,15 +1,12 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import img2 from '../../../images/ivana-square.jpg'
-import axios from 'axios'
-
-const candidateSlice=createSlice({
-    name: "candidate",
+const voterSlice=createSlice({
+    name: "voter",
     initialState: {
         status: "idle",
         error: null,
-        candidates:[
+        voters:[
            {
           id: 1,
           fullName: 'Natnael Getachew',
@@ -122,36 +119,17 @@ const candidateSlice=createSlice({
 
     },
    reducers: {
-    addCandidate: (state, action) => {
-      state.candidates = [...state.candidates, action.payload];
-     console.log("hello",action.candidate)
+    addVoter: (state, action) => {
+      state.voters = [...state.voters, action.payload];
+     console.log("hello",action.payload)
     },
-    setCandidate: (state, action) => {
-      state.candidates = action.payload;
-      console.log("Candidate data set", action.payload);
+    setVoter: (state, action) => {
+      state.voters = action.payload;
+      console.log("Voter data set", action.payload);
     },
     },
-    // extraReducers: (builder) => {
-    //   builder
-    //     .addCase(addCandidate.pending, (state) => {
-    //       state.status = "loading";
-    //     })
-    //     .addCase(addCandidate.fulfilled, (state, action) => {
-    //       state.status = "succeeded";
-    //       state.candidates.push(action.payload);
-    //     })
-    //     .addCase(addCandidate.rejected, (state, action) => {
-    //       state.status = "failed";
-    //       state.error = action.payload;
-    //     });
-    // },
+   
 });
-export const fetchCandidate = createAsyncThunk("candidate/get", async () => {
-    const response = await axios.get("http://localhost:8000/all/candidates");
-    return response.data;
-  });
-export default candidateSlice.reducer;
-export const selectCandidate = (state) => state.candidate.candidates;
-export const getError = (state) => state.error
-export const candidateStatus = (state) => state.status
-export const { setCandidate } = candidateSlice.actions;
+export default voterSlice.reducer;
+export const selectVoter = (state) => state.voters.voter;
+export const { setVoter } = voterSlice.actions;

@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-useless-rename */
+/* eslint-disable jsx-a11y/no-distracting-elements */
+/* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import img2 from './../../images/ivana-square.jpg'
@@ -21,7 +25,6 @@ export default function Candidates() {
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
   
-
 
   function handleVote() {
     // Store previous state
