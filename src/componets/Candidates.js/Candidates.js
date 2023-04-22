@@ -23,6 +23,7 @@ export default function Candidates() {
   const candidates = useSelector((state) => state.candidate.candidates);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const [readMore,setReadMore]=useState(false);
   const dispatch = useDispatch();
   
 
@@ -31,6 +32,10 @@ export default function Candidates() {
    
     // Open popup message
   
+  }
+  const handleReadMore=(candidate)=>{
+    setSelectedCandidate(candidate);
+    setReadMore(!readMore)
   }
 
  
@@ -110,11 +115,12 @@ export default function Candidates() {
                   </div>
                 </div>
                 <div className="flex flex-row">
-                <Link to={{ pathname: '/Candidateprofile', state: { selectedCandidate } }} replace={true} className="px-4 py-2 mr-2 font-bold text-white bg-blue-500 rounded shadow-md cursor-pointer hover:bg-blue-400" key={selectedCandidate.id}>
+                {/* <Link to={{ pathname: '/Candidateprofile', state: { candidate: selectedCandidate } }} replace={true} className="px-4 py-2 mr-2 font-bold text-white bg-blue-500 rounded shadow-md cursor-pointer hover:bg-blue-400" key={selectedCandidate.id}>
                 Read more
-                </Link>
-
-
+                </Link> */}
+                <button className="px-4 py-2 mr-2 font-bold text-white bg-red-500 rounded shadow-md cursor-pointer hover:bg-blue-400" key={selectedCandidate.id}  onClick={() => setReadMore(!readMore)}>
+                Read more
+                </button>
    
 
                   <button className="px-4 py-2 font-bold text-white rounded shadow-md bg-emerald-600">
@@ -241,6 +247,137 @@ export default function Candidates() {
 </div>
 
 )}
+{readMore &&(   <div className="fixed inset-0 z-10 overflow-y-auto">
+  <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+    <div className="fixed inset-0 transition-opacity">
+      <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+
+    <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
+   
+    <div className="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl my-8  w-[100%]">
+    <div class="bg-white m-10 p-[2rem] rounded-lg shadow-md">
+        <div class="flex items-center mb-6">
+
+          <img class="w-[6rem] h-[6rem] rounded-full mr-4" src={img2} alt="User Profile Image"/>
+          <div>
+            <h2 class="text-xl font-bold">{selectedCandidate.firstName} {selectedCandidate.lastName}</h2>
+            <p class="text-gray-700">{selectedCandidate.email}</p>
+            <p class="text-gray-700">welkite,SNN, Ethiopia</p>
+            <p class="text-gray-700">{selectedCandidate.department}</p>
+          </div>
+        </div>
+        <h2 class="text-xl font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis</h2>
+
+        <p class="text-gray-700 leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.</p>
+        <div class="flex items-center">
+          <p class="text-gray-700 mr-2">Rating:</p>
+          <div class="flex items-center">
+            <svg class="w-4 h-4 fill-current text-yellow-400 mr-1" viewBox="0 0 20 20">
+              <path d="M10 1l2.928 6.165L19.856 7.67l-4.118 4.014.973 6.07L10 16.25l-5.711 3.505.973-6.07-4.118-4.014L7.072 7.165 10 1z"/>
+            </svg>
+            <svg class="w-4 h-4 fill-current text-yellow-400 mr-1" viewBox="0 0 20 20">
+              <path d="M10 1l2.928 6.165L19.856 7.67l-4.118 4.014.973 6.07L10 16.25l-5.711 3.505.973-6.07-4.118-4.014L7.072 7.165 10 1z"/>
+            </svg>
+            <svg class="w-4 h-4 fill-current text-yellow-400 mr-1" viewBox="0 0 20 20">
+              <path d="M10 1l2.928 6.165L19.856 7.67l-4.118 4.014.973 6.07L10 16.25l-5.711 3.505.973-6.07-4.118-4.014L7.072 7.165 10 1z"/>
+            </svg>
+            <svg class="w-4 h-4 fill-current text-yellow-400 mr-1" viewBox="0 0 20 20">
+              <path d="M10 1l2.928 6.165L19.856 7.67l-4.118 4.014.973 6.07L10 16.25l-5.711 3.505.973-6.07-4.118-4.014L7.072 7.165 10 1z"/>
+            </svg>
+          
+            
+      </div>
+
+      </div>
+      <div className='p-6 '>
+            <div class="flex items-center mb-6 gap-4">
+            <div className='p-2'>
+            <div className='flex gap-10'>
+            <span className='text-black'>Department</span>
+            <p class="text-gray-500">software Engineering</p>
+            </div>
+            <div className='flex gap-10'>
+            <span className='mr-3 text-black'>Exam core</span>
+            <p class="text-gray-500 ">202</p>
+            </div>
+            <div className='flex gap-10'>
+            <span className='text-black mr-14'>GPA</span>
+            <p class="text-gray-500 ">3.88</p>
+            </div>
+            <div className='flex gap-10'>
+            <span className='text-black mr-[3.6rem]'>SEX</span>
+            <p class="text-gray-500 ">M</p>
+            </div>
+          
+            </div>
+        
+            <div className='p-2'>
+            <div className='gap-10 flex mt-[-1.03rem]'>
+            <span className='text-black'>Admission Year</span>
+            <p class="text-gray-500">02-04-2021</p>
+            </div>
+            <div className='gap-[2.22rem] flex'>
+            <span className='text-black'>Graduation Year</span>
+            <p class="text-gray-500 ">02-04-2021</p>
+            </div>
+            <div className='gap-[2rem] flex'>
+            <span className='text-black'>Educational Year</span>
+            <p class="text-gray-500 ">02-04-2021</p>
+            </div>
+          
+    
+
+          
+          </div>
+        </div>
+            </div>
+          </div>
+
+          
+      <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
+        <div className="sm:flex sm:items-start">
+          <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-green-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+            <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 className="text-lg font-medium leading-6 text-gray-900">
+              Vote Confirmation
+            </h3>
+            <div className="mt-2">
+              <p className="text-sm leading-5 text-gray-500">
+                Are you sure you want to vote for {selectedCandidate.firstName} {selectedCandidate.lastName}?
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
+        <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.id} onClick={handleVote}>
+            Vote
+          </button>
+        </span>
+        <span className="flex w-full mt-3 rounded-md shadow-sm sm:mt-0 sm:w-auto">
+        <a href='#'>
+        <Link   to="/" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" onClick={handleCancel}>
+            Cancel
+          </Link>
+        </a>
+          
+        </span>
+      </div>
+    </div>
+  
+  </div>
+</div>
+)}
 
    
     <div className='relative bg-emerald-500 shadow-md h-50 w-[25%] rounded-[15px]'>
@@ -280,6 +417,7 @@ export default function Candidates() {
 
     
 )
+
                 
       
 

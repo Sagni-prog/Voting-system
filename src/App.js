@@ -38,9 +38,10 @@ function App() {
         <Route path="/electionprogress" element={<ElectionProgress />} />
         <Route path="/report" element={<Report />} />
         <Route path="/footer" element={<Footer />} />
-        <Route path="/Candidateprofile" element={<Candidateprofile />} />
+        {/* <Route path="/Candidateprofile" element={<Candidateprofile />} /> */}
         <Route path="/result" element={<Resultes />} />
         <Route path='/' element={<TheApp/>}/>
+        <Route path='/#' element={<TheApp/>}/>
         <Route path='/home' element={<TheApp />}/>
         <Route path='/addcandidate' element={<AddCandidates />} />
         <Route path='/voters' element={<Voters />} />
