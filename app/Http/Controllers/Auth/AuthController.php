@@ -56,7 +56,7 @@ public function register(AdminRegistrationRequest $request){
     DB::beginTransaction();
         $data = $request->validated();
         $data['faceId'] = $this->faceIdHelper->getFaceId();
-        $user = $this->userRepository->storeUser($data); 
+        $user = $this->userRepository->storeUser($data);
         $admin = $this->adminRepository->storeAdmin($data);
         $role = $this->roleRepository->storeRole($admin,$user->id);
     DB::commit();

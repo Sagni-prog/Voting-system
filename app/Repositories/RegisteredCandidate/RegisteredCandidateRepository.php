@@ -3,7 +3,7 @@
 namespace App\Repositories\RegisteredCandidate;
 use App\Models\RegisteredCandidates;
 
-use App\Repositories\RegisteredCandidates\RegisteredCandidateRepositoryInterface;
+use App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryInterface;
 
 class RegisteredCandidateRepository implements RegisteredCandidateRepositoryInterface{
 

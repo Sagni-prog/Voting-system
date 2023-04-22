@@ -20,7 +20,7 @@ class VoteBallotRepository implements VoteBallotRepositoryInterface{
      
  }
    
- public function findVoteBallotWhereCandidateId(integer $id): VoteBallot{
+ public function findVoteBallotWhereCandidateId(int $id): VoteBallot{
        
        
        return $this->voteBallot->where('candidate_id',$id)->get();
