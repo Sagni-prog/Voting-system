@@ -22,9 +22,9 @@ Route::get('/',function(){
 });
 
 Route::post('/signup',[AuthController::class,'register']);
-Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
-Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
-Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
+// Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
+// Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
+// Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
 Route::post('/login',[AuthController::class,'login']);
 
 
@@ -38,6 +38,12 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
    Route::patch('/update-password',[UpdatePassword::class,'update']);
     //  Addmin Routes
  Route::middleware(['admin'])->group(function () {
+ 
+   Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
+   Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
+   Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
+   
+   
    Route::prefix('/admin')->group(function(){
       Route::post('/update-profile',[UpdateProfile::class,'edit']);
       Route::patch('/verify-user/{id}',[UserVerification::class,'edit']);

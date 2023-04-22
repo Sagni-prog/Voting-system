@@ -3,18 +3,24 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Helpers\UserHelper;
 
-class VoterRegistrationRequest extends FormRequest
-{
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return Auth::user()->role->roleable->role === 'admin';
-    }
+
+class VoterRegistrationRequest extends FormRequest{
+
+private $userHelper;
+   
+public function __construct(UserHelper $userHelper){
+    
+    
+    return $this->userHelper = $userHelper;
+ }
+
+    
+public function authorize(){
+        return true;
+        return $this->userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
+   }
 
     /**
      * Get the validation rules that apply to the request.

@@ -65,7 +65,7 @@ class UserRepository implements UserRepositoryInterface{
     }
     
     public function storeUser($data){
-        //   return $data['faceId'];
+       
        return $this->user->create([
                 'first_name'=> $data['first_name'],
                 'last_name'=> $data['last_name'],

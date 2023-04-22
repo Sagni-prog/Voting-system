@@ -12,7 +12,7 @@ class UpdateAdminProfileRequest extends FormRequest
  public function __construct(UserHelper $userHelper){
      
   
-     return $this->userHelper = $userHelper;
+     $this->userHelper = $userHelper;
  }
  
     /**

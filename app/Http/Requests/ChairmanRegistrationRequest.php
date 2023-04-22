@@ -9,15 +9,14 @@ class ChairmanRegistrationRequest extends FormRequest
 {
 
     private $userHelper;
- 
     public function __construct(UserHelper $userHelper){
         
-        $this->$userHelper = $userHelper;
+        $this->userHelper = $userHelper;
     }
     
     public function authorize()
     {
-        return $this->$userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
+        return$this->userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
     }
 
     /**

@@ -23,7 +23,7 @@ class ChairmanRepository implements ChairmanRepositoryInterface{
     
     public function storeChairman($data){
         
-        return create([
+        return $this->chairman->create([
                   'sex' => $data['sex'],
                   'role' => 'chairman',
                   'status' => true,

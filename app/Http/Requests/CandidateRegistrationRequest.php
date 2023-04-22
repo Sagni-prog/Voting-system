@@ -9,11 +9,11 @@ class CandidateRegistrationRequest extends FormRequest
 {
 
     private $userHelper;
- 
-   public function __construct(UserHelper $userHelper){
-       
-       $this->$userHelper = $userHelper;
-   }
+    public function __construct(UserHelper $userHelper){
+        
+        $this->userHelper = $userHelper;
+    }
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -21,8 +21,8 @@ class CandidateRegistrationRequest extends FormRequest
      */
     public function authorize()
     {
-    
-          return $this->$userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
+
+        return $this->userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
        
     }
 
@@ -42,6 +42,7 @@ class CandidateRegistrationRequest extends FormRequest
                 'educational_year' => ['required'],
                 'department' => ['required','string'],
                 'gpa' => ['required'],
+                'sex' => 'string',
                 'exam_score' => ['required','integer'],
         ];
     }

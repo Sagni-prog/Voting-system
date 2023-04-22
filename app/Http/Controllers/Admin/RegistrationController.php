@@ -17,6 +17,9 @@ use App\Repositories\Role\RoleRepositoryInterface;
 
 use App\Services\TokenManagerService;
 
+use App\Helpers\GetFaceId;
+use App\Helpers\UserHelper;
+
 
 
 
@@ -27,23 +30,29 @@ class RegistrationController extends Controller{
     private $roleRepository;
     private $candidateRepository;
     private $chairmanRepository;
+    private $faceIdHelper;
     private $tokenService;
+    private $userHelper;
     
     public function __construct(
                   UserRepositoryInterface $userRepository,
                   VoterRepositoryInterface $voterRepository,
-                  CandidateRepositoryrInterface $candidateRepository,
+                  CandidateRepositoryInterface $candidateRepository,
                   ChairmanRepositoryInterface $chairmanRepository,
                   RoleRepositoryInterface $roleRepository,
                   TokenManagerService $tokenService,
+                  GetFaceId $faceIdHelper,
+                  UserHelper $userHelper,
                   ){
         
         $this->userRepository = $userRepository;
         $this->voterRepository = $voterRepository;
         $this->roleRepository = $roleRepository;
         $this->candidateRepository = $candidateRepository;
-        $this->$chairmanRepository = $chairmanRepository;
+        $this->chairmanRepository = $chairmanRepository;
         $this->tokenService = $tokenService;
+        $this->faceIdHelper = $faceIdHelper;
+        $this->userHelper = $userHelper;
     }
  
     /*
@@ -56,7 +65,8 @@ class RegistrationController extends Controller{
         
         DB::beginTransaction();
             $data = $request->validated();
-            $user = $this->userRepository->storeUse($data);
+            $data['faceId'] = $this->faceIdHelper->getFaceId();
+            $user = $this->userRepository->storeUser($data);
             $voter = $this->voterRepository->storeVoter($data);
             $role = $this->roleRepository->storeRole($voter, $user->id);
         DB::commit();
@@ -90,7 +100,8 @@ class RegistrationController extends Controller{
             
             DB::beginTransaction();
                 $data = $request->validated();
-                $user = $this->userRepository->storeUse($data);
+                $data['faceId'] =  $this->faceIdHelper->getFaceId();
+                $user = $this->userRepository->storeUser($data);
                 $candidate = $this->candidateRepository->storeCandidate($data);
                 $role = $this->roleRepository->storeRole($candidate, $user->id);
             DB::commit();
@@ -125,9 +136,10 @@ class RegistrationController extends Controller{
           
         DB::beginTransaction();
             $data = $request->validated();
-            $user = $this->userRepository->storeUse($data);
-            $chairman = $this->$chairmanRepository->storeChairman($data);
-            $role = $this->roleRepository->storeRole($candidate, $user->id);
+            $data['faceId'] = $this->faceIdHelper->getFaceId();
+            $user = $this->userRepository->storeUser($data);
+            $chairman = $this->chairmanRepository->storeChairman($data);
+            $role = $this->roleRepository->storeRole($chairman, $user->id);
         DB::commit();
            $chairman = $this->userRepository->findUserById($user->id);
            $token = $this->tokenService->createToken($user);

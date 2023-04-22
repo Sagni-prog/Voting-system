@@ -60,13 +60,13 @@ class CandidateRepository implements CandidateRepositoryInterface{
     }
     
     public function storeCandidate($data){
-         
+      
          return $this->candidate->create([
                                 'sex' => $data['sex'],
                                 'role' => 'candidate',
                                 'status' => true,
-                                'admission_year' => $data['admission_date'],
-                                'educational_year' => $data['educatoinal_date'],
+                                'admission_year' => $data['admission_year'],
+                                'educational_year' => $data['educational_year'],
                                 'department' => $data['department'],
                                 'gpa' => $data['gpa'],
                                 'exam_score' => $data['exam_score'],

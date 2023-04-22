@@ -21,7 +21,7 @@ class admin
        if($this->userHelper->getCurrentlyAuthenticatedUsersRole() != 'admin'){
            return response()->json([
                 'status' => 'fail',
-                'message' => 'unAuthorized access'
+                'message' => 'Anauthorized access'
           ],401);
        }
         return $next($request);
