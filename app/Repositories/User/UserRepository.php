@@ -108,20 +108,20 @@ class UserRepository implements UserRepositoryInterface{
                          })->get();
             }
             
-    public function getActiveNotBannedWhereRoleWith($role){
+    // public function getActiveNotBannedWhereRoleWith($role){
 
-         return $this->user->with('role.roleable','photos')
-                           ->where([
-                                      'isActive' => true,
-                                      'isBanned' => false,
-                                      'isDeleted' => false
-                                      ])
-                           ->whereHas('role.roleable',function($query){
-                                  $query->where('role',$role);
-                          })->get();
-    }        
+    //      return $this->user->with('role.roleable','photos')
+    //                        ->where([
+    //                                   'isActive' => true,
+    //                                   'isBanned' => false,
+    //                                   'isDeleted' => false
+    //                                   ])
+    //                        ->whereHas('role.roleable',function($query){
+    //                               $query->where('role',$role);
+    //                       })->get();
+    // }        
             
-    public function findActiveNotBannedWhereRole($id, $role){
+    public function findActiveNotBannedWhereRole($id){
         
         return $this->user->with('role.roleable','photos')
                           ->where([
@@ -131,23 +131,23 @@ class UserRepository implements UserRepositoryInterface{
                                    'isDeleted' => false
                                    ])
                           ->whereHas('role.roleable',function($query){
-                                 $query->where('role',$role);
+                                 $query->where('role',$this->role);
                          })->first();
             }
             
-    public function findActiveNotBannedWhereRoleWith($id, $role){
+    // public function findActiveNotBannedWhereRoleWith($id, $role){
         
-        return $this->user->with('role.roleable.chairman','photos')
-                          ->where([
-                                    'id' => $id,
-                                    'isActive' => true,
-                                    'isBanned' => false,
-                                    'isDeleted' => false
-                               ])
-                          ->whereHas('role.roleable',function($query){
-                                  $query->where('role',$role);
-                        })->first();
-    }
+    //     return $this->user->with('role.roleable.chairman','photos')
+    //                       ->where([
+    //                                 'id' => $id,
+    //                                 'isActive' => true,
+    //                                 'isBanned' => false,
+    //                                 'isDeleted' => false
+    //                            ])
+    //                       ->whereHas('role.roleable',function($query){
+    //                               $query->where('role',$role);
+    //                     })->first();
+    // }
     
     public function updateUser($user, $data){
         

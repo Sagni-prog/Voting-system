@@ -3,12 +3,6 @@
 namespace App\Http\Controllers\Chairman;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Auth;
-use App\Models\Voter;
-use App\Models\User;
-use App\Models\RegisteredVoter;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Candidate\CandidateRepositoryInterface;
 use App\Repositories\Voter\VoterRepositoryInterface;
@@ -30,11 +24,10 @@ class ManageVoterController extends Controller
             $this->voterRepository = $voterRepository;
     }
     
-    public function index(){
-    
-        $voter = $this->userRepository->setRole('voter')
+public function index(){
+
+    $voter = $this->userRepository->setRole('voter')
                                       ->getActiveNotBannedWhereRole();
-        return $voter;
                 
       if(!$voter){
           
@@ -49,12 +42,13 @@ class ManageVoterController extends Controller
           'size' => $voter->count(),
           'voters' => $voter
       ]);
-    }
+}
     
     
-    public function show($id){
+public function show($id){
     
-       $voter = $this->userRepository->findActiveNotBannedWhereRoleWith($id, 'voter');
+       $voter = $this->userRepository->setRole('voter')
+                                     ->findActiveNotBannedWhereRole($id);
                 
       if(!$voter){
           
@@ -69,19 +63,13 @@ class ManageVoterController extends Controller
           'size' => $voter->count(),
           'voters' => $voter
       ]);
-    }
+}
     
-    public function update($id){
+public function update($id){
       try {
-       
-        if(!Auth::check()){
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'unAuthorized access'
-            ],401);
-        }
         
-          $voter = $this->userRepository->findActiveNotBannedWhereRole($id, 'voter');
+          $voter = $this->userRepository->setRole('voter')
+                                        ->findActiveNotBannedWhereRole($id);
       
           if(!$voter){
             return response()->json([
@@ -100,12 +88,6 @@ class ManageVoterController extends Controller
             $id = $this->userRepository->getCurrentlyAuthenticatedUser()->id;
             $isEdited = $this->voterRepository->approveVoterWhereId($voter->role->roleable, $id);
 
-            // $isEdited = $voter->role->roleable->update([
-            //        'isApproved' => true,
-            //        'approvedBy' => $user->id,
-            //        'approved_at' => Carbon::now()
-            // ]);
-            
         if(!$isEdited){
             return response()->json([
                 'status' => 'fail',
@@ -129,6 +111,6 @@ class ManageVoterController extends Controller
                    'error' => $exception->getMessage()
                ], 400);
           } 
-      }
+}
       
 }

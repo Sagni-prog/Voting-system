@@ -4,6 +4,7 @@ namespace App\Repositories\Voter;
 
 use App\Repositories\Voter\VoterRepositoryInterface;
 use App\Models\Voter;
+use Carbon\Carbon;
 
 class VoterRepository implements VoterRepositoryInterface{
 
