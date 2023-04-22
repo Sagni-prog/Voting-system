@@ -64,7 +64,9 @@ class VoterRepository implements VoterRepositoryInterface{
     
     public function updateVoter($voter, $data){
         
-        return $voter->update($data);
+        return $voter->update([
+                       'sex' => $data['sex']
+                  ]);
     }
   
 }

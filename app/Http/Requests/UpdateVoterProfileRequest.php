@@ -30,6 +30,7 @@ class UpdateVoterProfileRequest extends FormRequest
                 'first_name' => ['string', 'max:255'],
                 'last_name' => ['string', 'max:255'],
                 'email' => ['string', 'email', 'max:255'],
+                'sex' => ['string'],
                 // 'phone_number' => ['required','integer','max:10']
         ];
     }

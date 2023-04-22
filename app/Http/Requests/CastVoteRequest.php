@@ -27,8 +27,8 @@ class CastVoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'vote_id' => 'interger',
-            'candidate_id' => 'integer'
+            // 'vote_id' => 'interger',
+            // 'candidate_id' => 'integer'
         ];
     }
 }

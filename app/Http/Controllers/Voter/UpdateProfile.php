@@ -24,7 +24,7 @@ class Updateprofile extends Controller
       
       $this->userRepository = $userRepository;
       $this->voterRepository = $voterRepository;
-      $this->$photoService = $photoService;
+      $this->photoService = $photoService;
    }
     public function update(UpdateVoterProfileRequest $request){
     

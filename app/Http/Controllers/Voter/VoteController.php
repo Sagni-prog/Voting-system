@@ -6,32 +6,56 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Exceptions\VoteBallotNotFoundException;
 
+use App\Repositories\Vote\VoteInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\VoteBallot\VoteBallotRepositoryInterface;
 
 use App\Http\Requests\CastVoteRequest;
 
+use App\Helpers\UserHelper;
 
 class VoteController extends Controller
 {
-
- private $userRepository;
- private $voteBallotRepository;
- 
- public function __construct(
-                                UserRepositoryInterface $userRepository,
-                                VoteBallotRepositoryInterface $voteBallotRepository
-                        ){
-   
-    $this->userRepository = $userRepository;
-    $this->voteBallotRepository = $voteBallotRepository;
+     private $userHelper;
+     private $userRepository;
+     private $voteRepository;
+     private $voteBallotRepository;
+     
+     public function __construct(
+          UserRepositoryInterface $userRepository,
+          VoteBallotRepositoryInterface $voteBallotRepository,
+          VoteInterface $voteRepository,
+          UserHelper $userHelper
+          ){
+               
+               $this->userRepository = $userRepository;
+               $this->voteBallotRepository = $voteBallotRepository;
+               $this->voteRepository = $voteRepository;
+               $this->userHelper = $userHelper;
  }
        
-    public function store(CastVoteRequest $request, $id){
-     try {
+    public function store($voteId, $candidateId){
+     try {  
          $user = $this->userRepository->getCurrentlyAuthenticatedUser();
-               
-             $voted = $this->voteBallotRepository->getVotersVote($user->$id);
+         if($this->userHelper->getCurrentlyAuthenticatedUsersRole() != 'voter'){
+             
+             return response()->json([
+                 'status' => 'fail',
+                 'message' => 'You cant vote'
+             ], 400);
+         }
+         
+         if(!$this->voteRepository->findVote($voteId)){
+            
+             return response()->json([
+                 'status' => 'fail',
+                 'message' => 'Vote Does not exist'
+             ],404);
+         }
+         
+         $voted = $this->voteBallotRepository->setVoteId($voteId)
+                                             ->setVoterId($user->id)
+                                             ->getVotersVote();
         
              if($voted){
                 return response()->json([
@@ -40,10 +64,10 @@ class VoteController extends Controller
                ],404);
              }
              
-              $voted = $this->voteBallotRepository->storeVoteBallot($user->id, $data);
+              $voted = $this->voteBallotRepository->storeVoteBallot($user->id, $voteId, $candidateId);
               
               return response()->json([
-                'status' => 'fail',
+                'status' => 'success',
                 'message' => 'You have successfully voted',
            ],201);
          

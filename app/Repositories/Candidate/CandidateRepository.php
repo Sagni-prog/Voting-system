@@ -54,7 +54,7 @@ class CandidateRepository implements CandidateRepositoryInterface{
     
         return $candidate->update([
                     'isApproved' => true,
-                    'approvedBy' => $user->id,
+                    'approvedBy' => $id,
                     'approved_at' => Carbon::now()
          ]);
     }

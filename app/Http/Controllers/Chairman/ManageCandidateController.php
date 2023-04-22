@@ -21,20 +21,21 @@ class ManageCandidateController extends Controller
     private $candidateRepository;
     private $dateHelper;
     
-    public function __construct(
-                UserRepositoryInterface $userRepository,
-                CandidateRepositoryInterface $candidateRepository,
-                GetCurrentDate $dateHelper,
-        ){
+public function __construct(
+            UserRepositoryInterface $userRepository,
+            CandidateRepositoryInterface $candidateRepository,
+            GetCurrentDate $dateHelper,
+    ){
             
             $this->userRepository = $userRepository;
             $this->candidateRepository = $candidateRepository;
             $this->dataHelper = $dateHelper;
-    }
+}
     
-    public function index(){
+public function index(){
     
-        $candidates = $this->userRepository->getActiveNotBannedWhereRole('candidate');      
+        $candidates = $this->userRepository->setRole('candidate')
+                                           ->getActiveNotBannedWhereRole();      
         if(!$candidates){
           
           return response()->json([
@@ -48,13 +49,13 @@ class ManageCandidateController extends Controller
           'size' => $candidates->count(),
           'candidates' => $candidates
       ]);
-    }
+}
     
     
-    public function show($id){
+public function show($id){
     
-        $candidate = $this->userRepository->findActiveNotBannedWhereRole($id, 'candidate');
-                
+    $candidate = $this->userRepository->setRole('candidate')
+                                      ->findActiveNotBannedWhereRole($id);
       if(!$candidate){
           
           return response()->json([
@@ -68,18 +69,14 @@ class ManageCandidateController extends Controller
               'size' => $candidate->count(),
               'candidate' => $candidate
           ]);
-          
-    //   $registered = RegisteredCandidates::create([
-    //     'candidate_id' => $candidate->id,
-    //     'vote_id' => $candidate->role->roleable->vote_id
-    // ]);
-    }
+        
+}
     
-    public function update($id){
+   public function update($id){
         try {
     
-         $candidate = $this->userRepository->findActiveNotBannedWhereRole($id,'candidate');  
-             
+         $candidate = $this->userRepository->setRole('candidate')
+                                           ->findActiveNotBannedWhereRole($id);                                 
              if(!$candidate){
                 return response()->json([
                          'status' => 'fail',
@@ -121,5 +118,5 @@ class ManageCandidateController extends Controller
                      'error' => $exception->getMessage()
                  ], 400);
             } 
-        }  
+    }  
   }

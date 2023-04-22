@@ -95,7 +95,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
  Route::middleware(['voter'])->group(function () {
    Route::prefix('/voter')->group(function(){
       Route::post('/update-profile',[VoterUpdateProfile::class,'update']);
-      Route::post('/vote/{id}',[CastVote::class,'store']);
+      Route::post('/vote/{voteId}/candidate/{candidateId}',[CastVote::class,'store']);
    });
  });
  
