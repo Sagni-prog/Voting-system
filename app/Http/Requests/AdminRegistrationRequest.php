@@ -30,7 +30,6 @@ class AdminRegistrationRequest extends FormRequest
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required','string','min:8'],
                 'phone_number' => ['required','string','digits:9'],
-                'faceId' => ['string']
         ];
     }
 }

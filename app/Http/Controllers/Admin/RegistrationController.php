@@ -10,10 +10,10 @@ use App\Http\Requests\CandidateRegistrationRequest;
 use App\Http\Requests\ChairmanRegistrationRequest;
 
 use App\Repositories\User\UserRepositoryInterface;
-use App\Repositories\Voter\VoterRepositoryInteface;
-use App\Repositories\Candidate\CandidateRepositoryInteface;
-use App\Repositories\Chairman\ChairmanRepositoryInteface;
-use App\Repositories\Role\RoleRepositoryInteface;
+use App\Repositories\Voter\VoterRepositoryInterface;
+use App\Repositories\Candidate\CandidateRepositoryInterface;
+use App\Repositories\Chairman\ChairmanRepositoryInterface;
+use App\Repositories\Role\RoleRepositoryInterface;
 
 use App\Services\TokenManagerService;
 
@@ -31,10 +31,10 @@ class RegistrationController extends Controller{
     
     public function __construct(
                   UserRepositoryInterface $userRepository,
-                  VoterRepositoryInteface $voterRepository,
-                  CandidateRepositoryInteface $candidateRepository,
-                  ChairmanRepositoryInteface $chairmanRepository,
-                  RoleRepositoryInteface $roleRepository,
+                  VoterRepositoryInterface $voterRepository,
+                  CandidateRepositoryrInterface $candidateRepository,
+                  ChairmanRepositoryInterface $chairmanRepository,
+                  RoleRepositoryInterface $roleRepository,
                   TokenManagerService $tokenService,
                   ){
         

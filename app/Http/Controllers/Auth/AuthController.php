@@ -13,6 +13,8 @@ use App\Repositories\Admin\AdminRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 use Hash;
 
+use App\Helpers\GetFaceId;
+
 
 class AuthController extends Controller
 {
@@ -22,6 +24,7 @@ class AuthController extends Controller
   private $adminRepository;
   private $roelRepository;
   private $adminFactoy;
+  private $faceIdHelper;
   
   /*
       @use App\Factory\UserFactory\AdminFactory use the module
@@ -36,25 +39,26 @@ class AuthController extends Controller
          UserRepositoryInterface $userRepository,
          AdminRepositoryInterface $adminRepository,
          RoleRepositoryInterface $roelRepository,
+         GetFaceId $faceIdHelper,
         ){
   
      $this->tokenService = $tokenService;
      $this->userRepository = $userRepository;
      $this->adminRepository = $adminRepository;
      $this->roleRepository = $roelRepository;
+     $this->faceIdHelper = $faceIdHelper;
      
   }
 
       //   Registering user 
-    public function register(AdminRegistrationRequest $request){
-        try{
-        
-           DB::beginTransaction();
-        
-    $data = $request->validated();
-    $user = $this->userRepository->storeUser($data); 
-    $admin = $this->adminRepository->storeAdmin($data);
-    $role = $this->roleRepository->storeRole($admin,$user->id);
+public function register(AdminRegistrationRequest $request){
+ try{
+    DB::beginTransaction();
+        $data = $request->validated();
+        $data['faceId'] = $this->faceIdHelper->getFaceId();
+        $user = $this->userRepository->storeUser($data); 
+        $admin = $this->adminRepository->storeAdmin($data);
+        $role = $this->roleRepository->storeRole($admin,$user->id);
     DB::commit();
         $admin = $this->userRepository->findUserById($user->id);   
         $token = $this->tokenService->createToken($user)->plainTextToken;
@@ -66,21 +70,20 @@ class AuthController extends Controller
                 'token'=> $token
             ] ,201);
         }
-        catch(\Exception $exception){
-           DB::rollback();
-            return response()->json([
-                "status"=>true,
-                "message"=>$exception->getMessage()
-            ],500);
-        }
+    catch(\Exception $exception){
+       DB::rollback();
+        return response()->json([
+            "status"=>true,
+            "message"=>$exception->getMessage()
+        ],500);
     }
+}
     
     
-    public function login(LoginRequest $request){
-     try{
-        
-        $data = $request->validated();
-        $user = $this->userRepository->findUserWhere($data);
+public function login(LoginRequest $request){
+  try{    
+    $data = $request->validated();
+    $user = $this->userRepository->findUserWhere($data);
     
     if(!$user){
           return response()->json([

@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Voter;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Auth;
-use App\Models\VoteBallot;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Exceptions\VoteBallotNotFoundException;
 
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\VoteBallot\VoteBallotRepositoryInterface;
+
+use App\Http\Requests\CastVoteRequest;
 
 
 class VoteController extends Controller
@@ -28,7 +27,7 @@ class VoteController extends Controller
     $this->voteBallotRepository = $voteBallotRepository;
  }
        
-    public function store(Request $request, $id){
+    public function store(CastVoteRequest $request, $id){
      try {
          $user = $this->userRepository->getCurrentlyAuthenticatedUser();
                

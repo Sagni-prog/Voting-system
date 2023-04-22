@@ -20,6 +20,7 @@ Route::get('/',function(){
   return App\Models\User::all();
     // return App\Http\Controllers\Admin\AdminController::
 });
+
 Route::post('/signup',[AuthController::class,'register']);
 Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
 Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);

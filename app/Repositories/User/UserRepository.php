@@ -65,13 +65,13 @@ class UserRepository implements UserRepositoryInterface{
     }
     
     public function storeUser($data){
-       
+          
        return $this->user->create([
                 'first_name'=> $data['first_name'],
                 'last_name'=> $data['last_name'],
                 'email'=> $data['email'],
                 'password'=>  $this->hashService->makeHash($data['password']),
-                'faceId' => 'kjioa9aeodw3098imzknj'
+                'faceId' => $data['faceId']
        ]);
     }
     
