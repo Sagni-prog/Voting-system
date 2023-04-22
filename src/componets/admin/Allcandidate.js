@@ -1,8 +1,4 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
 import React from 'react'
-
 import Sidebar from './Sidebar'
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
@@ -11,12 +7,9 @@ import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { selectVoter } from '../../app/features/voter/VoterSlice';
 
-export default function Voters() {
-  const state = useSelector((state) => state);
-  const voters = useSelector((state) => state.voter.voters);
-  const dispatch = useDispatch();
+export default function Allcandidate() {
+    const candidates = useSelector((state) => state.candidate.candidates);
   return (
     <div>
     <div>
@@ -131,17 +124,20 @@ export default function Voters() {
                 <th class="px-4 py-2 font-bold text-left">First name</th>
                 <th class="px-4 py-2 font-bold text-left">Last name</th>
                 <th class="px-4 py-2 font-bold text-left">Email</th>
+                <th class="px-4 py-2 font-bold text-left">Department</th>
+                <th class="px-4 py-2 font-bold text-left"></th>
                 <th class="px-4 py-2 font-bold text-left">Status</th>
                 <th class="px-4 py-2 font-bold text-left"></th>
               </tr>
             </thead>
             <tbody>
-            {voters.map((voter)=>(
-              <tr  key={voter.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
+            {candidates.map((candidate)=>(
+              <tr  key={candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
                <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">{voter.firstName} </td>
-                <td class="border px-4 py-2">{voter.lastName}</td>
-                <td class="border px-4 py-2">{voter.email}</td>
+                <td class="border px-4 py-2">{candidate.firstName} </td>
+                <td class="border px-4 py-2">{candidate.lastName}</td>
+                <td class="border px-4 py-2">{candidate.email}</td>
+                <td class="border px-4 py-2">{candidate.department}</td>
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>

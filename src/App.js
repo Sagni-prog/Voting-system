@@ -21,6 +21,8 @@ import { Link, Element } from 'react-scroll';
 import TheApp from './componets/TheApp';
 import AddNews from './componets/admin/AddNews';
 import Feedbacks from './componets/admin/Feedbacks';
+import Allcandidate from './componets/admin/Allcandidate';
+import Updateprofile from './componets/admin/Updateprofile';
 
 
 function App() {
@@ -46,6 +48,8 @@ function App() {
         <Route path='/reportnews' element={<AddNews />} />
         <Route path='/notifications' element={<Feedbacks />} />
         <Route path="/candidatedescription" element={<CandidateDescription />} />
+        <Route path="/allcandidates" element={<Allcandidate />} />
+        <Route path="/updatecandidate" element={<Updateprofile />} />
       </Routes>
       <div>
       {/* <AddCandidates /> */}

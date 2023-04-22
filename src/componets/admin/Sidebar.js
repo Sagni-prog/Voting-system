@@ -13,6 +13,15 @@ export default function Sidebar() {
                  <Link to="/voters" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Voters</Link>
     </li>
+    <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/allcandidates" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />candidates</Link>
+    </li>
+    <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/updatecandidate" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 update candidate</Link>
+    </li>
    
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/reportnews" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">

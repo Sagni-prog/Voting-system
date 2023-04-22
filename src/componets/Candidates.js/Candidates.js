@@ -110,9 +110,13 @@ export default function Candidates() {
                   </div>
                 </div>
                 <div className="flex flex-row">
-                  <Link to='/Candidateprofile' replace={true} className="px-4 py-2 mr-2 font-bold text-white bg-blue-500 rounded shadow-md cursor-pointer hover:bg-blue-400">
-                    Read more
-                  </Link>
+                <Link to={{ pathname: '/Candidateprofile', state: { selectedCandidate } }} replace={true} className="px-4 py-2 mr-2 font-bold text-white bg-blue-500 rounded shadow-md cursor-pointer hover:bg-blue-400" key={selectedCandidate.id}>
+                Read more
+                </Link>
+
+
+   
+
                   <button className="px-4 py-2 font-bold text-white rounded shadow-md bg-emerald-600">
                     <FaVoteYea className="inline-block mr-2" />
                     Vote

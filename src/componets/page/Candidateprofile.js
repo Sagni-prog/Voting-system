@@ -8,8 +8,13 @@ import { AiOutlineRight} from "react-icons/ai";
 import { useState } from 'react';
 import { Link as Link} from 'react-router-dom'
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom'
+
 // import { selectCandidate } from './../../candidateDetailSlice';
-export default function Candidateprofile() {
+export default function Candidateprofile(props) {
+  const candidate = props.state || {};
+
+  // Use the candidate object to render the candidate details
   return (
     <div>
             <div>
@@ -86,15 +91,15 @@ export default function Candidateprofile() {
         <div className='w-[15rem] h-1 bg-emerald-900 ml-4 mt-0'></div>
 
 
-          <div class="bg-white m-10 p-[2rem] rounded-lg shadow-md">
+  <div class="bg-white m-10 p-[2rem] rounded-lg shadow-md">
         <div class="flex items-center mb-6">
 
           <img class="w-[6rem] h-[6rem] rounded-full mr-4" src={img2} alt="User Profile Image"/>
           <div>
-            <h2 class="text-xl font-bold">John Doe</h2>
-            <p class="text-gray-700">john.doe@example.com</p>
-            <p class="text-gray-700">jit St gebrel,oromia, Ethiopia</p>
-            <p class="text-gray-700">Biomedical Engineering</p>
+            <h2 class="text-xl font-bold">{candidate.firstname} {candidate.lastName}</h2>
+            <p class="text-gray-700">{candidate.email}</p>
+            <p class="text-gray-700">welkite,SNN, Ethiopia</p>
+            <p class="text-gray-700">{candidate.department}</p>
           </div>
         </div>
         <h2 class="text-xl font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis.
@@ -168,6 +173,8 @@ export default function Candidateprofile() {
             </div>
           </div>
 
+        
+
     <div>
  
  <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
@@ -213,3 +220,4 @@ export default function Candidateprofile() {
     </div>
   )
 }
+
