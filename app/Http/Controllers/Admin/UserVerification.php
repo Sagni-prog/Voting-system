@@ -17,7 +17,7 @@ class UserVerification extends Controller
       
       $this->userRepository = $userRepository;
   }
-  public function edit(Request $req,$id){
+  public function edit($id){
         try {
         
             $user = $this->userRepository->findUserById($id);

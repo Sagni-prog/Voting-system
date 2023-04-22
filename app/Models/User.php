@@ -23,6 +23,11 @@ class User extends Authenticatable
                         'email',
                         'password',
                         'faceId',
+                        'isActive',
+                        'isDeleted',
+                        'deleted_at',
+                        'isBanned',
+                        'banned_at',
        ];
 
     

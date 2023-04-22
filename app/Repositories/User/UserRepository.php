@@ -144,8 +144,10 @@ class UserRepository implements UserRepositoryInterface{
     }
     
     public function verifyUser($user){
-        
-        return $user->update(['isActive' => true]);
+    
+        return $user->update([
+                 'isActive' => true
+        ]);
     }
     
     public function destroyUser($user){

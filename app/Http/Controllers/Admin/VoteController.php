@@ -24,7 +24,7 @@ use App\Builder\VoteResultBuilder;
 
 use App\Services\VoteService;
 
-use App\Helper\GetCurrentDate;
+use App\Helpers\GetCurrentDate;
 use Auth;
 
 class VoteController extends Controller
