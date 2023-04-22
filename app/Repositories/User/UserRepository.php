@@ -13,11 +13,18 @@ class UserRepository implements UserRepositoryInterface{
   
     private $user;
     private $hashService;
+    public $role;
 
     public function __construct(User $user, HashService $hashService){
        
        $this->user = $user;
        $this->hashService = $hashService;
+    }
+    
+    public function setRole($role): UserRepository{
+       
+       $this->role = $role;
+       return $this;
     }
     
 
@@ -88,7 +95,7 @@ class UserRepository implements UserRepositoryInterface{
         ]);
     }
     
-    public function getActiveNotBannedWhereRole($role){
+    public function getActiveNotBannedWhereRole(){
         
         return $this->user->with('role.roleable','photos')
                           ->where([
@@ -97,13 +104,21 @@ class UserRepository implements UserRepositoryInterface{
                                    'isDeleted' => false
                                    ])
                           ->whereHas('role.roleable',function($query){
-                                 $query->where('role',$role);
+                                 $query->where('role',$this->role);
                          })->get();
             }
             
     public function getActiveNotBannedWhereRoleWith($role){
-         
-         return;
+
+         return $this->user->with('role.roleable','photos')
+                           ->where([
+                                      'isActive' => true,
+                                      'isBanned' => false,
+                                      'isDeleted' => false
+                                      ])
+                           ->whereHas('role.roleable',function($query){
+                                  $query->where('role',$role);
+                          })->get();
     }        
             
     public function findActiveNotBannedWhereRole($id, $role){

@@ -32,7 +32,9 @@ class ManageVoterController extends Controller
     
     public function index(){
     
-        $voter = $this->userRepository->getActiveNotBannedWhereRoleWith('voter');
+        $voter = $this->userRepository->setRole('voter')
+                                      ->getActiveNotBannedWhereRole();
+        return $voter;
                 
       if(!$voter){
           

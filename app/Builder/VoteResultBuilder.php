@@ -7,14 +7,14 @@ class VoteResultBuilder{
 public $voteCount;
 public $totalVoteCount;
 
-    public function setVoteCount($voteCount): VoteResultService {
+    public function setVoteCount($voteCount): VoteResultBuilder {
     
          $this->voteCount = $voteCount;
          return $this;
       
     }
     
-    public function setTotalVoteCount($totalVoteCount): VoteResultService {
+    public function setTotalVoteCount($totalVoteCount): VoteResultBuilder {
     
         $this->totalVoteCount = $totalVoteCount;
         return $this;
