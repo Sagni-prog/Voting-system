@@ -186,6 +186,7 @@ return [
         App\Repositories\Photo\PhotoRepositoryServiceProvider::class,
         App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryServiceProvider::class,
         App\Repositories\VoteBallot\VoteBallotRepositoryServiceProvider::class,
+        App\Factory\UserFactory\UserFactoryServiceProvider::class,
         
     ],
 

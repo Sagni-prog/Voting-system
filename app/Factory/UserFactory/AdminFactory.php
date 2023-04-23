@@ -7,6 +7,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Admin\AdminRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class AdminFactory implements UserFactory{
@@ -27,12 +28,11 @@ class AdminFactory implements UserFactory{
      
     }
     
-    public function create(array $data){
-      
-           $user = $this->userRepository->storeUser($data); 
-           $admin = $this->adminRepository->storeAdmin($data);
-           $role = $this->roleRepository->storeRole($admin,$user->id);
-           
+    public function create(array $data): User{
+            $user = $this->userRepository->storeUser($data); 
+            $admin = $this->adminRepository->storeAdmin($data);
+            $role = $this->roleRepository->storeRole($admin,$user->id);
+            $user = $this->userRepository->findUserById($user->id);
         return $user;
       
     }

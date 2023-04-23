@@ -13,6 +13,8 @@ use App\Repositories\Admin\AdminRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 use Hash;
 
+use App\Factory\UserFactory\Manager\UserFactoryManager;
+
 use App\Helpers\GetFaceId;
 
 
@@ -25,6 +27,7 @@ class AuthController extends Controller
   private $roelRepository;
   private $adminFactoy;
   private $faceIdHelper;
+  private $userFactory;
   
   /*
       @use App\Factory\UserFactory\AdminFactory use the module
@@ -35,18 +38,20 @@ class AuthController extends Controller
   */
   
   public function __construct(
+         UserFactoryManager $userFactory,
          TokenManagerService $tokenService,
          UserRepositoryInterface $userRepository,
-         AdminRepositoryInterface $adminRepository,
-         RoleRepositoryInterface $roelRepository,
+        //  AdminRepositoryInterface $adminRepository,
+        //  RoleRepositoryInterface $roelRepository,
          GetFaceId $faceIdHelper,
         ){
   
      $this->tokenService = $tokenService;
      $this->userRepository = $userRepository;
-     $this->adminRepository = $adminRepository;
-     $this->roleRepository = $roelRepository;
+    //  $this->adminRepository = $adminRepository;
+    //  $this->roleRepository = $roelRepository;
      $this->faceIdHelper = $faceIdHelper;
+     $this->userFactory = $userFactory;
      
   }
 
@@ -56,17 +61,20 @@ public function register(AdminRegistrationRequest $request){
     DB::beginTransaction();
         $data = $request->validated();
         $data['faceId'] = $this->faceIdHelper->getFaceId();
-        $user = $this->userRepository->storeUser($data);
-        $admin = $this->adminRepository->storeAdmin($data);
-        $role = $this->roleRepository->storeRole($admin,$user->id);
+        // $user = $this->userRepository->storeUser($data);
+        // $admin = $this->adminRepository->storeAdmin($data);
+        // $role = $this->roleRepository->storeRole($admin,$user->id);
+        $factory = $this->userFactory->make('admin');
     DB::commit();
-        $admin = $this->userRepository->findUserById($user->id);   
+        // $admin = $this->userRepository->findUserById($user->id);   
+        // $token = $this->tokenService->createToken($user)->plainTextToken;
+        $user = $factory->create($data);
         $token = $this->tokenService->createToken($user)->plainTextToken;
                      
             return response()->json([
                 'status'=> 'sucess',
                 'message'=>'user created succesfully',
-                'user' => $admin,
+                'user' => $user,
                 'token'=> $token
             ] ,201);
         }

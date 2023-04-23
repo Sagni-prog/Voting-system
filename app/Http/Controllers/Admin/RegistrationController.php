@@ -15,6 +15,8 @@ use App\Repositories\Candidate\CandidateRepositoryInterface;
 use App\Repositories\Chairman\ChairmanRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 
+use App\Factory\UserFactory\Manager\UserFactoryManager;
+
 use App\Services\TokenManagerService;
 
 use App\Helpers\GetFaceId;
@@ -33,6 +35,7 @@ class RegistrationController extends Controller{
     private $faceIdHelper;
     private $tokenService;
     private $userHelper;
+    private $userFactory;
     
     public function __construct(
                   UserRepositoryInterface $userRepository,
@@ -43,6 +46,7 @@ class RegistrationController extends Controller{
                   TokenManagerService $tokenService,
                   GetFaceId $faceIdHelper,
                   UserHelper $userHelper,
+                  UserFactoryManager $userFactory,
                   ){
         
         $this->userRepository = $userRepository;
@@ -53,6 +57,7 @@ class RegistrationController extends Controller{
         $this->tokenService = $tokenService;
         $this->faceIdHelper = $faceIdHelper;
         $this->userHelper = $userHelper;
+        $this->userFactory = $userFactory;
     }
  
     /*
@@ -101,17 +106,15 @@ class RegistrationController extends Controller{
             DB::beginTransaction();
                 $data = $request->validated();
                 $data['faceId'] =  $this->faceIdHelper->getFaceId();
-                $user = $this->userRepository->storeUser($data);
-                $candidate = $this->candidateRepository->storeCandidate($data);
-                $role = $this->roleRepository->storeRole($candidate, $user->id);
+                $factory = $this->userFactory->make('candidate');
             DB::commit();
-               $candidate = $this->userRepository->findUserById($user->id);
-               $token = $this->tokenService->createToken($user);
+                $user = $factory->create($data);
+                $token = $this->tokenService->createToken($user);
                         
             return response()->json([
                 'status'=> 'sucess',
                 'message'=>'user created succesfully',
-                'candidate' => $candidate,
+                'candidate' => $user,
                 'token'=> $token->plainTextToken
             ] ,201);
         }
