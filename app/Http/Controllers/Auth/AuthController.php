@@ -29,27 +29,16 @@ class AuthController extends Controller
   private $faceIdHelper;
   private $userFactory;
   
-  /*
-      @use App\Factory\UserFactory\AdminFactory use the module
-      @AdminFactory $adminFactoy inject 
-      @ $this->adminFactoy = $adminFactoy 
-      @$this->adminFactoy->create($data) call the factory method to create user
-      
-  */
   
   public function __construct(
          UserFactoryManager $userFactory,
          TokenManagerService $tokenService,
          UserRepositoryInterface $userRepository,
-        //  AdminRepositoryInterface $adminRepository,
-        //  RoleRepositoryInterface $roelRepository,
          GetFaceId $faceIdHelper,
         ){
   
      $this->tokenService = $tokenService;
      $this->userRepository = $userRepository;
-    //  $this->adminRepository = $adminRepository;
-    //  $this->roleRepository = $roelRepository;
      $this->faceIdHelper = $faceIdHelper;
      $this->userFactory = $userFactory;
      
@@ -61,13 +50,8 @@ public function register(AdminRegistrationRequest $request){
     DB::beginTransaction();
         $data = $request->validated();
         $data['faceId'] = $this->faceIdHelper->getFaceId();
-        // $user = $this->userRepository->storeUser($data);
-        // $admin = $this->adminRepository->storeAdmin($data);
-        // $role = $this->roleRepository->storeRole($admin,$user->id);
         $factory = $this->userFactory->make('admin');
     DB::commit();
-        // $admin = $this->userRepository->findUserById($user->id);   
-        // $token = $this->tokenService->createToken($user)->plainTextToken;
         $user = $factory->create($data);
         $token = $this->tokenService->createToken($user)->plainTextToken;
                      

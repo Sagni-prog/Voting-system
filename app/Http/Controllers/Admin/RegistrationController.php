@@ -23,8 +23,6 @@ use App\Helpers\GetFaceId;
 use App\Helpers\UserHelper;
 
 
-
-
 class RegistrationController extends Controller{
     
     private $userRepository;
@@ -70,18 +68,26 @@ class RegistrationController extends Controller{
         
         DB::beginTransaction();
             $data = $request->validated();
-            $data['faceId'] = $this->faceIdHelper->getFaceId();
-            $user = $this->userRepository->storeUser($data);
-            $voter = $this->voterRepository->storeVoter($data);
-            $role = $this->roleRepository->storeRole($voter, $user->id);
+            $data['faceId'] =  $this->faceIdHelper->getFaceId();
+            $factory = $this->userFactory->make('voter');
         DB::commit();
-           $voter = $this->userRepository->findUserById($user->id);
-           $token = $this->tokenService->createToken($user);
+            $user = $factory->create($data);
+            $token = $this->tokenService->createToken($user);
+        
+        // DB::beginTransaction();
+        //     $data = $request->validated();
+        //     $data['faceId'] = $this->faceIdHelper->getFaceId();
+        //     $user = $this->userRepository->storeUser($data);
+        //     $voter = $this->voterRepository->storeVoter($data);
+        //     $role = $this->roleRepository->storeRole($voter, $user->id);
+        // DB::commit();
+        //    $voter = $this->userRepository->findUserById($user->id);
+        //    $token = $this->tokenService->createToken($user);
                            
             return response()->json([
                     'status'=> 'sucess',
                     'message'=>'user created succesfully',
-                    'voter' => $voter,
+                    'voter' => $user,
                     'token'=>$token->plainTextToken
             ] ,201);
         }
