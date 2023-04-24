@@ -2,12 +2,14 @@
 
 namespace App\Factory\UserFactory;
 
+use Illuminate\Support\Facades\DB;
 use App\Factory\UserFactory\UserFactory;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 use App\Repositories\Voter\VoterRepositoryInterface;
 
 use App\Models\User;
+
 
 
 class VoterFactory implements UserFactory{
@@ -29,11 +31,18 @@ class VoterFactory implements UserFactory{
     }
     
     public function create(array $data): User{
-            $user = $this->userRepository->storeUser($data); 
-            $voter = $this->voterRepository->storeVoter($data);
-            $role = $this->roleRepository->storeRole($candidate, $user->id);
-            $user = $this->userRepository->findUserById($user->id);
-        return $user;
-      
+    
+             DB::beginTransaction();
+                $user = $this->userRepository->storeUser($data); 
+                $voter = $this->voterRepository->storeVoter($data);
+                $role = $this->roleRepository->storeRole($voter, $user->id);
+                
+                if(!$user | !$voter | !$role){
+                    DB::rollback();
+                }    
+                DB::commit();    
+                $user = $this->userRepository->findUserById($user->id);
+                
+             return $user;
     }
 }

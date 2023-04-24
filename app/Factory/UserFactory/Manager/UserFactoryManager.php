@@ -25,6 +25,7 @@ class UserFactoryManager implements UserFactoryMangerInterface{
     private $roleRepository;
     private $candidateRepository;
     private $voterRepository;
+    private $chairmanRepository;
     
     public function __construct(
                    UserRepositoryInterface $userRepository, 
@@ -32,6 +33,7 @@ class UserFactoryManager implements UserFactoryMangerInterface{
                    RoleRepositoryInterface $roleRepository,
                    CandidateRepositoryInterface $candidateRepository,
                    VoterRepositoryInterface $voterRepository,
+                   ChairmanRepositoryInterface $chairmanRepository,
                    ){
     
        $this->userRepository = $userRepository;
@@ -39,6 +41,7 @@ class UserFactoryManager implements UserFactoryMangerInterface{
        $this->roleRepository = $roleRepository;
        $this->candidateRepository = $candidateRepository;
        $this->voterRepository = $voterRepository;
+       $this->chairmanRepository = $chairmanRepository;
        
       }
    
@@ -65,13 +68,15 @@ class UserFactoryManager implements UserFactoryMangerInterface{
                                     $this->userRepository,
                                     $this->voterRepository,
                                     $this->roleRepository
-               );
+                                 );
+                     return $factory;           
            case $role === 'chairman':
                 $factory = new ChairmanFactory(
                                     $this->userRepository,
                                     $this->chairmanRepository,
                                     $this->roleRepository
-                );  
+                                 );  
+                      return $factory;              
         }
    }
 }

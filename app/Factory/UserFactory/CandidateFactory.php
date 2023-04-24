@@ -2,6 +2,7 @@
 
 namespace App\Factory\UserFactory;
 
+use Illuminate\Support\Facades\DB;
 use App\Factory\UserFactory\UserFactory;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
@@ -29,9 +30,16 @@ class CandidateFactory implements UserFactory{
     }
     
     public function create(array $data): User{
+          DB::beginTransaction();
             $user = $this->userRepository->storeUser($data); 
             $candidate = $this->candidateRepository->storeCandidate($data);
             $role = $this->roleRepository->storeRole($candidate, $user->id);
+            
+         if(!$user | !$candidate | !$role){
+         
+           DB::rollback();
+         }   
+          DB::commit();
             $user = $this->userRepository->findUserById($user->id);
         return $user;
       

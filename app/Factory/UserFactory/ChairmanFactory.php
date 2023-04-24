@@ -2,6 +2,7 @@
 
 namespace App\Factory\UserFactory;
 
+use Illuminate\Support\Facases\DB;
 use App\Factory\UserFactory\UserFactory;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
@@ -29,10 +30,18 @@ class ChairmanFactory implements UserFactory{
     }
     
     public function create(array $data): User{
+          DB::beginTransaction();
             $user = $this->userRepository->storeUser($data); 
-            $voter = $this->chairmanRepository->storeVoter($data);
-            $role = $this->roleRepository->storeRole($candidate, $user->id);
+            $chairman = $this->chairmanRepository->storeVoter($data);
+            $role = $this->roleRepository->storeRole($chairman, $user->id);
+            
+         if(!$user | !$chairman | !$role){
+           
+           DB::rollback(); 
+         }   
+           DB::commit();
             $user = $this->userRepository->findUserById($user->id);
+            
         return $user;
       
     }

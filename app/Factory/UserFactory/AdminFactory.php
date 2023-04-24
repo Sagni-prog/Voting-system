@@ -2,13 +2,13 @@
 
 namespace App\Factory\UserFactory;
 
+use Illuminate\Support\Facades\DB;
 use App\Factory\UserFactory\UserFactory;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Admin\AdminRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class AdminFactory implements UserFactory{
 
@@ -29,10 +29,17 @@ class AdminFactory implements UserFactory{
     }
     
     public function create(array $data): User{
-            $user = $this->userRepository->storeUser($data); 
-            $admin = $this->adminRepository->storeAdmin($data);
-            $role = $this->roleRepository->storeRole($admin,$user->id);
+            DB::beginTransaction();
+              $user = $this->userRepository->storeUser($data); 
+              $admin = $this->adminRepository->storeAdmin($data);
+              $role = $this->roleRepository->storeRole($admin,$user->id);
+              
+              if(!$user | !$admin | !$role){
+                  DB::rollback();
+                }
+                DB::commit();
             $user = $this->userRepository->findUserById($user->id);
+            
         return $user;
       
     }
