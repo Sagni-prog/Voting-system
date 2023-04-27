@@ -1,4 +1,5 @@
 import React from 'react'
+import './Navbar.css'
 import image from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { Link as ScrollLink } from 'react-scroll'
@@ -13,9 +14,9 @@ export default function Navbar() {
 
   return (
     <div>
-    <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
+    <div className="relative h-[100px] nav-query   p-2 px-[5rem] mb-2">
     <a href="#" className="flex items-center gap-1">
-    <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
+    <img class="home-logo w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
     <ScrollLink to="section1" smooth={true} duration={500} aria-current="page"><h1 className='dark:text-emerald-500 font-mono text-[2rem] '>Wolkite  University</h1></ScrollLink>
 
     

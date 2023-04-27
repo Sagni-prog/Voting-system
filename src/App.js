@@ -11,6 +11,7 @@ import ElectionProgress from './componets/ElectionProgress/ElectionProgress';
 import Report from './componets/Blog/Report';
 import Footer from './componets/Footer/Footer';
 import Resultes from './componets/Result/Results'
+import Regsiter from './componets/Auth/Regsiter'
 import Candidateprofile from './componets/page/Candidateprofile'
 import AddCandidates from './componets/admin/AddCandidate'
 import Voters from './componets/admin/Voters';
@@ -41,7 +42,6 @@ function App() {
         {/* <Route path="/Candidateprofile" element={<Candidateprofile />} /> */}
         <Route path="/result" element={<Resultes />} />
         <Route path='/' element={<TheApp/>}/>
-        <Route path='/#' element={<TheApp/>}/>
         <Route path='/home' element={<TheApp />}/>
         <Route path='/addcandidate' element={<AddCandidates />} />
         <Route path='/voters' element={<Voters />} />
@@ -51,6 +51,7 @@ function App() {
         <Route path="/candidatedescription" element={<CandidateDescription />} />
         <Route path="/allcandidates" element={<Allcandidate />} />
         <Route path="/updatecandidate" element={<Updateprofile />} />
+         <Route path="/signup" element={<Regsiter />} />
       </Routes>
       <div>
       {/* <AddCandidates /> */}
