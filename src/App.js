@@ -31,7 +31,7 @@ function App() {
  
   return (
     <Router>
-    <div>
+    <div className="full-container">
    
       <Routes>
         <Route path="/landingpage" element={<Landingpage />} />

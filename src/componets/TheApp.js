@@ -17,7 +17,7 @@ export default function TheApp() {
 
   return (
     <div>
-     <div className='w-[100%] border-blue-200'>
+     <div className='full-container w-[100%] border-blue-200'>
       {/* nav and home */}
       <Navbar />
       <Element name="section1">

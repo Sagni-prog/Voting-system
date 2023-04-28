@@ -8,8 +8,8 @@
     }
     .height-half{
       height:50vh;
-    }.
-    nav-query{
+    }
+    .nav-query{
       width:100%;
       height:100px;
 
@@ -27,8 +27,8 @@
     }
     .height-half{
       height:15vh;
-    }.
-    nav-query{
+    }
+    .nav-query{
       width:100%;
       height:50px;
       padding:0;
@@ -41,26 +41,49 @@
       width:7.5vh;
     }
   }
-  
-  @media screen and (max-width: 360px){
-    .container {
-      /* grid-template-columns: 1fr; */
+
+  @media screen and (max-width: 360px) {
+    /* Styles for screens with a maximum width of 360 pixels */
+    .nav-query {
+      height: 45px;
+      padding: 5px;
     }
-    .width-half{
-      width:100%;
-  
+    .home-logo {
+      height: 5vh;
+      width: 5.5vh;
     }
-    .height-half{
-      height:25vh;
-    }.
-    nav-query{
-      width:100%;
-      height:15px;
+    .nav_h1 {
+      font-size: 16px;
+
+    }
+    .top-nav{
+      font-size:10px;
+      margin-top:-0.5rem;
+    }
+    .nav-main{
       padding:0;
-      background:black;
+      width:100%;
+      
+
     }
-    .home-logo{
-      height:4vh;
-      width:4.5vh;
+    .nav-main-c{
+      padding:10px;
+      width:100%;
+    
+    }
+    .nav-title{
+      font-size:12px;
+
+    }
+    .n{
+      font-size:8px;
+      width:10px;
+    }
+    .n-all{
+      flex-direction: row;
+      gap: 1px 3px;
+    }
+    .list-n{
+      padding:0;
     }
   }

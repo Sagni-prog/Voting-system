@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+@media screen and (max-width: 360px) {
+.full-container{
+  width:100%;
+}
+.find-one{
+  flex-direction: column;
+
+}
+.find{
+  width:100px;
+  height: 100px;
+}
+.text-title{
+  font-size:15px;
+}
+}

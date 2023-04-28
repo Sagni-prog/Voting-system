@@ -146,71 +146,32 @@ code {
   width: 20%;
 }
 
-@media (max-width: 1250px){
-  .container {
-    /* grid-template-columns: 1fr; */
-  }
-  .width-half{
-    width:25%;
+@media screen and (max-width: 360px) {
+  /* Styles for screens with a maximum width of 360 pixels */
+ .home{
+  background-position:center;
+  background-attachment:scroll;
+  background-repeat: no-repeat;
+  background-size: 650px;
+  color:#04541b ;
+ }
+ .height-half{
+  height:20vh;
+ }
+ .width-half{
+  width:25%;
 
-  }
-  .height-half{
-    height:25vh;
-  }.
-  nav-query{
-    width:100%;
-    height:50px;
-    padding:0;
-    background:black;
-  }
-  .home-logo{
-    height:7vh;
-    width:7.5vh;
-  }
-}
+ }
+ .top-mt{
+  margin-top:3.3rem;
+  margin-left:-8rem;
 
-@media screen and (max-width: 600px){
-  .container {
-    /* grid-template-columns: 1fr; */
-  }
-  .width-half{
-    width:25%;
-
-  }
-  .height-half{
-    height:25vh;
-  }.
-  nav-query{
-    width:100%;
-    height:50px;
-    padding:0;
-    background:black;
-  }
-  .home-logo{
-    height:7vh;
-    width:7.5vh;
-  }
-}
-
-@media screen and (max-width: 360px){
-  .container {
-    /* grid-template-columns: 1fr; */
-  }
-  .width-half{
-    width:25%;
-
-  }
-  .height-half{
-    height:25vh;
-  }.
-  nav-query{
-    width:100%;
-    height:50px;
-    padding:0;
-    background:black;
-  }
-  .home-logo{
-    height:7vh;
-    width:7.5vh;
-  }
+ }
+ .homie{
+  width: 100px;
+  height:100px;
+ }
+ .container{
+  flex-direction:column;
+ }
 }
