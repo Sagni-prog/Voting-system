@@ -361,13 +361,13 @@ export default function Landingpage() {
           
           </div>
         </div>
-        <div className="flex-1 w-50 ml-[-2rem] mr-[5rem]">
-        <div className='mt-[1rem] '>
-           <h1 className='text-[2.2rem] w-full font-extrabold font-mono text-emerald-400 mb-1'>Vote for your <span className='text-white'>next <span className='text-white'>student</span> president</span></h1>
+        <div className="flex-1 homequery w-50 ml-[-2rem] mr-[5rem]">
+        <div className='mt-[1rem] g'>
+           <h1 className='text-[2.2rem] tex textt w-full font-extrabold font-mono text-emerald-400 mb-1'>Vote for your <span className='tex text-white'>next <span className='tex text-white'>student</span> president</span></h1>
            <p className='text-[#43ef7c] mb-3'> have you registered yet?</p>
         </div>
         <div>
-        <button class="flex gap-1 w-70 dark:bg-emerald-600  hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white font-bold py-2 px-4 border-b-4 border-emerald-700 hover:border-emerald-500 rounded">
+        <button class="flex gap-1 btn w-70 dark:bg-emerald-600  hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white font-bold py-2 px-4 border-b-4 border-emerald-700 hover:border-emerald-500 rounded">
             Vote now
             <MdHowToVote size={22} color="#FFF" className="my-icon" />
             </button>
