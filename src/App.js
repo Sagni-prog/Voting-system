@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import image from './../src/images/10354069_578454862259335_1343665270853874982_n.png'
 import img from './../src/images/download (9).png'
 import img2 from './../src/images/ivana-square.jpg'
@@ -23,6 +23,10 @@ import AddNews from './componets/admin/AddNews';
 import Feedbacks from './componets/admin/Feedbacks';
 import Allcandidate from './componets/admin/Allcandidate';
 import Updateprofile from './componets/admin/Updateprofile';
+import Regsiter from './componets/Auth/Regsiter';
+import RecognizeFace from './componets/Auth/RecognizeFace';
+import Login from './componets/Auth/Login';
+// import { Registry } from 'chart.js/dist/core/core.registry';
 
 
 function App() {
@@ -51,6 +55,9 @@ function App() {
         <Route path="/candidatedescription" element={<CandidateDescription />} />
         <Route path="/allcandidates" element={<Allcandidate />} />
         <Route path="/updatecandidate" element={<Updateprofile />} />
+        <Route path = "/regsiter" element = {<Regsiter />} />
+        <Route path = 'face' element = { <RecognizeFace />} />
+        <Route path = '/login' element = {<Login />} />
       </Routes>
       <div>
       {/* <AddCandidates /> */}
