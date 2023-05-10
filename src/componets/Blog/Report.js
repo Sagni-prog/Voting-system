@@ -5,7 +5,7 @@ export default function Report() {
   return (
     <div className='p-5'>
     <div className="bg-white rounded-lg  px-6 py-6 text-center">
-            <h2 className="text-[2rem] text-gray-900 font-medium mb-2 text-center">Latest News</h2>
+            <h2 className=" text-title text-[2rem] text-gray-900 font-medium mb-2 text-center">Latest News</h2>
         
             {/* <div className='bg-emerald-500 shadow-md h-10 w-full rounded-[5px] flex item-center p-2'><p className='imag flex text-start item-center'>vote your president election start <p className='text-white ml-1 mr-1'>10-02-2016.</p>vote end  <p className='text-red-500 ml-1 mr-1'>`25-03-2016`</p> </p></div> */}
           </div>

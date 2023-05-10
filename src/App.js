@@ -45,7 +45,7 @@ function App() {
         <Route path='/home' element={<TheApp />}/>
         <Route path='/addcandidate' element={<AddCandidates />} />
         <Route path='/voters' element={<Voters />} />
-        <Route path='/addchairman' element={<AddChairman />} />
+        <Route path='/addchairman'  element={<AddChairman />} />
         <Route path='/reportnews' element={<AddNews />} />
         <Route path='/notifications' element={<Feedbacks />} />
         <Route path="/candidatedescription" element={<CandidateDescription />} />
