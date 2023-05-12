@@ -11,7 +11,8 @@ import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import { useDispatch } from 'react-redux';
-import { setCandidate } from './../../app/features/candidate/Candidate'
+import { registerCandidate } from './../../app/features/candidate/Candidate'
+import {useNavigate} from 'react-router-dom'
 // import{ CandidateSlice }from './../../app/features/candidate/Candidate'
 
 export default function AddCandidate() {
@@ -27,7 +28,8 @@ export default function AddCandidate() {
   const [educationalYear, setEducationalYear] = useState(new Date());
   const [sex, setSex] = useState('');
   const [cv, setCv] = useState('');
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate=useNavigate();
   const formDataToJson = (formData) => {
     const jsonObject = {};
     formData.forEach((value, key) => {
@@ -52,7 +54,14 @@ export default function AddCandidate() {
     formData.append("graduationYear", graduationYear);
     formData.append("sex",sex);
     formData.append("cv", cv);
-    dispatch(setCandidate(formDataToJson(formData)));
+    dispatch(registerCandidate(formData))
+    .unwrap()
+    .then((result) => {
+      navigate('/');
+    })
+    .catch((error) => {
+     console.log("err")
+    });
 
   };
   return (
@@ -320,7 +329,7 @@ export default function AddCandidate() {
 
         <div>
  
- <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
+ {/* <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
      <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
          <div class="sm:flex sm:items-center sm:justify-between">
              <a href="#" class="flex items-center mb-4 sm:mb-0">
@@ -355,7 +364,7 @@ export default function AddCandidate() {
          <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-50 lg:my-8" />
          <span class="block text-sm text-gray-50 sm:text-center dark:text-gray-50">© 2023 <a href="#" class="hover:underline">Your Team goes here™</a>. All Rights Reserved.</span>
      </div>
- </footer>
+ </footer> */}
  
  
        

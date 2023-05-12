@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable no-unused-vars */
 import React from 'react'
+import { useEffect } from "react";
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/041a746a664d31ba7c4c6c1bc98b9010.jpg'
 import img1 from './../../images/10354069_578454862259335_1343665270853874982_n.png'
@@ -17,15 +18,17 @@ import App from './../../App'
 import Landingpage from './../Home/Landingpage'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import{ CandidateSlice }from './../../app/features/candidate/Candidate'
+import{ fetchCandidates }from './../../app/features/candidate/Candidate'
 
 export default function Candidates() {
-  const candidates = useSelector((state) => state.candidate.candidates);
+ const candidates = useSelector((state) => state.candidate.candidates); 
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [readMore,setReadMore]=useState(false);
   const dispatch = useDispatch();
-  
+  useEffect(() => {
+    dispatch(fetchCandidates());
+  }, [dispatch]);
 
   function handleVote() {
     // Store previous state
