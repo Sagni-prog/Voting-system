@@ -1,4 +1,4 @@
-'<?php
+<?php
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,11 +16,8 @@ use App\Http\Controllers\Voter\VoteController as CastVote;
 use App\Http\Controllers\Auth\UpdateProfileController;
 
 
-Route::get('/',function(){
 
-  return App\Models\User::all();
-    // return App\Http\Controllers\Admin\AdminController::
-});
+// Route::get('/candidates',[ManageCandidateController::class,'index']);
 
 
 Route::get('/candidates',[ManageCandidateController::class,'index']);
@@ -85,19 +82,11 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
       Route::get('/voters',[ManageVoterController::class,'index']);
       Route::get('/voter/{id}',[ManageVoterController::class,'show']);
       Route::patch('/voter/{id}/approve',[ManageVoterController::class,'update']);
-<<<<<<< HEAD
-      
-      
-      // Route::get('/candidates',[ManageCandidateController::class,'index']);
-      // Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);
-      // Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update']);
-=======
 
 
       Route::get('/candidates',[ManageCandidateController::class,'index']);
       Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);
       Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update']);
->>>>>>> 458337a8c4cf8716cd98fded04275c94796ec59e
    });
  });
      //Candidate routes
