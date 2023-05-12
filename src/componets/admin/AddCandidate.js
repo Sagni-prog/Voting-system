@@ -1,23 +1,17 @@
 
 import React from 'react'
-import { useState,useCallback,useEffect } from 'react';
+import { useState} from 'react';
 import Sidebar from './Sidebar'
-import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
-import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import { useDispatch } from 'react-redux';
-import { setCandidate } from './../../app/features/candidate/Candidate'
 import http from '../../http/http';
 
 
 
 export default function AddCandidate() {
 
-
-  // const [startDate, setStartDate] = useState();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,15 +24,8 @@ export default function AddCandidate() {
   const [department, setDepartment] = useState('');
   const [sex, setSex] = useState('');
   const [cv, setCv] = useState('');
-  const dispatch = useDispatch()
-  
-  const formDataToJson = (formData) => {
-    const jsonObject = {};
-    formData.forEach((value, key) => {
-      jsonObject[key] = value;
-    });
-    return JSON.stringify(jsonObject);
-  };
+
+
   
   const addCandidate = async(data) => {
   
@@ -65,9 +52,7 @@ export default function AddCandidate() {
     // formData.append("cv", cv[0]);
     
     addCandidate(formData)
-    
-    
-    // dispatch(setCandidate(formDataToJson(formData)));
+  
 
   };
   

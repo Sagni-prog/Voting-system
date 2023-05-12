@@ -1,15 +1,45 @@
 import React from 'react'
 import { useState } from 'react';
 import Sidebar from './Sidebar'
-import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
-import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
+import http from '../../http/http';
+
+
 
 export default function AddChairman() {
-    const [startDate, setStartDate] = useState(new Date());
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [sex, setSex] = useState('');
+
+
+    const addChairman = async(data) => {
+    
+       const res = await http.post('/chairman/register',data);
+       localStorage.removeItem('face-id');
+       console.log(res)
+    }
+  
+    const handleSubmit = (event) => {
+    
+      event.preventDefault();
+     
+      const formData = new FormData();
+      formData.append("first_name",firstName);
+      formData.append("last_name",firstName);
+      formData.append("email", email);
+      formData.append("password",password);
+      formData.append("sex",sex);
+      
+      addChairman(formData)
+    
+  
+    };
     return (
       <div>
   <div>
@@ -26,7 +56,7 @@ export default function AddChairman() {
       </div>
        
          <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
-      {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
+      
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
       <a href="#" className="flex items-center">
       <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
@@ -50,11 +80,7 @@ export default function AddChairman() {
                   <li>
                   <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
                       
-                  </li>
-                  {/* <li> */}
-                  {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
-                  {/* </li> */}
-                  <li>
+
                   <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
   
                   </li>
@@ -89,7 +115,9 @@ export default function AddChairman() {
     <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
     <div class="w-90  bg-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold mb-4">Chairman Registration</h2>
-    <form>
+    
+    
+    <form onSubmit={handleSubmit}>
     <div className='flex gap-4'>
     <div class="mb-4 w-full">
         <label class="block text-gray-700 font-bold mb-2" for="first-name">
@@ -100,6 +128,8 @@ export default function AddChairman() {
           id="first-name"
           type="text"
           placeholder="Enter your first name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
       <div class="mb-4 w-full">
@@ -110,7 +140,10 @@ export default function AddChairman() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="last-name"
           type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
           placeholder="Enter your last name"
+          
         />
       </div>
     </div>
@@ -123,6 +156,8 @@ export default function AddChairman() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="email"
           type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email address"
         />
       </div>
@@ -134,22 +169,14 @@ export default function AddChairman() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="password"
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
         />
       </div>
       </div>
       <div className='flex gap-4'>
-    <div class="mb-4 w-full">
-        <label class="block text-gray-700 font-bold mb-2" for="first-name">
-          Role
-        </label>
-        <input
-          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="role"
-          type="text"
-          placeholder="Enter your Role"
-        />
-      </div>
+  
       <div class="mb-4 w-full">
         <label class="block text-gray-700 font-bold mb-2" for="last-name">
           Sex
@@ -158,6 +185,8 @@ export default function AddChairman() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="sex"
           type="text"
+          value={sex}
+          onChange={(e) => setSex(e.target.value)}
           placeholder="Enter your  gender"
         />
       </div>

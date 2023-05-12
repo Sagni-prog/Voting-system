@@ -4,7 +4,7 @@ import axios from "axios"
         'baseURL': 'http://localhost:8000/api',
         headers: {
           'Content-Type': 'application/json',
-          'X-Face-Id' : 'kjaesioamkklcajsoejas000',
+          'X-Face-Id' : localStorage.getItem('face-id'),
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
      });
