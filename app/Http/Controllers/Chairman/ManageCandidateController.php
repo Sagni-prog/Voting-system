@@ -42,13 +42,22 @@ public function index(){
               'status' => 'fail',
               'message' => 'Oops! something went wrong'
           ],400);
-      } 
+      }
+       
       
-      return response()->json([
-          'status' => 'success',
-          'size' => $candidates->count(),
-          'candidates' => $candidates
-      ]);
+      $data = array();
+      $i = 0;   
+  foreach($candidates as $candidate){
+    $role = $candidate->role->roleable;
+    $cand = array('candidate' => $candidate,
+                   'role' => $role
+    );
+    
+    $data[$i] = $cand;
+    $i++;
+  }
+    return $data;
+
 }
     
     

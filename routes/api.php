@@ -13,6 +13,7 @@ use App\Http\Controllers\Voter\UpdateProfile as VoterUpdateProfile;
 use App\Http\Controllers\Chairman\ManageVoterController;
 use App\Http\Controllers\Chairman\ManageCandidateController;
 use App\Http\Controllers\Voter\VoteController as CastVote;
+use App\Http\Controllers\Auth\UpdateProfileController;
 
 
 Route::get('/',function(){
@@ -20,6 +21,13 @@ Route::get('/',function(){
   return App\Models\User::all();
     // return App\Http\Controllers\Admin\AdminController::
 });
+
+
+Route::get('/candidates',[ManageCandidateController::class,'index']);
+Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);
+Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update']);
+Route::post('/update-profile/{id}',[UpdateProfileController::class,'update']);
+
 
 Route::post('/signup',[AuthController::class,'register']);
 // Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
@@ -79,9 +87,9 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
       Route::patch('/voter/{id}/approve',[ManageVoterController::class,'update']);
       
       
-      Route::get('/candidates',[ManageCandidateController::class,'index']);
-      Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);
-      Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update']);
+      // Route::get('/candidates',[ManageCandidateController::class,'index']);
+      // Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);
+      // Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update']);
    });
  });
      //Candidate routes  

@@ -22,5 +22,4 @@ Interface UserRepositoryInterface{
     public function banUser($user);
     public function unBanUser($user);
     public function destroyUser($user);
-    
 }

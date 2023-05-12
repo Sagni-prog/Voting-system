@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('chairman_id')->unsigned()->nullable()->default(12);
             $table->string('sex');
-            $table->timestamp('admission_year')->nullable();
-            $table->timestamp('graduation_year')->nullable();
+            $table->string('admission_year')->nullable();
+            $table->string('graduation_year')->nullable();
             $table->integer('educational_year')->nullable();
             $table->string('department');
             $table->double('gpa');

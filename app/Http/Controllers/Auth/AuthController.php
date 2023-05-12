@@ -11,11 +11,12 @@ use App\Http\Requests\AdminRegistrationRequest;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Admin\AdminRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
-use Hash;
 
 use App\Factory\UserFactory\Manager\UserFactoryManager;
 
 use App\Helpers\GetFaceId;
+
+use Hash;
 
 
 class AuthController extends Controller
@@ -84,14 +85,16 @@ public function login(LoginRequest $request){
           ],401);
     }
     
-    // if($user->faceId != $request->faceId){
-    //    return responce()->json([
+    if($user->faceId != $this->faceIdHelper->getFaceId()){
+    //    return response()->json([
     //       'status' => 'fail',
     //       'message' => 'face doesnt match',
     //       'reqId' => $request->faceId,
     //       'realface' => $user->faceId
     //    ],401);
-   // }
+    
+     
+   }
    
       if(!Hash::check($request->password, $user->password)){
       
