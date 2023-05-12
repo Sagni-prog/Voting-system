@@ -44,6 +44,7 @@ public function update(UpdateProfileRequest $request,$id){
         // $adminUpdated = $this->adminRepository->updateAdmin($user->role->roleable(), $data);
     DB::commit();    
     
+    
         return response()->json([
            'status' => 'sucess',
            'message' => 'You have sucessfully changed your profile'
