@@ -7,8 +7,9 @@ import voter from './features/voter/VoterSlice'
 const store = configureStore({
   reducer: {
     candidate,
-    candidateDetail,
-    voter},
+    // candidateDetail,
+    // voter
+    },
 })
 export const dispatch = store.dispatch;
 export default store;

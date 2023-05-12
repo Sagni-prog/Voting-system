@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import img2 from '../../../images/ivana-square.jpg'
 import axios from 'axios'
 import http from "../../../http/http";
-// import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AsyncThunk } from "@reduxjs/toolkit";
 
 
 const initialState = {
@@ -15,8 +15,7 @@ const initialState = {
 
  export const fetchCandidates = createAsyncThunk('candidates/fetchCandidates', async () => {
      
-    //  const response = await http.get('/candidates');
-     const response = await axios.get('https://dog.ceo/api/breeds/image/random')
+     const response = await http.get('/candidates');
      console.log("from http",response)
      return response.data;
  })
@@ -49,10 +48,6 @@ const candidateSlice=createSlice({
     }
 }});
 
-// export const fetchCandidate = createAsyncThunk("candidate/get", async () => {
-//     const response = await axios.get("http://localhost:8000/all/candidates");
-//     return response.data;
-//   });
 export default candidateSlice.reducer;
 export const selectCandidate = (state) => state.candidate.candidates;
 export const getError = (state) => state.error
