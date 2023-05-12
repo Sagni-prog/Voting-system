@@ -3,8 +3,9 @@
 /* eslint-disable jsx-a11y/no-distracting-elements */
 /* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable no-unused-vars */
-import React from 'react'
-import { useEffect } from "react";
+
+
+import React, { useState,useEffect,useContext } from 'react'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/041a746a664d31ba7c4c6c1bc98b9010.jpg'
 import img1 from './../../images/10354069_578454862259335_1343665270853874982_n.png'
@@ -13,28 +14,37 @@ import { FaVoteYea } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Element } from 'react-scroll';
 import { Link as Link} from 'react-router-dom'
-import { useState } from 'react';
 import App from './../../App'
 import Landingpage from './../Home/Landingpage'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import{ fetchCandidates }from './../../app/features/candidate/Candidate'
 
+
+import CandidateContext from '../../contexts/CandidateContext'
+
+
 export default function Candidates() {
- const candidates = useSelector((state) => state.candidate.candidates); 
+  
+  
+  const {candidateState, candidateDispatch} = useContext(CandidateContext)
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [readMore,setReadMore]=useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCandidates());
-  }, [dispatch]);
-
-  function handleVote() {
-    // Store previous state
-   
-    // Open popup message
   
+  
+
+  useEffect(() => {
+   
+    // console.log("from candidate", candidateState[0].candidate.id)
+    
+    // candidateState.map((data) => console.log(data.role))
+    // console.log("from candidate", candidateState[0])
+      candidateState.map((data) => console.log(data.candidate.first_name))
+      candidateState.map((data) => console.log(data.role.department))
+    })
+  function handleVote() {
+   
   }
   const handleReadMore=(candidate)=>{
     setSelectedCandidate(candidate);
@@ -63,6 +73,8 @@ export default function Candidates() {
     setSelectedCandidate(candidate);
   }
   return (
+  
+  
     <div>
     <div className="container flex px-6 py-10 mx-auto">
   
@@ -93,34 +105,32 @@ export default function Candidates() {
               </div>
               <div className="flex flex-col flex-1 gap-1 md:ml-4">
                 <h2 className="mb-3 text-xl font-bold text-emerald-900">
-                  {selectedCandidate.firstName}  {selectedCandidate.lastName}
+                  {selectedCandidate.candidate.first_name}  {selectedCandidate.candidate.last_name}
                 </h2>
-                <p className="mb-2 text-gray-900">{selectedCandidate.bio}</p>
+                {/* <p className="mb-2 text-gray-900">{selectedCandidate.candidate.candidates_description}</p> */}
                 <div className="flex flex-row gap-4 mb-2 text-gray-600 item-center">
                   <div className="flex ">
                     <p className="font-medium text-[12px]">
-                      Admission Year: {selectedCandidate.admissionYear} 
+                      {/* Admission Year: {selectedCandidate.roleable.admission_year}  */}
                     </p>
                     
                   </div>
                   |
                   <div className="flex">
                     <p className="font-medium text-[12px]">
-                      Graduation Year: {selectedCandidate.graduationYear} 
+                      Graduation Year: {selectedCandidate.role.graduation_year} 
                     </p>
                     
                   </div>
                   |
                   <div className="flex">
                     <p className="font-medium text-[12px]">
-                      Department: {selectedCandidate.department}
+                      Department: {selectedCandidate.role.department}
                     </p>
                   </div>
                 </div>
                 <div className="flex flex-row">
-                {/* <Link to={{ pathname: '/Candidateprofile', state: { candidate: selectedCandidate } }} replace={true} className="px-4 py-2 mr-2 font-bold text-white bg-blue-500 rounded shadow-md cursor-pointer hover:bg-blue-400" key={selectedCandidate.id}>
-                Read more
-                </Link> */}
+             
                 <button className="px-4 py-2 mr-2 font-bold text-white bg-red-500 rounded shadow-md cursor-pointer hover:bg-blue-400" key={selectedCandidate.id}  onClick={() => setReadMore(!readMore)}>
                 Read more
                 </button>
@@ -136,7 +146,10 @@ export default function Candidates() {
           ) : (
             <p className="text-center">Select a candidate to view details</p>
           )}
+          
         </div>
+        
+        
         <div className="container mx-4 my-4">
     
         <div className="w-full ">
@@ -152,22 +165,22 @@ export default function Candidates() {
                     <ul
                       role="list"
                       class="divide-y  divide-gray-700 dark:divide-gray-500">
-                       {candidates.map((candidate ) => (
-                        <li key={candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" onClick={() => setSelectedCandidate(candidate)}>
+                       {candidateState.map((candidate ) => (
+                        <li key={candidate.candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" onClick={() => setSelectedCandidate(candidate)}>
           <div class="flex items-center space-x-4">
             <div class="flex-shrink-0">
               <img
                 class="w-12 h-12 rounded-full"
-                src={candidate.photoUrl}
-                   alt={candidate.firstName}
+                src=""
+                   alt={candidate.candidate.firstn_ame}
               />
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium text-gray-800 truncate ">
-              {candidate.firstName}  {candidate.lastName}
+              {candidate.first_name}  {candidate.candidate.last_name}
               </p>
               <p class="text-sm text-gray-500 item-center truncate dark:text-gray-400">
-                {candidate.department}
+                {candidate.role.department}
               </p>
               <p class="text-sm text-gray-500 truncate dark:text-gray-400">
           
@@ -224,7 +237,7 @@ export default function Candidates() {
             </h3>
             <div className="mt-2">
               <p className="text-sm leading-5 text-gray-500">
-                Are you sure you want to vote for {selectedCandidate.firstName} {selectedCandidate.lastName}?
+                Are you sure you want to vote for {selectedCandidate.candidate.first_name} {selectedCandidate.candidate.last_name}?
               </p>
             </div>
           </div>
@@ -232,7 +245,7 @@ export default function Candidates() {
       </div>
       <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
         <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.id} onClick={handleVote}>
+          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.candidate.id} onClick={handleVote}>
             Vote
           </button>
         </span>
@@ -264,19 +277,15 @@ export default function Candidates() {
 
           <img class="w-[6rem] h-[6rem] rounded-full mr-4" src={img2} alt="User Profile Image"/>
           <div>
-            <h2 class="text-xl font-bold">{selectedCandidate.firstName} {selectedCandidate.lastName}</h2>
-            <p class="text-gray-700">{selectedCandidate.email}</p>
+            <h2 class="text-xl font-bold">{selectedCandidate.candidate.first_name} {selectedCandidate.candidate.last_name}</h2>
+            <p class="text-gray-700">{selectedCandidate.candidate.email}</p>
             <p class="text-gray-700">welkite,SNN, Ethiopia</p>
-            <p class="text-gray-700">{selectedCandidate.department}</p>
+            <p class="text-gray-700">{selectedCandidate.role.department}</p>
           </div>
         </div>
-        <h2 class="text-xl font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis</h2>
+        <h2 class="text-xl font-bold">Strategic Plan</h2>
 
-        <p class="text-gray-700 leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod euismod eros vel venenatis. Integer eget purus risus. Aliquam at enim in dolor imperdiet semper. Aenean vel sapien ex. In efficitur fringilla lorem, eu cursus neque varius in.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">{selectedCandidate.role.strategic_plan}</p>
         <div class="flex items-center">
           <p class="text-gray-700 mr-2">Rating:</p>
           <div class="flex items-center">
@@ -302,19 +311,19 @@ export default function Candidates() {
             <div className='p-2'>
             <div className='flex gap-10'>
             <span className='text-black'>Department</span>
-            <p class="text-gray-500">software Engineering</p>
+            <p class="text-gray-500">{selectedCandidate.role.department}</p>
             </div>
             <div className='flex gap-10'>
             <span className='mr-3 text-black'>Exam core</span>
-            <p class="text-gray-500 ">202</p>
+            <p class="text-gray-500 ">{selectedCandidate.role.exam_score}</p>
             </div>
             <div className='flex gap-10'>
             <span className='text-black mr-14'>GPA</span>
-            <p class="text-gray-500 ">3.88</p>
+            <p class="text-gray-500 ">{selectedCandidate.role.gpa}</p>
             </div>
             <div className='flex gap-10'>
             <span className='text-black mr-[3.6rem]'>SEX</span>
-            <p class="text-gray-500 ">M</p>
+            <p class="text-gray-500 ">{selectedCandidate.role.sex}</p>
             </div>
           
             </div>
@@ -322,11 +331,11 @@ export default function Candidates() {
             <div className='p-2'>
             <div className='gap-10 flex mt-[-1.03rem]'>
             <span className='text-black'>Admission Year</span>
-            <p class="text-gray-500">02-04-2021</p>
+            <p class="text-gray-500">{selectedCandidate.role.admission_year}</p>
             </div>
             <div className='gap-[2.22rem] flex'>
             <span className='text-black'>Graduation Year</span>
-            <p class="text-gray-500 ">02-04-2021</p>
+            <p class="text-gray-500 ">{selectedCandidate.role.graduation_year}</p>
             </div>
             <div className='gap-[2rem] flex'>
             <span className='text-black'>Educational Year</span>
