@@ -94,6 +94,7 @@ function App() {
               <Route path='/#' element={<TheApp/>}/>
               <Route path='/home' element={<TheApp />}/>
               <Route path='/admin/dashboard' element={<AddCandidates />} />
+              <Route path='/addcandidate' element={<AddCandidates />} />
               <Route path='/voters' element={<Voters />} />
               <Route path='/addchairman' element={<AddChairman />} />
               <Route path='/reportnews' element={<AddNews />} />
