@@ -1,8 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable no-undef */
+
 import React from 'react'
-import { useState,useCallback } from 'react';
+import { useState,useCallback,useEffect } from 'react';
 import Sidebar from './Sidebar'
 import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
@@ -12,9 +10,12 @@ import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import { useDispatch } from 'react-redux';
 import { setCandidate } from './../../app/features/candidate/Candidate'
-// import{ CandidateSlice }from './../../app/features/candidate/Candidate'
+
+
 
 export default function AddCandidate() {
+
+
   const [startDate, setStartDate] = useState(new Date());
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');

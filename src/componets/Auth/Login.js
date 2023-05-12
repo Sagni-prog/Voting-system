@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import axios from 'axios';
+import { Link,useNavigate } from 'react-router-dom';
+
+
 
 
 export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  const navigate = useNavigate();
   
   const handleEmailChange = (e) => {
      
@@ -29,7 +34,34 @@ export default function Login() {
    }); 
    console.log(localStorage.getItem('face-id'))
    const res = await http.post('/login',data);
-   console.log(res)
+   const user = res.data
+  
+if(user.status === 'success'){
+   localStorage.setItem('token',user.token);
+   localStorage.setItem('user',JSON.stringify(user));
+   
+   switch(user.role.roleable.role){
+      case 'admin':
+         navigate('/admin/dashboard');
+         break;
+      case 'candidate':
+        navigate('candidate/dashboard');
+        break;
+      case 'chairman':
+         navigate('chairman/dashboard');
+         break;
+      case 'voter':
+         navigate('voter/dashboard');
+         break;
+      default:
+         navigate('/');
+         break;
+        
+   }
+}
+   
+   
+   
 }
 
 const hadleSubmit = (e) => {

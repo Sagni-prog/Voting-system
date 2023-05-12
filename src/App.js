@@ -16,7 +16,7 @@ import AddCandidates from './componets/admin/AddCandidate'
 import Voters from './componets/admin/Voters';
 import CandidateDescription from './componets/admin/CandidateDescription'
 import AddChairman from './componets/admin/AddChairman';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
 import TheApp from './componets/TheApp';
 import AddNews from './componets/admin/AddNews';
@@ -32,12 +32,19 @@ import CandidateReducer from './reducers/CandidateReducer';
 import http from './http/http';
 import axios from 'axios';
 
-// import { Hey } from './componets/Hey';
-import { Hey } from './componets/hey';
-
 
 
 function App() {
+  
+   
+  // window.onbeforeunload = function(e) {
+  //   if (performance.getEntriesByType("navigation")[0].type === "navigate") {
+  //     localStorage.clear();
+  //   }
+  // };
+  
+
+  
   
  const [candidateState,candidateDispatch] = useReducer(CandidateReducer,[]);
  const [candidates,setCandidates] = useState([])
@@ -47,8 +54,10 @@ function App() {
  
  
  const response = await http.get('/candidates');
- 
-        const candidates = JSON.parse(response.data.substring(1));
+         console.log(response.data)
+         console.log(response.data[0].candidate.role.roleable)
+        const candidates = response.data;
+        console.log(candidates)
         candidateDispatch({type: 'GET', candidates});
  }
  
@@ -57,9 +66,8 @@ function App() {
  useEffect(() => {
     getCandidates();
   
-  },[])
   
-  // candidateState.map((data) => console.log(data.first_name))
+  },[])
 
 
   return (
@@ -85,7 +93,7 @@ function App() {
               <Route path='/' element={<TheApp/>}/>
               <Route path='/#' element={<TheApp/>}/>
               <Route path='/home' element={<TheApp />}/>
-              <Route path='/addcandidate' element={<AddCandidates />} />
+              <Route path='/admin/dashboard' element={<AddCandidates />} />
               <Route path='/voters' element={<Voters />} />
               <Route path='/addchairman' element={<AddChairman />} />
               <Route path='/reportnews' element={<AddNews />} />
@@ -94,7 +102,7 @@ function App() {
               <Route path="/allcandidates" element={<Allcandidate />} />
               <Route path="/updatecandidate" element={<Updateprofile />} />
               <Route path = "/regsiter" element = {<Regsiter />} />
-              <Route path = 'face' element = { <RecognizeFace />} />
+              <Route path = 'face-auth' element = { <RecognizeFace />} />
               <Route path = '/login' element = {<Login />} />
             </Routes>
             <div>
