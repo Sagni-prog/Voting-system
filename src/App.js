@@ -26,22 +26,24 @@ import Updateprofile from './componets/admin/Updateprofile';
 import Regsiter from './componets/Auth/Regsiter';
 import RecognizeFace from './componets/Auth/RecognizeFace';
 import Login from './componets/Auth/Login';
-
+import LoginVoter from './componets/Auth/LoginVoter';
+// import LoginVoter from './components/Auth/LoginVoter'
 import CandidateContext from './contexts/CandidateContext';
 import CandidateReducer from './reducers/CandidateReducer';
 import http from './http/http';
 import axios from 'axios';
-
-
+import RegsiterChairman from './componets/Auth/RegsiterChairman';
 
 function App() {
   
    
-  // window.onbeforeunload = function(e) {
-  //   if (performance.getEntriesByType("navigation")[0].type === "navigate") {
-  //     localStorage.clear();
-  //   }
-  // };
+  window.onbeforeunload = function(e) {
+    localStorage.removeItem('face-id');
+    if (performance.getEntriesByType("navigation")[0].type === "navigate") {
+      // localStorage.clear();
+
+    }
+  };
   
 
   
@@ -94,6 +96,7 @@ function App() {
               <Route path='/#' element={<TheApp/>}/>
               <Route path='/home' element={<TheApp />}/>
               <Route path='/admin/dashboard' element={<AddCandidates />} />
+              {/* <Route path='/chairman/dashboard' element={<Chairman />} /> */}
               <Route path='/addcandidate' element={<AddCandidates />} />
               <Route path='/voters' element={<Voters />} />
               <Route path='/addchairman' element={<AddChairman />} />
@@ -102,9 +105,12 @@ function App() {
               <Route path="/candidatedescription" element={<CandidateDescription />} />
               <Route path="/allcandidates" element={<Allcandidate />} />
               <Route path="/updatecandidate" element={<Updateprofile />} />
-              <Route path = "/regsiter" element = {<Regsiter />} />
+              <Route path = "/register" element = {<Regsiter />} />
+              <Route path = "/chairman/register" element = {<RegsiterChairman />} />
               <Route path = 'face-auth' element = { <RecognizeFace />} />
               <Route path = '/login' element = {<Login />} />
+              <Route path = '/signin' element = {<LoginVoter />} />
+              {/* <Route path = '/signin' element = {<LoginVoter />} /> */}
             </Routes>
             <div>
           

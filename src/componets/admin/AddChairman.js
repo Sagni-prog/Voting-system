@@ -6,11 +6,14 @@ import image from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import http from '../../http/http';
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
 
 
 
 export default function AddChairman() {
 
+   const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -18,12 +21,89 @@ export default function AddChairman() {
     const [sex, setSex] = useState('');
 
 
-    const addChairman = async(data) => {
     
-       const res = await http.post('/chairman/register',data);
-       localStorage.removeItem('face-id');
-       console.log(res)
-    }
+  //  const sendRegister = async(data) => {
+  //   const token = localStorage.getItem('token')
+  //   const http = axios.create({
+  //       'baseURL': 'http://localhost:8000/api',
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //       }
+  //    });
+  //    const res = await http.post('/chairman/register',data);
+  //    const user = res.data;
+  //    console.log(user.status)
+     
+  //    if(user.status === 'sucess'){
+     
+  //    console.log('hello true')
+  //     localStorage.setItem('token',user.token);
+  //     localStorage.setItem('user',JSON.stringify(user));
+  //     localStorage.removeItem('face-id');
+      
+  //     switch(user.role.roleable.role){
+  //        case 'admin':
+  //           navigate('/admin/dashboard');
+  //           break;
+  //        case 'candidate':
+  //          navigate('candidate/dashboard');
+  //          break;
+  //        case 'chairman':
+  //           navigate('chairman/dashboard');
+  //           break;
+  //        case 'voter':
+  //           navigate('voter/dashboard');
+  //           break;
+  //        default:
+  //           navigate('/');
+  //           break;
+           
+  //     }
+  //  }
+  // }
+  
+  const sendRegister = async(data) => {
+  
+    const token = localStorage.getItem('token')
+    const http = axios.create({
+        'baseURL': 'http://localhost:8000/api',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+     });
+     const res = await http.post('/chairman/register',data);
+     const user = res.data;
+     console.log(user.status)
+     
+     if(user.status === 'sucess'){
+     
+     console.log('hello true')
+      // localStorage.setItem('token',user.token);
+      // localStorage.setItem('user',JSON.stringify(user));
+      localStorage.removeItem('face-id');
+      
+      switch(user.role.roleable.role){
+         case 'admin':
+            navigate('/admin/dashboard');
+            break;
+         case 'candidate':
+           navigate('candidate/dashboard');
+           break;
+         case 'chairman':
+            navigate('chairman/dashboard');
+            break;
+         case 'voter':
+            navigate('voter/dashboard');
+            break;
+         default:
+            navigate('/');
+            break;
+           
+      }
+   }
+  }
+    
+    
   
     const handleSubmit = (event) => {
     
@@ -35,8 +115,9 @@ export default function AddChairman() {
       formData.append("email", email);
       formData.append("password",password);
       formData.append("sex",sex);
+      formData.append("face_id",localStorage.getItem('face-id'));
       
-      addChairman(formData)
+      sendRegister(formData)
     
   
     };

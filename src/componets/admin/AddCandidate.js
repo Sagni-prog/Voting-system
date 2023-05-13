@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState} from 'react';
 import Sidebar from './Sidebar'
 import { Link } from 'react-router-dom';
@@ -7,11 +7,30 @@ import image from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import http from '../../http/http';
+import { useNavigate } from 'react-router-dom'
 
 
 
 export default function AddCandidate() {
 
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+     const user = JSON.parse(localStorage.getItem('user'));
+     if(user && user.role.roleable.role !== 'admin'){
+         
+          navigate('/login')
+
+     }
+
+       if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+    
+           navigate('/login')
+    }
+    
+    // console.log(user.role.roleable.role)
+  },[]);
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -41,7 +60,7 @@ export default function AddCandidate() {
     formData.append("first_name",firstName);
     formData.append("last_name",firstName);
     formData.append("email", email);
-    formData.append("password","11111111");
+    formData.append("password",password);
     formData.append("exam_score,",examScore,);
     formData.append("gpa", gpa);
     formData.append(" admission_year", admissionYear);

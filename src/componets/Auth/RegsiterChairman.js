@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
-import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
+import http from '../../http/http';
 
-export default function Regsiter() {
+export default function RegsiterChairman() {
 
   const navigate = useNavigate()
   const [firstName, setFirstName] = useState('');
@@ -34,20 +34,11 @@ export default function Regsiter() {
   }
   
   const sendRegister = async(data) => {
-       
-    const http = axios.create({
-        'baseURL': 'http://localhost:8000/api',
-        headers: {
-          'X-Face-Id' : localStorage.getItem('face-id')
-        }
-     });
-     const res = await http.post('/signup',data);
+
+     const res = await http.post('/chairman/register',data);
      const user = res.data;
-     console.log(user.status)
      
-     if(user.status === 'sucess'){
-     
-     console.log('hello true')
+     if(user.status === 'success'){
       localStorage.setItem('token',user.token);
       localStorage.setItem('user',JSON.stringify(user));
       localStorage.removeItem('face-id');

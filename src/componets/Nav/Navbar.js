@@ -58,8 +58,8 @@ export default function Navbar() {
                 {/* <li> */}
                 {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
                 {/* </li> */}
-                <li>
-                <button onClick={() => setIsChecked(!isChecked)} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</button>
+                <li>                <Link to="/signin" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
+
                 </li>
       
                 <li>

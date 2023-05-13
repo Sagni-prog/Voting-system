@@ -46,11 +46,34 @@ function RecognizeFace() {
         },
       });
       
-      navigate('/regsiter');
+      navigate('/register');
       setFaceId(userData.facialId);
     localStorage.setItem('face-id',userData.facialId);
       
-      await sendRegister(userInfo.facialId);
+      // await sendRegister(userInfo.facialId);
+      
+    } catch (errorCode) {
+      console.log(errorCode)
+      handleError(errorCode)
+    }
+  }
+  
+  
+  const faceChairmanRegistration = async () => {
+    try {
+      const userData = await faceioInstance.enroll({
+        locale: "auto",
+        payload: {
+          email: "zesun@gmail.com",
+          userId: "zesun",
+          username: "zesun",
+          
+        },
+      });
+      
+      setFaceId(userData.facialId);
+      localStorage.setItem('face-id',userData.facialId);
+      navigate('/addchairman');
       
     } catch (errorCode) {
       console.log(errorCode)
@@ -68,10 +91,6 @@ function RecognizeFace() {
       navigate('/login');
       setFaceId(userData.facialId);
     localStorage.setItem('face-id',userData.facialId);
-    // setTimeout(() => {
-    //    localStorage.removeItem('face-id');
-    // },50000)
-       
     
     } catch (errorCode) {
       console.log(errorCode)
@@ -146,8 +165,9 @@ function RecognizeFace() {
   return (
     <div className="face-authentication-by-thanhphongdev flex fdc jcfc aic">
      <h1>Face Authentication using ReactJS & FaceIO</h1>
-       <button className="action face-registration" onClick={faceRegistration}>Face Registration</button>
     <button className="action face-sign-in" onClick={faceSignIn}>Face Sign In</button>
+       <button className="action face-registration" onClick={faceRegistration}>Face Registration</button>
+       <button className="action face-registration" onClick={faceChairmanRegistration}>Face Registration Chairman</button>
   </div>   
   )
 }
