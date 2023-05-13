@@ -19,8 +19,6 @@ import Landingpage from './../Home/Landingpage'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import{ fetchCandidates }from './../../app/features/candidate/Candidate'
-
-
 import CandidateContext from '../../contexts/CandidateContext'
 
 
@@ -40,8 +38,8 @@ export default function Candidates() {
     
     // candidateState.map((data) => console.log(data.role))
     // console.log("from candidate", candidateState[0])
-      candidateState.map((data) => console.log(data.candidate.first_name))
-      candidateState.map((data) => console.log(data.role.department))
+      // candidateState.map((data) => console.log(data.candidate.first_name))
+      // candidateState.map((data) => console.log(data.role.department))
     })
   function handleVote() {
    
@@ -378,7 +376,7 @@ export default function Candidates() {
         </span>
         <span className="flex w-full mt-3 rounded-md shadow-sm sm:mt-0 sm:w-auto">
         <a href='#'>
-        <Link   to="/" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" onClick={handleCancel}>
+        <Link   to="/" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" >
             Cancel
           </Link>
         </a>

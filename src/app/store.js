@@ -8,7 +8,7 @@ const store = configureStore({
   reducer: {
     candidate,
     // candidateDetail,
-    // voter
+    voter
     },
 })
 export const dispatch = store.dispatch;
