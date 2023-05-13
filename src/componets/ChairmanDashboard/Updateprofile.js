@@ -168,30 +168,6 @@ export default function Updateprofile() {
           />
         </div>
         <div class="mb-4 w-full">
-          <label class="block text-gray-700 font-bold mb-2" for="password">
-            Password
-          </label>
-          <input
-            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-          />
-        </div>
-        </div>
-        <div className='flex gap-4'>
-      <div class="mb-4 w-full">
-          <label class="block text-gray-700 font-bold mb-2" for="first-name">
-            Role
-          </label>
-          <input
-            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="role"
-            type="text"
-            placeholder="Enter your Role"
-          />
-        </div>
-        <div class="mb-4 w-full">
           <label class="block text-gray-700 font-bold mb-2" for="last-name">
             Sex
           </label>
@@ -202,7 +178,8 @@ export default function Updateprofile() {
             placeholder="Enter your  gender"
           />
         </div>
-      </div>
+        </div>
+    
        
         <div class="flex items-center justify-between">
           <button

@@ -22,6 +22,7 @@ import ApproveVoters from './componets/ChairmanDashboard/ApproveVoters';
 import ChairmanDashboardHome from './componets/ChairmanDashboard/ChairmanDashboardHome';
 import Watchvotersforchairman from './componets/ChairmanDashboard/WatchVoters';
 import Updateprofileforchairman from './componets/ChairmanDashboard/Updateprofile';
+import Feedbackforchairman from './componets/ChairmanDashboard/Feedbackforchairman';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
 import TheApp from './componets/TheApp';
@@ -153,6 +154,8 @@ function App() {
               <Route path="/Watchvotersforchairman" element={<Watchvotersforchairman />} />
               <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />
               <Route path="/chairman/dashboard" element={<ChairmanDashboardHome />} />
+              <Route path="/Feedbackforchairman" element={<Feedbackforchairman />} />
+              
               <Route path = "/regsiter" element = {<Register  />} />
               <Route path = 'face' element = { <RecognizeFace />} />
               <Route path = "/register" element = {<Register />} />
