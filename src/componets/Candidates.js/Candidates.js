@@ -1,3 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-useless-rename */
+/* eslint-disable jsx-a11y/no-distracting-elements */
+/* eslint-disable jsx-a11y/no-redundant-roles */
+/* eslint-disable no-unused-vars */
+
 
 import React, { useState,useEffect,useContext } from 'react'
 import img2 from './../../images/ivana-square.jpg'
@@ -5,8 +11,14 @@ import img from './../../images/041a746a664d31ba7c4c6c1bc98b9010.jpg'
 import img1 from './../../images/10354069_578454862259335_1343665270853874982_n.png'
 import img3 from './../../images/elections-poll-svgrepo-com-2.svg'
 import { FaVoteYea } from 'react-icons/fa';
-import { Link } from 'react-router-dom'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Element } from 'react-scroll';
+import { Link as Link} from 'react-router-dom'
+import App from './../../App'
+import Landingpage from './../Home/Landingpage'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import{ fetchCandidates }from './../../app/features/candidate/Candidate'
 import CandidateContext from '../../contexts/CandidateContext'
 import http from '../../http/http'
 
@@ -62,7 +74,7 @@ export default function Candidates() {
   }
   return (
   
-  
+  // <h1>hell</h1>
     <div>
     <div className="container flex px-6 py-10 mx-auto">
   
@@ -364,7 +376,7 @@ export default function Candidates() {
         </span>
         <span className="flex w-full mt-3 rounded-md shadow-sm sm:mt-0 sm:w-auto">
         <a href='#'>
-        <Link   to="/" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" onClick={handleCancel}>
+        <Link   to="/" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" >
             Cancel
           </Link>
         </a>

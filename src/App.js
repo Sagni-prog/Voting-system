@@ -11,19 +11,24 @@ import ElectionProgress from './componets/ElectionProgress/ElectionProgress';
 import Report from './componets/Blog/Report';
 import Footer from './componets/Footer/Footer';
 import Resultes from './componets/Result/Results'
+import Register from './componets/Auth/Regsiter'
 import Candidateprofile from './componets/page/Candidateprofile'
 import AddCandidates from './componets/admin/AddCandidate'
 import Voters from './componets/admin/Voters';
 import CandidateDescription from './componets/admin/CandidateDescription'
 import AddChairman from './componets/admin/AddChairman';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Approvecandidate from './componets/ChairmanDashboard/Approvecandidate';
+import ApproveVoters from './componets/ChairmanDashboard/ApproveVoters';
+import ChairmanDashboardHome from './componets/ChairmanDashboard/ChairmanDashboardHome';
+import Watchvotersforchairman from './componets/ChairmanDashboard/WatchVoters';
+import Updateprofileforchairman from './componets/ChairmanDashboard/Updateprofile';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
 import TheApp from './componets/TheApp';
 import AddNews from './componets/admin/AddNews';
 import Feedbacks from './componets/admin/Feedbacks';
 import Allcandidate from './componets/admin/Allcandidate';
 import Updateprofile from './componets/admin/Updateprofile';
-import Regsiter from './componets/Auth/Regsiter';
 import RecognizeFace from './componets/Auth/RecognizeFace';
 import Login from './componets/Auth/Login';
 import LoginVoter from './componets/Auth/LoginVoter';
@@ -56,9 +61,11 @@ function App() {
  
  
  const response = await http.get('/candidates');
+ 
+        // const candidates = JSON.parse(response.data.substring(1));
+        const candidates = response.data;
          console.log(response.data)
          console.log(response.data[0].candidate.role.roleable)
-        const candidates = response.data;
         console.log(candidates)
         candidateDispatch({type: 'GET', candidates});
  }
@@ -105,7 +112,13 @@ function App() {
               <Route path="/candidatedescription" element={<CandidateDescription />} />
               <Route path="/allcandidates" element={<Allcandidate />} />
               <Route path="/updatecandidate" element={<Updateprofile />} />
-              <Route path = "/register" element = {<Regsiter />} />
+              <Route path="/Approvecandidate" element={<Approvecandidate />} />
+              <Route path="/Watchvotersforchairman" element={<Watchvotersforchairman />} />
+              <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />
+              <Route path="/chairman/dashboard" element={<ChairmanDashboardHome />} />
+              <Route path = "/regsiter" element = {<Register  />} />
+              <Route path = 'face' element = { <RecognizeFace />} />
+              <Route path = "/register" element = {<Register />} />
               <Route path = "/chairman/register" element = {<RegsiterChairman />} />
               <Route path = 'face-auth' element = { <RecognizeFace />} />
               <Route path = '/login' element = {<Login />} />

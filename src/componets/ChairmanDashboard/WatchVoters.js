@@ -1,7 +1,9 @@
-
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
-import Sidebar from './Sidebar'
+import Sidebar from './Siderbar'
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
@@ -11,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { selectVoter } from '../../app/features/voter/VoterSlice';
 
-export default function Voters() {
+export default function WatchVoters() {
  
   const voters = useSelector((state) => state.voter.voters);
   const dispatch = useDispatch();
@@ -81,7 +83,7 @@ export default function Voters() {
                 <div className='flex w-[13rem]  bg-emerald-600 '>
                     <h5 className='text-[0.9rem]'>Home</h5>
                     <h6 className='mt-1'><AiOutlineRight /></h6>
-                    <h2 className='text-white font-semi-bold'>Dashboard</h2>
+                    <h2 className='text-white font-semi-bold'>Chairman</h2>
                 </div>
                 <div>
                     <h1 className='font-bold text-[1.9rem] text-white'>Dashboard</h1>
@@ -95,7 +97,7 @@ export default function Voters() {
    
       <div class="flex gap-4 mb-4">
       <div class="bg-white p-6 rounded-lg shadow-md">
-    <h1 class="text-3xl font-bold mb-8">Election Data</h1>
+    <h1 class="text-3xl font-bold mb-8">Voters</h1>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
         <h2 class="text-lg font-bold mb-2">voters</h2>
@@ -142,8 +144,8 @@ export default function Voters() {
                 <td class="border px-4 py-2">{voter.email}</td>
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+                <a href="#" class="font-medium bg-emerald-200 p-2 rounded w-100 text-blue-600 dark:text-blue-500 hover:underline mr-5">Approve</a>
+                </td>
               </tr>
             ))}
              

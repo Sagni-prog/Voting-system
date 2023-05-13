@@ -1,4 +1,5 @@
 import React from 'react'
+import './Navbar.css'
 import image from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { Link as ScrollLink } from 'react-scroll'
@@ -13,64 +14,65 @@ export default function Navbar() {
 
   return (
     <div>
-    <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
+    <div className="nav-query relative h-[100px]    p-2 px-[5rem] mb-2">
     <a href="#" className="flex items-center gap-1">
-    <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
-    <ScrollLink to="section1" smooth={true} duration={500} aria-current="page"><h1 className='dark:text-emerald-500 font-mono text-[2rem] '>Wolkite  University</h1></ScrollLink>
+    <img class="home-logo w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
+    <ScrollLink to="section1" smooth={true} duration={500} aria-current="page"><h1 className='nav_h1 dark:text-emerald-500 font-mono text-[2rem] '>Wolkite  University</h1></ScrollLink>
 
     
-    <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
+    <h6 className="top-nav absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
             {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
         </a>
         
     </div>
      
-       <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
+       <nav className=" h-[50px] nav-main-c   border-blue-200 shadow-md dark:bg-emerald-600">
     {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
-    <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
+    <div className="flex nav-main flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
     <a href="#" className="flex items-center">
-    <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
+    <h3 className="text-white flex items-center nav-title mt-[-0.5rem]">An official website of Welkite University.</h3>
             {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
         </a>
-        <div className="flex items-center">
-        <div className="flex items-center">
-            <ul className="flex flex-row space-x-8 text-sm font-medium">
-                <li>
-                <ScrollLink to="section1" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</ScrollLink>
-                </li>
-                <li>
-                <ScrollLink to="section2" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">News</ScrollLink>
-                </li>
-                <li>
-                <ScrollLink to="section3" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</ScrollLink>
-                </li>
-                <li>
-                <ScrollLink to="section4" smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</ScrollLink>
-                </li>
-                <li>
-                <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
+        
+        <div className="list-n flex items-center">
+            <div className="flex n-all flex-row space-x-8 text-sm font-medium">
+                
+                <ScrollLink to="section1" smooth={true} duration={500} className="text-gray-900 n dark:text-white hover:underline" aria-current="page">Home</ScrollLink>
+             
+              
+                <ScrollLink to="section2" smooth={true} duration={500} className="text-gray-900 n dark:text-white hover:underline" aria-current="page">News</ScrollLink>
+              
+             
+                <ScrollLink to="section3" smooth={true} duration={500} className="text-gray-900 n dark:text-white hover:underline" aria-current="page">Candidates</ScrollLink>
+             
+                
+                <ScrollLink to="section4" smooth={true} duration={500} className="text-gray-900 n dark:text-white hover:underline" aria-current="page">Election Progress</ScrollLink>
+               
+             
+                <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 n dark:text-white hover:underline" aria-current="page">Result</Link>
                     
-                </li>
-                <li>
-                <Link to="/addcandidate" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Dashboard</Link>
+                
+                <Link to="/addcandidate" replace={true} smooth={true} duration={500} className="text-gray-900 n dark:text-white hover:underline" aria-current="page">Dashboard</Link>
                     
-                </li>
+                
                 {/* <li> */}
                 {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
                 {/* </li> */}
+                <div>
+                <button onClick={() => setIsChecked(!isChecked)} className="text-gray-900 n dark:text-white hover:underline" aria-current="page">Login</button>
+                </div>
                 <li>                <Link to="/signin" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
 
                 </li>
       
-                <li>
-                <img onClick={() => setVisible(!visisble)}  class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo" aria-current="page"/>
+                <div>
+                <img onClick={() => setVisible(!visisble)}  class="w-8 h-8 mt-[-0.23rem] n rounded-full" src={image} alt="user photo" aria-current="page"/>
                 
-                </li>
+                </div>
     
-            </ul>
+            </div>
         </div>
-            
-        </div>
+     
     </div>
 </nav>
 {visisble &&

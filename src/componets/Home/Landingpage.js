@@ -1,4 +1,5 @@
 import React from 'react'
+import './Landingpage.css'
 import img from './../../images/vote-svgrepo-com-8.svg'
 import image from './../../images/download (9).png'
 import { MdHowToVote } from 'react-icons/md';
@@ -26,13 +27,13 @@ export default function Landingpage() {
     <div>
       <div className="w-full home">
 
-    <div className="p-[8rem] pt-[6rem] shadow-md   h-[50vh] flex"> 
+    <div className="p-[8rem] pt-[6rem] shadow-md height-half   h-[50vh] flex"> 
 
-        <div className="flex-1 w-50 ">
-          <div className="absolute ml-[3rem] mt-[2.9rem] ">
+        <div className="flex-1 w-50 width-half ">
+          <div className="absolute ml-[3rem] top-mt mt-[2.9rem] ">
           {/* <img class="image w-70 absolute rounded-[100%]" src={img} alt="user photo"/> */}
           {/* <img class="w-[50vh] h-[50vh] text-emerald-400  rounded-[150%]" src={img} alt="user photo"/> */}
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 170 210" width="200" height="247" enable-background="new 0 0 170 210" xmlSpace="preserve">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 170 210" width="200" height="247" enable-background="new 0 0 170 210" xmlSpace="preserve" class="homie">
 <polygon fill="#35854d" points="82.4,17.1 14,61.5 14,151.3 82.4,196.3 150.7,151.3 150.7,61.5 "></polygon>
 <polygon fill="#35854d" points="26.6,131.1 10.8,156 82.4,203.1 154,156 138.2,131.1 "></polygon>
 <polygon fill="#35854d" points="26.6,131.1 10.8,156 82.4,203.1 154,156 138.2,131.1 "></polygon>
@@ -355,18 +356,18 @@ export default function Landingpage() {
     </g>
   </g>
 </g>
-<rect x="33" y="72" fill="#04541b" width="105" height="7"></rect>
+<rect class x="33" y="72" fill="#04541b" width="105" height="7"></rect>
 </svg>
           
           </div>
         </div>
-        <div className="flex-1 w-50 ml-[-2rem] mr-[5rem]">
-        <div className='mt-[1rem] '>
-           <h1 className='text-[2.2rem] w-full font-extrabold font-mono text-emerald-400 mb-1'>Vote for your <span className='text-white'>next <span className='text-white'>student</span> president</span></h1>
+        <div className="flex-1 homequery w-50 ml-[-2rem] mr-[5rem]">
+        <div className='mt-[1rem] g'>
+           <h1 className='text-[2.2rem] tex textt w-full font-extrabold font-mono text-emerald-400 mb-1'>Vote for your <span className='tex text-white'>next <span className='tex text-white'>student</span> president</span></h1>
            <p className='text-[#43ef7c] mb-3'> have you registered yet?</p>
         </div>
         <div>
-        <button class="flex gap-1 w-70 dark:bg-emerald-600  hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white font-bold py-2 px-4 border-b-4 border-emerald-700 hover:border-emerald-500 rounded">
+        <button class="flex gap-1 btn w-70 dark:bg-emerald-600  hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white font-bold py-2 px-4 border-b-4 border-emerald-700 hover:border-emerald-500 rounded">
             Vote now
             <MdHowToVote size={22} color="#FFF" className="my-icon" />
             </button>
