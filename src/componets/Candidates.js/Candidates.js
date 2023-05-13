@@ -34,7 +34,7 @@ export default function Candidates() {
 
   useEffect(() => {
    
-    // console.log("from candidate", candidateState[0].candidate.id)
+    console.log("from candidate", candidateState)
     
     // candidateState.map((data) => console.log(data.role))
     // console.log("from candidate", candidateState[0])
@@ -72,7 +72,7 @@ export default function Candidates() {
   }
   return (
   
-  
+  // <h1>hell</h1>
     <div>
     <div className="container flex px-6 py-10 mx-auto">
   

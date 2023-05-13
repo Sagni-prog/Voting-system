@@ -48,6 +48,7 @@ export const fetchCandidates = createAsyncThunk(
             'X-Face-Id': localStorage.getItem('face-id'),
             'X-Requested-With': 'XMLHttpRequest',
             'content-type':'application/json'
+            
           },
         }
       );

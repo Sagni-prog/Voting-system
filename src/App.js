@@ -17,6 +17,11 @@ import AddCandidates from './componets/admin/AddCandidate'
 import Voters from './componets/admin/Voters';
 import CandidateDescription from './componets/admin/CandidateDescription'
 import AddChairman from './componets/admin/AddChairman';
+import Approvecandidate from './componets/ChairmanDashboard/Approvecandidate';
+import ApproveVoters from './componets/ChairmanDashboard/ApproveVoters';
+import ChairmanDashboardHome from './componets/ChairmanDashboard/ChairmanDashboardHome';
+import Watchvotersforchairman from './componets/ChairmanDashboard/WatchVoters';
+import Updateprofileforchairman from './componets/ChairmanDashboard/Updateprofile';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
 import TheApp from './componets/TheApp';
@@ -48,7 +53,8 @@ function App() {
  
  const response = await http.get('/candidates');
  
-        const candidates = JSON.parse(response.data.substring(1));
+        // const candidates = JSON.parse(response.data.substring(1));
+        const candidates = response.data;
         candidateDispatch({type: 'GET', candidates});
  }
  
@@ -93,6 +99,10 @@ function App() {
               <Route path="/candidatedescription" element={<CandidateDescription />} />
               <Route path="/allcandidates" element={<Allcandidate />} />
               <Route path="/updatecandidate" element={<Updateprofile />} />
+              <Route path="/Approvecandidate" element={<Approvecandidate />} />
+              <Route path="/Watchvotersforchairman" element={<Watchvotersforchairman />} />
+              <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />
+              <Route path="/ChairmanDashboardHome" element={<ChairmanDashboardHome />} />
               <Route path = "/regsiter" element = {<Register  />} />
               <Route path = 'face' element = { <RecognizeFace />} />
               <Route path = '/login' element = {<Login />} />
