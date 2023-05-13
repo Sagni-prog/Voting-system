@@ -26,11 +26,17 @@ Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update
 Route::post('/update-profile/{id}',[UpdateProfileController::class,'update']);
 
 
+
+// Route::post('/vote/{voteId}/candidate/{candidateId}',[CastVote::class,'store']);
+
+
+
 Route::post('/signup',[AuthController::class,'register']);
 // Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
 // Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
 // Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
 Route::post('/login',[AuthController::class,'login']);
+Route::post('/login-withoutface',[AuthController::class,'loginWithoutFace']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -103,7 +109,6 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
       Route::post('/vote/{voteId}/candidate/{candidateId}',[CastVote::class,'store']);
    });
  });
-
 
   Route::prefix('/votes/{id}')->group(function(){
      Route::get('/',[VoteController::class,'index']);

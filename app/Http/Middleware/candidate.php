@@ -8,21 +8,15 @@ use Auth;
 
 class candidate
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
+    
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role->roleable->role != 'candidate'){
-            return response()->json([
-                 'status' => 'fail',
-                 'message' => 'unAuthorized access'
-           ],401);
-        }
+        // if(Auth::user()->role->roleable->role != 'candidate'){
+        //     return response()->json([
+        //          'status' => 'fail',
+        //          'message' => 'unAuthorized access'
+        //    ],401);
+        // }
         return $next($request);
     }
 }

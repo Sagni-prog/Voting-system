@@ -78,7 +78,7 @@ class UserRepository implements UserRepositoryInterface{
                 'last_name'=> $data['last_name'],
                 'email'=> $data['email'],
                 'password'=>  $this->hashService->makeHash($data['password']),
-                'faceId' => $data['faceId']
+                'faceId' => $data['faceId'] ?  $data['faceId'] : null
        ]);
     }
     

@@ -29,7 +29,7 @@ public function __construct(
             
             $this->userRepository = $userRepository;
             $this->candidateRepository = $candidateRepository;
-            $this->dataHelper = $dateHelper;
+            $this->dateHelper = $dateHelper;
 }
     
 public function index(){
@@ -72,6 +72,7 @@ public function show($id){
               'message' => 'Oops! something went wrong'
           ],400);
       } 
+      
       
           return response()->json([
               'status' => 'success',

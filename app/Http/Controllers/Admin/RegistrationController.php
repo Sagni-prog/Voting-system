@@ -46,7 +46,7 @@ class RegistrationController extends Controller{
     public function registerVoter(VoterRegistrationRequest $request){
         try{
             $data = $request->validated();
-            $data['faceId'] =  $this->faceIdHelper->getFaceId();
+            // $data['faceId'] =  $this->faceIdHelper->getFaceId();
             $factory = $this->userFactory->make('voter');
             $user = $factory->create($data);
             $token = $this->tokenService->createToken($user);
@@ -76,7 +76,8 @@ class RegistrationController extends Controller{
         try{
             
                 $data = $request->validated();
-                $data['faceId'] =  $this->faceIdHelper->getFaceId();
+                // $data['faceId'] =  $this->faceIdHelper->getFaceId();
+                $data['faceId'] =  $request->face_id;
                 $factory = $this->userFactory->make('candidate');
                 $user = $factory->create($data);
                 $token = $this->tokenService->createToken($user);
@@ -107,11 +108,13 @@ class RegistrationController extends Controller{
     
     public function registerChairman(ChairmanRegistrationRequest $request){
         try{
+        
             $data = $request->validated();
-            $data['faceId'] = $this->faceIdHelper->getFaceId();
-            $factory = $this->userFactory->make('candidate');
+            $data['faceId'] =  $this->faceIdHelper->getFaceId();
+            $factory = $this->userFactory->make('chairman');
             $user = $factory->create($data);
             $token = $this->tokenService->createToken($user);
+                    
     
             return response()->json([
                 'status'=> 'sucess',
