@@ -17,6 +17,9 @@ export default function AddCandidate() {
   
   useEffect(() => {
   
+  try {
+    
+  
     const user = JSON.parse(localStorage.getItem('user'));
     console.log('dah', user.user.role.roleable.role)
      if(user && user.user.role.roleable.role !== 'admin'){
@@ -29,6 +32,9 @@ export default function AddCandidate() {
     
            navigate('/login')
     }
+      } catch (error) {
+    
+  }
     
     // console.log(user.role.roleable.role)
   },[]);

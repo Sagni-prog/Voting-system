@@ -39,13 +39,14 @@ import CandidateReducer from './reducers/CandidateReducer';
 import ChairmanContext from './contexts/ChairmanContext';
 import ChairmanReducer from './reducers/ChairmanReducer';
 import VoterContext from './contexts/VoterContext';
-import VoterReducer from './reducers/VoteReducer';
+import VoterReducer from './reducers/VoterReducer';
 import UserContext from './contexts/UserContext';
 import UserReducer from './reducers/UserReducer';
 
 import http from './http/http';
 import axios from 'axios';
 import RegsiterChairman from './componets/Auth/RegsiterChairman';
+import AddVoter from './componets/admin/AddVoter';
 
 function App() {
   
@@ -63,40 +64,48 @@ function App() {
   
  const [candidateState,candidateDispatch] = useReducer(CandidateReducer,[]);
  const [chairmanState,chairmanDispatch] = useReducer(ChairmanReducer,[]);
- const [voterState,votereDispatch] = useReducer(VoterReducer,[]);
+ const [voterState,voterDispatch] = useReducer(VoterReducer,[]);
  const [userState,userDispatch] = useReducer(UserReducer,[]);
 
  
  
  const getCandidates = async() => {
- 
- const response = await http.get('/candidates');
- 
+  
+    try {
+      
+        const response = await http.get('/candidates');
         const candidates = response.data;
         console.log('from app candidate',candidates)
         console.log('from app can')
         candidateDispatch({type: 'GET', candidates});
+        
+           } catch (error) {
+      }
  }
+ 
  const getChairmans = async() => {
  
- const response = await http.get('/admin/chairmans');
- 
+   try {
+    
+        const response = await http.get('/admin/chairmans');
         const chairmans = response.data;
-        //  console.log(response.data[0].chairmans.role.roleable)
         console.log('from app chairman',chairmans)
         console.log('from app')
         chairmanDispatch({type: 'GET', chairmans});
+         } catch (error) {
+      }
  }
-//  const getCandidates = async() => {
- 
-//  const response = await http.get('/candidates');
- 
-//         const candidates = response.data;
-//          console.log(response.data)
-//          console.log(response.data[0].candidate.role.roleable)
-//         console.log(candidates)
-//         candidateDispatch({type: 'GET', candidates});
-//  }
+ const getVoters = async() => {
+    try {
+        const response = await http.get('/voters');
+        const voters = response.data;
+        //  console.log("from voters",response.data.voters[0].role.user)
+        // console.log(voters)
+        voterDispatch({type: 'GET', voters});
+           } catch (error) {
+      
+      }
+ }
 //  const getCandidates = async() => {
  
 //  const response = await http.get('/candidates');
@@ -113,6 +122,7 @@ function App() {
  useEffect(() => {
     getCandidates();
     getChairmans();
+    getVoters();
   
   },[])
 
@@ -122,10 +132,20 @@ function App() {
    
      
    <CandidateContext.Provider
-      value={{
-         candidateState,candidateDispatch
-      }}
-   >
+      value={
+                {
+                   candidateState,candidateDispatch
+                  }
+          }
+   >   
+       <VoterContext.Provider 
+           value={
+                      {
+                         voterState,voterDispatch
+                      }
+                 }
+        >
+        
           <Router>
           <div>
            
@@ -145,6 +165,7 @@ function App() {
               <Route path='/addcandidate' element={<AddCandidates />} />
               <Route path='/voters' element={<Voters />} />
               <Route path='/addchairman' element={<AddChairman />} />
+              <Route path='/add-voter' element={<AddVoter />} />
               <Route path='/reportnews' element={<AddNews />} />
               <Route path='/notifications' element={<Feedbacks />} />
               <Route path="/candidatedescription" element={<CandidateDescription />} />
@@ -173,6 +194,7 @@ function App() {
           </div>
           </div>
         </Router>
+        </VoterContext.Provider>
       </CandidateContext.Provider>
  
 

@@ -30,9 +30,15 @@ export default function Candidates() {
     
     
     const sendVote = async(id) => {
+      try {
+    
         
         const res = await http.post(`/vote/${1}/candidate/${id}`);
         console.log(res);
+            
+          } catch (error) {
+        
+      }
     }
   function handleVote(id) {
        

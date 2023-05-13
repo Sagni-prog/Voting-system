@@ -1,15 +1,42 @@
-import React, { useContext } from 'react'
+import React, { useContext,useEffect } from 'react'
 import Sidebar from './Sidebar'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 
+
 import CandidateContext from '../../contexts/CandidateContext';
 
 
 export default function Allcandidate() {
+
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+  
+  try {
+    
+  
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('dah', user.user.role.roleable.role)
+     if(user && user.user.role.roleable.role !== 'admin'){
+         
+          navigate('/login')
+
+     }
+
+       if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+    
+           navigate('/login')
+    }
+      } catch (error) {
+    
+  }
+    
+    // console.log(user.role.roleable.role)
+  },[]);
 
   const {candidateState,candidateDispatch} = useContext(CandidateContext);
   return (
