@@ -14,17 +14,23 @@ export default function Sidebar() {
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />All Voters</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/Approvecandidate" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <Link to="/Watchvotersforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Appove voter</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/Watchvotersforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+    
+                 <Link to="/Approvecandidate" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Appove Candidates</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/Updateprofileforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
                  update profile</Link>
+    </li>
+    <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/Feedbackforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 Give Your Feedback</Link>
     </li>
    
   
