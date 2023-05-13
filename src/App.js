@@ -31,18 +31,27 @@ import Allcandidate from './componets/admin/Allcandidate';
 import Updateprofile from './componets/admin/Updateprofile';
 import RecognizeFace from './componets/Auth/RecognizeFace';
 import Login from './componets/Auth/Login';
-
+import LoginVoter from './componets/Auth/LoginVoter';
+// import LoginVoter from './components/Auth/LoginVoter'
 import CandidateContext from './contexts/CandidateContext';
 import CandidateReducer from './reducers/CandidateReducer';
 import http from './http/http';
 import axios from 'axios';
-
-// import { Hey } from './componets/Hey';
-import { Hey } from './componets/hey';
-
-
+import RegsiterChairman from './componets/Auth/RegsiterChairman';
 
 function App() {
+  
+   
+  window.onbeforeunload = function(e) {
+    localStorage.removeItem('face-id');
+    if (performance.getEntriesByType("navigation")[0].type === "navigate") {
+      // localStorage.clear();
+
+    }
+  };
+  
+
+  
   
  const [candidateState,candidateDispatch] = useReducer(CandidateReducer,[]);
  const [candidates,setCandidates] = useState([])
@@ -55,6 +64,9 @@ function App() {
  
         // const candidates = JSON.parse(response.data.substring(1));
         const candidates = response.data;
+         console.log(response.data)
+         console.log(response.data[0].candidate.role.roleable)
+        console.log(candidates)
         candidateDispatch({type: 'GET', candidates});
  }
  
@@ -63,9 +75,8 @@ function App() {
  useEffect(() => {
     getCandidates();
   
-  },[])
   
-  // candidateState.map((data) => console.log(data.first_name))
+  },[])
 
 
   return (
@@ -91,6 +102,8 @@ function App() {
               <Route path='/' element={<TheApp/>}/>
               <Route path='/#' element={<TheApp/>}/>
               <Route path='/home' element={<TheApp />}/>
+              <Route path='/admin/dashboard' element={<AddCandidates />} />
+              {/* <Route path='/chairman/dashboard' element={<Chairman />} /> */}
               <Route path='/addcandidate' element={<AddCandidates />} />
               <Route path='/voters' element={<Voters />} />
               <Route path='/addchairman' element={<AddChairman />} />
@@ -102,10 +115,15 @@ function App() {
               <Route path="/Approvecandidate" element={<Approvecandidate />} />
               <Route path="/Watchvotersforchairman" element={<Watchvotersforchairman />} />
               <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />
-              <Route path="/ChairmanDashboardHome" element={<ChairmanDashboardHome />} />
+              <Route path="/chairman/dashboard" element={<ChairmanDashboardHome />} />
               <Route path = "/regsiter" element = {<Register  />} />
               <Route path = 'face' element = { <RecognizeFace />} />
+              <Route path = "/register" element = {<Register />} />
+              <Route path = "/chairman/register" element = {<RegsiterChairman />} />
+              <Route path = 'face-auth' element = { <RecognizeFace />} />
               <Route path = '/login' element = {<Login />} />
+              <Route path = '/signin' element = {<LoginVoter />} />
+              {/* <Route path = '/signin' element = {<LoginVoter />} /> */}
             </Routes>
             <div>
           

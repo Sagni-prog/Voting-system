@@ -6,7 +6,7 @@ import { Link,useNavigate } from 'react-router-dom';
 
 
 
-export default function Login() {
+export default function LoginVoter() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,13 +28,12 @@ export default function Login() {
   const http = axios.create({
       'baseURL': 'http://localhost:8000/api',
       headers: {
-        'X-Face-Id' : localStorage.getItem('face-id'),
         'X-Requested-With': 'XMLHttpRequest'
       }
    }); 
-   console.log(localStorage.getItem('face-id'))
-   const res = await http.post('/login',data);
+   const res = await http.post('/login-withoutface',data);
    const user = res.data
+   console.log(user)
   
 if(user.status === 'success'){
    localStorage.setItem('token',user.token);
@@ -46,13 +45,13 @@ if(user.status === 'success'){
          navigate('/admin/dashboard');
          break;
       case 'candidate':
-        navigate('/candidate/dashboard');
+        navigate('candidate/dashboard');
         break;
       case 'chairman':
-         navigate('/chairman/dashboard');
+         navigate('chairman/dashboard');
          break;
       case 'voter':
-         navigate('/voter/dashboard');
+         navigate('voter/dashboard');
          break;
       default:
          navigate('/');

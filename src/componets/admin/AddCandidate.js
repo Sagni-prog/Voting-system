@@ -1,69 +1,80 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable no-undef */
-import React from 'react'
-import { useState,useCallback } from 'react';
+
+import React, { useEffect } from 'react'
+import { useState} from 'react';
 import Sidebar from './Sidebar'
-import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
-import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import { useDispatch } from 'react-redux';
-import { registerCandidate } from './../../app/features/candidate/Candidate'
-import {useNavigate} from 'react-router-dom'
-// import{ CandidateSlice }from './../../app/features/candidate/Candidate'
+import http from '../../http/http';
+import { useNavigate } from 'react-router-dom'
+
+
 
 export default function AddCandidate() {
-  const [startDate, setStartDate] = useState(new Date());
+
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+     const user = JSON.parse(localStorage.getItem('user'));
+     if(user && user.role.roleable.role !== 'admin'){
+         
+          navigate('/login')
+
+     }
+
+       if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+    
+           navigate('/login')
+    }
+    
+    // console.log(user.role.roleable.role)
+  },[]);
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [examScore, setExamScore] = useState('');
   const [gpa, setGpa] = useState('');
-  const [admissionYear, setAdmissionYear] = useState(new Date());
-  const [graduationYear, setGraduationYear] = useState(new Date());
-  const [educationalYear, setEducationalYear] = useState(new Date());
+  const [admissionYear, setAdmissionYear] = useState('');
+  const [graduationYear, setGraduationYear] = useState('')
+  const [educationalYear, setEducationalYear] = useState('');
+  const [department, setDepartment] = useState('');
   const [sex, setSex] = useState('');
   const [cv, setCv] = useState('');
-  const dispatch = useDispatch();
-  const navigate=useNavigate();
-  const formDataToJson = (formData) => {
-    const jsonObject = {};
-    formData.forEach((value, key) => {
-      jsonObject[key] = value;
-    });
-    return JSON.stringify(jsonObject);
-  };
+
+
+  
+  const addCandidate = async(data) => {
+  
+     const res = await http.post('/candidate/register',data);
+     console.log(res)
+  }
 
   const handleSubmit = (event) => {
   
     event.preventDefault();
-    // Handle form submission here
-    event.preventDefault();
+   
     const formData = new FormData();
-    formData.append("firstName",firstName);
-    formData.append("lastName",firstName);
+    formData.append("first_name",firstName);
+    formData.append("last_name",firstName);
     formData.append("email", email);
     formData.append("password",password);
-    formData.append("examScore,",examScore,);
+    formData.append("exam_score,",examScore,);
     formData.append("gpa", gpa);
-    formData.append(" admissionYear", admissionYear);
-    formData.append("graduationYear", graduationYear);
+    formData.append(" admission_year", admissionYear);
+    formData.append("graduation_year", graduationYear);
+    formData.append("educational_year", '4');
     formData.append("sex",sex);
-    formData.append("cv", cv);
-    dispatch(registerCandidate(formData))
-    .unwrap()
-    .then((result) => {
-      navigate('/');
-    })
-    .catch((error) => {
-     console.log("err")
-    });
+    formData.append("department",department);
+    // formData.append("cv", cv[0]);
+    
+    addCandidate(formData)
+  
 
   };
+  
   return (
     <div>
 <div>
@@ -227,6 +238,19 @@ export default function AddCandidate() {
         onChange={(e) => setGpa(e.target.value)}
       />
     </div>
+    <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="last-name">
+        Department
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="gpa"
+        type="text"
+        placeholder="Enter your last name"
+        value={department}
+        onChange={(e) => setDepartment(e.target.value)}
+      />
+    </div>
   </div>
     <div className='flex gap-4'>
     <div class="mb-4 w-full">
@@ -238,7 +262,7 @@ export default function AddCandidate() {
         id="graduation_Year"
         value={admissionYear}
         onChange={e=>setAdmissionYear(e.target.value)}
-        type="date"
+        type="text"
       />
     </div>
     <div class="mb-4 w-full">
@@ -251,7 +275,7 @@ export default function AddCandidate() {
        
         value={graduationYear}
         onChange={e=>setGraduationYear(e.target.value)}
-        type="date"
+        type="text"
       />
     </div>
     </div>
@@ -265,7 +289,7 @@ export default function AddCandidate() {
         id="educational_year"
         value={educationalYear}
         onChange={e=>setEducationalYear(e.target.value)}
-        type="date"
+        type="text"
        
       />
     </div>

@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import{ fetchCandidates }from './../../app/features/candidate/Candidate'
 import CandidateContext from '../../contexts/CandidateContext'
+import http from '../../http/http'
 
 
 export default function Candidates() {
@@ -33,17 +34,22 @@ export default function Candidates() {
   
 
   useEffect(() => {
-   
-    console.log("from candidate", candidateState)
-    
-    // candidateState.map((data) => console.log(data.role))
-    // console.log("from candidate", candidateState[0])
-      // candidateState.map((data) => console.log(data.candidate.first_name))
-      // candidateState.map((data) => console.log(data.role.department))
+         candidateState.map((data) => console.log(data.candidate.first_name))
+      candidateState.map((data) => console.log(data.role.department))
     })
-  function handleVote() {
-   
+    
+    
+    const sendVote = async(id) => {
+        
+        const res = await http.post(`/vote/${1}/candidate/${id}`);
+        console.log(res);
+    }
+  function handleVote(id) {
+       
+       sendVote(id);
   }
+  
+  
   const handleReadMore=(candidate)=>{
     setSelectedCandidate(candidate);
     setReadMore(!readMore)
@@ -51,9 +57,8 @@ export default function Candidates() {
 
  
   const handleCancel = () => {
-    // set selected candidate to null or previous selected candidate
+
     setSelectedCandidate(null);
-    // close the popup
     setIsChecked(false);
   };
 
@@ -64,9 +69,6 @@ export default function Candidates() {
   }
 
   
-
-
-
   function handleCandidateClick(candidate) {
     setSelectedCandidate(candidate);
   }
@@ -80,12 +82,10 @@ export default function Candidates() {
         <div className="w-full px-4 ">
           <div className="p-4 text-center bg-white rounded-lg">
             <h2 className="text-[2rem] text-red-500 font-medium mb-2 text-center">2016 EC election candidates</h2>
-            {/* Content for first box goes here */}
-        
-            <div className='bg-emerald-500 shadow-md h-10 w-full rounded-[5px] flex item-center p-2'>
+             <div className='bg-emerald-500 shadow-md h-10 w-full rounded-[5px] flex item-center p-2'>
             <marquee width="100%" direction="right" height="100px">
-            <p className='flex text-start item-center'>vote your president election start <p className='ml-1 mr-1 text-white'>10-02-2016.</p>vote end  <p className='ml-1 mr-1 text-red-500'>`25-03-2016`</p> </p>
-</marquee>
+               <p className='flex text-start item-center'>vote your president election start <p className='ml-1 mr-1 text-white'>10-02-2016.</p>vote end  <p className='ml-1 mr-1 text-red-500'>`25-03-2016`</p> </p>
+             </marquee>
             </div>
           </div>
         </div>
@@ -243,7 +243,7 @@ export default function Candidates() {
       </div>
       <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
         <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.candidate.id} onClick={handleVote}>
+          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.candidate.id} onClick={() => handleVote(selectedCandidate.candidate.id)}>
             Vote
           </button>
         </span>

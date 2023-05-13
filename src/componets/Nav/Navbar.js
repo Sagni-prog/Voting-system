@@ -61,6 +61,9 @@ export default function Navbar() {
                 <div>
                 <button onClick={() => setIsChecked(!isChecked)} className="text-gray-900 n dark:text-white hover:underline" aria-current="page">Login</button>
                 </div>
+                <li>                <Link to="/signin" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
+
+                </li>
       
                 <div>
                 <img onClick={() => setVisible(!visisble)}  class="w-8 h-8 mt-[-0.23rem] n rounded-full" src={image} alt="user photo" aria-current="page"/>

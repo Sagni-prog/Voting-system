@@ -1,10 +1,14 @@
 import axios from "axios"
-     
+    
+     const token = localStorage.getItem('token');
+     const faceId = localStorage.getItem('face-id');
      const http = axios.create({
         'baseURL': 'http://localhost:8000/api',
+        
         headers: {
           'Content-Type': 'application/json',
-          'X-Face-Id' : 'kjaesioamkklcajsoejas000'
+          'Authorization': `Bearer ${token}`,
+          'X-Face-Id' : faceId ? faceId : 'hjhknj',
         }
      });
      
