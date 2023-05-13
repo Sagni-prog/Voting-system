@@ -16,8 +16,10 @@ export default function AddCandidate() {
   const navigate = useNavigate();
   
   useEffect(() => {
-     const user = JSON.parse(localStorage.getItem('user'));
-     if(user && user.role.roleable.role !== 'admin'){
+  
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('dah', user.user.role.roleable.role)
+     if(user && user.user.role.roleable.role !== 'admin'){
          
           navigate('/login')
 

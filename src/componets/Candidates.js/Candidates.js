@@ -1,9 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-useless-rename */
-/* eslint-disable jsx-a11y/no-distracting-elements */
-/* eslint-disable jsx-a11y/no-redundant-roles */
-/* eslint-disable no-unused-vars */
-
 
 import React, { useState,useEffect,useContext } from 'react'
 import img2 from './../../images/ivana-square.jpg'
@@ -14,11 +8,6 @@ import { FaVoteYea } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Element } from 'react-scroll';
 import { Link as Link} from 'react-router-dom'
-import App from './../../App'
-import Landingpage from './../Home/Landingpage'
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import{ fetchCandidates }from './../../app/features/candidate/Candidate'
 import CandidateContext from '../../contexts/CandidateContext'
 import http from '../../http/http'
 
@@ -34,8 +23,9 @@ export default function Candidates() {
   
 
   useEffect(() => {
+        console.log('from card', candidateState[0]);
          candidateState.map((data) => console.log(data.candidate.first_name))
-      candidateState.map((data) => console.log(data.role.department))
+        //  candidateState.map((data) => console.log(data.role.department))
     })
     
     
@@ -163,14 +153,17 @@ export default function Candidates() {
                     <ul
                       role="list"
                       class="divide-y  divide-gray-700 dark:divide-gray-500">
-                       {candidateState.map((candidate ) => (
+                      
+                     { 
+                      candidateState.length > 0 ?
+                       candidateState.map((candidate ) => (
                         <li key={candidate.candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" onClick={() => setSelectedCandidate(candidate)}>
           <div class="flex items-center space-x-4">
             <div class="flex-shrink-0">
               <img
                 class="w-12 h-12 rounded-full"
                 src=""
-                   alt={candidate.candidate.firstn_ame}
+                   alt={candidate.candidate.first_name}
               />
             </div>
             <div class="flex-1 min-w-0">
@@ -198,7 +191,10 @@ export default function Candidates() {
       
           </div>
         </li>
-                      ))}
+                        ))
+                        :
+                        <p>Candidates not found</p>
+                      }
 
           </ul>
                   </div>

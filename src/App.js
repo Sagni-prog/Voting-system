@@ -32,9 +32,16 @@ import Updateprofile from './componets/admin/Updateprofile';
 import RecognizeFace from './componets/Auth/RecognizeFace';
 import Login from './componets/Auth/Login';
 import LoginVoter from './componets/Auth/LoginVoter';
-// import LoginVoter from './components/Auth/LoginVoter'
+
 import CandidateContext from './contexts/CandidateContext';
 import CandidateReducer from './reducers/CandidateReducer';
+import ChairmanContext from './contexts/ChairmanContext';
+import ChairmanReducer from './reducers/ChairmanReducer';
+import VoterContext from './contexts/VoterContext';
+import VoterReducer from './reducers/VoteReducer';
+import UserContext from './contexts/UserContext';
+import UserReducer from './reducers/UserReducer';
+
 import http from './http/http';
 import axios from 'axios';
 import RegsiterChairman from './componets/Auth/RegsiterChairman';
@@ -54,27 +61,57 @@ function App() {
   
   
  const [candidateState,candidateDispatch] = useReducer(CandidateReducer,[]);
- const [candidates,setCandidates] = useState([])
+ const [chairmanState,chairmanDispatch] = useReducer(ChairmanReducer,[]);
+ const [voterState,votereDispatch] = useReducer(VoterReducer,[]);
+ const [userState,userDispatch] = useReducer(UserReducer,[]);
+
  
  
  const getCandidates = async() => {
  
- 
  const response = await http.get('/candidates');
  
-        // const candidates = JSON.parse(response.data.substring(1));
         const candidates = response.data;
-         console.log(response.data)
-         console.log(response.data[0].candidate.role.roleable)
-        console.log(candidates)
+        console.log('from app candidate',candidates)
+        console.log('from app can')
         candidateDispatch({type: 'GET', candidates});
  }
+ const getChairmans = async() => {
+ 
+ const response = await http.get('/admin/chairmans');
+ 
+        const chairmans = response.data;
+        //  console.log(response.data[0].chairmans.role.roleable)
+        console.log('from app chairman',chairmans)
+        console.log('from app')
+        chairmanDispatch({type: 'GET', chairmans});
+ }
+//  const getCandidates = async() => {
+ 
+//  const response = await http.get('/candidates');
+ 
+//         const candidates = response.data;
+//          console.log(response.data)
+//          console.log(response.data[0].candidate.role.roleable)
+//         console.log(candidates)
+//         candidateDispatch({type: 'GET', candidates});
+//  }
+//  const getCandidates = async() => {
+ 
+//  const response = await http.get('/candidates');
+ 
+//         const candidates = response.data;
+//          console.log(response.data)
+//          console.log(response.data[0].candidate.role.roleable)
+//         console.log(candidates)
+//         candidateDispatch({type: 'GET', candidates});
+//  }
  
 
  
  useEffect(() => {
     getCandidates();
-  
+    getChairmans();
   
   },[])
 

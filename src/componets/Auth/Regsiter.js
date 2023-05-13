@@ -44,16 +44,16 @@ export default function Regsiter() {
      });
      const res = await http.post('/signup',data);
      const user = res.data;
-     console.log(user.status)
+     console.log(user)
      
      if(user.status === 'sucess'){
      
-     console.log('hello true')
+     console.log(user.user.role.roleable.role)
       localStorage.setItem('token',user.token);
       localStorage.setItem('user',JSON.stringify(user));
       localStorage.removeItem('face-id');
       
-      switch(user.role.roleable.role){
+      switch(user.user.role.roleable.role){
          case 'admin':
             navigate('/admin/dashboard');
             break;
@@ -61,10 +61,10 @@ export default function Regsiter() {
            navigate('candidate/dashboard');
            break;
          case 'chairman':
-            navigate('chairman/dashboard');
+            navigate('/chairman/dashboard');
             break;
          case 'voter':
-            navigate('voter/dashboard');
+            navigate('/voter/dashboard');
             break;
          default:
             navigate('/');
