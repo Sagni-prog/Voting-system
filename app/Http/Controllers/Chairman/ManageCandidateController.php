@@ -44,6 +44,10 @@ public function index(){
           ],400);
       }
        
+    //    return response()->json([
+    //    'status' => 'success',
+    //      $candidates,
+    //    ], 200, $headers);
       
       $data = array();
       $i = 0;   

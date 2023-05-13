@@ -53,6 +53,8 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
    Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
    Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
    Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
+   
+   Route::get('voters',[AdminController::class,'getAllVoters']);
 
 
    Route::prefix('/admin')->group(function(){
@@ -69,7 +71,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
       Route::patch('/user/{id}/ban',[UserVerification::class,'banUser']);
       Route::patch('/user/{id}/unban',[UserVerification::class,'unBanUser']);
 
-      Route::get('voters',[AdminController::class,'getAllVoters']);
+      // Route::get('voters',[AdminController::class,'getAllVoters']);
       Route::get('voters/active',[AdminController::class,'getActiveVoters']);
       Route::delete('user/{id}',[AdminController::class,'destroy']);
 

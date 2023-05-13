@@ -86,6 +86,7 @@ class AdminController extends Controller
               'message' => 'No voter found'
            ],200);
         }
+         
         return response()->json([
             'status' => 'success',
             'size' => $voters->count(),
@@ -157,9 +158,9 @@ class AdminController extends Controller
         }
         
         return response()->json([
+             $chairmans,
             'status' => 'success',
             'size' => $chairmans->count(),
-            'candidates' => $chairmans
           ],200);
           } catch (\Exception $exception) {
             return $exception->getMessage();
