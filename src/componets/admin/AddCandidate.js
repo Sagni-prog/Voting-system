@@ -66,7 +66,7 @@ export default function AddCandidate() {
    
     const formData = new FormData();
     formData.append("first_name",firstName);
-    formData.append("last_name",firstName);
+    formData.append("last_name",lastName);
     formData.append("email", email);
     formData.append("password",password);
     formData.append("exam_score,",examScore,);

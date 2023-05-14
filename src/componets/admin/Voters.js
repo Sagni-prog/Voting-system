@@ -8,6 +8,7 @@ import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import VoterContext from '../../contexts/VoterContext';
+import http from '../../http/http';
 
 export default function Voters() {
 
@@ -37,8 +38,14 @@ export default function Voters() {
     
   },[]);
   
-  console.log("from voter",voterState)
-
+  const handleDelete = async(id) => {
+    try {
+      const res = await http.delete(`user/${id}`);
+      console.log(res);
+       } catch (error) { 
+    }
+  }
+  
 
   return (
     <div>
@@ -50,7 +57,7 @@ export default function Voters() {
 
     
     <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
+           
         </a>
         
     </div>
@@ -60,7 +67,7 @@ export default function Voters() {
     <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
     <a href="#" className="flex items-center">
     <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
+           
         </a>
         <div className="flex items-center">
         <div className="flex items-center">
@@ -124,7 +131,7 @@ export default function Voters() {
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
         <h2 class="text-lg font-bold mb-2">voters</h2>
-        <p class="text-5xl font-bold text-green-500">{voterState.voters.length}</p>
+        <p class="text-5xl font-bold text-green-500">{voterState.length}</p>
         
       </div>
       <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
@@ -160,18 +167,41 @@ export default function Voters() {
             </thead>
             <tbody>
           {
+            voterState.length > 0 ?
             voterState.voters.map((voter,index)=>(
               <tr  key={index} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
+               <td class="border px-1 py-2">
+               
+               
+               {
+              voter.role.user.photos.length > 0 ?
+              
+              <img
+              class="w-8 h-8 mt-[-0.23rem] rounded-full"
+              src={voter.role.user.photos[0].photo_url}
+                   alt={voter.role.user.first_name}
+              />
+             
+              :
+              <img
+              class="w-8 h-8 mt-[-0.23rem] rounded-full"
+              src = "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
+                   alt={voter.role.user.first_name}
+              />
+             
+            }
+               </td>
                 <td class="border px-4 py-2">{voter.role.user.first_name} </td>
                 <td class="border px-4 py-2">{voter.role.user.last_name}</td>
                 <td class="border px-4 py-2">{voter.role.user.email}</td>
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
+                <button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(voter.role.user.id)}>Delete</button></td>
               </tr>
-            ))
+            )):
+            
+            <p>No Voter Found</p>
           }
              
             

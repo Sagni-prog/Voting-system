@@ -99,8 +99,6 @@ function App() {
     try {
         const response = await http.get('/voters');
         const voters = response.data;
-        //  console.log("from voters",response.data.voters[0].role.user)
-        // console.log(voters)
         voterDispatch({type: 'GET', voters});
            } catch (error) {
       
@@ -135,7 +133,7 @@ function App() {
       value={
                 {
                    candidateState,candidateDispatch
-                  }
+                }
           }
    >   
        <VoterContext.Provider 
