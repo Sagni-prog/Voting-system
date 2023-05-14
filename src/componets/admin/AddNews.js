@@ -7,9 +7,35 @@ import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
+import Alert from './Alert';
 
 
 export default function AddNews() {
+    const [title, setTitle] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const handleSubmit = (event) => {
+        try{
+          event.preventDefault();
+         
+       
+          setSuccessMessage('Election News added successfully.');
+          setErrorMessage('');
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 4000);
+          } catch (error) {
+         
+          setSuccessMessage('');
+          setErrorMessage('Failed to add Election News.');
+          setTimeout(() => {
+            setErrorMessage('');
+          }, 4000);
+        }
+        
+      
+        };
+  
  
   return (
     <div>
@@ -77,7 +103,7 @@ export default function AddNews() {
                 <div className='flex w-[13rem]  bg-emerald-600 '>
                     <h5 className='text-[0.9rem]'>Home</h5>
                     <h6 className='mt-1'><AiOutlineRight /></h6>
-                    <h2 className='text-white font-semi-bold'>Dashboard</h2>
+                    <h2 className='text-white font-semi-bold'>Admin</h2>
                 </div>
                 <div>
                     <h1 className='font-bold text-[1.9rem] text-white'>Dashboard</h1>
@@ -89,9 +115,38 @@ export default function AddNews() {
 <Sidebar />
   <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
   <h2 class="text-2xl font-bold mb-10">News Report</h2>
+  <div className='mb-2'>
+      {/* Display success message if available */}
+      {successMessage && (
+        
+        <Alert type="success" message={successMessage} />
+      )}
 
-  <form>
-   <div class="w-full mb-4 border border-emerald-200 rounded-lg bg-emerald-50 dark:bg-emerald-700 dark:border-emerald-600">
+      {/* Display error message if available */}
+      {errorMessage && <Alert type="error" message={errorMessage} />}
+    </div>
+
+  <form onSubmit={handleSubmit}>
+  <div className='flex gap-4'>
+      <div class="mb-4 w-full">
+          <label class="block text-gray-700 font-bold mb-2" for="title">
+            Title
+          </label>
+          <input
+            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline block  dark:bg-emerald-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" required
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter A Title"
+          />
+        </div>
+      </div>
+      <div class="mb-4 w-full">
+          <label class="block text-gray-700 font-bold mb-2" for="title">
+            Description
+          </label>
+          <div class="w-full mb-4 border border-emerald-200 rounded-lg bg-emerald-50 dark:bg-emerald-700 dark:border-emerald-600">
        <div class="flex items-center justify-between px-3 py-2 border-b dark:border-emerald-600">
            {/* <div class="flex flex-wrap items-center divide-gray-200 sm:divide-x dark:divide-gray-600">
                <div class="flex items-center space-x-1 sm:pr-4">
@@ -149,6 +204,8 @@ export default function AddNews() {
            <textarea id="editor" rows="8" class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-emerald-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write an article..." required></textarea>
        </div>
    </div>
+          </div>
+  
    <button type="submit" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
        Publish post
    </button>

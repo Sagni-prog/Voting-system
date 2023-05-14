@@ -33,6 +33,7 @@ import Updateprofile from './componets/admin/Updateprofile';
 import RecognizeFace from './componets/Auth/RecognizeFace';
 import Login from './componets/Auth/Login';
 import LoginVoter from './componets/Auth/LoginVoter';
+import AddResult from './componets/admin/AddResult';
 
 import CandidateContext from './contexts/CandidateContext';
 import CandidateReducer from './reducers/CandidateReducer';
@@ -50,8 +51,9 @@ import AddVoter from './componets/admin/AddVoter';
 import Updatepassword from './componets/admin/Updatepassword';
 import Addcandidateforchairman from './componets/ChairmanDashboard/Addcandidate';
 import Updatepasswordforcharirman from './componets/ChairmanDashboard/Updatepasswordforcharirman';
-
-import AllCandidates from './componets/ChairmanDashboard/AllCandidates';
+import PublishReport from './componets/admin/PublishReport';
+import ElectionResult from './componets/admin/ElectionResult'
+import AddElectionSlug from './componets/admin/AddElectionSlug'
 
 function App() {
   
@@ -104,14 +106,11 @@ function App() {
     try {
         const response = await http.get('/voters');
         const voters = response.data;
-       
         voterDispatch({type: 'GET', voters});
            } catch (error) {
       
       }
  }
- 
- 
 //  const getCandidates = async() => {
  
 //  const response = await http.get('/candidates');
@@ -131,8 +130,7 @@ function App() {
     getVoters();
   
   },[])
-  
-  
+
 
   return (
   
@@ -152,15 +150,6 @@ function App() {
                       }
                  }
         >
-        <UserContext.Provider
-           value={
-                     {
-                         useState,userDispatch
-                     }
-                  }
-        >
-        
-        </UserContext.Provider>
         
           <Router>
           <div>
@@ -191,12 +180,12 @@ function App() {
               <Route path="/Watchvotersforchairman" element={<Watchvotersforchairman />} />
               <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />
               <Route path="/chairman/dashboard" element={<ChairmanDashboardHome />} />
-              <Route path="/chairman/add-candidate" element={<Addcandidateforchairman />} />
-              <Route path="/chairman/candidates" element={<AllCandidates />} />
               <Route path="/Feedbackforchairman" element={<Feedbackforchairman />} />
               <Route path="/Updatepasswordforadmin" element={<Updatepassword />} />
               <Route path="/Updatepasswordforcharirman" element={<Updatepasswordforcharirman /> } />
-
+              <Route path="/AddElectionSlug" element={<AddElectionSlug />} />
+              <Route path="/ElectionResult" element={<ElectionResult /> } />
+              <Route path="/AddResult" element={<AddResult /> } />
               <Route path = "/regsiter" element = {<Register  />} />
               <Route path = 'face' element = { <RecognizeFace />} />
               <Route path = "/register" element = {<Register />} />
