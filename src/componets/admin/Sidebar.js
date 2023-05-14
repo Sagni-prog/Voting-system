@@ -6,10 +6,10 @@ import {IoIosPeople}  from "react-icons/io"
 export default function Sidebar() {
   return (
     <div>
-  <div class="bg-emerald-800 text-white py-2 px-4 h-full w-[18rem]">
+  <div class="bg-emerald-800 text-white py-2 px-4 h-full overflow-y-auto  w-[18rem]">
    
-    <ul class="space-y-2 overflow-y-auto">
-    <li className='h-[2rem] mb-2 p-5'>
+    <ul class="space-y-2 ">
+    <li className='h-[2rem]  mb-2 p-5'>
                  <Link to="/admin/dashboard" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Dashboard</Link>
     </li>
@@ -36,11 +36,19 @@ export default function Sidebar() {
                  <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
                  Add News</Link>
     </li>
+
+    <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/AddElectionSlug" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 Add Election Slug</Link>
+    </li>
+    
   
       <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/addcandidate" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Add Candidate</Link>
     </li>
+  
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/face-auth" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Add Chairman</Link>
@@ -48,6 +56,10 @@ export default function Sidebar() {
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/candidatedescription" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <MdDescription class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" /> Candidate Description</Link>
+    </li>
+    <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/ElectionResult" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />ElectionResult</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/admin/update-profile" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">

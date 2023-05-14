@@ -148,7 +148,7 @@ export default function Updatepasswordforcharirman() {
     <Sidebar />
       <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
       <div class="w-90  bg-white p-6 rounded-lg shadow-md">
-      <h2 class="text-2xl font-bold mb-4">Update profile </h2>
+      <h2 class="text-2xl font-bold mb-4">Update password </h2>
       <div className='mb-2'>
       {/* Display success message if available */}
       {successMessage && (
