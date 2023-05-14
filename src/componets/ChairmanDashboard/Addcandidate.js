@@ -1,51 +1,99 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-import { useState,useCallback } from 'react';
-import Sidebar from './Sidebar'
-import Navbar from '../Nav/Navbar';
+import React, { useEffect } from 'react'
+import { useState} from 'react';
+import Sidebar from './Siderbar'
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
-import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import { useDispatch } from 'react-redux';
-import { setCandidate } from './../../app/features/candidate/Candidate'
 import http from '../../http/http';
-
-export default function Updateprofile() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [photo, setPhoto] = useState(null);
+import { useNavigate } from 'react-router-dom'
+import Alert from '../admin/Alert';
 
 
-  const handleFileSelect = (event) => {
-    setPhoto(event.target.files[0])
-  }
-  const handleSubmit = (event) => {
+export default function Addcandidate() {
+
+    const navigate = useNavigate();
   
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append("first_name",firstName);
-    formData.append("last_name",lastName);
-    formData.append("email", email);
-    formData.append("photo", photo);
-    console.log("from update",firstName)
-    sendUpdate(formData);
-
-  };
-  
-  const sendUpdate = async(data) => {
+    useEffect(() => {
+    
     try {
-      const res = await http.post('/update-profile',data);
-      console.log(res.data.status);
-    } catch (error) {
+      
+    
+      const user = JSON.parse(localStorage.getItem('user'));
+      console.log('dah', user.user.role.roleable.role)
+       if(user && user.user.role.roleable.role !== 'admin'){
+           
+            navigate('/login')
+  
+       }
+  
+         if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+      
+             navigate('/login')
+      }
+        } catch (error) {
       
     }
-  }
-  return (
-    <div>
+      
+      // console.log(user.role.roleable.role)
+    },[]);
+    
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [examScore, setExamScore] = useState('');
+    const [gpa, setGpa] = useState('');
+    const [admissionYear, setAdmissionYear] = useState('');
+    const [graduationYear, setGraduationYear] = useState('')
+    const [educationalYear, setEducationalYear] = useState('');
+    const [department, setDepartment] = useState('');
+    const [sex, setSex] = useState('');
+    const [cv, setCv] = useState('');
+    const [photo,setPhoto]=useState();
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+  
+  
+    
+    const addCandidate = async(data) => {
+    
+       const res = await http.post('/candidate/register',data);
+       console.log(res)
+    }
+  
+    const handleSubmit = (event) => {
+    try{
+      event.preventDefault();
+     
+      const formData = new FormData();
+      formData.append("first_name",firstName);
+      formData.append("last_name",lastName);
+      formData.append("email", email);
+      formData.append("password",password);
+      formData.append("exam_score,",examScore,);
+      formData.append("gpa", gpa);
+      formData.append(" admission_year", admissionYear);
+      formData.append("graduation_year", graduationYear);
+      formData.append("educational_year", '4');
+      formData.append("sex",sex);
+      formData.append("department",department);
+      // formData.append("cv", cv[0]);
+      
+      addCandidate(formData)
+      setSuccessMessage('Candidate added successfully.');
+      setErrorMessage('');
+      } catch (error) {
+     
+      setSuccessMessage('');
+      setErrorMessage('Failed to add candidate.');
+    }
+    
+  
+    };
+    
+    return (
+      <div>
   <div>
       <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
       <a href="#" className="flex items-center gap-1">
@@ -122,9 +170,18 @@ export default function Updateprofile() {
   <Sidebar />
     <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
     <div class="w-90  bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4">Update profile </h2>
-    
-    <form onSubmit={ handleSubmit }>
+    <h2 class="text-2xl font-bold mb-4">Candidate Registration</h2>
+    <div className='mb-2'>
+        {/* Display success message if available */}
+        {successMessage && (
+          
+          <Alert type="success" message={successMessage} />
+        )}
+  
+        {/* Display error message if available */}
+        {errorMessage && <Alert type="error" message={errorMessage} />}
+      </div>
+    <form onSubmit={handleSubmit}>
     <div className='flex gap-4'>
     <div class="mb-4 w-full">
         <label class="block text-gray-700 font-bold mb-2" for="first-name">
@@ -136,7 +193,7 @@ export default function Updateprofile() {
           type="text"
           placeholder="Enter your first name"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
       <div class="mb-4 w-full">
@@ -147,14 +204,12 @@ export default function Updateprofile() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="last-name"
           type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
           placeholder="Enter your last name"
-          
+          value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
         />
       </div>
     </div>
-    
     <div className='flex gap-4'>
       <div class="mb-4 w-full">
         <label class="block text-gray-700 font-bold mb-2" for="email">
@@ -164,27 +219,148 @@ export default function Updateprofile() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email address"
+          value={email}
+              onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      
       <div class="mb-4 w-full">
-        <label class="block text-gray-700 font-bold mb-2" for="email">
+        <label class="block text-gray-700 font-bold mb-2" for="password">
+          Password
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          value={password}
+              onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      </div>
+      <div className='flex gap-4'>
+    <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="first-name">
+          Exam score
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="exam_score"
+          type="text"
+          placeholder="Enter your first name"
+          value={examScore}
+          onChange={(e) => setExamScore(e.target.value)}
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="last-name">
+          GPA
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="gpa"
+          type="text"
+          placeholder="Enter your last name"
+          value={gpa}
+          onChange={(e) => setGpa(e.target.value)}
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="last-name">
+          Department
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="gpa"
+          type="text"
+          placeholder="Enter your last name"
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
+        />
+      </div>
+    </div>
+      <div className='flex gap-4'>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="cv">
+        Admission Year
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="graduation_Year"
+          value={admissionYear}
+          onChange={e=>setAdmissionYear(e.target.value)}
+          type="text"
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="Admission Year">
+        Graduation Year
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="admission_year"
+         
+          value={graduationYear}
+          onChange={e=>setGraduationYear(e.target.value)}
+          type="text"
+        />
+      </div>
+      </div>
+      <div className='flex gap-4'>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="cv">
+        Educational Year
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="educational_year"
+          value={educationalYear}
+          onChange={e=>setEducationalYear(e.target.value)}
+          type="text"
+         
+        />
+      </div>
+      <div class="mb-4 w-full">
+    <label class="block text-gray-700 font-bold mb-2" for="sex">
+      Sex
+    </label>
+    <div class="flex flex-row items-center gap-4">
+      <input type="radio" name="sex" id="boy" value="boy" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-blue-600 checked:border-transparent focus:outline-none"
+          onChange={(e) => setSex(e.target.value)}
+        checked={sex === 'boy'} 
+      />
+      <label for="boy" class="text-gray-700">Boy</label>
+      <input type="radio" name="sex" id="girl" value="girl" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-pink-600 checked:border-transparent focus:outline-none"  
+       onChange={(e) =>setSex (e.target.value)}
+       checked={sex === 'girl'}
+       />
+      <label for="girl" class="text-gray-700">Girl</label>
+    </div>
+  </div>
+      </div>
+      <div className='flex gap-4'>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="cv">
+          CV
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="cv"
+          type="file"
+          value={cv}
+          onChange={(e) => setCv(e.target.value)}
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="cv">
           Photo
         </label>
         <input
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="email"
+          id="photo"
           type="file"
-          name='photo'
-          onChange={handleFileSelect}
-          placeholder="Enter your email address"
         />
       </div>
-      
-      
       </div>
       
      
@@ -193,7 +369,7 @@ export default function Updateprofile() {
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-        Edit
+          Register
         </button>
       </div>
     </form>
@@ -204,7 +380,7 @@ export default function Updateprofile() {
   
           <div>
    
-   <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
+   {/* <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
            <div class="sm:flex sm:items-center sm:justify-between">
                <a href="#" class="flex items-center mb-4 sm:mb-0">
@@ -239,11 +415,11 @@ export default function Updateprofile() {
            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-50 lg:my-8" />
            <span class="block text-sm text-gray-50 sm:text-center dark:text-gray-50">© 2023 <a href="#" class="hover:underline">Your Team goes here™</a>. All Rights Reserved.</span>
        </div>
-   </footer>
+   </footer> */}
    
    
          
        </div>
       </div>
-  )
+    )
 }

@@ -11,6 +11,11 @@ export default function Sidebar() {
    
     <ul class="space-y-2">
     <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/Addcandidateforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 Add candidate</Link>
+    </li>
+    <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/Watchvotersforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />All Voters</Link>
     </li>
@@ -28,6 +33,7 @@ export default function Sidebar() {
                  <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
                  update profile</Link>
     </li>
+  
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/Feedbackforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <VscFeedback class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />

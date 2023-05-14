@@ -7,8 +7,8 @@ import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import http from '../../http/http';
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios';
-
+import axios from 'axios'
+import Alert from './Alert';
 
 
 export default function AddChairman() {
@@ -19,6 +19,10 @@ export default function AddChairman() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [sex, setSex] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+  
+  
 
   const sendRegister = async(data) => {
   
@@ -67,6 +71,7 @@ export default function AddChairman() {
     
   
     const handleSubmit = (event) => {
+      try{
     
       event.preventDefault();
      
@@ -79,6 +84,14 @@ export default function AddChairman() {
       formData.append("face_id",localStorage.getItem('face-id'));
       
       sendRegister(formData)
+       
+      setSuccessMessage('Candidate added successfully.');
+      setErrorMessage('');
+      } catch (error) {
+     
+      setSuccessMessage('');
+      setErrorMessage('Failed to add candidate.');
+    }
     
   
     };
@@ -158,7 +171,16 @@ export default function AddChairman() {
     <div class="w-90  bg-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold mb-4">Chairman Registration</h2>
     
-    
+    <div className='mb-2'>
+      {/* Display success message if available */}
+      {successMessage && (
+        
+        <Alert type="success" message={successMessage} />
+      )}
+
+      {/* Display error message if available */}
+      {errorMessage && <Alert type="error" message={errorMessage} />}
+    </div>
     <form onSubmit={handleSubmit}>
     <div className='flex gap-4'>
     <div class="mb-4 w-full">
