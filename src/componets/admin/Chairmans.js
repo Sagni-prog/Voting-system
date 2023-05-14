@@ -95,7 +95,7 @@ export default function Chairmans(){
    
       <div class="flex gap-4 mb-4">
       <div class="bg-white p-6 rounded-lg shadow-md">
-    <h1 class="text-3xl font-bold mb-8">Election Data</h1>
+    <h1 class="text-3xl font-bold mb-8">Chairsmans</h1>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
         <h2 class="text-lg font-bold mb-2">voters</h2>
