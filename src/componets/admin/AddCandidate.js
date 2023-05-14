@@ -8,6 +8,7 @@ import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import http from '../../http/http';
 import { useNavigate } from 'react-router-dom'
+import Alert from './Alert';
 
 
 
@@ -51,6 +52,9 @@ export default function AddCandidate() {
   const [department, setDepartment] = useState('');
   const [sex, setSex] = useState('');
   const [cv, setCv] = useState('');
+  const [photo,setPhoto]=useState();
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
 
   
@@ -61,7 +65,7 @@ export default function AddCandidate() {
   }
 
   const handleSubmit = (event) => {
-  
+  try{
     event.preventDefault();
    
     const formData = new FormData();
@@ -79,6 +83,13 @@ export default function AddCandidate() {
     // formData.append("cv", cv[0]);
     
     addCandidate(formData)
+    setSuccessMessage('Candidate added successfully.');
+    setErrorMessage('');
+    } catch (error) {
+   
+    setSuccessMessage('');
+    setErrorMessage('Failed to add candidate.');
+  }
   
 
   };
@@ -162,6 +173,16 @@ export default function AddCandidate() {
   <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
   <div class="w-90  bg-white p-6 rounded-lg shadow-md">
   <h2 class="text-2xl font-bold mb-4">Candidate Registration</h2>
+  <div className='mb-2'>
+      {/* Display success message if available */}
+      {successMessage && (
+        
+        <Alert type="success" message={successMessage} />
+      )}
+
+      {/* Display error message if available */}
+      {errorMessage && <Alert type="error" message={errorMessage} />}
+    </div>
   <form onSubmit={handleSubmit}>
   <div className='flex gap-4'>
   <div class="mb-4 w-full">

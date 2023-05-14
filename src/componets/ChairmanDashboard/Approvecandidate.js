@@ -7,6 +7,7 @@ import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import AllElectionData from '../admin/AllElectionData';
 
 export default function Approvecandidate() {
     const candidates = useSelector((state) => state.candidate.candidates);
@@ -88,34 +89,7 @@ export default function Approvecandidate() {
   
     <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
    
-      <div class="flex gap-4 mb-4">
-      <div class="bg-white p-6 rounded-lg shadow-md">
-    <h1 class="text-3xl font-bold mb-8">Approve Candidates</h1>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">voters</h2>
-        <p class="text-5xl font-bold text-green-500">15,000</p>
-        
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">Vote</h2>
-        <p class="text-5xl font-bold text-blue-500">10,000</p>
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">Candidates</h2>
-        <p class="text-5xl font-bold text-purple-500">15</p>
-     
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">chairmans</h2>
-        <p class="text-5xl font-bold text-red-500">20</p>
-      
-      </div>
-    </div>
-  </div>
-    
-       
-          </div>
+    <AllElectionData />
           <div class="bg-white rounded-lg shadow-md p-4 h-[17rem] overflow-y-auto">
           <table class="table-auto  w-full">
             <thead>

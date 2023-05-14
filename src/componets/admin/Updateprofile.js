@@ -192,16 +192,15 @@ export default function Updateprofile() {
         />
       </div>
       <div class="mb-4 w-full">
-        <label class="block text-gray-700 font-bold mb-2" for="last-name">
-          Sex
-        </label>
-        <input
-          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="sex"
-          type="text"
-          placeholder="Enter your  gender"
-        />
-      </div>
+      <label class="block text-gray-700 font-bold mb-2" for="cv">
+        Photo
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="photo"
+        type="file"
+      />
+    </div>
     </div>
      
       <div class="flex items-center justify-between">

@@ -1,5 +1,6 @@
 import React, { useContext,useEffect } from 'react'
 import Sidebar from './Sidebar'
+import AllElectionData from './AllElectionData'
 import { Link, useNavigate } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
@@ -105,7 +106,7 @@ export default function Allcandidate() {
                 <div className='flex w-[13rem]  bg-emerald-600 '>
                     <h5 className='text-[0.9rem]'>Home</h5>
                     <h6 className='mt-1'><AiOutlineRight /></h6>
-                    <h2 className='text-white font-semi-bold'>Dashboard</h2>
+                    <h2 className='text-white font-semi-bold'>Admin</h2>
                 </div>
                 <div>
                     <h1 className='font-bold text-[1.9rem] text-white'>Dashboard</h1>
@@ -117,34 +118,7 @@ export default function Allcandidate() {
   
     <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
    
-      <div class="flex gap-4 mb-4">
-      <div class="bg-white p-6 rounded-lg shadow-md">
-    <h1 class="text-3xl font-bold mb-8">Election Data</h1>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">voters</h2>
-        <p class="text-5xl font-bold text-green-500">15,000</p>
-        
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">Vote</h2>
-        <p class="text-5xl font-bold text-blue-500">10,000</p>
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">Candidates</h2>
-        <p class="text-5xl font-bold text-purple-500">{candidateState.length}</p>
-     
-      </div>
-      <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
-        <h2 class="text-lg font-bold mb-2">chairmans</h2>
-        <p class="text-5xl font-bold text-red-500">20</p>
-      
-      </div>
-    </div>
-  </div>
-    
-       
-          </div>
+     <AllElectionData />
           <div class="bg-white rounded-lg shadow-md p-4 h-[17rem] overflow-y-auto">
           <table class="table-auto  w-full">
             <thead>
