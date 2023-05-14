@@ -83,10 +83,16 @@ export default function Addcandidate() {
       addCandidate(formData)
       setSuccessMessage('Candidate added successfully.');
       setErrorMessage('');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 4000);
       } catch (error) {
      
       setSuccessMessage('');
       setErrorMessage('Failed to add candidate.');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 4000);
     }
     
   
@@ -380,7 +386,7 @@ export default function Addcandidate() {
   
           <div>
    
-   {/* <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
+   <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
            <div class="sm:flex sm:items-center sm:justify-between">
                <a href="#" class="flex items-center mb-4 sm:mb-0">
@@ -415,7 +421,7 @@ export default function Addcandidate() {
            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-50 lg:my-8" />
            <span class="block text-sm text-gray-50 sm:text-center dark:text-gray-50">© 2023 <a href="#" class="hover:underline">Your Team goes here™</a>. All Rights Reserved.</span>
        </div>
-   </footer> */}
+   </footer>
    
    
          

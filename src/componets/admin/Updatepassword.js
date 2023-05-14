@@ -15,6 +15,7 @@ export default function Updatepassword() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -32,15 +33,31 @@ export default function Updatepassword() {
       
         formData.append("email", email);
         formData.append("password",password);
-        sendUpdate(formData);
-  
+        if(password===password2) {
+            sendUpdate(formData);
+            setSuccessMessage('password update successfully.');
+            setErrorMessage('');
+            setTimeout(() => {
+              setSuccessMessage('');
+            }, 4000);
+        }else{
+          
+        setSuccessMessage('');
+        setErrorMessage('password is not match.');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 4000);
+      
+    }
     
-        setSuccessMessage('Candidate added successfully.');
-        setErrorMessage('');
-        } catch (error) {
+      
+        }catch(error) {
        
         setSuccessMessage('');
-        setErrorMessage('Failed to add candidate.');
+        setErrorMessage('Failed to update password.');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 4000);
       }
      
  
@@ -176,9 +193,30 @@ export default function Updatepassword() {
             onChange={(e) => setPassword(e.target.value)}
       />
     </div>
+
         
         
         </div>
+        <div className='flex gap-4'>
+    
+        
+    <div class="mb-4 w-full">
+    <label class="block text-gray-700 font-bold mb-2" for="password">
+      Confirm Password
+    </label>
+    <input
+      class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="password"
+      type="password"
+      placeholder="Enter your password"
+      value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
+    />
+  </div>
+  
+      
+      
+      </div>
         
        
         <div class="flex items-center justify-between">

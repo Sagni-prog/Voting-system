@@ -33,6 +33,12 @@ export default function Sidebar() {
                  <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
                  update profile</Link>
     </li>
+    <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/Updatepasswordforcharirman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 update password</Link>
+    </li>
+   
   
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/Feedbackforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">

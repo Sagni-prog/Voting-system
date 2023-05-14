@@ -49,6 +49,7 @@ import RegsiterChairman from './componets/Auth/RegsiterChairman';
 import AddVoter from './componets/admin/AddVoter';
 import Updatepassword from './componets/admin/Updatepassword';
 import Addcandidateforchairman from './componets/ChairmanDashboard/Addcandidate';
+import Updatepasswordforcharirman from './componets/ChairmanDashboard/Updatepasswordforcharirman';
 
 function App() {
   
@@ -177,8 +178,8 @@ function App() {
               <Route path="/chairman/dashboard" element={<ChairmanDashboardHome />} />
               <Route path="/Feedbackforchairman" element={<Feedbackforchairman />} />
               <Route path="/Updatepasswordforadmin" element={<Updatepassword />} />
-              <Route path="/Addcandidateforchairman" element={<Addcandidateforchairman /> } />
-              
+              <Route path="/Updatepasswordforcharirman" element={<Updatepasswordforcharirman /> } />
+
               <Route path = "/regsiter" element = {<Register  />} />
               <Route path = 'face' element = { <RecognizeFace />} />
               <Route path = "/register" element = {<Register />} />

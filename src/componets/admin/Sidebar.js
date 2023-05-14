@@ -8,7 +8,7 @@ export default function Sidebar() {
     <div>
   <div class="bg-emerald-800 text-white py-2 px-4 h-full w-[18rem]">
    
-    <ul class="space-y-2">
+    <ul class="space-y-2 overflow-y-auto">
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/admin/dashboard" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Dashboard</Link>
