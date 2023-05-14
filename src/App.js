@@ -177,6 +177,7 @@ function App() {
               <Route path='/#' element={<TheApp/>}/>
               <Route path='/home' element={<TheApp />}/>
               <Route path='/admin/dashboard' element={<AddCandidates />} />
+              <Route path="/admin/update-profile" element={<Updateprofile />} />
               {/* <Route path='/chairman/dashboard' element={<Chairman />} /> */}
               <Route path='/addcandidate' element={<AddCandidates />} />
               <Route path='/voters' element={<Voters />} />
@@ -186,7 +187,6 @@ function App() {
               <Route path='/notifications' element={<Feedbacks />} />
               <Route path="/candidatedescription" element={<CandidateDescription />} />
               <Route path="/allcandidates" element={<Allcandidate />} />
-              <Route path="/updatecandidate" element={<Updateprofile />} />
               <Route path="/Approvecandidate" element={<Approvecandidate />} />
               <Route path="/Watchvotersforchairman" element={<Watchvotersforchairman />} />
               <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />

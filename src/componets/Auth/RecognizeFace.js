@@ -29,7 +29,7 @@ function RecognizeFace() {
   const faceIoScriptLoaded = () => {
     console.log(faceIO)
     if (faceIO && !faceioInstance) {
-      faceioInstance = new faceIO('fioa8e00')
+      faceioInstance = new faceIO('fioa5258')
     }
   }
 

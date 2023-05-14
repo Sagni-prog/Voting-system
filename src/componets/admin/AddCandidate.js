@@ -16,22 +16,22 @@ export default function AddCandidate() {
 
   const navigate = useNavigate();
   
-  useEffect(() => {
+  // useEffect(() => {
   
   try {
     
     if(!localStorage.getItem('token')){
   
-      navigate('/login')
+      navigate('/face-auth')
      }
      
   if(!localStorage.getItem('user')){
     console.log("no user")
-    navigate('/login')
+    navigate('/face-auth')
   }
   if(JSON.parse(localStorage.getItem('user')).user.role.roleable.role !== 'admin'){
        
-          navigate('/login')
+    navigate('/face-auth')
 
      }
   
@@ -39,7 +39,7 @@ export default function AddCandidate() {
     
   }
   
-  },[]);
+  // },[]);
   
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -59,7 +59,7 @@ export default function AddCandidate() {
 
 
   
-  const addCandidate = async(data) => {
+  const sendCandidate = async(data) => {
   
      const res = await http.post('/candidate/register',data);
      console.log(res)
@@ -83,7 +83,7 @@ export default function AddCandidate() {
     formData.append("department",department);
     // formData.append("cv", cv[0]);
     
-    addCandidate(formData)
+    sendCandidate(formData)
     setSuccessMessage('Candidate added successfully.');
     setErrorMessage('');
     } catch (error) {

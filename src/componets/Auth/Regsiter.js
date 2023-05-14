@@ -42,6 +42,7 @@ export default function Regsiter() {
           'X-Face-Id' : localStorage.getItem('face-id')
         }
      });
+     
      const res = await http.post('/signup',data);
      const user = res.data;
      console.log(user)
