@@ -14,6 +14,10 @@ export default function Sidebar() {
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Voters</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/add-voter" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Add Voters</Link>
+    </li>
+    <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/allcandidates" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />candidates</Link>
     </li>

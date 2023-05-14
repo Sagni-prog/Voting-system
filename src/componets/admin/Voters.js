@@ -1,20 +1,45 @@
 
-import React from 'react'
+import {React, useContext, useEffect} from 'react'
 
 import Sidebar from './Sidebar'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { selectVoter } from '../../app/features/voter/VoterSlice';
+import VoterContext from '../../contexts/VoterContext';
 
 export default function Voters() {
- 
-  const voters = useSelector((state) => state.voter.voters);
-  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  
+  const {voterState, voterDispatch} = useContext(VoterContext)
+  
+  useEffect(() => {
+  try {
+    
+    // console.log("from voter",voterState)
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('dah', user.user.role.roleable.role)
+     if(user && user.user.role.roleable.role !== 'admin'){
+         
+          navigate('/login')
+
+     }
+
+       if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+    
+           navigate('/login')
+    }
+      } catch (error) {
+    
+  }
+    
+  },[]);
+  
+  console.log("from voter",voterState)
+
+
   return (
     <div>
     <div>
@@ -99,7 +124,7 @@ export default function Voters() {
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
         <h2 class="text-lg font-bold mb-2">voters</h2>
-        <p class="text-5xl font-bold text-green-500">15,000</p>
+        <p class="text-5xl font-bold text-green-500">{voterState.voters.length}</p>
         
       </div>
       <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
@@ -134,18 +159,20 @@ export default function Voters() {
               </tr>
             </thead>
             <tbody>
-            {voters.map((voter)=>(
-              <tr  key={voter.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
+          {
+            voterState.voters.map((voter,index)=>(
+              <tr  key={index} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
                <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">{voter.firstName} </td>
-                <td class="border px-4 py-2">{voter.lastName}</td>
-                <td class="border px-4 py-2">{voter.email}</td>
+                <td class="border px-4 py-2">{voter.role.user.first_name} </td>
+                <td class="border px-4 py-2">{voter.role.user.last_name}</td>
+                <td class="border px-4 py-2">{voter.role.user.email}</td>
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
                 <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
               </tr>
-            ))}
+            ))
+          }
              
             
             </tbody>

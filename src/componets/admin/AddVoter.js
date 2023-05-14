@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Sidebar from './Sidebar'
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
@@ -10,16 +10,45 @@ import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
 
+export default function AddVoter() {
 
-export default function AddChairman() {
+    
+    const navigate = useNavigate();
+    useEffect(() => {
+ 
+ try {
+      const user = JSON.parse(localStorage.getItem('user'))
+      
+      if(!user){
+        navigate('/login')
 
-   const navigate = useNavigate();
+      }
+      
+       if(user.user.role.roleable.role !== 'admin'){
+           
+            navigate('/login')
+       }
+  
+         if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+      
+             navigate('/login')
+      }
+           } catch (error) {
+
+    }
+    
+    },[]);
+
+    
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [sex, setSex] = useState('');
 
+
+    
+ 
   const sendRegister = async(data) => {
   
   try {
@@ -32,12 +61,15 @@ export default function AddChairman() {
           'Authorization': `Bearer ${token}`
         }
      });
-     const res = await http.post('/chairman/register',data);
+     const res = await http.post('/voter/register',data);
      const user = res.data;
      console.log(user.status)
      
      if(user.status === 'sucess'){
-  
+     
+     console.log('hello true')
+      // localStorage.setItem('token',user.token);
+      // localStorage.setItem('user',JSON.stringify(user));
       localStorage.removeItem('face-id');
       
       switch(user.role.roleable.role){
@@ -59,9 +91,9 @@ export default function AddChairman() {
            
       }
    }
-      } catch (error) {
+           } catch (error) {
     
-    }
+     }
   }
     
     

@@ -1,15 +1,44 @@
-import React from 'react'
+import React, { useContext,useEffect } from 'react'
 import Sidebar from './Sidebar'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+
+
+import CandidateContext from '../../contexts/CandidateContext';
+
 
 export default function Allcandidate() {
-    const candidates = useSelector((state) => state.candidate.candidates);
+
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+  
+  try {
+    
+  
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('dah', user.user.role.roleable.role)
+     if(user && user.user.role.roleable.role !== 'admin'){
+         
+          navigate('/login')
+
+     }
+
+       if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+    
+           navigate('/login')
+    }
+      } catch (error) {
+    
+  }
+    
+    // console.log(user.role.roleable.role)
+  },[]);
+
+  const {candidateState,candidateDispatch} = useContext(CandidateContext);
   return (
     <div>
     <div>
@@ -103,7 +132,7 @@ export default function Allcandidate() {
       </div>
       <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
         <h2 class="text-lg font-bold mb-2">Candidates</h2>
-        <p class="text-5xl font-bold text-purple-500">15</p>
+        <p class="text-5xl font-bold text-purple-500">{candidateState.length}</p>
      
       </div>
       <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
@@ -131,19 +160,25 @@ export default function Allcandidate() {
               </tr>
             </thead>
             <tbody>
-            {candidates.map((candidate)=>(
-              <tr  key={candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
+            { 
+                    candidateState.length > 0 ?
+                       candidateState.map((candidate ) => (
+                       
+              <tr  key={candidate.candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
                <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">{candidate.firstName} </td>
-                <td class="border px-4 py-2">{candidate.lastName}</td>
-                <td class="border px-4 py-2">{candidate.email}</td>
-                <td class="border px-4 py-2">{candidate.department}</td>
+                <td class="border px-4 py-2">{candidate.candidate.first_name} </td>
+                <td class="border px-4 py-2">{candidate.candidate.last_name}</td>
+                <td class="border px-4 py-2">{candidate.candidate.email}</td>
+                <td class="border px-4 py-2">{candidate.candidate.role.roleable.department}</td>
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
                 <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
               </tr>
-            ))}
+           ))
+           :
+           <p>Candidates not found</p>
+         }
              
             
             </tbody>
