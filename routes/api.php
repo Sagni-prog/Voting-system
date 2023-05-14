@@ -15,15 +15,13 @@ use App\Http\Controllers\Chairman\ManageCandidateController;
 use App\Http\Controllers\Voter\VoteController as CastVote;
 use App\Http\Controllers\Auth\UpdateProfileController;
 
-
-
 // Route::get('/candidates',[ManageCandidateController::class,'index']);
 
 
 Route::get('/candidates',[ManageCandidateController::class,'index']);
 Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);
 Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update']);
-Route::post('/update-profile/{id}',[UpdateProfileController::class,'update']);
+// Route::post('/update-profile/{id}',[UpdateProfileController::class,'update']);
 
 
 
@@ -46,22 +44,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
    // Authentication middleware
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
 
+   Route::post('/update-profile',[UpdateProfileController::class,'update']);
+   Route::get('voters',[AdminController::class,'getAllVoters']);
+
+
    Route::patch('/update-password',[UpdatePassword::class,'update']);
     //  Admin Routes
  Route::middleware(['admin'])->group(function () {
 
    Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
-   Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
+   // Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
    Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
    
-   Route::get('voters',[AdminController::class,'getAllVoters']);
+   // Route::get('voters',[AdminController::class,'getAllVoters']);
+   Route::delete('user/{id}',[AdminController::class,'destroy']);
+   Route::post('/vote',[VoteController::class,'store']);
 
 
    Route::prefix('/admin')->group(function(){
       Route::post('/update-profile',[UpdateProfile::class,'edit']);
       Route::patch('/verify-user/{id}',[UserVerification::class,'edit']);
 
-      Route::post('/vote',[VoteController::class,'store']);
+      // Route::post('/vote',[VoteController::class,'store']);
       Route::post('vote/extend-start-date/{id}',[VoteController::class,'extendStartDate']);
       Route::post('vote/extend-end-date/{id}',[VoteController::class,'extendEndDate']);
       Route::patch('vote/confirm/{id}',[VoteController::class,'confirmVote']);
@@ -86,6 +90,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
 
     //Chairman routes
  Route::middleware(['chairman'])->group(function () {
+   Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
    Route::prefix('/chairman')->group(function(){
       Route::get('/voters',[ManageVoterController::class,'index']);
       Route::get('/voter/{id}',[ManageVoterController::class,'show']);

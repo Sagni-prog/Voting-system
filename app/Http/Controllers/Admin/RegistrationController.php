@@ -15,27 +15,36 @@ use App\Services\TokenManagerService;
 use App\Helpers\GetFaceId;
 use App\Helpers\UserHelper;
 
+use App\Services\PhotoService;
+use App\Helpers\GetLastVote;
+
 
 class RegistrationController extends Controller{
     
-  
+    
     private $faceIdHelper;
     private $tokenService;
     private $userHelper;
     private $userFactory;
+    private $photoService;
+    private $voteHelper;
     
     public function __construct(
-                
-                  TokenManagerService $tokenService,
-                  GetFaceId $faceIdHelper,
-                  UserHelper $userHelper,
-                  UserFactoryManager $userFactory,
-                  ){
-    
-        $this->tokenService = $tokenService;
-        $this->faceIdHelper = $faceIdHelper;
-        $this->userHelper = $userHelper;
-        $this->userFactory = $userFactory;
+        
+        TokenManagerService $tokenService,
+        GetFaceId $faceIdHelper,
+        UserHelper $userHelper,
+        UserFactoryManager $userFactory,
+        PhotoService $photoService,
+        GetLastVote $voteHelper,
+        ){
+            
+            $this->tokenService = $tokenService;
+            $this->faceIdHelper = $faceIdHelper;
+            $this->userHelper = $userHelper;
+            $this->userFactory = $userFactory;
+            $this->photoService = $photoService;
+            $this->voteHelper = $voteHelper;
     }
  
     /*
@@ -77,7 +86,7 @@ class RegistrationController extends Controller{
             
                 $data = $request->validated();
                 $data['faceId'] =  'candidate';
-                $data['faceId'] =  $request->face_id;
+                $data['vote_id'] =  $this->voteHelper->getLastVote();
                 $factory = $this->userFactory->make('candidate');
                 $user = $factory->create($data);
                 $token = $this->tokenService->createToken($user);

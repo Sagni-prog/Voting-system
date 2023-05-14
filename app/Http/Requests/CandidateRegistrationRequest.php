@@ -22,7 +22,7 @@ class CandidateRegistrationRequest extends FormRequest
     public function authorize()
     {
 
-        return $this->userHelper->getCurrentlyAuthenticatedUsersRole() === 'admin';
+        return $this->userHelper->getCurrentlyAuthenticatedUsersRole() === 'chairman';
        
     }
 
@@ -43,7 +43,7 @@ class CandidateRegistrationRequest extends FormRequest
                 'department' => ['required','string'],
                 'gpa' => ['required'],
                 'sex' => 'string',
-                'exam_score' => ['required','integer'],
+                'exam_score' => ['required'],
         ];
     }
 }

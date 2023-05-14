@@ -13,5 +13,6 @@ Interface VoteInterface{
   public function confirmVote($vote,$vote_id);
   public function cancelVote($vote,$data);
   public function destroyVote($vote);
+  public function getLastVote();
 
 }

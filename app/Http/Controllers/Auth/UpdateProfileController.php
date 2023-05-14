@@ -31,14 +31,14 @@ class UpdateProfileController extends Controller
        $this->photoService = $photoService;
   }
   
-public function update(UpdateProfileRequest $request,$id){
+public function update(UpdateProfileRequest $request){
       
     try {
   
      DB::beginTransaction();
         $data = $request->validated();
-        // $user = $this->userRepository->getCurrentlyAuthenticatedUser();
-        $user = $this->userRepository->findUserById($id);
+        $user = $this->userRepository->getCurrentlyAuthenticatedUser();
+        // $user = $this->userRepository->findUserById($id);
         $userUpdated = $this->userRepository->updateUser($user, $data);
         $this->photoService->updateOrStorePhoto($request, $user->photos, $user);
         // $adminUpdated = $this->adminRepository->updateAdmin($user->role->roleable(), $data);

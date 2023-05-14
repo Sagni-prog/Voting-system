@@ -4,6 +4,7 @@ namespace App\Repositories\Vote;
 use App\Repositories\Vote\VoteInterface;
 use App\Models\Vote;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class VoteRepository implements VoteInterface{
 
@@ -69,5 +70,10 @@ private $vote;
   public function destroyVote($id){
      
      return;
+  }
+  
+  public function getLastVote(){
+     
+     return DB::table('votes')->latest()->first();
   }
 }
