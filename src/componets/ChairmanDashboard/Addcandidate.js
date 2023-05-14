@@ -1,100 +1,118 @@
-import React from 'react'
-import { useState } from 'react';
-import Sidebar from './Sidebar'
+import React, { useEffect } from 'react'
+import { useState} from 'react';
+import Sidebar from './Siderbar'
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import http from '../../http/http';
-import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
-import Alert from './Alert';
+import { useNavigate } from 'react-router-dom'
+import Alert from '../admin/Alert';
 
 
-export default function AddChairman() {
+export default function Addcandidate() {
 
-   const navigate = useNavigate();
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+    
+    try {
+      
+    
+      const user = JSON.parse(localStorage.getItem('user'));
+      console.log('dah', user.user.role.roleable.role)
+       if(user && user.user.role.roleable.role !== 'chairman'){
+           
+            navigate('/login')
+  
+       }
+  
+         if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+      
+             navigate('/login')
+      }
+        } catch (error) {
+      
+    }
+      
+      // console.log(user.role.roleable.role)
+    },[]);
+    
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [examScore, setExamScore] = useState(null);
+    const [gpa, setGpa] = useState(null);
+    const [admissionYear, setAdmissionYear] = useState('');
+    const [graduationYear, setGraduationYear] = useState('')
+    const [educationalYear, setEducationalYear] = useState('');
+    const [department, setDepartment] = useState('');
     const [sex, setSex] = useState('');
+    const [cv, setCv] = useState('');
+    const [photo,setPhoto]=useState();
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
   
   
-
-  const sendRegister = async(data) => {
-  
-  try {
     
-  
-    const token = localStorage.getItem('token')
-    const http = axios.create({
-        'baseURL': 'http://localhost:8000/api',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-     });
-     const res = await http.post('/chairman/register',data);
-     const user = res.data;
-     console.log(user.status)
-     
-     if(user.status === 'sucess'){
-  
-      localStorage.removeItem('face-id');
-      
-      switch(user.role.roleable.role){
-         case 'admin':
-            navigate('/admin/dashboard');
-            break;
-         case 'candidate':
-           navigate('candidate/dashboard');
-           break;
-         case 'chairman':
-            navigate('chairman/dashboard');
-            break;
-         case 'voter':
-            navigate('voter/dashboard');
-            break;
-         default:
-            navigate('/');
-            break;
-           
-      }
-   }
-      } catch (error) {
+    const addCandidate = async(data) => {
     
+       const res = await http.post('/candidate/register',data);
+       console.log(res)
     }
-  }
-    
-    
   
     const handleSubmit = (event) => {
-      try{
-    
+    try{
       event.preventDefault();
      
       const formData = new FormData();
       formData.append("first_name",firstName);
-      formData.append("last_name",firstName);
+      formData.append("last_name",lastName);
       formData.append("email", email);
       formData.append("password",password);
+      formData.append("exam_score",examScore,);
+      formData.append("gpa", gpa);
+      formData.append("admission_year", admissionYear);
+      formData.append("graduation_year", graduationYear);
+      formData.append("educational_year", '4');
       formData.append("sex",sex);
-      formData.append("face_id",localStorage.getItem('face-id'));
-      
-      sendRegister(formData)
-       
+      formData.append("department",department);
+      // formData.append("cv", cv[0]);
+      console.log("score",examScore)
+      addCandidate(formData)
+      clearFields();
       setSuccessMessage('Candidate added successfully.');
       setErrorMessage('');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 4000);
       } catch (error) {
      
       setSuccessMessage('');
       setErrorMessage('Failed to add candidate.');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 4000);
     }
     
   
     };
+    
+    const clearFields = () => {
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setAdmissionYear('');
+        setDepartment('');
+        setEducationalYear('');
+        setExamScore('');
+        setGpa('');
+        setGraduationYear('');
+        setSex('');
+  
+    }
     return (
       <div>
   <div>
@@ -111,7 +129,7 @@ export default function AddChairman() {
       </div>
        
          <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
-      
+      {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
       <a href="#" className="flex items-center">
       <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
@@ -135,7 +153,11 @@ export default function AddChairman() {
                   <li>
                   <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
                       
-
+                  </li>
+                  {/* <li> */}
+                  {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
+                  {/* </li> */}
+                  <li>
                   <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
   
                   </li>
@@ -169,18 +191,17 @@ export default function AddChairman() {
   <Sidebar />
     <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
     <div class="w-90  bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4">Chairman Registration</h2>
-    
+    <h2 class="text-2xl font-bold mb-4">Candidate Registration</h2>
     <div className='mb-2'>
-      {/* Display success message if available */}
-      {successMessage && (
-        
-        <Alert type="success" message={successMessage} />
-      )}
-
-      {/* Display error message if available */}
-      {errorMessage && <Alert type="error" message={errorMessage} />}
-    </div>
+        {/* Display success message if available */}
+        {successMessage && (
+          
+          <Alert type="success" message={successMessage} />
+        )}
+  
+        {/* Display error message if available */}
+        {errorMessage && <Alert type="error" message={errorMessage} />}
+      </div>
     <form onSubmit={handleSubmit}>
     <div className='flex gap-4'>
     <div class="mb-4 w-full">
@@ -193,7 +214,7 @@ export default function AddChairman() {
           type="text"
           placeholder="Enter your first name"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
       <div class="mb-4 w-full">
@@ -204,10 +225,9 @@ export default function AddChairman() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="last-name"
           type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
           placeholder="Enter your last name"
-          
+          value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
         />
       </div>
     </div>
@@ -220,9 +240,9 @@ export default function AddChairman() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email address"
+          value={email}
+              onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div class="mb-4 w-full">
@@ -233,28 +253,137 @@ export default function AddChairman() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="password"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
+          value={password}
+              onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       </div>
       <div className='flex gap-4'>
-  
-      <div class="mb-4 w-full">
-        <label class="block text-gray-700 font-bold mb-2" for="last-name">
-          Sex
+    <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="first-name">
+          Exam score
         </label>
         <input
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="sex"
+          id="exam_score"
           type="text"
-          value={sex}
-          onChange={(e) => setSex(e.target.value)}
-          placeholder="Enter your  gender"
+          placeholder="Enter your first name"
+          value={examScore}
+          onChange={(e) => setExamScore(e.target.value)}
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="last-name">
+          GPA
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="gpa"
+          type="text"
+          placeholder="Enter your last name"
+          value={gpa}
+          onChange={(e) => setGpa(e.target.value)}
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="last-name">
+          Department
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="gpa"
+          type="text"
+          placeholder="Enter your last name"
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
         />
       </div>
     </div>
+      <div className='flex gap-4'>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="cv">
+        Admission Year
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="graduation_Year"
+          value={admissionYear}
+          onChange={e=>setAdmissionYear(e.target.value)}
+          type="text"
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="Admission Year">
+        Graduation Year
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="admission_year"
+         
+          value={graduationYear}
+          onChange={e=>setGraduationYear(e.target.value)}
+          type="text"
+        />
+      </div>
+      </div>
+      <div className='flex gap-4'>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="cv">
+        Educational Year
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="educational_year"
+          value={educationalYear}
+          onChange={e=>setEducationalYear(e.target.value)}
+          type="text"
+         
+        />
+      </div>
+      <div class="mb-4 w-full">
+    <label class="block text-gray-700 font-bold mb-2" for="sex">
+      Sex
+    </label>
+    <div class="flex flex-row items-center gap-4">
+      <input type="radio" name="sex" id="boy" value="boy" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-blue-600 checked:border-transparent focus:outline-none"
+          onChange={(e) => setSex(e.target.value)}
+        checked={sex === 'boy'} 
+      />
+      <label for="boy" class="text-gray-700">Boy</label>
+      <input type="radio" name="sex" id="girl" value="girl" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-pink-600 checked:border-transparent focus:outline-none"  
+       onChange={(e) =>setSex (e.target.value)}
+       checked={sex === 'girl'}
+       />
+      <label for="girl" class="text-gray-700">Girl</label>
+    </div>
+  </div>
+      </div>
+      <div className='flex gap-4'>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="cv">
+          CV
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="cv"
+          type="file"
+          value={cv}
+          onChange={(e) => setCv(e.target.value)}
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="cv">
+          Photo
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="photo"
+          type="file"
+        />
+      </div>
+      </div>
+      
      
       <div class="flex items-center justify-between">
         <button

@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react'
-import { useState,useCallback } from 'react';
+import React,{ useState,useCallback } from 'react';
 import Sidebar from './Siderbar'
 import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
@@ -8,69 +6,72 @@ import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import Alert from '../admin/Alert';
+import { useDispatch } from 'react-redux';
+import { setCandidate } from './../../app/features/candidate/Candidate'
 import http from '../../http/http';
+import Alert from '../admin/Alert';
+export default function Updatepasswordforcharirman() {
 
-export default function Updateprofile() {
- 
-  const [successMessage, setSuccessMessage] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
-
-useEffect(() => {
-   setUser(JSON.parse(localStorage.getItem('user')))
-   console.log("user",user.user)
-},[])
- 
-  const [firstName, setFirstName] = useState(user.user.first_name);
-  const [lastName, setLastName] = useState(user.user.last_name);
-  const [email, setEmail] = useState(user.user.email);
-  const [photo, setPhoto] = useState(null);
 
 
-  const handleFileSelect = (event) => {
-    setPhoto(event.target.files[0])
-  }
-  const handleSubmit = (event) => {
   
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append("first_name",firstName);
-    formData.append("last_name",lastName);
-    formData.append("email", email);
-    formData.append("photo", photo);
-    console.log("from update",firstName)
-    sendUpdate(formData);
-
-  };
+   
+    const handleSubmit = (event) => {
+    
+      event.preventDefault();
   
-  const sendUpdate = async(data) => {
-    try {
-      const res = await http.post('/update-profile',data);
-      console.log(res.data.status);
+      try{
+        event.preventDefault();
+       
+        const formData = new FormData();
       
-      if(res.data.status === 'success'){
-      
-          setSuccessMessage('Candidate added successfully.');
-          setErrorMessage('');
-          setTimeout(() => {
-            setSuccessMessage('');
-          }, 4000);
-        }
-        
-        setSuccessMessage('Candidate added successfully.');
-        setErrorMessage('');
+        formData.append("email", email);
+        formData.append("password",password);
+        if(password===password2) {
+            sendUpdate(formData);
+            setSuccessMessage('password update successfully.');
+            setErrorMessage('');
+            setTimeout(() => {
+              setSuccessMessage('');
+            }, 4000);
+        }else{
+          
+        setSuccessMessage('');
+        setErrorMessage('password is not match.');
         setTimeout(() => {
-          setSuccessMessage('');
+          setErrorMessage('');
         }, 4000);
-    } catch (error) {
       
     }
-  }
-
-  return (
-    <div>
+    
+      
+        }catch(error) {
+       
+        setSuccessMessage('');
+        setErrorMessage('Failed to update password.');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 4000);
+      }
+     
+ 
+    };
+    
+    const sendUpdate = async(data) => {
+      try {
+        const res = await http.post('/update-profile',data);
+        console.log(res.data.status);
+      } catch (error) {
+        
+      }
+    }
+    return (
+      <div>
     <div>
         <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
         <a href="#" className="flex items-center gap-1">
@@ -135,7 +136,7 @@ useEffect(() => {
                     <div className='flex w-[13rem]  bg-emerald-600 '>
                         <h5 className='text-[0.9rem]'>Home</h5>
                         <h6 className='mt-1'><AiOutlineRight /></h6>
-                        <h2 className='text-white font-semi-bold'>Chairman</h2>
+                        <h2 className='text-white font-semi-bold'>Admin</h2>
                     </div>
                     <div>
                         <h1 className='font-bold text-[1.9rem] text-white'>Dashboard</h1>
@@ -147,38 +148,20 @@ useEffect(() => {
     <Sidebar />
       <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
       <div class="w-90  bg-white p-6 rounded-lg shadow-md">
-      <h2 class="text-2xl font-bold mb-4">Update Profile</h2>
-      <form>
+      <h2 class="text-2xl font-bold mb-4">Update profile </h2>
+      <div className='mb-2'>
+      {/* Display success message if available */}
+      {successMessage && (
+        
+        <Alert type="success" message={successMessage} />
+      )}
+
+      {/* Display error message if available */}
+      {errorMessage && <Alert type="error" message={errorMessage} />}
+    </div>
+      <form onSubmit={ handleSubmit }>
       <div className='flex gap-4'>
       <div class="mb-4 w-full">
-          <label class="block text-gray-700 font-bold mb-2" for="first-name">
-            First Name
-          </label>
-          <input
-            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="first-name"
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="Enter your first name"
-          />
-        </div>
-        <div class="mb-4 w-full">
-          <label class="block text-gray-700 font-bold mb-2" for="last-name">
-            Last Name
-          </label>
-          <input
-            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="last-name"
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Enter your last name"
-          />
-        </div>
-      </div>
-      <div className='flex gap-4'>
-        <div class="mb-4 w-full">
           <label class="block text-gray-700 font-bold mb-2" for="email">
             Email
           </label>
@@ -191,28 +174,56 @@ useEffect(() => {
             placeholder="Enter your email address"
           />
         </div>
-        <div class="mb-4 w-full">
-          <label class="block text-gray-700 font-bold mb-2" for="last-name">
-            Sex
-          </label>
-          <input
-            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="sex"
-            type="file"
-            value={photo}
-            onChange={handleFileSelect}
-            placeholder="Enter your  gender"
-          />
-        </div>
-        </div>
+      </div>
+      
+      <div className='flex gap-4'>
     
+        
+      <div class="mb-4 w-full">
+      <label class="block text-gray-700 font-bold mb-2" for="password">
+        Password
+      </label>
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="password"
+        type="password"
+        placeholder="Enter your password"
+        value={password}
+            onChange={(e) => setPassword(e.target.value)}
+      />
+    </div>
+
+        
+        
+        </div>
+        <div className='flex gap-4'>
+    
+        
+    <div class="mb-4 w-full">
+    <label class="block text-gray-700 font-bold mb-2" for="password">
+      Confirm Password
+    </label>
+    <input
+      class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="password"
+      type="password"
+      placeholder="Enter your password"
+      value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
+    />
+  </div>
+  
+      
+      
+      </div>
+        
        
         <div class="flex items-center justify-between">
           <button
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            update
+          Update
           </button>
         </div>
       </form>
@@ -264,5 +275,5 @@ useEffect(() => {
            
          </div>
         </div>
-  )
+    )
 }

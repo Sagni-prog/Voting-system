@@ -11,15 +11,23 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { selectVoter } from '../../app/features/voter/VoterSlice';
 import VoterContext from '../../contexts/VoterContext';
+import CandidateContext from '../../contexts/CandidateContext';
 
 import AllElectionData from '../admin/AllElectionData';
+import http from '../../http/http';
 
-export default function WatchVoters() {
+export default function AllCandidates() {
 
-  const {voterState, voterDispatch} = useContext(VoterContext)
+  const {candidateState, candidateDispatch} = useContext(CandidateContext)
  
-  const voters = useSelector((state) => state.voter.voters);
-  const dispatch = useDispatch();
+  const handleDelete = async(id) => {
+    try {
+      const res = await http.delete(`user/${id}`);
+      console.log(res);
+       } catch (error) { 
+    }
+  }
+ 
   return (
     <div>
     <div>
@@ -112,24 +120,46 @@ export default function WatchVoters() {
               </tr>
             </thead>
             <tbody>
-            {
-             voterState.length > 0 ?
-             voterState.voters.map((voter)=>(
-              <tr  key={voter.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">{voter.firstName} </td>
-                <td class="border px-4 py-2">{voter.lastName}</td>
-                <td class="border px-4 py-2">{voter.email}</td>
+           
+            { 
+                    candidateState.length > 0 ?
+                       candidateState.map((candidate ) => (
+                       
+              <tr  key={candidate.candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
+               <td class="border px-1 py-2">
+   
+               {
+              candidate.candidate.photos.length > 0 ?
+              
+              <img
+              class="w-8 h-8 mt-[-0.23rem] rounded-full" 
+              src={candidate.candidate.photos[0].photo_url}
+                   alt={candidate.candidate.first_name}
+              />
+              :
+              <img
+              class="w-8 h-8 mt-[-0.23rem] rounded-full" 
+              src = "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
+                   alt={candidate.candidate.first_name}
+              />
+             
+            }
+               
+               </td>
+                <td class="border px-4 py-2">{candidate.candidate.first_name} </td>
+                <td class="border px-4 py-2">{candidate.candidate.last_name}</td>
+                <td class="border px-4 py-2">{candidate.candidate.email}</td>
+                <td class="border px-4 py-2">{candidate.candidate.role.roleable.department}</td>
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium bg-emerald-200 p-2 rounded w-100 text-blue-600 dark:text-blue-500 hover:underline mr-5">Approve</a>
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
+                <button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(candidate.candidate.id)}>Delete</button>
                 </td>
               </tr>
-            ))
-            :
-            <p>No Record found</p>
-            }
-             
+           ))
+           :
+           <p>Candidates not found</p>
+         }
             
             </tbody>
           </table>
@@ -182,3 +212,5 @@ export default function WatchVoters() {
     </div>
   )
 }
+
+

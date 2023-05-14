@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import {React,useEffect} from 'react'
 import { useState,useCallback } from 'react';
 import Sidebar from './Sidebar'
 import Navbar from '../Nav/Navbar';
@@ -13,10 +13,20 @@ import { setCandidate } from './../../app/features/candidate/Candidate'
 import http from '../../http/http';
 
 export default function Updateprofile() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [photo, setPhoto] = useState(null);
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('user')))
+    console.log("user",user.user)
+ },[]);
+ 
+ const [firstName, setFirstName] = useState(user.user.first_name);
+ const [lastName, setLastName] = useState(user.user.last_name);
+ const [email, setEmail] = useState(user.user.email);
+ const [photo, setPhoto] = useState(null);
 
 
   const handleFileSelect = (event) => {
@@ -40,6 +50,20 @@ export default function Updateprofile() {
     try {
       const res = await http.post('/update-profile',data);
       console.log(res.data.status);
+      if(res.data.status === 'success'){
+      
+        setSuccessMessage('Candidate added successfully.');
+        setErrorMessage('');
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 4000);
+      }
+      
+      setSuccessMessage('Candidate added successfully.');
+      setErrorMessage('');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 4000);
     } catch (error) {
       
     }
@@ -193,7 +217,7 @@ export default function Updateprofile() {
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Register
+        Edit
         </button>
       </div>
     </form>

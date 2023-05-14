@@ -47,6 +47,11 @@ import http from './http/http';
 import axios from 'axios';
 import RegsiterChairman from './componets/Auth/RegsiterChairman';
 import AddVoter from './componets/admin/AddVoter';
+import Updatepassword from './componets/admin/Updatepassword';
+import Addcandidateforchairman from './componets/ChairmanDashboard/Addcandidate';
+import Updatepasswordforcharirman from './componets/ChairmanDashboard/Updatepasswordforcharirman';
+
+import AllCandidates from './componets/ChairmanDashboard/AllCandidates';
 
 function App() {
   
@@ -147,6 +152,15 @@ function App() {
                       }
                  }
         >
+        <UserContext.Provider
+           value={
+                     {
+                         useState,userDispatch
+                     }
+                  }
+        >
+        
+        </UserContext.Provider>
         
           <Router>
           <div>
@@ -177,7 +191,12 @@ function App() {
               <Route path="/Watchvotersforchairman" element={<Watchvotersforchairman />} />
               <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />
               <Route path="/chairman/dashboard" element={<ChairmanDashboardHome />} />
+              <Route path="/chairman/add-candidate" element={<Addcandidateforchairman />} />
+              <Route path="/chairman/candidates" element={<AllCandidates />} />
               <Route path="/Feedbackforchairman" element={<Feedbackforchairman />} />
+              <Route path="/Updatepasswordforadmin" element={<Updatepassword />} />
+              <Route path="/Updatepasswordforcharirman" element={<Updatepasswordforcharirman /> } />
+
               <Route path = "/regsiter" element = {<Register  />} />
               <Route path = 'face' element = { <RecognizeFace />} />
               <Route path = "/register" element = {<Register />} />
