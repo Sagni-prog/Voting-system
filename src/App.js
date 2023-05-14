@@ -99,11 +99,14 @@ function App() {
     try {
         const response = await http.get('/voters');
         const voters = response.data;
+       
         voterDispatch({type: 'GET', voters});
            } catch (error) {
       
       }
  }
+ 
+ 
 //  const getCandidates = async() => {
  
 //  const response = await http.get('/candidates');
@@ -123,7 +126,8 @@ function App() {
     getVoters();
   
   },[])
-
+  
+  
 
   return (
   
@@ -174,7 +178,6 @@ function App() {
               <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />
               <Route path="/chairman/dashboard" element={<ChairmanDashboardHome />} />
               <Route path="/Feedbackforchairman" element={<Feedbackforchairman />} />
-              
               <Route path = "/regsiter" element = {<Register  />} />
               <Route path = 'face' element = { <RecognizeFace />} />
               <Route path = "/register" element = {<Register />} />

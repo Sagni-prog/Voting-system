@@ -1,7 +1,5 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
-import React from 'react'
+
+import {React,useEffect, useContext} from 'react'
 
 import Sidebar from './Siderbar'
 import { Link } from 'react-router-dom';
@@ -12,8 +10,11 @@ import { AiOutlineRight} from "react-icons/ai";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { selectVoter } from '../../app/features/voter/VoterSlice';
+import VoterContext from '../../contexts/VoterContext';
 
 export default function WatchVoters() {
+
+  const {voterState, voterDispatch} = useContext(VoterContext)
  
   const voters = useSelector((state) => state.voter.voters);
   const dispatch = useDispatch();
@@ -136,7 +137,9 @@ export default function WatchVoters() {
               </tr>
             </thead>
             <tbody>
-            {voters.map((voter)=>(
+            {
+             voterState.length > 0 ?
+             voterState.voters.map((voter)=>(
               <tr  key={voter.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
                <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
                 <td class="border px-4 py-2">{voter.firstName} </td>
@@ -147,7 +150,10 @@ export default function WatchVoters() {
                 <a href="#" class="font-medium bg-emerald-200 p-2 rounded w-100 text-blue-600 dark:text-blue-500 hover:underline mr-5">Approve</a>
                 </td>
               </tr>
-            ))}
+            ))
+            :
+            <p>No Record found</p>
+            }
              
             
             </tbody>

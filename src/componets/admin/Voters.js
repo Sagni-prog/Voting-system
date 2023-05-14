@@ -16,6 +16,8 @@ export default function Voters() {
   const {voterState, voterDispatch} = useContext(VoterContext)
   
   useEffect(() => {
+  console.log("what is wrong",voterState)
+  console.log("what is wrong")
   try {
     
     // console.log("from voter",voterState)
@@ -133,6 +135,7 @@ export default function Voters() {
             </thead>
             <tbody>
           {
+            voterState.voters ?
             voterState.voters.map((voter,index)=>(
               <tr  key={index} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
                <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
@@ -145,6 +148,9 @@ export default function Voters() {
                 <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
               </tr>
             ))
+             :
+             <p>No Record found</p>
+            
           }
              
             

@@ -29,7 +29,7 @@ export default function AddCandidate() {
     console.log("no user")
     navigate('/login')
   }
-  if(JSON.parse(localStorage.getItem('user')).user.role.roleable.role !== 'admin'){
+  if(JSON.parse(localStorage.getItem('user')).user.role.roleable.role !== 'chairman'){
        
           navigate('/login')
 

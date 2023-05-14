@@ -40,29 +40,7 @@ export default function ChairmanDashboardHome() {
       console.log("no user")
       navigate('/login')
     }
-    
-    // const user = JSON.parse(localStorage.getItem('user'));
-    // console.log('dah', user.user.role.roleable.role)
-    
-    // if(!localStorage.getItem('token')){
-    
-    //   navigate('/login')
-    //  }
-    // if(!user){
-    //   console.log("no user")
-    //   navigate('/login')
-    // }
-    
-    //  if(user.user.role.roleable.role !== 'chairman'){
-         
-    //       navigate('/login')
-
-    //  }
-
-    //    if(!localStorage.getItem('token') | !localStorage.getItem('user')){
-    
-    //        navigate('/login')
-    // }
+  
       } catch (error) {
     
   }
