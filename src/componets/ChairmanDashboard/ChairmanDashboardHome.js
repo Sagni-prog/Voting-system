@@ -1,10 +1,6 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
+import {React,useEffect} from 'react'
 import Sidebar from './Siderbar'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
@@ -14,6 +10,65 @@ import { useDispatch } from 'react-redux';
 import { selectVoter } from '../../app/features/voter/VoterSlice';
 
 export default function ChairmanDashboardHome() {
+
+
+  const navigate = useNavigate();
+//  try {
+  
+
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // console.log('dah', user.user.role.roleable.role)
+  
+  // if(!localStorage.getItem('token')){
+  
+  //   navigate('/login')
+  //  }
+  // } catch (error) {
+  
+  // } 
+  
+  useEffect(() => {
+    
+  try {
+  
+    if(!localStorage.getItem('token')){
+  
+        navigate('/login')
+       }
+       
+    if(!localStorage.getItem('user')){
+      console.log("no user")
+      navigate('/login')
+    }
+    
+    // const user = JSON.parse(localStorage.getItem('user'));
+    // console.log('dah', user.user.role.roleable.role)
+    
+    // if(!localStorage.getItem('token')){
+    
+    //   navigate('/login')
+    //  }
+    // if(!user){
+    //   console.log("no user")
+    //   navigate('/login')
+    // }
+    
+    //  if(user.user.role.roleable.role !== 'chairman'){
+         
+    //       navigate('/login')
+
+    //  }
+
+    //    if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+    
+    //        navigate('/login')
+    // }
+      } catch (error) {
+    
+  }
+  
+  },[]);
+  
  
   const voters = useSelector((state) => state.voter.voters);
   const dispatch = useDispatch();

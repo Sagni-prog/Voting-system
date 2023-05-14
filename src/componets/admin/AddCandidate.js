@@ -20,24 +20,25 @@ export default function AddCandidate() {
   
   try {
     
+    if(!localStorage.getItem('token')){
   
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log('dah', user.user.role.roleable.role)
-     if(user && user.user.role.roleable.role !== 'admin'){
-         
+      navigate('/login')
+     }
+     
+  if(!localStorage.getItem('user')){
+    console.log("no user")
+    navigate('/login')
+  }
+  if(JSON.parse(localStorage.getItem('user')).user.role.roleable.role !== 'chairman'){
+       
           navigate('/login')
 
      }
-
-       if(!localStorage.getItem('token') | !localStorage.getItem('user')){
-    
-           navigate('/login')
-    }
+  
       } catch (error) {
     
   }
-    
-    // console.log(user.role.roleable.role)
+  
   },[]);
   
   const [firstName, setFirstName] = useState('');
