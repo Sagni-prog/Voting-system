@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {BsPersonFillAdd} from "react-icons/bs" 
 import { MdDescription }  from "react-icons/md";
 import {IoIosPeople}  from "react-icons/io"
+import {VscFeedback} from "react-icons/vsc"
 export default function Sidebar() {
   return (
     <div>
@@ -29,7 +30,7 @@ export default function Sidebar() {
     </li>
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/Feedbackforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
-                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 <VscFeedback class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
                  Give Your Feedback</Link>
     </li>
    
