@@ -10,47 +10,40 @@ import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import { useDispatch } from 'react-redux';
 import { setCandidate } from './../../app/features/candidate/Candidate'
+import http from '../../http/http';
 
 export default function Updateprofile() {
-  const [startDate, setStartDate] = useState(new Date());
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [examScore, setExamScore] = useState('');
-  const [gpa, setGpa] = useState('');
-  const [admissionYear, setAdmissionYear] = useState(new Date());
-  const [graduationYear, setGraduationYear] = useState(new Date());
-  const [educationalYear, setEducationalYear] = useState(new Date());
-  const [sex, setSex] = useState('');
-  const [cv, setCv] = useState('');
-  const dispatch = useDispatch()
-  const formDataToJson = (formData) => {
-    const jsonObject = {};
-    formData.forEach((value, key) => {
-      jsonObject[key] = value;
-    });
-    return JSON.stringify(jsonObject);
-  };
+  const [photo, setPhoto] = useState(null);
 
+
+  const handleFileSelect = (event) => {
+    setPhoto(event.target.files[0])
+  }
   const handleSubmit = (event) => {
   
     event.preventDefault();
-    // Handle form submission here
-    event.preventDefault();
+
     const formData = new FormData();
-    formData.append("firstName",firstName);
-    formData.append("lastName",firstName);
+    formData.append("first_name",firstName);
+    formData.append("last_name",lastName);
     formData.append("email", email);
-    formData.append("password",password);
-    formData.append("examScore,",examScore,);
-    formData.append("gpa", gpa);
-    formData.append(" admissionYear", admissionYear);
-    formData.append("graduationYear", graduationYear);
-    formData.append("sex",sex);
-    formData.append("cv", cv);
+    formData.append("photo", photo);
+    console.log("from update",firstName)
+    sendUpdate(formData);
 
   };
+  
+  const sendUpdate = async(data) => {
+    try {
+      const res = await http.post('/update-profile',data);
+      console.log(res.data.status);
+    } catch (error) {
+      
+    }
+  }
   return (
     <div>
   <div>
@@ -130,7 +123,8 @@ export default function Updateprofile() {
     <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
     <div class="w-90  bg-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold mb-4">Update profile </h2>
-    <form>
+    
+    <form onSubmit={ handleSubmit }>
     <div className='flex gap-4'>
     <div class="mb-4 w-full">
         <label class="block text-gray-700 font-bold mb-2" for="first-name">
@@ -141,6 +135,8 @@ export default function Updateprofile() {
           id="first-name"
           type="text"
           placeholder="Enter your first name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
       <div class="mb-4 w-full">
@@ -151,10 +147,14 @@ export default function Updateprofile() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="last-name"
           type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
           placeholder="Enter your last name"
+          
         />
       </div>
     </div>
+    
     <div className='flex gap-4'>
       <div class="mb-4 w-full">
         <label class="block text-gray-700 font-bold mb-2" for="email">
@@ -164,44 +164,29 @@ export default function Updateprofile() {
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="email"
           type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email address"
         />
       </div>
+      
       <div class="mb-4 w-full">
-        <label class="block text-gray-700 font-bold mb-2" for="password">
-          Password
+        <label class="block text-gray-700 font-bold mb-2" for="email">
+          Photo
         </label>
         <input
           class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="password"
-          type="password"
-          placeholder="Enter your password"
+          id="email"
+          type="file"
+          name='photo'
+          onChange={handleFileSelect}
+          placeholder="Enter your email address"
         />
       </div>
+      
+      
       </div>
-      <div className='flex gap-4'>
-    <div class="mb-4 w-full">
-        <label class="block text-gray-700 font-bold mb-2" for="first-name">
-          Role
-        </label>
-        <input
-          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="role"
-          type="text"
-          placeholder="Enter your Role"
-        />
-      </div>
-      <div class="mb-4 w-full">
-      <label class="block text-gray-700 font-bold mb-2" for="cv">
-        Photo
-      </label>
-      <input
-        class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id="photo"
-        type="file"
-      />
-    </div>
-    </div>
+      
      
       <div class="flex items-center justify-between">
         <button

@@ -6,6 +6,7 @@ import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
+import http from '../../http/http';
 
 
 import CandidateContext from '../../contexts/CandidateContext';
@@ -35,9 +36,16 @@ export default function Allcandidate() {
       } catch (error) {
     
   }
-    
-    // console.log(user.role.roleable.role)
+  
   },[]);
+  
+  const handleDelete = async(id) => {
+    try {
+      const res = await http.delete(`user/${id}`);
+      console.log(res);
+       } catch (error) { 
+    }
+  }
 
   const {candidateState,candidateDispatch} = useContext(CandidateContext);
   return (
@@ -50,17 +58,16 @@ export default function Allcandidate() {
 
     
     <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
+        
         </a>
         
     </div>
      
        <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
-    {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
     <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
     <a href="#" className="flex items-center">
     <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
+          
         </a>
         <div className="flex items-center">
         <div className="flex items-center">
@@ -81,9 +88,7 @@ export default function Allcandidate() {
                 <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
                     
                 </li>
-                {/* <li> */}
-                {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
-                {/* </li> */}
+                
                 <li>
                 <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
 
@@ -139,7 +144,26 @@ export default function Allcandidate() {
                        candidateState.map((candidate ) => (
                        
               <tr  key={candidate.candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
+               <td class="border px-1 py-2">
+   
+               {
+              candidate.candidate.photos.length > 0 ?
+              
+              <img
+              class="w-8 h-8 mt-[-0.23rem] rounded-full" 
+              src={candidate.candidate.photos[0].photo_url}
+                   alt={candidate.candidate.first_name}
+              />
+              :
+              <img
+              class="w-8 h-8 mt-[-0.23rem] rounded-full" 
+              src = "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
+                   alt={candidate.candidate.first_name}
+              />
+             
+            }
+               
+               </td>
                 <td class="border px-4 py-2">{candidate.candidate.first_name} </td>
                 <td class="border px-4 py-2">{candidate.candidate.last_name}</td>
                 <td class="border px-4 py-2">{candidate.candidate.email}</td>
@@ -147,7 +171,8 @@ export default function Allcandidate() {
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+                <button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(candidate.id)}>Delete</button>
+                </td>
               </tr>
            ))
            :

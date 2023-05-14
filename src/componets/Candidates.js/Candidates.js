@@ -68,6 +68,8 @@ export default function Candidates() {
   function handleCandidateClick(candidate) {
     setSelectedCandidate(candidate);
   }
+  
+
   return (
   
   // <h1>hell</h1>
@@ -90,13 +92,24 @@ export default function Candidates() {
           {/* Conditionally render candidate details */}
           {selectedCandidate ? (
             <div className="flex items-center w-full m-4">
-              <div className="flex-shrink-0">
+            {
+              selectedCandidate.candidate.photos.length > 0 ?
+                <div className="flex-shrink-0">
                 <img
-                  src={selectedCandidate.photoUrl}
+                  src= {selectedCandidate.candidate.photos[0].photo_url}
                   alt={selectedCandidate.fullName}
                   className="w-60 h-60 rounded-[10px]"
                 />
               </div>
+               :
+              <div className="flex-shrink-0">
+                <img
+                  src= "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
+                  alt={selectedCandidate.fullName}
+                  className="w-60 h-60 rounded-[10px]"
+                />
+              </div>
+            } 
               <div className="flex flex-col flex-1 gap-1 md:ml-4">
                 <h2 className="mb-3 text-xl font-bold text-emerald-900">
                   {selectedCandidate.candidate.first_name}  {selectedCandidate.candidate.last_name}
@@ -164,13 +177,24 @@ export default function Candidates() {
                       candidateState.length > 0 ?
                        candidateState.map((candidate ) => (
                         <li key={candidate.candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" onClick={() => setSelectedCandidate(candidate)}>
+                        
           <div class="flex items-center space-x-4">
+          
             <div class="flex-shrink-0">
+            {
+              candidate.candidate.photos.length > 0 ?
               <img
                 class="w-12 h-12 rounded-full"
-                src=""
+                src={candidate.candidate.photos[0].photo_url}
                    alt={candidate.candidate.first_name}
               />
+              :
+              <img
+              class="w-12 h-12 rounded-full"
+              src = "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
+                 alt={candidate.candidate.first_name}
+            />
+            }
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium text-gray-800 truncate ">
@@ -275,7 +299,22 @@ export default function Candidates() {
     <div class="bg-white m-10 p-[2rem] rounded-lg shadow-md">
         <div class="flex items-center mb-6">
 
-          <img class="w-[6rem] h-[6rem] rounded-full mr-4" src={img2} alt="User Profile Image"/>
+          {/* <img class="w-[6rem] h-[6rem] rounded-full mr-4" src="https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc=" alt="User Profile Image"/> */}
+          
+          {
+              selectedCandidate.candidate.photos.length > 0 ?
+              <img
+                class="w-12 h-12 rounded-full"
+                src={selectedCandidate.candidate.photos[0].photo_url}
+                   alt={selectedCandidate.candidate.first_name}
+              />
+              :
+              <img
+              class="w-12 h-12 rounded-full"
+              src = "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
+                 alt={selectedCandidate.candidate.first_name}
+            />
+            }
           <div>
             <h2 class="text-xl font-bold">{selectedCandidate.candidate.first_name} {selectedCandidate.candidate.last_name}</h2>
             <p class="text-gray-700">{selectedCandidate.candidate.email}</p>
