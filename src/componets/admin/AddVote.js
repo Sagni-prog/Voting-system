@@ -150,7 +150,7 @@ export default function AddVote() {
                   <div className='flex w-[13rem]  bg-emerald-600 '>
                       <h5 className='text-[0.9rem]'>Home</h5>
                       <h6 className='mt-1'><AiOutlineRight /></h6>
-                      <h2 className='text-white font-semi-bold'>Dashboard</h2>
+                      <h2 className='text-white font-semi-bold'>Admin</h2>
                   </div>
                   <div>
                       <h1 className='font-bold text-[1.9rem] text-white'>Dashboard</h1>
