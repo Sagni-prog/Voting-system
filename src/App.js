@@ -55,7 +55,8 @@ import PublishReport from './componets/admin/PublishReport';
 import ElectionResult from './componets/admin/ElectionResult'
 import AddElectionSlug from './componets/admin/AddElectionSlug'
 import AddVote from './componets/admin/AddVote';
-
+import Addpolicyandstrategy from './componets/candidateDashboard/Addpolicyandstrategy';
+import CandidateDashboardHome from './componets/candidateDashboard/CandidateDashboardHome';
 function App() {
   
    
@@ -185,7 +186,10 @@ function App() {
               <Route path="/Feedbackforchairman" element={<Feedbackforchairman />} />
               <Route path="/Updatepasswordforadmin" element={<Updatepassword />} />
               <Route path="/Updatepasswordforcharirman" element={<Updatepasswordforcharirman /> } />
+              <Route path="/Addpolicyandstrategy" element={<Addpolicyandstrategy /> } />
+              <Route path="/CandidateDashboardHome" element={<CandidateDashboardHome /> } />
               <Route path="/AddElectionSlug" element={<AddElectionSlug />} />
+              <Route path="/AddVote" element={<AddVote /> } />
               <Route path="/ElectionResult" element={<ElectionResult /> } />
               <Route path="/AddResult" element={<AddResult /> } />
               <Route path = "/regsiter" element = {<Register  />} />

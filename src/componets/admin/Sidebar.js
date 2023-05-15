@@ -22,13 +22,18 @@ export default function Sidebar() {
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Add Voters</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/AddVote" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Start Vote</Link>
+    </li>
+    
+    <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/allcandidates" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <IoIosPeople class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />candidates</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/updatecandidate" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
-                 Update </Link>
+                 update candidate</Link>
     </li>
    
     <li className='h-[2rem] mb-2 p-5'>
@@ -37,12 +42,6 @@ export default function Sidebar() {
                  Add News</Link>
     </li>
 
-    <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/admin/add-election" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
-                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
-                 Add Election</Link>
-    </li>
-    
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/AddElectionSlug" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
@@ -65,7 +64,7 @@ export default function Sidebar() {
     </li>
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/ElectionResult" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
-                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />ElectionResult</Link>
+                 <BsPersonFillAdd class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />Election Result</Link>
     </li>
     <li className='h-[2rem] mb-2 p-5'>
                  <Link to="/admin/update-profile" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
