@@ -120,53 +120,6 @@ public function login(LoginRequest $request){
          }
 }
 
-public function loginWithoutFace(LoginRequest $request){
-  try{    
-    $data = $request->validated();
-    $user = $this->userRepository->findUserWhere($data);
-    
-    if(!$user){
-          return response()->json([
-              "status" => "fail",
-              "message" => "Wrong Credentials, try again"
-          ],401);
-    }
-    
-   if($user->faceId !== null){
-      
-      return response()->json([
-          'status' => 'fail',
-          'message' => 'face id is required',
-          'face' => $user->faceId
-      ], 401);
-   }
-     
-      if(!Hash::check($request->password, $user->password)){
-      
-          return response()->json([
-              "status" => "fail",
-              "message" => "Wrong credentials"
-              
-          ],401);
-       }
-    
-       $token = $this->tokenService->createToken($user)->plainTextToken;
-         return response()->json([
-                   "status" => "success",
-                   "token" => $token,
-                   "user" => $user,
-                   'role' => $user->role,
-                   'rolable' => $user->role->roleable
-       ],200);
-    
-      }catch(\Exception $exception){
-            return response()->json([
-                "status"=>"fail",
-                "message"=>'Something went wrong'
-            ],500);
-         }
-}
-
 }
 
 

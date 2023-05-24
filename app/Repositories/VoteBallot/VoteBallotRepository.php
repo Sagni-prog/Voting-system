@@ -28,17 +28,17 @@ class VoteBallotRepository implements VoteBallotRepositoryInterface{
        return $this;
    }
    
- public function getAllVoteBallot(): VoteBallot {
+ public function getAllVoteBallot() {
      
      return VoteBallot::all();
      
  }
    
- public function findVoteBallotWhereCandidateId(int $id): VoteBallot{
-       
+ public function findVoteBallotWhereCandidateId(int $id){
        
        return $this->voteBallot->where('candidate_id',$id)->get();
-    }
+}
+    
  public function getVotersVote(){
     
    return $this->voteBallot->where('vote_id',$this->voteId)

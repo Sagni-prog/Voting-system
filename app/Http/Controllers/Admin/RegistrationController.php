@@ -86,7 +86,6 @@ class RegistrationController extends Controller{
             
                 $data = $request->validated();
                 $data['faceId'] =  'candidate';
-                $data['vote_id'] =  $this->voteHelper->getLastVote();
                 $factory = $this->userFactory->make('candidate');
                 $user = $factory->create($data);
                 $token = $this->tokenService->createToken($user);
@@ -102,6 +101,7 @@ class RegistrationController extends Controller{
 
             return response()->json([
                 "status"=>true,
+                'helper' => $this->voteHelper->getLastVote(),
                 "message"=>$exception->getMessage(),
                 "erroe"=>$exception
             ],500);

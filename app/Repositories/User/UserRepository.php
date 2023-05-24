@@ -109,7 +109,6 @@ class UserRepository implements UserRepositoryInterface{
             }
             
     // public function getActiveNotBannedWhereRoleWith($role){
-
     //      return $this->user->with('role.roleable','photos')
     //                        ->where([
     //                                   'isActive' => true,

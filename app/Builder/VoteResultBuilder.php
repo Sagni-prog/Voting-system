@@ -23,7 +23,7 @@ public $totalVoteCount;
     
     function calculateVotePercent(){
        
-       return $this->voteCount / $this->totalVoteCount * 100;
+       return $this->voteCount / $this->totalVoteCount * 50;
     }
 
 }

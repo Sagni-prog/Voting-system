@@ -4,16 +4,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\UpdatePassword;
+use App\Http\Controllers\Auth\UpdateProfileController;
+use App\Http\Controllers\Auth\LoginWithoutFace;
 use App\Http\Controllers\Admin\RegistrationController;
 use App\Http\Controllers\Admin\UpdateProfile;
 use App\Http\Controllers\Admin\UserVerification;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VoteController;
 use App\Http\Controllers\Voter\UpdateProfile as VoterUpdateProfile;
+use App\Http\Controllers\Voter\VoteController as CastVote;
 use App\Http\Controllers\Chairman\ManageVoterController;
 use App\Http\Controllers\Chairman\ManageCandidateController;
-use App\Http\Controllers\Voter\VoteController as CastVote;
-use App\Http\Controllers\Auth\UpdateProfileController;
 
 // Route::get('/candidates',[ManageCandidateController::class,'index']);
 
@@ -23,6 +24,9 @@ Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);
 Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update']);
 // Route::post('/update-profile/{id}',[UpdateProfileController::class,'update']);
 
+Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
+
+
 
 
 // Route::post('/vote/{voteId}/candidate/{candidateId}',[CastVote::class,'store']);
@@ -30,29 +34,34 @@ Route::patch('/candidate/{id}/approve',[ManageCandidateController::class,'update
 
 
 Route::post('/signup',[AuthController::class,'register']);
-// Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
+Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
 // Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
 // Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
 Route::post('/login',[AuthController::class,'login']);
-Route::post('/login-withoutface',[AuthController::class,'loginWithoutFace']);
+Route::post('/login-withoutface',LoginWithoutFace::class);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::get('/vote/{id}/vote-result',[VoteController::class,'index']);
+
    // Authentication middleware
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
 
    Route::post('/update-profile',[UpdateProfileController::class,'update']);
    Route::get('voters',[AdminController::class,'getAllVoters']);
+   
+   // Route::get('/vote/{id}/vote-result',[VoteController::class,'index']);
 
 
    Route::patch('/update-password',[UpdatePassword::class,'update']);
     //  Admin Routes
  Route::middleware(['admin'])->group(function () {
 
-   Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
+   // Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
    // Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
    Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
    
@@ -90,7 +99,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
 
     //Chairman routes
  Route::middleware(['chairman'])->group(function () {
-   Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
+   // Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
    Route::prefix('/chairman')->group(function(){
       Route::get('/voters',[ManageVoterController::class,'index']);
       Route::get('/voter/{id}',[ManageVoterController::class,'show']);

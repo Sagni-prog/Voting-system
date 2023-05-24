@@ -70,6 +70,7 @@ class CandidateRepository implements CandidateRepositoryInterface{
                                 'department' => $data['department'],
                                 'gpa' => $data['gpa'],
                                 'exam_score' => $data['exam_score'],
+                                'vote_id' => $data['vote_id']
             ]);
     }
 }

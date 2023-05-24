@@ -67,9 +67,12 @@ class VoteController extends Controller
         try {
           
         $user = $this->userRepository->getCurrentlyAuthenticatedUser();
-        $candidates = $this->registeredCandidateRepository->getRegisteredCandidatesWhereVoteId(1);
+        $candidates = $this->registeredCandidateRepository->getRegisteredCandidatesWhereVoteId(2);
+        // return $candidates->first()->roles->user;
+        // return $candidates;
         
         $data = $this->voteService->calculateVoteResult($candidates);
+        
         // $data = array();
         // $i = 0;
         // foreach($candidates as $candidate){

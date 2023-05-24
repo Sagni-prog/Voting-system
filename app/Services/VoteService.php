@@ -25,20 +25,22 @@ class VoteService{
     
 }
     
-    public function calculateVoteResult(Candidate $candidates): array{
+    public function calculateVoteResult($candidates){
     
         $data = array();
         $i = 0;
         foreach($candidates as $candidate){
-            $candidate_votes = $this->voteBallotRepository->findVoteBallotWhereCandidateId($candidate->candidate_id);
-            $voted_candidate_user = $this->userRepositry->findUserById($candidate->candidate_id);
+            $candidate_votes = $this->voteBallotRepository->findVoteBallotWhereCandidateId($candidate->roles->user->id);
+            $voted_candidate_user =  $this->userRepository->findUserById($candidate->roles->user->id);
             $total_vote_count = $this->getVoteCount($this->voteBallotRepository->getAllVoteBallot());
-            $candidares_vote_count = getCandidatesVoteCount($candidate_votes);
+            $candidares_vote_count = $this->getCandidatesVoteCount($candidate_votes);
             
-            $voted_in_percent = $thit->getCandidateVotedInPercent($candidares_vote_count, $total_vote_count);
+            $voted_in_percent = $this->getCandidateVotedInPercent($candidares_vote_count, $total_vote_count,$this->voteBuilder);
+        
+            // $vote_result = $this->voteResult($candidate, $voted_in_percent);
             $dataObj = $this->toArray(
                                     $voted_candidate_user,
-                                    $candidate_id,
+                                    $candidate->$candidate_id,
                                     $candidares_vote_count,
                                     $voted_in_percent
                                 );
@@ -64,20 +66,26 @@ class VoteService{
                  );
     }
     
-  public static function getCandidateVotedInPercent($candidares_vote_count, $total_vote_count){
-     
-      return $this->voteBuilder->setVoteCount($candidares_vote_count)
+  public static function getCandidateVotedInPercent($candidares_vote_count, $total_vote_count,  VoteResultBuilder $voteBuilder){
+    
+      return $voteBuilder->setVoteCount($candidares_vote_count)
                                ->setTotalVoteCount($total_vote_count)
                                ->calculateVotePercent();
   } 
     
-  public static function getVoteCount(VoteBallot $voteBallot): integer{
+  public static function getVoteCount($voteBallot){
       
       return $voteBallot->count();
   }
   
-  public static function getCandidatesVoteCount(VoteBallot $candidate_votes): integer{
+  public static function getCandidatesVoteCount($candidate_votes){
   
       return $candidate_votes->count();
-   }
+   
+    }
+    
+public function voteResult(Candidate $candidate, double $votePercent) {
+       
+          return $candidate->exam_score + $votePercent;
+  }
 }

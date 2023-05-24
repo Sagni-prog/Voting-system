@@ -24,10 +24,11 @@ class Candidate extends Model
                             'strategic_plan',
                             'isApproved',
                             'approvedBy',
-                            'approved_at'
+                            'approved_at',
+                            'vote_id'
                   ];
                   
-       public function role(){
+       public function roles(){
         
          return $this->morphOne(Role::class,'roleable');
          

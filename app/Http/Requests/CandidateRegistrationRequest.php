@@ -22,7 +22,8 @@ class CandidateRegistrationRequest extends FormRequest
     public function authorize()
     {
 
-        return $this->userHelper->getCurrentlyAuthenticatedUsersRole() === 'chairman';
+         return true;
+        // return $this->userHelper->getCurrentlyAuthenticatedUsersRole() === 'chairman';
        
     }
 
@@ -34,7 +35,7 @@ class CandidateRegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required', 'string', 'max:255'],
+                'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required','string','min:8'],
@@ -43,7 +44,9 @@ class CandidateRegistrationRequest extends FormRequest
                 'department' => ['required','string'],
                 'gpa' => ['required'],
                 'sex' => 'string',
-                'exam_score' => ['required'],
+                'exam_score' => ['integer'],
+                'vote_id' => ['integer'],
+                
         ];
     }
 }

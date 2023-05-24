@@ -16,6 +16,9 @@ use App\Repositories\Candidate\CandidateRepositoryInterface;
 use App\Repositories\Voter\VoterRepositoryInterface;
 use App\Repositories\Chairman\ChairmanRepositoryInterface;
 
+use App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryInterface;
+
+
 
 class UserFactoryManager implements UserFactoryMangerInterface{
 
@@ -26,6 +29,8 @@ class UserFactoryManager implements UserFactoryMangerInterface{
     private $candidateRepository;
     private $voterRepository;
     private $chairmanRepository;
+    private $registeredCandidate;
+ 
     
     public function __construct(
                    UserRepositoryInterface $userRepository, 
@@ -34,6 +39,7 @@ class UserFactoryManager implements UserFactoryMangerInterface{
                    CandidateRepositoryInterface $candidateRepository,
                    VoterRepositoryInterface $voterRepository,
                    ChairmanRepositoryInterface $chairmanRepository,
+                   RegisteredCandidateRepositoryInterface $registeredCandidate,
                    ){
     
        $this->userRepository = $userRepository;
@@ -42,6 +48,7 @@ class UserFactoryManager implements UserFactoryMangerInterface{
        $this->candidateRepository = $candidateRepository;
        $this->voterRepository = $voterRepository;
        $this->chairmanRepository = $chairmanRepository;
+       $this->registeredCandidate = $registeredCandidate;
        
       }
    
@@ -60,7 +67,8 @@ class UserFactoryManager implements UserFactoryMangerInterface{
                $factory = new CandidateFactory(
                                     $this->userRepository,
                                     $this->candidateRepository,
-                                    $this->roleRepository
+                                    $this->roleRepository,
+                                    $this->registeredCandidate
                    );
                    return $factory;
            case $role === 'voter': 

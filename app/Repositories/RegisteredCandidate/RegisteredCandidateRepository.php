@@ -1,7 +1,7 @@
 <?php 
 
 namespace App\Repositories\RegisteredCandidate;
-use App\Models\RegisteredCandidates;
+use App\Models\Candidate;
 
 use App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryInterface;
 
@@ -9,14 +9,21 @@ class RegisteredCandidateRepository implements RegisteredCandidateRepositoryInte
 
   private $registeredCandidates;
   
-  public function __construct(RegisteredCandidates $registeredCandidates){
+  public function __construct(Candidate $registeredCandidates){
      
      $this->registeredCandidates = $registeredCandidates;
      
   }
    
-    public function getRegisteredCandidatesWhereVoteId(){
+    public function getRegisteredCandidatesWhereVoteId($vote_id){
         
-        return $this->registeredCandidates->where('vote_id',1)->get();
+        return $this->registeredCandidates->with('roles.user')->where('vote_id',$vote_id)->get();
+    }
+    
+    public function store(array $data, $candidate_id){
+       return  $this->registeredCandidates->create([
+          'vote_id' => $data['vote_id'],
+          'candidate_id' => $candidate_id
+       ]);
     }
 }

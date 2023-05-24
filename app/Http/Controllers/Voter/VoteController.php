@@ -25,26 +25,25 @@ class VoteController extends Controller
           UserRepositoryInterface $userRepository,
           VoteBallotRepositoryInterface $voteBallotRepository,
           VoteInterface $voteRepository,
-        //   UserHelper $userHelper
+          UserHelper $userHelper
           ){
                
                $this->userRepository = $userRepository;
                $this->voteBallotRepository = $voteBallotRepository;
                $this->voteRepository = $voteRepository;
-            //    $this->userHelper = $userHelper;
+               $this->userHelper = $userHelper;
  }
        
     public function store($voteId, $candidateId){
      try {  
-        //  $user = $this->userRepository->getCurrentlyAuthenticatedUser();
-            $user = $this->userRepository->findUserById(2);
-        //  if($this->userHelper->getCurrentlyAuthenticatedUsersRole() != 'voter'){
+         $user = $this->userRepository->getCurrentlyAuthenticatedUser();
+         if($this->userHelper->getCurrentlyAuthenticatedUsersRole() != 'voter'){
              
-        //      return response()->json([
-        //          'status' => 'fail',
-        //          'message' => 'You cant vote'
-        //      ], 400);
-        //  }
+             return response()->json([
+                 'status' => 'fail',
+                 'message' => 'You cant vote'
+             ], 400);
+         }
          
          if(!$this->voteRepository->findVote($voteId)){
             
