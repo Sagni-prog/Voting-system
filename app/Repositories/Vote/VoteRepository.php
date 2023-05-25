@@ -27,9 +27,9 @@ private $vote;
      
   }
   
-  public function getVoteResult($id){
+  public function getVotes($id){
      
-     return;
+     return $this->vote->find($id);
      
   }
   public function storeVote($data){

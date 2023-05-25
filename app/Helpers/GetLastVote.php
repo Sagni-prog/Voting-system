@@ -3,11 +3,12 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\DB;
+use App\Models\Vote;
 
 class GetLastVote{
     
     public function getLastVote(){
         
-        return DB::table('votes')->latest()->first();
+        return Vote::orderBy('created_at', 'desc')->first();
    }
 }

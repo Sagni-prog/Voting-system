@@ -6,7 +6,7 @@ Interface VoteInterface{
 
   public function findVote($id);
   public function getAllVotes();
-  public function getVoteResult($id);
+  public function getVotes($id);
   public function storeVote($data);
   public function extendStartDate($vote,$data);
   public function extendEndDate($vote,$data);

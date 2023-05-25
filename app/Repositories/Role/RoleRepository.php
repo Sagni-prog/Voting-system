@@ -10,7 +10,7 @@ class RoleRepository implements RoleRepositoryInterface{
    
     public function storeRole($model, $id){
     
-        return $model->role()->create([
+        return $model->roles()->create([
             'user_id' => $id
         ]);
     }

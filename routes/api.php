@@ -2,17 +2,22 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\UpdatePassword;
 use App\Http\Controllers\Auth\UpdateProfileController;
 use App\Http\Controllers\Auth\LoginWithoutFace;
+
 use App\Http\Controllers\Admin\RegistrationController;
 use App\Http\Controllers\Admin\UpdateProfile;
 use App\Http\Controllers\Admin\UserVerification;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VoteController;
+use App\Http\Controllers\Admin\VerifyElection;
+
 use App\Http\Controllers\Voter\UpdateProfile as VoterUpdateProfile;
 use App\Http\Controllers\Voter\VoteController as CastVote;
+
 use App\Http\Controllers\Chairman\ManageVoterController;
 use App\Http\Controllers\Chairman\ManageCandidateController;
 
@@ -64,7 +69,7 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
    // Route::post('/voter/register',[RegistrationController::class,'registerVoter']);
    // Route::post('/candidate/register',[RegistrationController::class,'registerCandidate']);
    Route::post('/chairman/register',[RegistrationController::class,'registerChairman']);
-   
+   Route::get('/verify-election',VerifyElection::class);
    // Route::get('voters',[AdminController::class,'getAllVoters']);
    Route::delete('user/{id}',[AdminController::class,'destroy']);
    Route::post('/vote',[VoteController::class,'store']);

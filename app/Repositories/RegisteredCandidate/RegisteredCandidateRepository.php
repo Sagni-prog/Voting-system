@@ -20,10 +20,10 @@ class RegisteredCandidateRepository implements RegisteredCandidateRepositoryInte
         return $this->registeredCandidates->with('roles.user')->where('vote_id',$vote_id)->get();
     }
     
-    public function store(array $data, $candidate_id){
-       return  $this->registeredCandidates->create([
-          'vote_id' => $data['vote_id'],
-          'candidate_id' => $candidate_id
-       ]);
-    }
+   //  public function store(array $data, $candidate_id){
+   //     return  $this->registeredCandidates->create([
+   //        'vote_id' => $data['vote_id'],
+   //        'candidate_id' => $candidate_id
+   //     ]);
+  //  }
 }

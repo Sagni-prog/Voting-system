@@ -25,24 +25,28 @@ class VoteService{
     
 }
     
-    public function calculateVoteResult($candidates){
+    public function calculateVoteResult($candidates, $vote){
     
         $data = array();
         $i = 0;
         foreach($candidates as $candidate){
             $candidate_votes = $this->voteBallotRepository->findVoteBallotWhereCandidateId($candidate->roles->user->id);
+            
             $voted_candidate_user =  $this->userRepository->findUserById($candidate->roles->user->id);
             $total_vote_count = $this->getVoteCount($this->voteBallotRepository->getAllVoteBallot());
             $candidares_vote_count = $this->getCandidatesVoteCount($candidate_votes);
             
             $voted_in_percent = $this->getCandidateVotedInPercent($candidares_vote_count, $total_vote_count,$this->voteBuilder);
         
-            // $vote_result = $this->voteResult($candidate, $voted_in_percent);
+            $exam_score = $this->getExamScore($voted_candidate_user);
+            $total_vote_percentage = $this->voteResult($exam_score, $voted_in_percent);
             $dataObj = $this->toArray(
                                     $voted_candidate_user,
-                                    $candidate->$candidate_id,
                                     $candidares_vote_count,
-                                    $voted_in_percent
+                                    $voted_in_percent,
+                                    $exam_score,
+                                    $total_vote_percentage,
+                                    $vote->confirmed 
                                 );
                                 
             $data[$i] = $dataObj;
@@ -54,15 +58,20 @@ class VoteService{
     
   public static function toArray(
                         $voted_candidate_user,
-                        $candidate_id,
                         $candidares_vote_count,
-                        $voted_in_percent): array{
+                        $voted_in_percent,
+                        $exam_score,
+                        $total_vote_percentage,
+                        $isConfirmed
+                        ): array{
           
           return array(
                         "candidate" => $voted_candidate_user,
-                        "candidate_id" => $candidate->candidate_id,
                         "vote_count" =>  $candidares_vote_count,
-                        "voted_in_percent" => $voted_in_percent . "%"
+                        "voted_in_percent" => $voted_in_percent . "%",
+                        "exam_score" => $exam_score,
+                        "totol_vote_percent" => $total_vote_percentage,
+                        "isConfirmed" => $isConfirmed
                  );
     }
     
@@ -84,8 +93,17 @@ class VoteService{
    
     }
     
-public function voteResult(Candidate $candidate, double $votePercent) {
+public function voteResult($exam_score, $votePercent) {
        
-          return $candidate->exam_score + $votePercent;
+          return $exam_score + $votePercent;
   }
+
+public static function getExamScore($voted_candidate_user){
+   
+   return $voted_candidate_user->role->roleable->exam_score;
+}
+  
+  
+  
+
 }

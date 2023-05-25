@@ -27,6 +27,8 @@ use App\Services\VoteService;
 use App\Helpers\GetCurrentDate;
 use Auth;
 
+use App\Helpers\GetLastVote;
+
 class VoteController extends Controller
 {
     private $voteInterface;
@@ -36,6 +38,7 @@ class VoteController extends Controller
     private $voteBuilder;
     private $voteService;
     private $dateHelper;
+    private $lastVote;
     
     public function __construct(
                     VoteInterface $voteInterface,
@@ -45,6 +48,7 @@ class VoteController extends Controller
                     VoteResultBuilder $voteBuilder,
                     VoteService $voteService,
                     GetCurrentDate $dateHelper,
+                    GetLastVote $lastVote,
                 ){
         $this->voteInterface = $voteInterface;
         $this->userRepository = $userInterface;
@@ -53,6 +57,7 @@ class VoteController extends Controller
         $this->voteBuilder = $voteBuilder;
         $this->voteService = $voteService;
         $this->dateHelper = $dateHelper;
+        $this->lastVote = $lastVote;
      }
      
      
@@ -66,12 +71,13 @@ class VoteController extends Controller
           
         try {
           
+         $this->lastVote->getLastVote();
         $user = $this->userRepository->getCurrentlyAuthenticatedUser();
-        $candidates = $this->registeredCandidateRepository->getRegisteredCandidatesWhereVoteId(2);
+        $candidates = $this->registeredCandidateRepository->getRegisteredCandidatesWhereVoteId($this->lastVote->getLastVote()->id);
         // return $candidates->first()->roles->user;
         // return $candidates;
         
-        $data = $this->voteService->calculateVoteResult($candidates);
+        $data = $this->voteService->calculateVoteResult($candidates, $this->lastVote->getLastVote());
         
         // $data = array();
         // $i = 0;
@@ -98,6 +104,7 @@ class VoteController extends Controller
           return response()->json([
            
             'status' => 'success',
+            'isConfirmed' => $this->lastVote->getLastVote()->confirmed,
             'data' => $data,
           ], 200);
                  

@@ -8,6 +8,12 @@ use App\Http\Requests\VoterRegistrationRequest;
 use App\Http\Requests\CandidateRegistrationRequest;
 use App\Http\Requests\ChairmanRegistrationRequest;
 
+// use Illuminate\Support\Facades\DB;
+// use App\Repositories\User\UserRepositoryInterface;
+// use App\Repositories\Role\RoleRepositoryInterface;
+// use App\Repositories\Candidate\CandidateRepositoryInterface;
+// use App\Repositories\RegisteredCandidate\RegisteredCandidateRepositoryInterface;
+
 use App\Factory\UserFactory\Manager\UserFactoryManager;
 
 use App\Services\TokenManagerService;
@@ -28,15 +34,25 @@ class RegistrationController extends Controller{
     private $userFactory;
     private $photoService;
     private $voteHelper;
+    private $lastVote;
+    
+    // private $userRepository;
+    // private $roleRepository;
+    // private $candidateRepository;
+    // private $registeredCandidate;
+
     
     public function __construct(
-        
+        // UserRepositoryInterface $userRepository, 
+        // CandidateRepositoryInterface $candidateRepository,
+        // RoleRepositoryInterface $roleRepository,
+        // RegisteredCandidateRepositoryInterface $registeredCandidate,
         TokenManagerService $tokenService,
         GetFaceId $faceIdHelper,
         UserHelper $userHelper,
         UserFactoryManager $userFactory,
         PhotoService $photoService,
-        GetLastVote $voteHelper,
+        GetLastVote $lastVote,
         ){
             
             $this->tokenService = $tokenService;
@@ -44,7 +60,13 @@ class RegistrationController extends Controller{
             $this->userHelper = $userHelper;
             $this->userFactory = $userFactory;
             $this->photoService = $photoService;
-            $this->voteHelper = $voteHelper;
+            $this->lastVote = $lastVote;
+            
+                        
+            // $this->userRepository = $userRepository;
+            // $this->roleRepository = $roleRepository;
+            // $this->candidateRepository = $candidateRepository;
+            // $this->registeredCandidate = $registeredCandidate;
     }
  
     /*
@@ -82,10 +104,12 @@ class RegistrationController extends Controller{
     */
     
     public function registerCandidate(CandidateRegistrationRequest $request){
+    
         try{
             
                 $data = $request->validated();
                 $data['faceId'] =  'candidate';
+                $data['vote_id'] = $this->lastVote->getLastVote();
                 $factory = $this->userFactory->make('candidate');
                 $user = $factory->create($data);
                 $token = $this->tokenService->createToken($user);
@@ -100,10 +124,8 @@ class RegistrationController extends Controller{
         catch(\Exception $exception){
 
             return response()->json([
-                "status"=>true,
-                'helper' => $this->voteHelper->getLastVote(),
                 "message"=>$exception->getMessage(),
-                "erroe"=>$exception
+                "error"=>$exception
             ],500);
         }
     }

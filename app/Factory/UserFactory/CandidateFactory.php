@@ -38,7 +38,7 @@ class CandidateFactory implements UserFactory{
             $user = $this->userRepository->storeUser($data); 
             $candidate = $this->candidateRepository->storeCandidate($data);
             $role = $this->roleRepository->storeRole($candidate, $user->id);
-            $this->registeredCandidate->store($data,  $user->id);
+            // $this->registeredCandidate->store($data,  $user->id);
             
          if(!$user | !$candidate | !$role){
          
