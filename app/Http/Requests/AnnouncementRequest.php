@@ -22,7 +22,7 @@ class AnnouncementRequest extends FormRequest
         return [
                  'admin_id' => ['integer'],
                  'announcement_title' => ['required','string'],
-                 'announcement_description' => ['required','text'],
+                 'announcement_description' => ['required','string'],
                  'deleted_at' => [],
         ];
     }

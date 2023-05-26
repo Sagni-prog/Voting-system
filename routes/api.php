@@ -21,8 +21,12 @@ use App\Http\Controllers\Voter\VoteController as CastVote;
 use App\Http\Controllers\Chairman\ManageVoterController;
 use App\Http\Controllers\Chairman\ManageCandidateController;
 
+use App\Http\Controllers\Announcement\AnnouncementController;
+
 // Route::get('/candidates',[ManageCandidateController::class,'index']);
 
+Route::post('announcement',[AnnouncementController::class,'store']);
+Route::get('announcement',[AnnouncementController::class,'index']);
 
 Route::get('/candidates',[ManageCandidateController::class,'index']);
 Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);

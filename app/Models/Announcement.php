@@ -16,7 +16,8 @@ class Announcement extends Model
                             'deleted_at',
     ];
     
-    public function user(){
+    public function author(){
+    
         $this->belongsTo(User::class);
     }
 }
