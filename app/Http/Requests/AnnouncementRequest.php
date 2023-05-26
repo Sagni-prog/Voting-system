@@ -20,7 +20,7 @@ class AnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
-                 'admin_id' => ['integer'],
+                 'user_id' => ['integer'],
                  'announcement_title' => ['required','string'],
                  'announcement_description' => ['required','string'],
                  'deleted_at' => [],

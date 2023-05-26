@@ -3,15 +3,24 @@
 namespace App\Http\Controllers\Announcement;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use App\Models\Announcement;
+use App\Models\User;
 use App\Http\Requests\AnnouncementRequest;
+
 
 class AnnouncementController extends Controller
 {
     public function index(){
-       
+                 
+      try {
+                   
+            
          $announcement = Announcement::with('author')->get();
+         $user = User::where('id',$announcement->user_id)->first();
+    
          if(!$announcement){
            
            return response()->json(
@@ -26,6 +35,10 @@ class AnnouncementController extends Controller
                         'status' => 'success',
                         'data' => $announcement
                      ], 200);
+               } catch (\Exception $exception) {
+                  
+                  return $exception->getMessage();
+               } 
       }
    
     
