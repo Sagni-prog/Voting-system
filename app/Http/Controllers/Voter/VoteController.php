@@ -13,7 +13,9 @@ use App\Repositories\VoteBallot\VoteBallotRepositoryInterface;
 use App\Http\Requests\CastVoteRequest;
 
 use App\Helpers\UserHelper;
+use DB;
 
+use App\Models\User;
 class VoteController extends Controller
 {
      private $userHelper;
@@ -64,7 +66,15 @@ class VoteController extends Controller
                ],404);
              }
              
+            DB::beginTransaction();
               $voted = $this->voteBallotRepository->storeVoteBallot($user->id, $voteId, $candidateId);
+              $candidate = User::with('role.roleable')->where('id',$candidateId)->first();
+              $candidate->role->roleable->votes =  $candidate->votes + 1;
+              $candidate->role->roleable->save();
+            DB::commit();
+              
+              return $candidate;
+              
               
               return response()->json([
                 'status' => 'success',
@@ -73,6 +83,8 @@ class VoteController extends Controller
          
              
          } catch (\ModelNotFoundException $exception) {
+         
+          DB::rollback();
                return response()->json([
                     'status' => 'fail',
                     'message' => 'Oops! something went wrong',

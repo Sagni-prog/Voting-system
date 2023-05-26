@@ -108,6 +108,19 @@ class UserRepository implements UserRepositoryInterface{
                          })->get();
             }
             
+    public function getActiveNotBannedWhereRoleChairman(){
+        
+        return $this->user->with('role.roleable','photos')
+                          ->where([
+                                   'isActive' => true,
+                                   'isBanned' => false,
+                                   'isDeleted' => false
+                                   ])
+                          ->whereHas('role.roleable',function($query){
+                                 $query->where('role','chairman');
+                         })->get();
+            }
+            
     // public function getActiveNotBannedWhereRoleWith($role){
     //      return $this->user->with('role.roleable','photos')
     //                        ->where([
@@ -131,6 +144,20 @@ class UserRepository implements UserRepositoryInterface{
                                    ])
                           ->whereHas('role.roleable',function($query){
                                  $query->where('role',$this->role);
+                         })->first();
+            }
+            
+    public function findActiveNotBannedWhereRoleChairman($id){
+        
+        return $this->user->with('role.roleable','photos')
+                          ->where([
+                                   'id' => $id,
+                                   'isActive' => true,
+                                   'isBanned' => false,
+                                   'isDeleted' => false
+                                   ])
+                          ->whereHas('role.roleable',function($query){
+                                 $query->where('role','chairman');
                          })->first();
             }
             

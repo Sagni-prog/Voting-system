@@ -40,12 +40,13 @@ class CandidateRegistrationRequest extends FormRequest
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required','string','min:8'],
                 'admission_year' => ['required'],
+                'graduation_year' => [],
                 'educational_year' => ['required'],
                 'department' => ['required','string'],
                 'gpa' => ['required'],
                 'sex' => 'string',
                 'exam_score' => ['integer'],
-                'vote_id' => ['integer'],
+                'vote_id' => ['integer']
                 
         ];
     }

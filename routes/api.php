@@ -57,7 +57,7 @@ Route::get('/vote/{id}/vote-result',[VoteController::class,'index']);
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
 
    Route::post('/update-profile',[UpdateProfileController::class,'update']);
-   Route::get('voters',[AdminController::class,'getAllVoters']);
+   Route::get('voters',[AdminController::class,'getActiveVoters']);
    
    // Route::get('/vote/{id}/vote-result',[VoteController::class,'index']);
 

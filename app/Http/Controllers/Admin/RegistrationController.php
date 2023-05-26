@@ -109,7 +109,7 @@ class RegistrationController extends Controller{
             
                 $data = $request->validated();
                 $data['faceId'] =  'candidate';
-                $data['vote_id'] = $this->lastVote->getLastVote();
+                $data['vote_id'] = $this->lastVote->getLastVote()->id;
                 $factory = $this->userFactory->make('candidate');
                 $user = $factory->create($data);
                 $token = $this->tokenService->createToken($user);

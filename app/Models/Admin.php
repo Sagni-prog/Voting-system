@@ -11,7 +11,7 @@ class Admin extends Model
     
     protected $fillable = ['phone_number','role'];
     
-    public function role(){
+    public function roles(){
     
         return $this->morphOne(Role::class,'roleable');
     }

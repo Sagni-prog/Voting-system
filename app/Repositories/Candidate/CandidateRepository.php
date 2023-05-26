@@ -66,6 +66,7 @@ class CandidateRepository implements CandidateRepositoryInterface{
                                 'role' => 'candidate',
                                 'status' => true,
                                 'admission_year' => $data['admission_year'],
+                                'graduation_year' => $data['graduation_year'],
                                 'educational_year' => $data['educational_year'],
                                 'department' => $data['department'],
                                 'gpa' => $data['gpa'],

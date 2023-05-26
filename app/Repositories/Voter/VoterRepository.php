@@ -27,7 +27,10 @@ class VoterRepository implements VoterRepositoryInterface{
      
     return $this->voter->with('role.user.photos')
                        ->whereHas('role.user',function($query){
-                                $query->where('isActive',true);  
+                                $query->where([
+                                                'isActive' => true,
+                                                'isDeleted' => false,
+                                                ]);  
                         })->get();
   }
   public function getAllInActiveVoters(){

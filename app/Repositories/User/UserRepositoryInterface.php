@@ -14,8 +14,10 @@ Interface UserRepositoryInterface{
     public function getCurrentlyAuthenticatedUser();
     public function updateUserPassword($user, $data);
     public function getActiveNotBannedWhereRole();
+    public function getActiveNotBannedWhereRoleChairman();
     // public function getActiveNotBannedWhereRoleWith($role);
     public function findActiveNotBannedWhereRole($id);
+    public function findActiveNotBannedWhereRoleChairman($id);
     // public function findActiveNotBannedWhereRoleWith($id, $role);
     public function updateUser($user, $data);
     public function verifyUser($user);

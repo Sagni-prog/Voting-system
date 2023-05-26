@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Models\VoteBallot;
 use App\Models\RegisteredCandidates;
 use App\Models\User;
+use App\Models\Candidate;
 
 use App\Http\Requests\VoteRequest;
 use App\Http\Requests\ExtendVoteRequest;
@@ -71,40 +72,59 @@ class VoteController extends Controller
           
         try {
           
-         $this->lastVote->getLastVote();
-        $user = $this->userRepository->getCurrentlyAuthenticatedUser();
-        $candidates = $this->registeredCandidateRepository->getRegisteredCandidatesWhereVoteId($this->lastVote->getLastVote()->id);
-        // return $candidates->first()->roles->user;
+
+        //  $this->lastVote->getLastVote();
+        // $user = $this->userRepository->getCurrentlyAuthenticatedUser();
+        // $candidates = $this->registeredCandidateRepository->getRegisteredCandidatesWhereVoteId(2);
+        // $data = $this->voteService->calculateVoteResult($candidates);
+        // return $data;
+        
+        // $candidates = Candidate::with('roles.user')->where('vote_id',2)->get();
+        
+
+        $candidates = User::with('role.roleable','photos')
+                            ->where([
+                                     'isActive' => true,
+                                     'isBanned' => false,
+                                     'isDeleted' => false
+                                     ])
+                            ->whereHas('role.roleable',function($query){
+                                   $query->where('role','candidate');
+                           })->get();
         // return $candidates;
         
-        $data = $this->voteService->calculateVoteResult($candidates, $this->lastVote->getLastVote());
+        $data = array();
+        $i = 0;
+        $total_vote_count = 18;
+        foreach($candidates as $candidate){
+    
+            $voted_candidate =  $this->userRepository->findUserById($candidate->role->roleable->id);
+            $candidate_vote_count = $candidate->role->roleable->votes;
+            $exam_score = $candidate->role->roleable->exam_score;
         
-        // $data = array();
-        // $i = 0;
-        // foreach($candidates as $candidate){
-        //     $votes = $this->voteBallotRepository->getVoteBallotWhereCandidateId($candidate->candidate_id);
-        //     $voted_candidate = User::with('photos','role.roleable')->find($candidate->candidate_id);
-        //     $total_vote_count = VoteBallot::all()->count();
-        //     $vote_count = $votes->count();
-            
-            
-        //     $voted_in_percent = $this->voteBuilder->setVoteCount($votes->count())
-        //                                 ->setTotalVoteCount($total_vote_count)
-        //                                 ->calculateVotePercent();
-        //     $dataObj = array(
-        //                    "candidate" => $voted_candidate,
-        //                    "candidate_id" => $candidate->candidate_id,
-        //                    "vote_count" =>  $vote_count,
-        //                    "voted_in_percent" => $voted_in_percent . "%"
-        //                );
-        //     $data[$i] = $dataObj;
-        //     $i++;
-        // }
+        
+            $voted_in_percent = $this->voteBuilder->setVoteCount($candidate_vote_count)
+                                        ->setTotalVoteCount($total_vote_count)
+                                        ->calculateVotePercent();
+                                        
+            $dataObj = array(
+                           "candidate" => $candidate,
+                           "exam_score" => $exam_score,
+                           "vote_count" =>  $candidate_vote_count,
+                           "voted_in_percent" => $voted_in_percent ,
+                           "totol_vote_percent" => $exam_score + $voted_in_percent,
+                       );
+            $data[$i] = $dataObj;
+            $i++;
+        }
+        
+        // return $data;
        
           return response()->json([
            
             'status' => 'success',
             'isConfirmed' => $this->lastVote->getLastVote()->confirmed,
+            "total_vote_count" => $total_vote_count,
             'data' => $data,
           ], 200);
                  

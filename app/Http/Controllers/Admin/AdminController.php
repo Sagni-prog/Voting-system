@@ -149,8 +149,10 @@ class AdminController extends Controller
       try {
         
        $chairmans = $this->chairmanRepository->getAllChairmans();
+       $users = $this->userRepository->getActiveNotBannedWhereRoleChairman();
+       return $users;
        
-        if(!$chairmans){
+        if(!$users){
             return response()->json([
                 'status' => 'success',
                 'message' => 'No Chairman found'
@@ -158,9 +160,9 @@ class AdminController extends Controller
         }
         
         return response()->json([
-             $chairmans,
+             $users,
             'status' => 'success',
-            'size' => $chairmans->count(),
+            'size' => $users->count(),
           ],200);
           } catch (\Exception $exception) {
             return $exception->getMessage();
@@ -172,8 +174,9 @@ class AdminController extends Controller
       try {
         
        $user = $this->userRepository->findUserById($id);
+     
        if(!$user){
-         return respoose()->json([
+         return response()->json([
             'status' => 'success',
             'message' => 'no user found'
          ],200);
