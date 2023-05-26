@@ -23,10 +23,22 @@ use App\Http\Controllers\Chairman\ManageCandidateController;
 
 use App\Http\Controllers\Announcement\AnnouncementController;
 
+use App\Http\Controllers\Feedback\FeedbackController;
+
+use App\Http\Controllers\Complains\ComplainController;
+
 // Route::get('/candidates',[ManageCandidateController::class,'index']);
 
-Route::post('announcement',[AnnouncementController::class,'store']);
-Route::get('announcement',[AnnouncementController::class,'index']);
+Route::post('/announcement',[AnnouncementController::class,'store']);
+Route::get('/announcement',[AnnouncementController::class,'index']);
+
+Route::post('/feedback',[FeedbackController::class,'store']);
+Route::get('/feedback',[FeedbackController::class,'index']);
+
+Route::post('/complain',[ComplainController::class,'store']);
+Route::get('/complain',[ComplainController::class,'index']);
+
+
 
 Route::get('/candidates',[ManageCandidateController::class,'index']);
 Route::get('/candidate/{id}',[ManageCandidateController::class,'show']);

@@ -15,14 +15,10 @@ class AnnouncementController extends Controller
 {
     public function index(){
                  
-      try {
-                   
-            
-         $announcement = Announcement::with('author')->get();
-         $user = User::where('id',$announcement->user_id)->first();
-    
+      try {   
+         $announcement = Announcement::orderBy('created_at','desc')->get();
+         
          if(!$announcement){
-           
            return response()->json(
                    [
                       'status' => 'failed',
