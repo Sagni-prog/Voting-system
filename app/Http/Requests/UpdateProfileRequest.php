@@ -27,8 +27,7 @@ class UpdateProfileRequest extends FormRequest
             'first_name' => ['string', 'max:255'],
             'last_name' => ['string', 'max:255'],
             'email' => ['string', 'email', 'max:255'],
-            'photo' => ['image','mimes:jpeg,png,jpg'],
-            'phone_number' => ['string']
+            // 'photo' => ['image','mimes:jpeg,png,jpg'],
         ];
     }
 }

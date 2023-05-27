@@ -95,7 +95,9 @@ class VoteController extends Controller
         
         $data = array();
         $i = 0;
-        $total_vote_count = 18;
+        // $total_vote_count = 18;
+        $total_vote_count = VoteBallot::all()->count();
+
         foreach($candidates as $candidate){
     
             $voted_candidate =  $this->userRepository->findUserById($candidate->role->roleable->id);
@@ -124,6 +126,7 @@ class VoteController extends Controller
            
             'status' => 'success',
             'isConfirmed' => $this->lastVote->getLastVote()->confirmed,
+            'vote_name' => $this->lastVote->getLastVote()->vote_name,
             "total_vote_count" => $total_vote_count,
             'data' => $data,
           ], 200);

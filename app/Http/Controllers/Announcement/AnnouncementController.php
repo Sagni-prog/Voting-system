@@ -10,6 +10,8 @@ use App\Models\Announcement;
 use App\Models\User;
 use App\Http\Requests\AnnouncementRequest;
 
+use Auth;
+
 
 class AnnouncementController extends Controller
 {
@@ -41,6 +43,7 @@ class AnnouncementController extends Controller
     public function store(AnnouncementRequest $request){
        
        $data = $request->validated();
+       $data['user_id'] = Auth::user()->id;
        $announcement = Announcement::create($data);
        if(!$announcement){
          

@@ -72,13 +72,14 @@ Route::get('/vote/{id}/vote-result',[VoteController::class,'index']);
    // Authentication middleware
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
 
+   Route::post('/announcement',[AnnouncementController::class,'store']);
    Route::post('/update-profile',[UpdateProfileController::class,'update']);
    Route::get('voters',[AdminController::class,'getActiveVoters']);
    
    // Route::get('/vote/{id}/vote-result',[VoteController::class,'index']);
 
 
-   Route::patch('/update-password',[UpdatePassword::class,'update']);
+   Route::post('/update-password',[UpdatePassword::class,'update']);
     //  Admin Routes
  Route::middleware(['admin'])->group(function () {
 

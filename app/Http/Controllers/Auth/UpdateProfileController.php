@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateProfileRequest;
 
@@ -10,6 +12,9 @@ use App\Repositories\User\UserRepositoryInterface;
 // use App\Repositories\Admin\AdminRepositoryInterface;
 
 use App\Services\PhotoService;
+
+
+
 
 
 
@@ -47,7 +52,8 @@ public function update(UpdateProfileRequest $request){
     
         return response()->json([
            'status' => 'sucess',
-           'message' => 'You have sucessfully changed your profile'
+           'message' => 'You have sucessfully changed your profile',
+           'user' => $this->userRepository->findUserById($user->id)
         ],200);
         
     } catch (\Exception $exception) {

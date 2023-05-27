@@ -8,23 +8,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ComplainRequest;
 use App\Models\Complain;
 
+use Auth;
+
 class ComplainController extends Controller
 {
     public function index(){
        
         try {
-           $complains = Complain::orderBy('create_at','desc')->get();
+           $complains = Complain::orderBy('created_at','desc')->get();
            if(!$complains){
               return response()->json([
                  'status' => 'fail',
                  'message' => 'No feedback found'
               ], 404);
-              
-              return response()->json([
-                 'status' => 'success',
-                 'data' => $complains
-              ], 200);
+          
            }
+               
+           return response()->json([
+            'status' => 'success',
+            'data' => $complains
+         ], 200);
         } catch (\Exception $exception) {
            return response()->json([
               'status' => 'fail',
@@ -37,7 +40,9 @@ class ComplainController extends Controller
        try {
      
         $data = $request->validated();
+        $data['name'] = Auth::user()->first_name." ".Auth::user()->last_name;
         $res = Complain::create($data);
+        
         return response()->json([
            'status' => 'success',
            'message' => 'successfully created',
