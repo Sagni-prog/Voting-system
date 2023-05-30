@@ -51,8 +51,9 @@ class VoteController extends Controller
             
              return response()->json([
                  'status' => 'fail',
+                 'data' => $user,
                  'message' => 'Vote Does not exist'
-             ],404);
+             ],200);
          }
          
          $voted = $this->voteBallotRepository->setVoteId($voteId)
@@ -61,9 +62,10 @@ class VoteController extends Controller
         
              if($voted){
                 return response()->json([
-                    'status' => 'fail',
+                    'status' => 'voted',
+                    'data' => $voted,
                     'message' => 'You have already voted',
-               ],404);
+               ],200);
              }
              
             DB::beginTransaction();
@@ -73,11 +75,12 @@ class VoteController extends Controller
               $candidate->role->roleable->save();
             DB::commit();
               
-              return $candidate;
+              // return $candidate;
               
               
               return response()->json([
                 'status' => 'success',
+                'data' => $candidate,
                 'message' => 'You have successfully voted',
            ],201);
          

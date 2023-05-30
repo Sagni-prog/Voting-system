@@ -17,7 +17,7 @@ class Chairman extends Model
         'deleted_at'
 ];
 
-public function role(){
+public function roles(){
    
   return $this->morphOne(Role::class,'roleable');
   

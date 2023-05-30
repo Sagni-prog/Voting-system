@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Console\Scheduling\Schedule;
 
 class Kernel extends HttpKernel
 {
@@ -46,13 +47,7 @@ class Kernel extends HttpKernel
         ],
     ];
 
-    /**
-     * The application's route middleware.
-     *
-     * These middleware may be assigned to groups or used individually.
-     *
-     * @var array<string, class-string|string>
-     */
+  
     protected $routeMiddleware = [
         'admin' => \App\Http\Middleware\admin::class,
         'candidate' => \App\Http\Middleware\candidate::class,
@@ -68,4 +63,23 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+    
+    // public function schedule(Schedule $schedule){
+    //     if (app('env') == 'production') {
+    //         $schedule->command('backup:clean')->daily()->at('01:00');
+    //         $schedule->command('backup:run')->daily()->at('02:00');
+    //        }
+    //  }
+    
+    
+    protected function schedule(Schedule $schedule)
+{
+   $schedule->command('backup:clean')->daily()->at('01:00');
+   $schedule->command('backup:run')->daily()->at('01:30');
 }
+}
+
+
+
+
+  

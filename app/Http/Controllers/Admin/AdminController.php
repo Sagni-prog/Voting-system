@@ -51,7 +51,7 @@ class AdminController extends Controller
       }
    }
      
-   public function getInActiveVoters(){
+  public function getInActiveVoters(){
    
       try {
         
@@ -150,7 +150,7 @@ class AdminController extends Controller
         
        $chairmans = $this->chairmanRepository->getAllChairmans();
        $users = $this->userRepository->getActiveNotBannedWhereRoleChairman();
-       return $users;
+      //  return $users;
        
         if(!$users){
             return response()->json([
@@ -160,7 +160,7 @@ class AdminController extends Controller
         }
         
         return response()->json([
-             $users,
+             'data' => $users,
             'status' => 'success',
             'size' => $users->count(),
           ],200);

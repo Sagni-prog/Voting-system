@@ -24,7 +24,6 @@ class FeedbackRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['integer','required'],
             'feedback_description' => ['required','string']
         ];
     }

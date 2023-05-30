@@ -41,6 +41,7 @@ class ComplainController extends Controller
      
         $data = $request->validated();
         $data['name'] = Auth::user()->first_name." ".Auth::user()->last_name;
+        $data['user_id'] = Auth::user()->id;
         $res = Complain::create($data);
         
         return response()->json([

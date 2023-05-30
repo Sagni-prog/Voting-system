@@ -146,8 +146,8 @@ class RegistrationController extends Controller{
            ],400);
          }
             $data = $request->validated();
-            // $data['faceId'] =  $this->faceIdHelper->getFaceId();
-            $data['faceId'] =  $request->face_id;
+            $data['faceId'] =  $this->faceIdHelper->getFaceId();
+            // $data['faceId'] =  $request->face_id;
             $factory = $this->userFactory->make('chairman');
             $user = $factory->create($data);
             $token = $this->tokenService->createToken($user);

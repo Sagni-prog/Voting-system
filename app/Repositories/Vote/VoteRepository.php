@@ -17,7 +17,11 @@ private $vote;
 
   public function findVote($id){
   
-    return $this->vote->where('id',$id)->first();
+    return $this->vote->where(
+          [
+          'id'=> $id,
+          'vote_status' => 'pending'
+          ])->first();
     
   }
   

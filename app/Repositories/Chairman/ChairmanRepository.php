@@ -18,7 +18,7 @@ class ChairmanRepository implements ChairmanRepositoryInterface{
     
     public function getAllChairmans(){
         
-        return $this->chairman->with('role.user.photos')->get();
+        return $this->chairman->with('roles.user.photos')->get();
     }
     
     public function storeChairman($data){

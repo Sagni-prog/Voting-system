@@ -27,6 +27,11 @@ use App\Http\Controllers\Feedback\FeedbackController;
 
 use App\Http\Controllers\Complains\ComplainController;
 
+use App\Http\Controllers\Candidate\AddDescription;
+use App\Http\Controllers\Candidate\AddStrategicPlanCotroller;
+
+use App\Http\Controllers\Vote\ActiveVoteController;
+
 // Route::get('/candidates',[ManageCandidateController::class,'index']);
 
 Route::post('/announcement',[AnnouncementController::class,'store']);
@@ -35,9 +40,10 @@ Route::get('/announcement',[AnnouncementController::class,'index']);
 Route::post('/feedback',[FeedbackController::class,'store']);
 Route::get('/feedback',[FeedbackController::class,'index']);
 
-Route::post('/complain',[ComplainController::class,'store']);
+
 Route::get('/complain',[ComplainController::class,'index']);
 
+Route::get('/active-vote',ActiveVoteController::class);
 
 
 Route::get('/candidates',[ManageCandidateController::class,'index']);
@@ -135,6 +141,11 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
  });
      //Candidate routes
  Route::middleware(['candidate'])->group(function () {
+   Route::post('/description',AddDescription::class);
+   Route::post('/strategic-plan',AddStrategicPlanCotroller::class);
+   Route::post('/complain',[ComplainController::class,'store']);
+
+
    Route::prefix('/candidate')->group(function(){
 
       });
@@ -143,6 +154,8 @@ Route::middleware(['auth:sanctum', 'api'])->group(function () {
    // Voter routes
  Route::middleware(['voter'])->group(function () {
    Route::prefix('/voter')->group(function(){
+      Route::post('/complain',[ComplainController::class,'store']);
+
       Route::post('/update-profile',[VoterUpdateProfile::class,'update']);
       Route::post('/vote/{voteId}/candidate/{candidateId}',[CastVote::class,'store']);
    });

@@ -16,9 +16,9 @@ class ComplainRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['integer','required'],
+            
             'complain_desctiption' => ['string','required'],
-            'name' => []
+           
         ];
     }
 }
