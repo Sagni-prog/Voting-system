@@ -17,15 +17,15 @@ export default function Updateprofile() {
   const [errorMessage, setErrorMessage] = useState('');
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
-useEffect(() => {
-   setUser(JSON.parse(localStorage.getItem('user')))
-   console.log("user",user.user)
-},[])
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('user')))
+    console.log("user",user.user)
+ },[]);
  
-  const [firstName, setFirstName] = useState(user.user.first_name);
-  const [lastName, setLastName] = useState(user.user.last_name);
-  const [email, setEmail] = useState(user.user.email);
-  const [photo, setPhoto] = useState(null);
+ const [firstName, setFirstName] = useState(user.user.first_name);
+ const [lastName, setLastName] = useState(user.user.last_name);
+ const [email, setEmail] = useState(user.user.email);
+ const [photo, setPhoto] = useState(null);
 
 
   const handleFileSelect = (event) => {
@@ -40,6 +40,7 @@ useEffect(() => {
     formData.append("last_name",lastName);
     formData.append("email", email);
     formData.append("photo", photo);
+    
     console.log("from update",firstName)
     sendUpdate(formData);
 
@@ -48,26 +49,30 @@ useEffect(() => {
   const sendUpdate = async(data) => {
     try {
       const res = await http.post('/update-profile',data);
+      console.log("from update request ",res.data.user);
       console.log(res.data.status);
+      const user = res.data;
+      if(res.data.status === 'sucess'){
       
-      if(res.data.status === 'success'){
-      
-          setSuccessMessage('Candidate added successfully.');
-          setErrorMessage('');
-          setTimeout(() => {
-            setSuccessMessage('');
-          }, 4000);
-        }
-        
+      console.log("this is success")
+        localStorage.setItem('user',JSON.stringify(user));
         setSuccessMessage('Candidate added successfully.');
         setErrorMessage('');
         setTimeout(() => {
           setSuccessMessage('');
         }, 4000);
+      }
+      
+      setSuccessMessage('Candidate added successfully.');
+      setErrorMessage('');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 4000);
     } catch (error) {
       
     }
   }
+  
 
   return (
     <div>
@@ -145,10 +150,11 @@ useEffect(() => {
            
         <div class="flex flex-col md:flex-row h-[90vh]">
     <Sidebar />
+    
       <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
       <div class="w-90  bg-white p-6 rounded-lg shadow-md">
       <h2 class="text-2xl font-bold mb-4">Update Profile</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
       <div className='flex gap-4'>
       <div class="mb-4 w-full">
           <label class="block text-gray-700 font-bold mb-2" for="first-name">
@@ -193,16 +199,16 @@ useEffect(() => {
         </div>
         <div class="mb-4 w-full">
           <label class="block text-gray-700 font-bold mb-2" for="last-name">
-            Sex
+          Photo
           </label>
           <input
-            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="sex"
-            type="file"
-            value={photo}
-            onChange={handleFileSelect}
-            placeholder="Enter your  gender"
-          />
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="email"
+          type="file"
+          name='photo'
+          onChange={handleFileSelect}
+          placeholder="Enter your email address"
+        />
         </div>
         </div>
     
@@ -218,6 +224,7 @@ useEffect(() => {
       </form>
     </div>
             </div>
+            
             </div>
     
     

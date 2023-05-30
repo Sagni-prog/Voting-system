@@ -41,6 +41,7 @@ export default function Updateprofile() {
     formData.append("last_name",lastName);
     formData.append("email", email);
     formData.append("photo", photo);
+    
     console.log("from update",firstName)
     sendUpdate(formData);
 
@@ -49,9 +50,13 @@ export default function Updateprofile() {
   const sendUpdate = async(data) => {
     try {
       const res = await http.post('/update-profile',data);
+      console.log("from update request ",res.data.user);
       console.log(res.data.status);
-      if(res.data.status === 'success'){
+      const user = res.data;
+      if(res.data.status === 'sucess'){
       
+      console.log("this is success")
+        localStorage.setItem('user',JSON.stringify(user));
         setSuccessMessage('Candidate added successfully.');
         setErrorMessage('');
         setTimeout(() => {
@@ -68,6 +73,7 @@ export default function Updateprofile() {
       
     }
   }
+  
   return (
     <div>
   <div>

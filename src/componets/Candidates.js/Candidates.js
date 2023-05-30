@@ -4,45 +4,99 @@ import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/041a746a664d31ba7c4c6c1bc98b9010.jpg'
 import img1 from './../../images/10354069_578454862259335_1343665270853874982_n.png'
 import img3 from './../../images/elections-poll-svgrepo-com-2.svg'
-import { FaVoteYea } from 'react-icons/fa';
+import { FaSmileBeam, FaVoteYea } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Element } from 'react-scroll';
 import { Link as Link} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import CandidateContext from '../../contexts/CandidateContext'
 import http from '../../http/http'
+import Alert from './Alert'
+import Success from './Success'
+
+import AlertContext from '../../contexts/AlertContext'
+import SuccessContext from '../../contexts/SuccessContext'
 
 
 export default function Candidates() {
   
   
+  const navigate = useNavigate()
   const {candidateState, candidateDispatch} = useContext(CandidateContext)
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [readMore,setReadMore]=useState(false);
+  const [vote,setVote] = useState({})
   
+  const [feedback, setFeedback] = useState('');
+  
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  
+  const {alert, alertDispatch} = useContext(AlertContext)
+  const { success,successDispatch} = useContext(SuccessContext)
+   
   
 
   useEffect(() => {
-        console.log('from card', candidateState[0]);
-         candidateState.map((data) => console.log(data.candidate.first_name))
-        //  candidateState.map((data) => console.log(data.role.department))
-    })
+    getActiveVote()
+    console.log('this is the alert value',alert)
+    },[])
     
     
-    const sendVote = async(id) => {
-      try {
-    
-        
-        const res = await http.post(`/vote/${1}/candidate/${id}`);
-        console.log(res);
+    const sendVote = async(id, voteId) => {
+      try {    
+        const res = await http.post(`/voter/vote/${voteId}/candidate/${id}`);
+        console.log("cast ballot result",res);
+        if(res.data.status === 'voted'){
+          console.log("you have already voted: ",res.data.status)
+          successDispatch({type: 'TOGGLE',success})
+          console.log("aler from the context")
+          navigate('/')
+        }else{
+         
+          
+          console.log("you have already voted: ",res.data.status)
+          alertDispatch({type: 'TOGGLE',alert})
+          console.log("aler from the context")
+          navigate('/')
+        }
             
           } catch (error) {
         
       }
     }
-  function handleVote(id) {
+    
+    
+    
+  function handleVote(id,voteId) {
+  
+   
+  
+      try {
+        
        
-       sendVote(id);
+         
+      if(!localStorage.getItem('user')){
+        console.log("no user")
+        navigate('/signin')
+      }
+      if(JSON.parse(localStorage.getItem('user')).user.role.roleable.role !== 'voter'){
+           
+        navigate('/signin')
+        setIsChecked(false)
+
+    
+         }else{
+         
+           sendVote(id,voteId);
+           setIsChecked(false)
+         }
+         
+      
+          } catch (error) {
+        
+      } 
   }
   
   
@@ -69,12 +123,46 @@ export default function Candidates() {
     setSelectedCandidate(candidate);
   }
   
-
-  return (
   
-  // <h1>hell</h1>
+  const getActiveVote = async() => {
+     
+    const data = await http.get('/active-vote');
+    setVote(data.data)
+     console.log(data.data);
+ }
+ 
+ const sendFeedback = async(data) => {
+      
+  const res = await http.post('/voter/complain',data);
+  console.log("complian" ,res.data)
+  if(res.data.status !== 'succcess'){
+    setSuccessMessage('');
+    setErrorMessage('Failed to add strategy and policy.');
+  setTimeout(() => {
+    setErrorMessage('');
+  }, 4000);
+}
+
+    setFeedback('')
+    setSuccessMessage('strategy and policy added successfully.');
+    setErrorMessage('');
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 4000);
+    }
+ 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const formData = new FormData();
+        formData.append("complain_desctiption",feedback);
+        console.log("feedback",feedback)
+        sendFeedback(formData)    
+    }
+    
+  return (
     <div>
-    <div className="container flex px-6 py-10 mx-auto">
+       
+     <div className="container flex px-6 py-10 mx-auto">
   
     <div className="flex flex-wrap w-[75%] -mx-2">
         <div className="w-full px-4 ">
@@ -88,8 +176,9 @@ export default function Candidates() {
           </div>
         </div>
      
+    
      <div className="bg-white w-full h-[40vh] rounded-lg mb-1 p-4">
-          {/* Conditionally render candidate details */}
+          
           {selectedCandidate ? (
             <div className="flex items-center w-full m-4">
             {
@@ -160,7 +249,10 @@ export default function Candidates() {
         <div className="container mx-4 my-4">
     
         <div className="w-full ">
-          <div className="bg-white rounded-lg">
+        {  
+          vote ?  
+           vote.vote_status === 'pending' ? 
+           (<div className="bg-white rounded-lg">
           <div class="p-4  border border-gray-200 rounded-lg shadow-md sm:p-8 ">
                   <div class="flex items-center justify-between mb-4">
                     <h5 class="text-xl font-bold leading-none text-gray-800">
@@ -168,7 +260,8 @@ export default function Candidates() {
                     </h5>
                   
                   </div>
-                  <div class="flow-root w-[50rem] h-[50vh] overflow-y-auto">
+                  
+                  <div class="flow-root w-[45rem] h-[50vh] overflow-y-auto">
                     <ul
                       role="list"
                       class="divide-y  divide-gray-700 dark:divide-gray-500">
@@ -198,7 +291,7 @@ export default function Candidates() {
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium text-gray-800 truncate ">
-              {candidate.first_name}  {candidate.candidate.last_name}
+              {candidate.candidate.first_name}  {candidate.candidate.last_name}
               </p>
               <p class="text-sm text-gray-500 item-center truncate dark:text-gray-400">
                 {candidate.role.department}
@@ -231,7 +324,12 @@ export default function Candidates() {
                 </div>
     
  
-          </div>
+          </div>)
+          :
+          <p>No elction</p>
+          :
+          <p>No Vote</p>
+      } 
         </div>
       </div>
     </div>
@@ -267,9 +365,14 @@ export default function Candidates() {
           </div>
         </div>
       </div>
+      
+      
       <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
         <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.candidate.id} onClick={() => handleVote(selectedCandidate.candidate.id)}>
+          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.candidate.id} onClick={() => handleVote(
+                                                          selectedCandidate.candidate.id,
+                                                          selectedCandidate.role.vote_id
+                                                          )}>
             Vote
           </button>
         </span>
@@ -282,12 +385,15 @@ export default function Candidates() {
           
         </span>
       </div>
+      
     </div>
   </div>
 </div>
 
 )}
-{readMore &&(   <div className="fixed inset-0 z-10 overflow-y-auto">
+{
+readMore && (   
+<div className="fixed inset-0 z-10 overflow-y-auto">
   <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
     <div className="fixed inset-0 transition-opacity">
       <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -299,7 +405,6 @@ export default function Candidates() {
     <div class="bg-white m-10 p-[2rem] rounded-lg shadow-md">
         <div class="flex items-center mb-6">
 
-          {/* <img class="w-[6rem] h-[6rem] rounded-full mr-4" src="https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc=" alt="User Profile Image"/> */}
           
           {
               selectedCandidate.candidate.photos.length > 0 ?
@@ -381,9 +486,6 @@ export default function Candidates() {
             <p class="text-gray-500 ">02-04-2021</p>
             </div>
           
-    
-
-          
           </div>
         </div>
             </div>
@@ -411,7 +513,10 @@ export default function Candidates() {
       </div>
       <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
         <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.id} onClick={handleVote}>
+          <button type="button" className="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5" key={selectedCandidate.id} onClick={() => handleVote(
+                                                          selectedCandidate.candidate.id,
+                                                          selectedCandidate.role.vote_id
+                                                          )}>
             Vote
           </button>
         </span>
@@ -435,16 +540,21 @@ export default function Candidates() {
     <div className='flex-column gap-0 mt-[1rem]'>
         <h1 className='text-[1.5rem]  text-white font-bold p-3 '>you have something to say?</h1>
         <div className='gap-1 p-2 flex-column'>
-        <form>
+        
+        
+        <form onSubmit={handleSubmit}>
         <div className=''>
          
-         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-         <textarea id="message" rows="4" class="block p-2.5 shadow-md w-full text-sm text-emerald-900 bg-emerald-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-emerald-700 dark:border-emerald-600 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Feedback</label>
+         <textarea id="message" rows="4" class="block p-2.5 shadow-md w-full text-sm text-emerald-900 bg-emerald-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-emerald-700 dark:border-emerald-600 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."
+           value={feedback}
+           onChange={(e) => setFeedback(e.target.value)}
+         ></textarea>
          
                  </div>
+        <button type='submit' className="left-0 px-4 py-2 mt-1 mr-2 font-bold text-white bg-blue-500 rounded shadow-md">send</button>
         </form>
       
-        <button className="left-0 px-4 py-2 mt-1 mr-2 font-bold text-white bg-blue-500 rounded shadow-md">send</button>
 
         </div>
     
@@ -465,12 +575,6 @@ export default function Candidates() {
     </div>
 
     </div>
-
-    
-)
-
-                
-      
-
-  
+ 
+   ) 
 }

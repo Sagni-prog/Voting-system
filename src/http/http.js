@@ -9,4 +9,6 @@ import axios from "axios"
         }
      });
      
+  http.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+     
 export default http

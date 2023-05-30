@@ -1,10 +1,5 @@
-import logo from './logo.svg';
-// import './App.css';
-import image from './../src/images/10354069_578454862259335_1343665270853874982_n.png'
-import img from './../src/images/download (9).png'
-import img2 from './../src/images/ivana-square.jpg'
+
 import { useEffect, useState, useReducer } from 'react';
-import Navbar from './componets/Nav/Navbar';
 import Landingpage from './componets/Home/Landingpage';
 import Candidates from './componets/Candidates.js/Candidates';
 import ElectionProgress from './componets/ElectionProgress/ElectionProgress';
@@ -37,12 +32,24 @@ import AddResult from './componets/admin/AddResult';
 
 import CandidateContext from './contexts/CandidateContext';
 import CandidateReducer from './reducers/CandidateReducer';
+
 import ChairmanContext from './contexts/ChairmanContext';
 import ChairmanReducer from './reducers/ChairmanReducer';
+
 import VoterContext from './contexts/VoterContext';
 import VoterReducer from './reducers/VoterReducer';
+
 import UserContext from './contexts/UserContext';
 import UserReducer from './reducers/UserReducer';
+
+import AnnouncementContext from './contexts/AnnouncementContext';
+import AnnouncementReducer from './reducers/announcementReducer';
+
+import AlertContext from './contexts/AlertContext';
+import AlertReducer from './reducers/AlertReducer';
+
+import SuccessContext from './contexts/SuccessContext';
+import SuccessReducer from './reducers/SuccessReducer';
 
 import http from './http/http';
 import axios from 'axios';
@@ -57,14 +64,33 @@ import AddElectionSlug from './componets/admin/AddElectionSlug'
 import AddVote from './componets/admin/AddVote';
 import Addpolicyandstrategy from './componets/candidateDashboard/Addpolicyandstrategy';
 import CandidateDashboardHome from './componets/candidateDashboard/CandidateDashboardHome';
+import Addcandidates from './componets/ChairmanDashboard/Addcandidate';
+import AllChairman from './componets/admin/AllChairman';
+
+import AllCandidates from './componets/ChairmanDashboard/AllCandidates';
+
+import VoteResult from './componets/ChairmanDashboard/VoteResult';
+import Complains from './componets/ChairmanDashboard/Complains';
+
+
+import UpdateProfile from './componets/candidateDashboard/UpdateProfile';
+import UpdatePassword from './componets/candidateDashboard/UpdatePassword';
+// import CandidateComplain from './componets/ChairmanDashboard/Complain';
+import CandidateComplain from './componets/candidateDashboard/Complain';
+import AddDescription from './componets/candidateDashboard/AddDescription';
+
+import Alert from './componets/Candidates.js/Alert';
+
+import Logout from './componets/Auth/Logout';
+
+
 function App() {
   
    
   window.onbeforeunload = function(e) {
     localStorage.removeItem('face-id');
     if (performance.getEntriesByType("navigation")[0].type === "navigate") {
-      // localStorage.clear();
-
+      
     }
   };
   
@@ -75,6 +101,9 @@ function App() {
  const [chairmanState,chairmanDispatch] = useReducer(ChairmanReducer,[]);
  const [voterState,voterDispatch] = useReducer(VoterReducer,[]);
  const [userState,userDispatch] = useReducer(UserReducer,[]);
+ const [announcementState,announcementDispatch] = useReducer(AnnouncementReducer,[]);
+ const [alert, alertDispatch] = useReducer(AlertReducer,false)
+ const [success, successDispatch] = useReducer(SuccessReducer,false)
 
  
  
@@ -84,8 +113,8 @@ function App() {
       
         const response = await http.get('/candidates');
         const candidates = response.data;
-        console.log('from app candidate',candidates)
-        console.log('from app can')
+        // console.log('from app candidate',candidates)
+        // console.log('from app can')
         candidateDispatch({type: 'GET', candidates});
         
            } catch (error) {
@@ -98,21 +127,25 @@ function App() {
     
         const response = await http.get('/admin/chairmans');
         const chairmans = response.data;
-        console.log('from app chairman',chairmans)
-        console.log('from app')
+        
+        chairmans.data.map((data) => console.log(data.id))
+        console.log("chairmano : ", chairmans);
         chairmanDispatch({type: 'GET', chairmans});
          } catch (error) {
       }
  }
+ 
  const getVoters = async() => {
     try {
         const response = await http.get('/voters');
         const voters = response.data;
+        console.log("from voter length:", voters.voters.length)
         voterDispatch({type: 'GET', voters});
            } catch (error) {
       
       }
  }
+ 
 //  const getCandidates = async() => {
  
 //  const response = await http.get('/candidates');
@@ -123,6 +156,17 @@ function App() {
 //         console.log(candidates)
 //         candidateDispatch({type: 'GET', candidates});
 //  }
+
+const getPosts = async() => {
+  
+  const res = await http.get('/announcement');
+  // console.log("announcements", res.data.data)
+  const announcement = res.data
+  announcementDispatch({type: 'GET',announcement});
+} 
+
+// console.log("announcement2: ",announcementState)
+
  
 
  
@@ -130,8 +174,12 @@ function App() {
     getCandidates();
     getChairmans();
     getVoters();
+    getPosts();
+  //  console.log(Logout())
   
   },[])
+  
+
 
 
   return (
@@ -153,9 +201,44 @@ function App() {
                  }
         >
         
+       <ChairmanContext.Provider
+          
+           value={
+                     {
+                         chairmanState,chairmanDispatch
+                     }
+           }
+       >
+       
+       <AnnouncementContext.Provider
+       
+           value={
+                   {
+                      announcementState,announcementDispatch
+                   }
+                }
+       
+       >
+       
+       <AlertContext.Provider 
+          value={
+                   {
+                       alert,alertDispatch
+                   }
+                }
+       >
+       
+       <SuccessContext.Provider 
+            
+            value={
+                     {
+                        success,successDispatch
+                     }
+                  }
+       >
+               
           <Router>
           <div>
-           
             <Routes>
               <Route path="/landingpage" element={<Landingpage />} />
               <Route path="/candidates" element={<Candidates />} />
@@ -167,13 +250,17 @@ function App() {
               <Route path='/' element={<TheApp/>}/>
               <Route path='/#' element={<TheApp/>}/>
               <Route path='/home' element={<TheApp />}/>
+              
               <Route path='/admin/dashboard' element={<AddCandidates />} />
               <Route path="/admin/update-profile" element={<Updateprofile />} />
               <Route path="/admin/add-election" element={<AddVote />} />
+              <Route path="/admin/chairman" element={<AllChairman />} />
+              <Route path='/admin/add-chairman' element={<AddChairman />} />
+              
               {/* <Route path='/chairman/dashboard' element={<Chairman />} /> */}
               <Route path='/addcandidate' element={<AddCandidates />} />
               <Route path='/voters' element={<Voters />} />
-              <Route path='/addchairman' element={<AddChairman />} />
+             
               <Route path='/add-voter' element={<AddVoter />} />
               <Route path='/reportnews' element={<AddNews />} />
               <Route path='/notifications' element={<Feedbacks />} />
@@ -182,13 +269,24 @@ function App() {
               <Route path="/Approvecandidate" element={<Approvecandidate />} />
               <Route path="/Watchvotersforchairman" element={<Watchvotersforchairman />} />
               <Route path="/Updateprofileforchairman" element={<Updateprofileforchairman />} />
-              <Route path="/chairman/dashboard" element={<ChairmanDashboardHome />} />
+              
+              <Route path="/chairman/dashboard" element={<AllCandidates />} />
+              <Route path="/chairman/candidates" element={<AllCandidates />} />
+              <Route path="/chairman/add-candidate" element={<Addcandidates />} />
+              <Route path="/chairman/vote-result" element={<VoteResult />} />
+              <Route path="/chairman/complains" element={<Complains />} />
+              
               <Route path="/Feedbackforchairman" element={<Feedbackforchairman />} />
               <Route path="/Updatepasswordforadmin" element={<Updatepassword />} />
               <Route path="/Updatepasswordforcharirman" element={<Updatepasswordforcharirman /> } />
-              <Route path="/Addpolicyandstrategy" element={<Addpolicyandstrategy /> } />
-              <Route path="/CandidateDashboardHome" element={<CandidateDashboardHome /> } />
-              <Route path="/AddElectionSlug" element={<AddElectionSlug />} />
+              
+              <Route path="/candidate/dashboard" element={<Addpolicyandstrategy /> } />
+              <Route path="/candidate/add-strategy" element={<Addpolicyandstrategy /> } />
+              <Route path="/candidate/add-description" element={<AddDescription />} />
+              <Route path="/candidate/update-profile" element={<UpdateProfile />} />
+              <Route path="/candidate/update-password" element={<UpdatePassword />} />
+              <Route path="/candidate/complain" element={<CandidateComplain />} />
+              
               <Route path="/AddVote" element={<AddVote /> } />
               <Route path="/ElectionResult" element={<ElectionResult /> } />
               <Route path="/AddResult" element={<AddResult /> } />
@@ -199,18 +297,20 @@ function App() {
               <Route path = 'face-auth' element = { <RecognizeFace />} />
               <Route path = '/login' element = {<Login />} />
               <Route path = '/signin' element = {<LoginVoter />} />
+              
+              <Route path='/alert' element = { <Alert />}/>
               {/* <Route path = '/signin' element = {<LoginVoter />} /> */}
             </Routes>
             <div>
-          
-             
-      
-          
           </div>
           </div>
         </Router>
-        </VoterContext.Provider>
-      </CandidateContext.Provider>
+        </SuccessContext.Provider>
+        </AlertContext.Provider>
+        </AnnouncementContext.Provider>
+      </ChairmanContext.Provider> 
+    </VoterContext.Provider>
+  </CandidateContext.Provider>
  
 
  

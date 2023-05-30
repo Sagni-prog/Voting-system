@@ -1,37 +1,80 @@
-
-import {React,useEffect, useContext} from 'react'
-
-import Sidebar from './Siderbar'
+import React from 'react'
+import { useState, useEffect } from 'react';
+import Sidebar from './Sidebar'
+import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { selectVoter } from '../../app/features/voter/VoterSlice';
-import VoterContext from '../../contexts/VoterContext';
-import CandidateContext from '../../contexts/CandidateContext';
-
-import AllElectionData from '../admin/AllElectionData';
+import Alert from '../admin/Alert';
 import http from '../../http/http';
 
-export default function AllCandidates() {
-
-  const {candidateState, candidateDispatch} = useContext(CandidateContext)
- 
-  const handleDelete = async(id) => {
-    try {
-      const res = await http.delete(`/admin/user/${id}`);
-      console.log(res);
-      console.log("the id,", id);
-       } catch (error) { 
+export default function UpdateProfile() {
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  
+    useEffect(() => {
+      setUser(JSON.parse(localStorage.getItem('user')))
+      console.log("user",user.user)
+   },[]);
+   
+   const [firstName, setFirstName] = useState(user.user.first_name);
+   const [lastName, setLastName] = useState(user.user.last_name);
+   const [email, setEmail] = useState(user.user.email);
+   const [photo, setPhoto] = useState(null);
+  
+  
+    const handleFileSelect = (event) => {
+      setPhoto(event.target.files[0])
     }
-  }
+    const handleSubmit = (event) => {
+    
+      event.preventDefault();
+  
+      const formData = new FormData();
+      formData.append("first_name",firstName);
+      formData.append("last_name",lastName);
+      formData.append("email", email);
+      formData.append("photo", photo);
+      
+      console.log("from update",firstName)
+      sendUpdate(formData);
+  
+    };
+    
+    const sendUpdate = async(data) => {
+      try {
+        const res = await http.post('/update-profile',data);
+        console.log("from update request ",res.data.user);
+        console.log(res.data.status);
+        const user = res.data;
+        if(res.data.status === 'sucess'){
+        
+        console.log("this is success")
+          localStorage.setItem('user',JSON.stringify(user));
+          setSuccessMessage('Candidate added successfully.');
+          setErrorMessage('');
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 4000);
+        }
+        
+        setSuccessMessage('Candidate added successfully.');
+        setErrorMessage('');
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 4000);
+      } catch (error) {
+        
+      }
+    }
+    
  
   return (
     <div>
-    <div>
+<div>
     <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
     <a href="#" className="flex items-center gap-1">
     <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
@@ -95,80 +138,102 @@ export default function AllCandidates() {
                 <div className='flex w-[13rem]  bg-emerald-600 '>
                     <h5 className='text-[0.9rem]'>Home</h5>
                     <h6 className='mt-1'><AiOutlineRight /></h6>
-                    <h2 className='text-white font-semi-bold'>Chairman</h2>
+                    <h2 className='text-white font-semi-bold'>Candidate</h2>
                 </div>
                 <div>
                     <h1 className='font-bold text-[1.9rem] text-white'>Dashboard</h1>
                 </div>
             </div>
         </div>
+       
     <div class="flex flex-col md:flex-row h-[90vh]">
-  <Sidebar />
-  
-    <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
-   
-     <AllElectionData />
-          <div class="bg-white rounded-lg shadow-md p-4 h-[17rem] overflow-y-auto">
-          <table class="table-auto  w-full">
-            <thead>
-              <tr>
-              <th class="px-1 py-2 font-bold text-left">photo</th>
-                <th class="px-4 py-2 font-bold text-left">First name</th>
-                <th class="px-4 py-2 font-bold text-left">Last name</th>
-                <th class="px-4 py-2 font-bold text-left">Email</th>
-                <th class="px-4 py-2 font-bold text-left">Status</th>
-                <th class="px-4 py-2 font-bold text-left"></th>
-              </tr>
-            </thead>
-            <tbody>
-           
-            { 
-                    candidateState.length > 0 ?
-                       candidateState.map((candidate ) => (
-                       
-              <tr  key={candidate.candidate.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
-               <td class="border px-1 py-2">
-   
-               {
-              candidate.candidate.photos.length > 0 ?
-              
-              <img
-              class="w-8 h-8 mt-[-0.23rem] rounded-full" 
-              src={candidate.candidate.photos[0].photo_url}
-                   alt={candidate.candidate.first_name}
-              />
-              :
-              <img
-              class="w-8 h-8 mt-[-0.23rem] rounded-full" 
-              src = "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
-                   alt={candidate.candidate.first_name}
-              />
-             
-            }
-               
-               </td>
-                <td class="border px-4 py-2">{candidate.candidate.first_name} </td>
-                <td class="border px-4 py-2">{candidate.candidate.last_name}</td>
-                <td class="border px-4 py-2">{candidate.candidate.email}</td>
-                <td class="border px-4 py-2">{candidate.candidate.role.roleable.department}</td>
-                <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
-                <td className='px-4 py-2 border '>
-                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(candidate.candidate.id)}>Delete</button>
-                </td>
-              </tr>
-           ))
-           :
-           <p>Candidates not found</p>
-         }
-            
-            </tbody>
-          </table>
-          </div>
+<Sidebar />
+
+<div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
+    <div class="w-90  bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Update profile </h2>
+    
+    <form onSubmit={ handleSubmit }>
+    <div className='flex gap-4'>
+    <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="first-name">
+          First Name
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="first-name"
+          type="text"
+          placeholder="Enter your first name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </div>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="last-name">
+          Last Name
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="last-name"
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          placeholder="Enter your last name"
           
+        />
+      </div>
+    </div>
+    
+    <div className='flex gap-4'>
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="email">
+          Email
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email address"
+        />
+      </div>
+      
+      <div class="mb-4 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="email">
+          Photo
+        </label>
+        <input
+          class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="email"
+          type="file"
+          name='photo'
+          onChange={handleFileSelect}
+          placeholder="Enter your email address"
+        />
+      </div>
+      
+      
+      </div>
+      
+     
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+        Edit
+        </button>
+      </div>
+    </form>
+  </div>
           </div>
-          </div>
-          <div>
+        </div>
+        
+        
+
+
+        <div>
  
  <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
      <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
@@ -210,9 +275,6 @@ export default function AllCandidates() {
  
        
      </div>
-      
     </div>
   )
 }
-
-

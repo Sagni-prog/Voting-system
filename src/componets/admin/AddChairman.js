@@ -6,14 +6,14 @@ import image from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import http from '../../http/http';
-import {useNavigate} from 'react-router-dom'
+// import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import Alert from './Alert';
 
 
 export default function AddChairman() {
 
-   const navigate = useNavigate();
+  //  const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -44,25 +44,23 @@ export default function AddChairman() {
   
       localStorage.removeItem('face-id');
       
-      switch(user.role.roleable.role){
-         case 'admin':
-            navigate('/admin/dashboard');
-            break;
-         case 'candidate':
-           navigate('candidate/dashboard');
-           break;
-         case 'chairman':
-            navigate('chairman/dashboard');
-            break;
-         case 'voter':
-            navigate('voter/dashboard');
-            break;
-         default:
-            navigate('/');
-            break;
-           
-      }
    }
+   
+   if(res.data.status !== 'sucess'){
+    setSuccessMessage('');
+    setErrorMessage('Failed to add candidate.');
+    setTimeout(() => {
+     setErrorMessage('');
+      }, 4000);
+   }
+   
+   clearFields()
+   setSuccessMessage('Candidate added successfully.');
+   setErrorMessage('');
+   
+   setTimeout(() => {
+     setSuccessMessage('');
+   }, 4000);
       } catch (error) {
     
     }
@@ -85,73 +83,26 @@ export default function AddChairman() {
       
       sendRegister(formData)
        
-      setSuccessMessage('Candidate added successfully.');
-      setErrorMessage('');
+      
       } catch (error) {
      
-      setSuccessMessage('');
-      setErrorMessage('Failed to add candidate.');
+     
+    }
+  
+  
     }
     
+    const clearFields = () => {
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPassword('');
+      setSex('');
   
-    };
+  }
     return (
       <div>
-  <div>
-      <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
-      <a href="#" className="flex items-center gap-1">
-      <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
-      <Link to="/" smooth={true} duration={500} aria-current="page"><h1 className='dark:text-emerald-500 font-mono text-[2rem] '>Wolkite  University</h1></Link>
   
-      
-      <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
-              {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
-          </a>
-          
-      </div>
-       
-         <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
-      
-      <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
-      <a href="#" className="flex items-center">
-      <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
-              {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
-          </a>
-          <div className="flex items-center">
-          <div className="flex items-center">
-              <ul className="flex flex-row space-x-8 text-sm font-medium">
-                  <li>
-                  <Link to="/" replace={true}   className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</Link>
-                  </li>
-                  <li>
-                  <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">News</Link>
-                  </li>
-                  <li>
-                  <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</Link>
-                  </li>
-                  <li>
-                  <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</Link>
-                  </li>
-                  <li>
-                  <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
-                      
-
-                  <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
-  
-                  </li>
-        
-                  <li>
-                  <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
-                  
-                  </li>
-              </ul>
-          </div>
-              
-          </div>
-      </div>
-  </nav>
-        
-  </div>
   <div className='h-[90px] w-full flex bg-emerald-500'>
               <div className='p-2 m-2 mb-2 flex-column'>
                   <div className='flex w-[13rem]  bg-emerald-600 '>

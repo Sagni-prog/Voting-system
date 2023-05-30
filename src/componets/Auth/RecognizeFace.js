@@ -29,7 +29,7 @@ function RecognizeFace() {
   const faceIoScriptLoaded = () => {
     console.log(faceIO)
     if (faceIO && !faceioInstance) {
-      faceioInstance = new faceIO('fioa5258')
+      faceioInstance = new faceIO('fioad0ca')
     }
   }
 
@@ -73,7 +73,8 @@ function RecognizeFace() {
       
       setFaceId(userData.facialId);
       localStorage.setItem('face-id',userData.facialId);
-      navigate('/addchairman');
+      // navigate('/addchairman');
+      navigate('/admin/add-chairman');
       
     } catch (errorCode) {
       console.log(errorCode)

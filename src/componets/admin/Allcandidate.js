@@ -41,8 +41,9 @@ export default function Allcandidate() {
   
   const handleDelete = async(id) => {
     try {
-      const res = await http.delete(`user/${id}`);
+      const res = await http.delete(`/admin/user/${id}`);
       console.log(res);
+      console.log("the id,", id);
        } catch (error) { 
     }
   }
@@ -50,62 +51,7 @@ export default function Allcandidate() {
   const {candidateState,candidateDispatch} = useContext(CandidateContext);
   return (
     <div>
-    <div>
-    <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
-    <a href="#" className="flex items-center gap-1">
-    <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
-    <Link to="/" smooth={true} duration={500} aria-current="page"><h1 className='dark:text-emerald-500 font-mono text-[2rem] '>Wolkite  University</h1></Link>
-
-    
-    <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
-        
-        </a>
-        
-    </div>
-     
-       <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
-    <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
-    <a href="#" className="flex items-center">
-    <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
-          
-        </a>
-        <div className="flex items-center">
-        <div className="flex items-center">
-            <ul className="flex flex-row space-x-8 text-sm font-medium">
-                <li>
-                <Link to="/" replace={true}   className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">News</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</Link>
-                </li>
-                <li>
-                <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
-                    
-                </li>
-                
-                <li>
-                <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
-
-                </li>
-      
-                <li>
-                <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
-                
-                </li>
-            </ul>
-        </div>
-            
-        </div>
-    </div>
-</nav>
-      
-</div>
+   
 <div className='h-[90px] w-full flex bg-emerald-500'>
             <div className='p-2 m-2 mb-2 flex-column'>
                 <div className='flex w-[13rem]  bg-emerald-600 '>
@@ -171,7 +117,7 @@ export default function Allcandidate() {
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(candidate.id)}>Delete</button>
+                <button href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(candidate.candidate.id)}>Delete</button>
                 </td>
               </tr>
            ))
@@ -187,7 +133,7 @@ export default function Allcandidate() {
           </div>
           <div>
  
- <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
+ {/* <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
      <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
          <div class="sm:flex sm:items-center sm:justify-between">
              <a href="#" class="flex items-center mb-4 sm:mb-0">
@@ -222,7 +168,7 @@ export default function Allcandidate() {
          <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-50 lg:my-8" />
          <span class="block text-sm text-gray-50 sm:text-center dark:text-gray-50">© 2023 <a href="#" class="hover:underline">Your Team goes here™</a>. All Rights Reserved.</span>
      </div>
- </footer>
+ </footer> */}
  
  
        

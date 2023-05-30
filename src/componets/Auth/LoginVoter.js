@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
-
-
+import http from '../../http/http';
 
 
 export default function LoginVoter() {
@@ -24,13 +23,7 @@ export default function LoginVoter() {
  
  
  const sendRegister = async(data) => {
-       
-  const http = axios.create({
-      'baseURL': 'http://localhost:8000/api',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-   }); 
+
    const res = await http.post('/login-withoutface',data);
    const user = res.data
    console.log(user)
@@ -45,13 +38,13 @@ if(user.status === 'success'){
          navigate('/admin/dashboard');
          break;
       case 'candidate':
-        navigate('candidate/dashboard');
+        navigate('/candidate/dashboard');
         break;
       case 'chairman':
-         navigate('chairman/dashboard');
+         navigate('/chairman/dashboard');
          break;
       case 'voter':
-         navigate('voter/dashboard');
+         navigate('/');
          break;
       default:
          navigate('/');

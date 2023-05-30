@@ -13,28 +13,32 @@ import AllElectionData from '../admin/AllElectionData';
 export default function CandidateDashboardHome() {
     const navigate = useNavigate();
   
+    
     useEffect(() => {
-    
-    try {
-      
-    
-      const user = JSON.parse(localStorage.getItem('user'));
-      console.log('dah', user.user.role.roleable.role)
-       if(user && user.user.role.roleable.role !== 'admin'){
-           
-            navigate('/login')
   
-       }
-  
-         if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+      try {
+        
+        if(!localStorage.getItem('token')){
       
-             navigate('/login')
+          navigate('/login')
+         }
+         
+      if(!localStorage.getItem('user')){
+        console.log("no user")
+        navigate('/login')
       }
-        } catch (error) {
-      
-    }
+      if(JSON.parse(localStorage.getItem('user')).user.role.roleable.role !== 'candidate'){
+           
+        navigate('/login')
     
-    },[]);
+         }
+      
+          } catch (error) {
+        
+      }
+      
+      },[]);
+   
     
     const handleDelete = async(id) => {
       try {

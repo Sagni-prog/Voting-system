@@ -13,33 +13,25 @@ export default function ChairmanDashboardHome() {
 
 
   const navigate = useNavigate();
-//  try {
-  
-
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // console.log('dah', user.user.role.roleable.role)
-  
-  // if(!localStorage.getItem('token')){
-  
-  //   navigate('/login')
-  //  }
-  // } catch (error) {
-  
-  // } 
   
   useEffect(() => {
-    
-  try {
   
+  try {
+    
     if(!localStorage.getItem('token')){
   
-        navigate('/login')
-       }
+      navigate('/face-auth')
+     }
+     
+  if(!localStorage.getItem('user')){
+    console.log("no user")
+    navigate('/face-auth')
+  }
+  if(JSON.parse(localStorage.getItem('user')).user.role.roleable.role !== 'chairman'){
        
-    if(!localStorage.getItem('user')){
-      console.log("no user")
-      navigate('/login')
-    }
+    navigate('/face-auth')
+
+     }
   
       } catch (error) {
     
@@ -47,70 +39,13 @@ export default function ChairmanDashboardHome() {
   
   },[]);
   
+  
  
   const voters = useSelector((state) => state.voter.voters);
   const dispatch = useDispatch();
   return (
     <div>
-    <div>
-    <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
-    <a href="#" className="flex items-center gap-1">
-    <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
-    <Link to="/" smooth={true} duration={500} aria-current="page"><h1 className='dark:text-emerald-500 font-mono text-[2rem] '>Wolkite  University</h1></Link>
-
-    
-    <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
-        </a>
-        
-    </div>
-     
-       <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
-    {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
-    <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
-    <a href="#" className="flex items-center">
-    <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
-        </a>
-        <div className="flex items-center">
-        <div className="flex items-center">
-            <ul className="flex flex-row space-x-8 text-sm font-medium">
-                <li>
-                <Link to="/" replace={true}   className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">News</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</Link>
-                </li>
-                <li>
-                <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
-                    
-                </li>
-                {/* <li> */}
-                {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
-                {/* </li> */}
-                <li>
-                <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
-
-                </li>
-      
-                <li>
-                <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
-                
-                </li>
-            </ul>
-        </div>
-            
-        </div>
-    </div>
-</nav>
-      
-</div>
+ 
 <div className='h-[90px] w-full flex bg-emerald-500'>
             <div className='p-2 m-2 mb-2 flex-column'>
                 <div className='flex w-[13rem]  bg-emerald-600 '>
@@ -169,7 +104,8 @@ export default function ChairmanDashboardHome() {
               </tr>
             </thead>
             <tbody>
-            {voters.map((voter)=>(
+            {
+              voters.map((voter)=>(
               <tr  key={voter.id} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
                <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
                 <td class="border px-4 py-2">{voter.firstName} </td>
@@ -190,7 +126,7 @@ export default function ChairmanDashboardHome() {
           </div>
           <div>
  
- <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
+ {/* <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
      <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
          <div class="sm:flex sm:items-center sm:justify-between">
              <a href="#" class="flex items-center mb-4 sm:mb-0">
@@ -225,7 +161,7 @@ export default function ChairmanDashboardHome() {
          <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-50 lg:my-8" />
          <span class="block text-sm text-gray-50 sm:text-center dark:text-gray-50">© 2023 <a href="#" class="hover:underline">Your Team goes here™</a>. All Rights Reserved.</span>
      </div>
- </footer>
+ </footer> */}
  
  
        

@@ -1,27 +1,21 @@
-import React,{ useState,useCallback } from 'react';
+import React,{ useState,} from 'react';
 import Sidebar from './Sidebar'
-import Navbar from '../Nav/Navbar';
 import { Link } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
-import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import { useDispatch } from 'react-redux';
-import { setCandidate } from './../../app/features/candidate/Candidate'
 import http from '../../http/http';
 import Alert from './Alert';
 
 export default function Updatepassword() {
 
-    const [email, setEmail] = useState('');
+  
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    
 
-
-  
-   
     const handleSubmit = (event) => {
     
       event.preventDefault();
@@ -30,8 +24,7 @@ export default function Updatepassword() {
         event.preventDefault();
        
         const formData = new FormData();
-      
-        formData.append("email", email);
+    
         formData.append("password",password);
         if(password===password2) {
             sendUpdate(formData);
@@ -65,8 +58,8 @@ export default function Updatepassword() {
     
     const sendUpdate = async(data) => {
       try {
-        const res = await http.post('/update-profile',data);
-        console.log(res.data.status);
+        const res = await http.post('/update-password',data);
+        console.log("password update",res.data.status);
       } catch (error) {
         
       }
@@ -149,7 +142,7 @@ export default function Updatepassword() {
     <Sidebar />
       <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
       <div class="w-90  bg-white p-6 rounded-lg shadow-md">
-      <h2 class="text-2xl font-bold mb-4">Update profile </h2>
+      <h2 class="text-2xl font-bold mb-4">Update Password </h2>
       <div className='mb-2'>
       {/* Display success message if available */}
       {successMessage && (
@@ -162,19 +155,7 @@ export default function Updatepassword() {
     </div>
       <form onSubmit={ handleSubmit }>
       <div className='flex gap-4'>
-      <div class="mb-4 w-full">
-          <label class="block text-gray-700 font-bold mb-2" for="email">
-            Email
-          </label>
-          <input
-            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email address"
-          />
-        </div>
+      
       </div>
       
       <div className='flex gap-4'>

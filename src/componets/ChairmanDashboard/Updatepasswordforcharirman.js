@@ -10,66 +10,67 @@ import { useDispatch } from 'react-redux';
 import { setCandidate } from './../../app/features/candidate/Candidate'
 import http from '../../http/http';
 import Alert from '../admin/Alert';
+
 export default function Updatepasswordforcharirman() {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [password2, setPassword2] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  
+  
 
 
-  
-   
-    const handleSubmit = (event) => {
-    
-      event.preventDefault();
-  
-      try{
-        event.preventDefault();
-       
-        const formData = new FormData();
-      
-        formData.append("email", email);
-        formData.append("password",password);
-        if(password===password2) {
-            sendUpdate(formData);
-            setSuccessMessage('password update successfully.');
-            setErrorMessage('');
-            setTimeout(() => {
-              setSuccessMessage('');
-            }, 4000);
-        }else{
-          
-        setSuccessMessage('');
-        setErrorMessage('password is not match.');
-        setTimeout(() => {
-          setErrorMessage('');
-        }, 4000);
-      
-    }
-    
-      
-        }catch(error) {
-       
-        setSuccessMessage('');
-        setErrorMessage('Failed to update password.');
-        setTimeout(() => {
-          setErrorMessage('');
-        }, 4000);
-      }
-     
+
  
-    };
-    
-    const sendUpdate = async(data) => {
-      try {
-        const res = await http.post('/update-profile',data);
-        console.log(res.data.status);
-      } catch (error) {
+  const handleSubmit = (event) => {
+  
+    event.preventDefault();
+
+    try{
+      event.preventDefault();
+     
+      const formData = new FormData();
+  
+      formData.append("password",password);
+      if(password===password2) {
+          sendUpdate(formData);
+          setSuccessMessage('password update successfully.');
+          setErrorMessage('');
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 4000);
+      }else{
         
-      }
+      setSuccessMessage('');
+      setErrorMessage('password is not match.');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 4000);
+    
+  }
+  
+    
+      }catch(error) {
+     
+      setSuccessMessage('');
+      setErrorMessage('Failed to update password.');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 4000);
     }
+   
+
+  };
+  
+  const sendUpdate = async(data) => {
+    try {
+      const res = await http.post('/update-password',data);
+      console.log("password update",res.data.status);
+    } catch (error) {
+      
+    }
+  }
     return (
       <div>
     <div>
@@ -161,19 +162,7 @@ export default function Updatepasswordforcharirman() {
     </div>
       <form onSubmit={ handleSubmit }>
       <div className='flex gap-4'>
-      <div class="mb-4 w-full">
-          <label class="block text-gray-700 font-bold mb-2" for="email">
-            Email
-          </label>
-          <input
-            class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email address"
-          />
-        </div>
+      
       </div>
       
       <div className='flex gap-4'>

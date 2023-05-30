@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
@@ -6,12 +6,15 @@ import {useNavigate} from 'react-router-dom'
 export default function Regsiter() {
 
 
+    const navigate = useNavigate();
+
+
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const navigate = useNavigate();
   
   function handleFirstNameChange(e) {
 

@@ -2,9 +2,7 @@
 import React, { useEffect } from 'react'
 import { useState} from 'react';
 import Sidebar from './Sidebar'
-import { Link } from 'react-router-dom';
-import image from './../../images/ivana-square.jpg'
-import img from './../../images/elections-poll-svgrepo-com-2.svg'
+
 import { AiOutlineRight} from "react-icons/ai";
 import http from '../../http/http';
 import { useNavigate } from 'react-router-dom'
@@ -16,7 +14,7 @@ export default function AddCandidate() {
 
   const navigate = useNavigate();
   
-  // useEffect(() => {
+  useEffect(() => {
   
   try {
     
@@ -39,14 +37,16 @@ export default function AddCandidate() {
     
   }
   
-  // },[]);
+  },[]);
+  
+  
   
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [examScore, setExamScore] = useState('');
-  const [gpa, setGpa] = useState('');
+  const [examScore, setExamScore] = useState(null);
+  const [gpa, setGpa] = useState(null);
   const [admissionYear, setAdmissionYear] = useState('');
   const [graduationYear, setGraduationYear] = useState('')
   const [educationalYear, setEducationalYear] = useState('');
@@ -62,7 +62,24 @@ export default function AddCandidate() {
   const sendCandidate = async(data) => {
   
      const res = await http.post('/candidate/register',data);
+     console.log(res.data.status)
      console.log(res)
+     if(res.data.status !== 'sucess'){
+      setSuccessMessage('');
+      setErrorMessage('Failed to add candidate.');
+      setTimeout(() => {
+       setErrorMessage('');
+        }, 4000);
+     }
+     
+     clearFields()
+     setSuccessMessage('Candidate added successfully.');
+     setErrorMessage('');
+     
+     setTimeout(() => {
+       setSuccessMessage('');
+     }, 4000);
+     
   }
 
   const handleSubmit = (event) => {
@@ -74,88 +91,52 @@ export default function AddCandidate() {
     formData.append("last_name",lastName);
     formData.append("email", email);
     formData.append("password",password);
-    formData.append("exam_score,",examScore,);
+    formData.append("exam_score",examScore,);
     formData.append("gpa", gpa);
-    formData.append(" admission_year", admissionYear);
+    formData.append("admission_year", admissionYear);
     formData.append("graduation_year", graduationYear);
     formData.append("educational_year", '4');
     formData.append("sex",sex);
     formData.append("department",department);
+    // formData.append("vote_id",2);
     // formData.append("cv", cv[0]);
     
+    console.log('exam score test',examScore)
+    console.log('exam score test')
+    
     sendCandidate(formData)
-    setSuccessMessage('Candidate added successfully.');
-    setErrorMessage('');
+    // setSuccessMessage('Candidate added successfully.');
+    // setErrorMessage('');
     } catch (error) {
    
-    setSuccessMessage('');
-    setErrorMessage('Failed to add candidate.');
+    // setSuccessMessage('');
+    // setErrorMessage('Failed to add candidate.');
   }
   
 
   };
   
+     
+  const clearFields = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+    setAdmissionYear('');
+    setDepartment('');
+    setEducationalYear('');
+    setExamScore('');
+    setGpa('');
+    setGraduationYear('');
+    setSex('');
+
+}
+  
   return (
     <div>
-<div>
-    <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
-    <a href="#" className="flex items-center gap-1">
-    <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
-    <Link to="/" smooth={true} duration={500} aria-current="page"><h1 className='dark:text-emerald-500 font-mono text-[2rem] '>Wolkite  University</h1></Link>
 
-    
-    <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
-        </a>
-        
-    </div>
-     
-       <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
-    {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
-    <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
-    <a href="#" className="flex items-center">
-    <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
-        </a>
-        <div className="flex items-center">
-        <div className="flex items-center">
-            <ul className="flex flex-row space-x-8 text-sm font-medium">
-                <li>
-                <Link to="/" replace={true}   className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">News</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</Link>
-                </li>
-                <li>
-                <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
-                    
-                </li>
-                {/* <li> */}
-                {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
-                {/* </li> */}
-                <li>
-                <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
 
-                </li>
-      
-                <li>
-                <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
-                
-                </li>
-            </ul>
-        </div>
-            
-        </div>
-    </div>
-</nav>
-      
-</div>
+
 <div className='h-[90px] w-full flex bg-emerald-500'>
             <div className='p-2 m-2 mb-2 flex-column'>
                 <div className='flex w-[13rem]  bg-emerald-600 '>
@@ -328,16 +309,16 @@ export default function AddCandidate() {
     Sex
   </label>
   <div class="flex flex-row items-center gap-4">
-    <input type="radio" name="sex" id="boy" value="boy" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-blue-600 checked:border-transparent focus:outline-none"
+    <input type="radio" name="sex" id="boy" value="Male" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-blue-600 checked:border-transparent focus:outline-none"
         onChange={(e) => setSex(e.target.value)}
-      checked={sex === 'boy'} 
+      checked={sex === 'Male'} 
     />
-    <label for="boy" class="text-gray-700">Boy</label>
-    <input type="radio" name="sex" id="girl" value="girl" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-pink-600 checked:border-transparent focus:outline-none"  
+    <label for="boy" class="text-gray-700">Male</label>
+    <input type="radio" name="sex" id="girl" value="female" class="appearance-none border rounded-full h-5 w-5 border-gray-400 checked:bg-pink-600 checked:border-transparent focus:outline-none"  
      onChange={(e) =>setSex (e.target.value)}
-     checked={sex === 'girl'}
+     checked={sex === 'female'}
      />
-    <label for="girl" class="text-gray-700">Girl</label>
+    <label for="girl" class="text-gray-700">Female</label>
   </div>
 </div>
     </div>
@@ -381,47 +362,7 @@ export default function AddCandidate() {
         </div>
 
 
-        <div>
- 
- {/* <footer class="bg-white rounded-lg shadow dark:bg-emerald-600 -mx-1">
-     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-         <div class="sm:flex sm:items-center sm:justify-between">
-             <a href="#" class="flex items-center mb-4 sm:mb-0">
-                 <img src={img} class="h-12 mr-3" alt="election" />
-                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Wolkite  University</span>
-             </a>
-             <ul class="flex flex-wrap gap-3 items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-             <li>
-                 <Link to="/" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</Link>
-                 </li>
-                 <li>
-                 <Link to="/" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">News</Link>
-                 </li>
-                 <li>
-                 <Link to="/" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</Link>
-                 </li>
-                 <li>
-                 <Link to="/" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</Link>
-                 </li>
-                 <li>
-                 <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
- 
-                     
-                 </li>
-                 <li>
-                 <Link to="/" replace={true} smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
- 
-                 </li>
-                
-             </ul>
-         </div>
-         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-50 lg:my-8" />
-         <span class="block text-sm text-gray-50 sm:text-center dark:text-gray-50">© 2023 <a href="#" class="hover:underline">Your Team goes here™</a>. All Rights Reserved.</span>
-     </div>
- </footer> */}
- 
- 
-       
+        <div>      
      </div>
     </div>
   )

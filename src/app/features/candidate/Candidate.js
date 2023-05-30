@@ -85,10 +85,7 @@ export const registerCandidate = createAsyncThunk(
 );
 
 
-// export const fetchCandidate = createAsyncThunk("candidate/get", async () => {
-//     const response = await axios.get("http://localhost:8000/all/candidates");
-//     return response.data;
-//   });
+
 export default candidateSlice.reducer;
 export const { setCandidate } = candidateSlice.actions;
 export const selectCandidate = (state) => state.candidate.candidates;

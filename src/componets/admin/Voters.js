@@ -9,15 +9,18 @@ import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
 import VoterContext from '../../contexts/VoterContext';
 import AllElectionData from './AllElectionData';
+import http from '../../http/http';
+
+
 export default function Voters() {
 
   const navigate = useNavigate();
   
   const {voterState, voterDispatch} = useContext(VoterContext)
   
+  console.log("what is wrong from voters")
+  console.log("what is wrong from voters",voterState)
   useEffect(() => {
-  console.log("what is wrong",voterState)
-  console.log("what is wrong")
   try {
     
     // console.log("from voter",voterState)
@@ -39,7 +42,16 @@ export default function Voters() {
     
   },[]);
   
-  console.log("from voter",voterState)
+  const handleDelete = async(id) => {
+    try {
+      const res = await http.delete(`/admin/user/${id}`);
+      console.log(res);
+      console.log("the id,", id);
+       } catch (error) { 
+    }
+  }
+  
+ 
 
 
   return (
@@ -137,15 +149,18 @@ export default function Voters() {
           {
             voterState.voters ?
             voterState.voters.map((voter,index)=>(
+              
               <tr  key={index} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
                <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">{voter.role.user.first_name} </td>
-                <td class="border px-4 py-2">{voter.role.user.last_name}</td>
-                <td class="border px-4 py-2">{voter.role.user.email}</td>
+                <td class="border px-4 py-2">{voter.roles.user.first_name} </td>
+                <td class="border px-4 py-2">{voter.roles.user.last_name}</td>
+                <td class="border px-4 py-2">{voter.roles.user.email}</td>
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
-                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a></td>
+                <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                onClick={() => handleDelete(voter.roles.user.id)}
+                >Delete</a></td>
               </tr>
             ))
              :

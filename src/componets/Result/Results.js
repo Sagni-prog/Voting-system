@@ -8,6 +8,7 @@ import {useEffect} from 'react'
 import { AiOutlineRight} from "react-icons/ai";
 import { useState } from 'react';
 import { Link as Link} from 'react-router-dom'
+import http from '../../http/http'
 function Handlecolor(status){
   
   if(status.status === 'passed'){
@@ -28,72 +29,38 @@ function Handlecolor(status){
 export default function Results(){
     const [open, setOpen] = useState(false);
     const [open1, setOpen1] = useState(false);
+    
+    const [voteResult, setVoteResult] = useState([]);
   
-    const candidates = [
-        {
-          id: 1,
-          firstName:'Natnael',
-          lastName:'Getachew',
-          photoUrl: `${img2}`,
-          bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          admissionYear: 2020,
-          graduationYear: 2024,
-          vote:247,
-          percent:80,
-          department: 'Computer Science',
-          status: 'Not',
-          email: 'johndoe@example.com',
-        },  
-          {
-          id: 2,
-          firstName:'Natnael',
-          lastName:'Getachew',
-          photoUrl: `${img2}`,
-          bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          admissionYear: 2020,
-          graduationYear: 2024,
-          vote:247,
-          percent:80,
-          department: 'Computer Science',
-          status: 'Not',
-          email: 'johndoe@example.com',
-        },
-        {
-          id: 3,
-          firstName:'Natnael',
-          lastName:'Getachew',
-          photoUrl: `${img2}`,
-          bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          admissionYear: 2020,
-          graduationYear: 2024,
-          vote:247,
-          percent:80,
-          department: 'Computer Science',
-          status: 'passed',
-          email: 'johndoe@example.com',
-        },
-        {
-          id: 4,
-          firstName:'Natnael',
-          lastName:'Getachew',
-          photoUrl: `${img2}`,
-          bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          admissionYear: 2020,
-          graduationYear: 2024,
-          vote:247,
-          percent:80,
-          status:'passed',
-          department: 'Computer Science',
-          status: 'Not',
-          email: 'johndoe@example.com',
+  useEffect(() => {
+    getVoteResult();
+   
+  },[])
+  
+  
+  
+  const getVoteResult = async() => {
+   
+  const data = await http.get('/vote/2/vote-result');
+   
+  setVoteResult(data.data);
 
-        }
-        
-        
-        
-        
-        
-      ]; 
+  }
+  
+  console.log("from vote result: ",voteResult)
+  
+  const formatNumber = (number) => {
+      
+    return Number.parseFloat(number).toFixed(2)
+  }
+  
+  const calculateMax = () => {
+    //  const max = voteResult[0].totol_vote_percent;
+     
+     return Math.max.apply(Math, voteResult.data.map(function(vote) { return vote.totol_vote_percent; }))
+  }
+  
+    
 
      
      
@@ -107,7 +74,7 @@ return (
 
     
     <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
+           
         </a>
         
     </div>
@@ -117,7 +84,7 @@ return (
     <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
     <a href="#" className="flex items-center">
     <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
+           
         </a>
         <div className="flex items-center">
         <div className="flex items-center">
@@ -138,9 +105,7 @@ return (
                 <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
                     
                 </li>
-                {/* <li> */}
-                {/* <Link to="/Candidateprofile" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Feedback</Link> */}
-                {/* </li> */}
+            
                 <li>
                 <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
 
@@ -176,7 +141,9 @@ return (
            
         
 
-
+  {
+    voteResult.isConfirmed === 1 ? 
+    (
     <div className="items-center w-full flex-column">
       <div className="w-full py-4 text-lg font-bold text-center ">
         Trusted for Your Vote
@@ -185,10 +152,11 @@ return (
         <div
           className="w-full py-4 text-lg font-bold text-black text-start"
         >
-          The 6th National Election Result
+         {voteResult.vote_name}
         </div>
+        
         <div className='mb-[3rem]'>
-        <button className="bg-gray-200 py-1 text-black font-bold  text-lg w-[70%] border h-[2.2rem] text-center cursor-pointer"
+        <button className="bg-gray-200 py-1 text-black font-bold  text-lg w-[100%] border h-[5.2rem] text-center cursor-pointer"
          onClick={() => setOpen(!open)}>
           <div className="flex items-center">
             <div
@@ -201,46 +169,98 @@ return (
             <div>General Election Results Summary Report</div>
           </div>
         </button>
-        {open && ( <div className=" w-[70%] bg-slate-100  mt-4">
+        {open && ( <div className=" w-[90%] h-100 bg-slate-100  mt-4">
         <div className='flex-col p-20 m-4'>
         <div className='w-full h-[50px] bg-slate-500'>
-          <h1 className='p-4 text-sm text-center text-white'>Result Report for election <span className='text-sky-500 text-[1rem]'>2016 EC</span></h1>
+          <h1 className='p-4 text-sm text-center text-white'>{voteResult.vote_name}</h1>
         </div>
-        <table class="table-auto  w-full">
+      
+          
+          <div class="bg-white rounded-lg shadow-md p-4 h-[100%] overflow-y-auto">
+  <table class="table-auto  w-full">
             <thead>
               <tr className='divide-y-0 bg-emerald-500 divide-slate-800'>
                 <th class="px-1 py-1 font-bold text-left">photo</th>
                 <th class="px-4 py-2 font-bold text-left">FullName</th>
                 <th class="px-4 py-2 font-bold text-left">Department</th>
+                <th class="px-4 py-2 font-bold text-left">Exam Score</th>
                 <th class="px-4 py-2 font-bold text-left">Vote Count</th>
-                <th class="px-4 py-2 font-bold text-left">Percent</th>
-                <th class="px-4 py-2 font-bold text-left"> </th>
+                <th class="px-4 py-2 font-bold text-left">Vote Percent</th>
+                <th class="px-4 py-2 font-bold text-left">Total</th>
+                <th class="px-4 py-2 font-bold text-left">Result</th>
              
               </tr>
             </thead>
             <tbody>
-            {candidates.map((candidate)=>(
+            {
+              voteResult.data.map((voteResult)=>(
               
-              <tr className='text-sm divide-x-0 divide-slate-800 bg-emerald-50' key={candidate.id}>
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={candidate.photoUrl} alt={candidate.firstName}/></td>
-                <td class="border px-4 py-2">{candidate.firstName} {candidate.lastName}</td>
-                <td class="border px-4 py-2">{candidate.department}</td>
-                <td class="border px-4 py-2">{candidate.vote}</td>
-                <td class="border px-4 py-2">{candidate.percent}</td>
-              <td class="border px-4 py-2 `"><Handlecolor status={candidate.status} /></td>
+              <tr className='text-sm divide-x-0 divide-slate-800 bg-emerald-50' key={voteResult.id}>
+               {/* <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={voteResult.photoUrl} alt={voteResult.candidate.first_name}/></td> */}
                
+                   <td class="border px-1 py-2">
+       
+       {
+      voteResult.candidate.photos.length > 0 ?
+      
+      <img
+      class="w-8 h-8 mt-[-0.23rem] rounded-full" 
+      src={voteResult.candidate.photos[0].photo_url}
+           alt={voteResult.candidate.first_name}
+      />
+      :
+      <img
+      class="w-8 h-8 mt-[-0.23rem] rounded-full" 
+      src = "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
+           alt={voteResult.candidate.first_name}
+      />
+     
+    }
+       
+       </td>
+                <td class="border px-4 py-2">{voteResult.candidate.first_name} {voteResult.candidate.last_name}</td>
+                <td class="border px-4 py-2">{voteResult.candidate.role.roleable.department}</td>
+                <td class="border px-4 py-2">{voteResult.exam_score}</td>
+                <td class="border px-4 py-2">{voteResult.vote_count}</td>
+                <td class="border px-4 py-2">{
+                          formatNumber(voteResult.voted_in_percent)
+                               }
+                 </td>
+                <td class="border px-4 py-2">{
+                        formatNumber(voteResult.totol_vote_percent)
+            }%</td> 
+
+            {
+               formatNumber(voteResult.totol_vote_percent) >= formatNumber(calculateMax()) ? 
+              <td class="border px-4 py-2 `">
+              <p className='p-2 -mx-0 text-emerald-600'>
+                   Selected
+              </p>   
+            </td> 
+              :
+              <td class="border px-4 py-2 `"> 
+                 <p className='p-2 -mx-0 text-red-500'>
+                     Not Selected
+                </p>
+             </td> 
+
+              } 
              </tr>
         ))}
          
             
             </tbody>
           </table>
+          
+          
+            </div>
 
         </div>
        
     </div>)}
         </div>
-    <div className='mb-[3rem]'>
+        
+    {/* <div className='mb-[3rem]'>
     <button className="bg-gray-200 py-1 text-black font-bold text-lg w-[70%] border h-[2.2rem] text-center cursor-pointer"
          onClick={() => setOpen1(!open1)}>
           <div className="flex items-center">
@@ -291,13 +311,18 @@ return (
         </div>
        
     </div>)}
-    </div>
+    </div> */}
    
       </div>
       
     
     </div>
-                
+    )
+   :
+   
+   ''
+              
+  }
             </div>
         </div>
   

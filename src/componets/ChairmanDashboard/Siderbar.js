@@ -4,7 +4,18 @@ import {BsPersonFillAdd} from "react-icons/bs"
 import { MdDescription }  from "react-icons/md";
 import {IoIosPeople}  from "react-icons/io"
 import {VscFeedback} from "react-icons/vsc"
+import Logout from '../Auth/Logout';
+import { useNavigate } from 'react-router-dom';
+
+
 export default function Sidebar() {
+  
+  const navigate = useNavigate()
+  
+const logout = () => {
+  Logout();
+  navigate('/login')
+}
   return (
     <div>
   <div class="bg-emerald-800 text-white py-2 px-4 h-full w-[18rem]">
@@ -39,11 +50,26 @@ export default function Sidebar() {
                  update password</Link>
     </li>
    
-  
+    
     <li className='h-[2rem] mb-2 p-5'>
-                 <Link to="/Feedbackforchairman" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <Link to="/chairman/vote-result" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
                  <VscFeedback class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
-                 Give Your Feedback</Link>
+                 Vote Result</Link>
+    </li>
+    
+    <li className='h-[2rem] mb-2 p-5'>
+                 <Link to="/chairman/complains" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <VscFeedback class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 Complains</Link>
+    </li>
+    
+    
+    <li className='h-[2rem] mb-2 p-5'
+       onClick={logout}
+    >
+                 <Link to="" replace={true} smooth={true} duration={500} className="flex gap-3 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600" aria-current="page">
+                 <VscFeedback class="w-[2rem] h-[2rem] bg-blue-600 p-1 rounded" />
+                 Logout</Link>
     </li>
    
   

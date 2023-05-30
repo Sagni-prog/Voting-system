@@ -14,29 +14,29 @@ export default function Addcandidate() {
 
     const navigate = useNavigate();
   
-    useEffect(() => {
+    // useEffect(() => {
     
-    try {
+    // try {
       
     
-      const user = JSON.parse(localStorage.getItem('user'));
-      console.log('dah', user.user.role.roleable.role)
-       if(user && user.user.role.roleable.role !== 'chairman'){
+    //   const user = JSON.parse(localStorage.getItem('user'));
+    //   console.log('dah', user.user.role.roleable.role)
+    //    if(user && user.user.role.roleable.role !== 'chairman'){
            
-            navigate('/login')
+    //         navigate('/login')
   
-       }
+    //    }
   
-         if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+    //      if(!localStorage.getItem('token') | !localStorage.getItem('user')){
       
-             navigate('/login')
-      }
-        } catch (error) {
+    //          navigate('/login')
+    //   }
+    //     } catch (error) {
       
-    }
+    // }
       
-      // console.log(user.role.roleable.role)
-    },[]);
+    //   // console.log(user.role.roleable.role)
+    // },[]);
     
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -78,6 +78,7 @@ export default function Addcandidate() {
       formData.append("educational_year", '4');
       formData.append("sex",sex);
       formData.append("department",department);
+      // formData.append("vote_id",2);
       // formData.append("cv", cv[0]);
       console.log("score",examScore)
       addCandidate(formData)

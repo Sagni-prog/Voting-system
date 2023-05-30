@@ -17,7 +17,10 @@ export default function AllElectionData() {
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">
       <h2 class="text-lg font-bold mb-2">voters</h2>
-      <p class="text-5xl font-bold text-green-500">{voterState.length}</p>
+      { 
+         voterState.voters &&
+         <p class="text-5xl font-bold text-green-500">{voterState.size}</p>
+      }
       
     </div>
     <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col items-center">

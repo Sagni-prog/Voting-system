@@ -14,30 +14,30 @@ export default function AddVoter() {
 
     
     const navigate = useNavigate();
-    useEffect(() => {
+//     useEffect(() => {
  
- try {
-      const user = JSON.parse(localStorage.getItem('user'))
+//  try {
+//       const user = JSON.parse(localStorage.getItem('user'))
       
-      if(!user){
-        navigate('/login')
+//       if(!user){
+//         navigate('/login')
 
-      }
+//       }
       
-       if(user.user.role.roleable.role !== 'admin'){
+//        if(user.user.role.roleable.role !== 'admin'){
            
-            navigate('/login')
-       }
+//             navigate('/login')
+//        }
   
-         if(!localStorage.getItem('token') | !localStorage.getItem('user')){
+//          if(!localStorage.getItem('token') | !localStorage.getItem('user')){
       
-             navigate('/login')
-      }
-           } catch (error) {
+//              navigate('/login')
+//       }
+//            } catch (error) {
 
-    }
+//     }
     
-    },[]);
+//     },[]);
 
     
     const [firstName, setFirstName] = useState('');
@@ -45,6 +45,9 @@ export default function AddVoter() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [sex, setSex] = useState('');
+    
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     
@@ -65,31 +68,27 @@ export default function AddVoter() {
      const user = res.data;
      console.log(user.status)
      
+     
+     if(user.status === 'sucess'){
+      clearFields()
+      setSuccessMessage('Candidate added successfully.');
+      setErrorMessage('');
+     }
+     else{
+          
+        setSuccessMessage('');
+        setErrorMessage('Failed to add candidate.');
+        setTimeout(() => {
+         setErrorMessage('');
+          }, 4000);
+     }
+     
      if(user.status === 'sucess'){
      
      console.log('hello true')
-      // localStorage.setItem('token',user.token);
-      // localStorage.setItem('user',JSON.stringify(user));
+      
       localStorage.removeItem('face-id');
       
-      switch(user.role.roleable.role){
-         case 'admin':
-            navigate('/admin/dashboard');
-            break;
-         case 'candidate':
-           navigate('candidate/dashboard');
-           break;
-         case 'chairman':
-            navigate('chairman/dashboard');
-            break;
-         case 'voter':
-            navigate('voter/dashboard');
-            break;
-         default:
-            navigate('/');
-            break;
-           
-      }
    }
            } catch (error) {
     
@@ -114,6 +113,15 @@ export default function AddVoter() {
     
   
     };
+    
+    function clearFields(){
+       setFirstName('')
+       setLastName('')
+       setEmail('')
+       setSex('')
+    }
+    
+    
     return (
       <div>
   <div>

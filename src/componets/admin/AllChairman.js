@@ -1,36 +1,35 @@
 
-import {React,useEffect, useContext} from 'react'
+import {React, useContext, useEffect} from 'react'
 
-import Sidebar from './Siderbar'
-import { Link } from 'react-router-dom';
+import Sidebar from './Sidebar'
+import { Link,useNavigate } from 'react-router-dom';
 import image from './../../images/ivana-square.jpg'
 import img2 from './../../images/ivana-square.jpg'
 import img from './../../images/elections-poll-svgrepo-com-2.svg'
 import { AiOutlineRight} from "react-icons/ai";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { selectVoter } from '../../app/features/voter/VoterSlice';
-import VoterContext from '../../contexts/VoterContext';
-import { useNavigate } from 'react-router-dom'
+import ChairmanContext from '../../contexts/ChairmanContext';
+import AllElectionData from './AllElectionData';
 import http from '../../http/http';
 
-import AllElectionData from '../admin/AllElectionData';
 
-export default function WatchVoters() {
+export default function AllChairman() {
 
   const navigate = useNavigate();
   
-  const {voterState, voterDispatch} = useContext(VoterContext)
+  const {chairmanState,chairmanDispatch} = useContext(ChairmanContext)
   
-  console.log("what is wrong from voters")
-  console.log("what is wrong from voters",voterState)
+  console.log("what is wrong",chairmanState.size)
+  console.log("what is wrong",chairmanState.data)
+  
+//   chairmanState.map((data) => console.log("data: ",data.role.roleable.role))
   useEffect(() => {
+      console.log("what is wrong")
   try {
     
-    // console.log("from voter",voterState)
+    // console.log("from chairman",voterState)
     const user = JSON.parse(localStorage.getItem('user'));
     console.log('dah', user.user.role.roleable.role)
-     if(user && user.user.role.roleable.role !== 'chairman'){
+     if(user && user.user.role.roleable.role !== 'admin'){
          
           navigate('/login')
 
@@ -55,72 +54,18 @@ export default function WatchVoters() {
     }
   }
   
-  
+ 
+
+
   return (
     <div>
-    <div>
-    <div className="relative h-[100px]   p-2 px-[5rem] mb-2">
-    <a href="#" className="flex items-center gap-1">
-    <img class=" w-[15vh] -z-10 h-[14vh]  rounded-[150%]" src={img} alt="user photo"/>
-    <Link to="/" smooth={true} duration={500} aria-current="page"><h1 className='dark:text-emerald-500 font-mono text-[2rem] '>Wolkite  University</h1></Link>
-
     
-    <h6 className="absolute text-red-600 top-3 right-4 ">2016 EC vote for student president.</h6>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
-        </a>
-        
-    </div>
-     
-       <nav className=" h-[50px]    border-blue-200 shadow-md dark:bg-emerald-600">
-    {/* dark:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... */}
-    <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
-    <a href="#" className="flex items-center">
-    <h3 className="text-white flex items-center mt-[-0.5rem]">An official website of Welkite University.</h3>
-            {/* <span className="self-center font-sans whitespace-nowrap "><span className="dark:text-white font-mono text-[2rem]"></span><span className='font-medium text-white text-[18px] ml-[0.2rem]'>university online voting system</span></span> */}
-        </a>
-        <div className="flex items-center">
-        <div className="flex items-center">
-            <ul className="flex flex-row space-x-8 text-sm font-medium">
-                <li>
-                <Link to="/" replace={true}   className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">News</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Candidates</Link>
-                </li>
-                <li>
-                <Link to="/" replace={true}  smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Election Progress</Link>
-                </li>
-                <li>
-                <Link to="/result" replace={true} smooth={true} duration={500} className="text-gray-900 dark:text-white hover:underline" aria-current="page">Result</Link>
-                    
-                </li>
-                
-                <li>
-                <Link to="/" smooth={true} duration={500} className="text-sm text-gray-900 dark:text-white hover:underline" aria-current="page">Login</Link>
-
-                </li>
-      
-                <li>
-                <img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={image} alt="user photo"/>
-                
-                </li>
-            </ul>
-        </div>
-            
-        </div>
-    </div>
-</nav>
-      
-</div>
 <div className='h-[90px] w-full flex bg-emerald-500'>
             <div className='p-2 m-2 mb-2 flex-column'>
                 <div className='flex w-[13rem]  bg-emerald-600 '>
                     <h5 className='text-[0.9rem]'>Home</h5>
                     <h6 className='mt-1'><AiOutlineRight /></h6>
-                    <h2 className='text-white font-semi-bold'>Chairman</h2>
+                    <h2 className='text-white font-semi-bold'>Dashboard</h2>
                 </div>
                 <div>
                     <h1 className='font-bold text-[1.9rem] text-white'>Dashboard</h1>
@@ -131,10 +76,9 @@ export default function WatchVoters() {
   <Sidebar />
   
     <div class="bg-gray-100 p-6 h-[90vh] w-full overflow-y-auto flex-row">
-   
-     <AllElectionData />
-          
-     <div class="bg-white rounded-lg shadow-md p-4 h-[17rem] overflow-y-auto">
+   <AllElectionData />
+     
+          <div class="bg-white rounded-lg shadow-md p-4 h-[17rem] overflow-y-auto">
           <table class="table-auto  w-full">
             <thead>
               <tr>
@@ -148,19 +92,38 @@ export default function WatchVoters() {
             </thead>
             <tbody>
           {
-            voterState.voters ?
-            voterState.voters.map((voter,index)=>(
+            chairmanState.size > 0 ?
+            chairmanState.data.map((chairman,index)=>(
               
               <tr  key={index} className="border-b h-[4rem] hover:bg-emerald-300  text-gray-800 cursor-pointer p-2" >
-               <td class="border px-1 py-2"><img class="w-8 h-8 mt-[-0.23rem] rounded-full" src={img2} alt="user photo"/></td>
-                <td class="border px-4 py-2">{voter.roles.user.first_name} </td>
-                <td class="border px-4 py-2">{voter.roles.user.last_name}</td>
-                <td class="border px-4 py-2">{voter.roles.user.email}</td>
+              
+               
+               <td class="border px-1 py-2"> 
+               {
+              chairman.photos.length > 0 ?
+              <img
+              class="w-8 h-8 mt-[-0.23rem] rounded-full" 
+              src={chairman.photos[0].photo_url}
+                   alt={chairman.first_name}
+              />
+              :
+              <img
+              class="w-8 h-8 mt-[-0.23rem] rounded-full" 
+              src = "https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?s=612x612&w=is&k=20&c=BylqrV2Ac1wsHIHl0kSj9T-fkbMjrZ87-KOYpipyiJc="
+                   alt={chairman.first_name}
+              />
+             
+            
+            }
+           </td>
+                <td class="border px-4 py-2">{chairman.first_name} </td>
+                <td class="border px-4 py-2">{chairman.last_name}</td>
+                <td class="border px-4 py-2">{chairman.email}</td>
                 <td class="border px-4 py-2 text-green-500 font-bold">Active</td>
                 <td className='px-4 py-2 border '>
                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-5">Edit</a>
                 <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                onClick={() => handleDelete(voter.roles.user.id)}
+                onClick={() => handleDelete(chairman.id)}
                 >Delete</a></td>
               </tr>
             ))
@@ -173,7 +136,6 @@ export default function WatchVoters() {
             </tbody>
           </table>
           </div>
-          
           </div>
           </div>
           <div>
